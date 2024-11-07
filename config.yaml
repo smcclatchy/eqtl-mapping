@@ -21,10 +21,10 @@ carpentry_description: 'Lesson Description'
 title: 'Expression Quantitative Trait Locus (eQTL) Mapping' # FIXME
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
-created: ~ # FIXME: ( ~ means empty, replace with date formatted as above)
+created: 2024-11-07
 
 # Comma-separated list of keywords for the lesson
-keywords: 'software, data, lesson, The Carpentries' # FIXME
+keywords: 'gene expression, quantitative trait, genetic mapping, Diversity Outbred population'
 
 # Life cycle stage of the lesson
 # possible values: pre-alpha, alpha, beta, stable
@@ -40,7 +40,7 @@ source: 'https://github.com/carpentries/workbench-template-rmd' # FIXME
 branch: 'main'
 
 # Who to contact if there are any issues
-contact: 'team@carpentries.org' # FIXME
+contact: 'susan.mcclatchy@jax.org' 
 
 # Navigation ------------------------------------------------
 #
