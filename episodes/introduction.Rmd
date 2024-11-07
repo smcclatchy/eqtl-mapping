@@ -44,9 +44,9 @@ disease traits, yet most GWAS variants for common diseases like diabetes are
 located in non-coding regions of the genome. These variants are therefore likely 
 to be involved in gene regulation. 
 
-![GWAS variants such as SNPs are often in non-coding regions of the genome, indicating that they regulate gene expression.](../fig/gwas-catalog.png) 
+![GWAS variants such as SNPs are often in non-coding regions of the genome, indicating that they regulate gene expression.](fig/gwas-catalog.png){alt="Figures showing GWAS Catalog"}
 
-![Here a non-coding SNP influences expression of a gene, which in turn affects a disease phenotype or other outcome of interest.](../fig/cis-regulation-single-gene.png)
+![Here a non-coding SNP influences expression of a gene, which in turn affects a disease phenotype or other outcome of interest.](fig/cis-regulation-single-gene.png){alt="Figure showing regulation of gene by SNP"}
 
 Gene regulation controls the quantity, timing and locale of gene expression. 
 Analyzing genome variants through cell or tissue gene expression is known as 
@@ -65,12 +65,12 @@ uncover genes with variants affecting disease phenotypes.
 To the simple diagram above we'll add two more details. Non-coding SNPs can 
 regulate gene expression from nearby on the same chromosome (in cis):
 
-![Genetic variants like SNPs often affect gene expression locally near the gene that they regulate (in cis).](../fig/cis-regulation-gene1.png)
+![Genetic variants like SNPs often affect gene expression locally near the gene that they regulate (in cis).](fig/cis-regulation-gene1.png){alt="Figure showing SNP regulating gene which affects disease"}
 
 SNPs that affect gene expression from afar, often from a different chromosome 
 from the gene that they regulate are called trans regulators.
 
-![Alternatively, SNPs often affect gene expression distally from the gene that they regulate (in trans), often from a different chromosome altogether.](../fig/trans-regulation-gene2.png)
+![Alternatively, SNPs often affect gene expression distally from the gene that they regulate (in trans), often from a different chromosome altogether.](fig/trans-regulation-gene2.png){alt="Figure showing trans regulation"}
 
 In this lesson we revisit genetic mapping of quantitative traist and apply its
 methods to gene expression. The examples are from 
