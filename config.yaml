@@ -67,6 +67,16 @@ contact: 'susan.mcclatchy@jax.org'
 # Order of episodes in your lesson
 episodes: 
 - introduction.Rmd
+- review-eqtl-study.Rmd
+- load-explore-data.Rmd
+- review-mapping-steps.Rmd
+- map-one-eqtl.Rmd
+- map-many-eqtls.Rmd
+- create-transcriptome-map.Rmd
+- full-transcriptome-map.Rmd
+- maximum-peaks-genes.Rmd
+- interpret-results.Rmd
+- mediation-analysis.Rmd
 
 # Information for Learners
 learners: 
