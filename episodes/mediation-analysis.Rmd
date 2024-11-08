@@ -1,23 +1,22 @@
 ---
-source: Rmd
 title: "Mediation Analysis"
 teaching: 10
-exercises: 2
-questions:
-- "What is mediation analysis?"
-- "How is mediation analysis used in genetics and genomics?"
-- "How do I explore causal relations with mediation analysis?"
-objectives:
-- "Describe mediation analysis as applied in genetics and genomics."
-keypoints:
-- "Mediation analysis investigates an intermediary between an independent variable and its effect on a dependent variable."
-- "Mediation analysis is used in high-throughput genomics studies to identify molecular phenotypes, such as gene expression or methylation traits, that mediate the effect of genetic variation on disease phenotypes or other outcomes of interest." 
+exercises: 20
 ---
 
-```{r setup,include=FALSE}
-source("../bin/chunk-options.R")
-knitr_fig_path("11-")
-```
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- What is mediation analysis?
+- How do I explore causal relations with mediation analysis?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Describe mediation analysis as applied in genetics and genomics.
+
+::::::::::::::::::::::::::::::::::::::::::::::::---
+
 
 GWAS studies show that most disease-associated variants are found in non-coding
 regions. This fact leads to the idea that regulation of gene expression is an
@@ -39,7 +38,7 @@ For example, a genetic variant (non-coding SNP) indirectly regulates expression
 of gene 2 through a mediator, gene 1. The SNP regulates expression of gene 1 in 
 cis, and expression of gene 1 influences expression of gene 2 in trans.  
 
-![A non-coding SNP affects expression of gene 1 in cis. Gene 1 mediates expression of gene 2.](../fig/mediator-gene1.png)
+![A non-coding SNP affects expression of gene 1 in cis. Gene 1 mediates expression of gene 2.](fig/mediator-gene1.png)
 Instead of the expression of one gene impacting another, expression of gene 1 in
 the graphic above could impact a physiological phenotype like blood glucose. 
 Expression of gene 1 would mediate the relationship between the non-coding SNP
@@ -49,17 +48,17 @@ Gene Akr1e1 is located on chromosome 13 in mouse. How would you interpret the
 LOD plot below? On which chromosome(s) would you expect to find the driver gene(s)? 
 The SNP(s)?
 
-![Chromosome 13 gene Akr1e1 is affected by expression in both cis and trans by genes on chromosomes 13 and 4.](../fig/LOD-plot-Akr1e1.png)
+![Chromosome 13 gene Akr1e1 is affected by expression in both cis and trans by genes on chromosomes 13 and 4.](fig/LOD-plot-Akr1e1.png)
 Myo15b is located on chromosome 11. How would you interpret the following LOD
 plot? On which chromosome(s) would you expect to find the driver gene(s)? The 
 SNP(s)?
 
-![Chromosome 11 gene Myo15b is affected by expression of a trans gene in the chromosome 2 hotspot.](../fig/LOD-plot-Myo15b.png)
+![Chromosome 11 gene Myo15b is affected by expression of a trans gene in the chromosome 2 hotspot.](fig/LOD-plot-Myo15b.png)
 The [QTL Viewer for the Attie islet data](https://churchilllab.jax.org/qtlviewer/attie/islets#) integrates 
 mediation into exploration of the data. Below, mediation analysis identifies
 gene Hnf4a as the chromosome 2 gene that impacts Myo15b expression.
 
-![Mediating expression of Myo15b identifies Hnf4a as the gene that drops the LOD score from greater than 70 to less than 50.](../fig/mediation-Hnf4a-Myo15b.png)
+![Mediating expression of Myo15b identifies Hnf4a as the gene that drops the LOD score from greater than 70 to less than 50.](fig/mediation-Hnf4a-Myo15b.png)
 
 ### Load Libraries  
 
@@ -67,7 +66,7 @@ gene Hnf4a as the chromosome 2 gene that impacts Myo15b expression.
 library(knitr)
 library(tidyverse)
 library(qtl2)
-library(intermediate)
+# library(intermediate)
 ```
 
 ## Load Functions
@@ -101,7 +100,7 @@ probs = readRDS("../data/attie_DO500_genoprobs_v5.rds")
 
 > Example from package. This will be removed, but I needed it for now.
 
-```{r}
+```{r, eval=FALSE}
   # DOQTL liver protein expresion dataset
   data(Tmem68)
   
@@ -235,24 +234,33 @@ Mediation analysis requires five pieces of data and metadata:
 5. QTL.Geno: the genotype probabilities at the Target maximum QTL.
 
 
-> ## Challenge: 
-> Visit the Attie islet data QTL viewer:  
-> https://churchilllab.jax.org/qtlviewer/attie/islets#
-> 1. Select Islet RNA for the current data set.  
-> 2. Type in a gene symbol to search for.  
-> 3. Click on the highest peak in the LOD plot.  
-> 4. Look at the Effects in the bottom right panel.  
-> 5. Select the Mediation tab and click the LOD peak again.  
-> 6. Hover over the dots in the mediation plot to discover genes that raise or
-> lower the peak.
->
-> > ## Solution
-> >
-> > 
-> > 
-> > 
-> {: .solution}
-{: .challenge}
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Challenge 1: Can you do it?
+
+Visit the Attie islet data QTL viewer:  
+https://churchilllab.jax.org/qtlviewer/attie/islets#
+1. Select Islet RNA for the current data set.  
+2. Type in a gene symbol to search for.  
+3. Click on the highest peak in the LOD plot.  
+4. Look at the Effects in the bottom right panel.  
+5. Select the Mediation tab and click the LOD peak again.  
+6. Hover over the dots in the mediation plot to discover genes that raise or
+lower the peak.
+
+:::::::::::::::::::::::: solution 
+ 
 
 
-{% include links.md %}
+:::::::::::::::::::::::::::::::::
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Mediation analysis investigates an intermediary between an independent variable and its effect on a dependent variable.
+- Mediation analysis is used in high-throughput genomics studies to identify molecular phenotypes, such as gene expression or methylation traits, that mediate the effect of genetic variation on disease phenotypes or other outcomes of interest.
+
+::::::::::::::::::::::::::::::::::::::::::::::::
