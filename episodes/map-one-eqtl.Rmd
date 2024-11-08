@@ -207,7 +207,7 @@ and will load it in here.  We will also perform a summary to find the summary
 level for 0.1, 0.05 and 0.01
 
 
-```{r QTL_perm_file, warning=FALSE, error=FALSE, eval=FALS}
+```{r QTL_perm_file, warning=FALSE, error=FALSE, eval=FALSE}
 load("../data/operm_ENSMUSG00000020679_1000.Rdata")
 
 summary(operm,alpha=c(0.1, 0.05, 0.01))

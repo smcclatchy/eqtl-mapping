@@ -35,8 +35,8 @@ library(qtl2)
 library(qtl2ggplot)
 library(RColorBrewer)
 
-source("../code/gg_transcriptome_map.R")
-source("../code/qtl_heatmap.R")
+#source("../code/gg_transcriptome_map.R")
+#source("../code/qtl_heatmap.R")
 ```
 
 Before we begin this lesson, we need to create another directory called 
@@ -46,7 +46,7 @@ and navigate into the main directory.  Then select "New Folder" and name it
 
 ### Load Data
 
-```{r load_dependencies}
+```{r load_dependencies, eval=FALSE}
 # expression data
 load("../data/attie_DO500_expr.datasets.RData")
 
@@ -198,7 +198,7 @@ LOD score used in the paper to determine significance.
 
 ### QTL Scans
 
-```{r qtl_scans}
+```{r qtl_scans, eval=FALSE}
 
 qtl.file = "../results/gene.norm_qtl_cis.trans.Rdata"
 
@@ -264,7 +264,7 @@ kable(peaks[1:10,] %>%
         dplyr::select(-lodindex) %>% 
         arrange(chr, pos), caption = "Expression QTL (eQTL) Peaks with LOD >= 6")
 
-write_csv(peaks, "../results/gene.norm_qtl_peaks_cis.trans.csv")
+# write_csv(peaks, "../results/gene.norm_qtl_peaks_cis.trans.csv")
 ```
 
 ```{r short_qtl_peaks_table, echo=FALSE}
@@ -273,7 +273,7 @@ kable(peaks[1:10,] %>%
         arrange(chr, pos), caption = "Phenotype QTL Peaks with LOD >= 6" %>%
         head(n=25))
 
-write_csv(peaks, "../results/gene.norm_qtl_peaks_cis.trans.csv")
+# write_csv(peaks, "../results/gene.norm_qtl_peaks_cis.trans.csv")
 ```
 
 ### QTL Peaks Figure

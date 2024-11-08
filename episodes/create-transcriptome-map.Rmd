@@ -28,14 +28,14 @@ library(qtl2convert)
 library(RColorBrewer)
 library(qtl2ggplot)
 
-source("../code/gg_transcriptome_map.R")
+# source("../code/gg_transcriptome_map.R")
 ```
 
 ## Load Data
 
 Load in the LOD peaks over 6 from previous lesson.
 
-```{r load_dependencies}
+```{r load_dependencies, eval=FALSE}
 # REad in the LOD peaks from the previous lesson.
 lod_summary <- read.csv("../results/gene.norm_qtl_peaks_cis.trans.csv")
 ```

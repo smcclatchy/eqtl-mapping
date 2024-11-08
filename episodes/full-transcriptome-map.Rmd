@@ -26,14 +26,14 @@ library(knitr)
 library(RColorBrewer)
 library(qtl2ggplot)
 
-source("../code/gg_transcriptome_map.R")
+# source("../code/gg_transcriptome_map.R")
 ```
 
 ## Load Data
 
 Load in the RNA-seq eQTL mapping results.
 
-```{r load_dependencies}
+```{r load_dependencies, eval=FALSE}
 ##loading previous results
 load("../data/dataset.islet.rnaseq.RData")
 ```
