@@ -17,10 +17,6 @@ exercises: 15
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-```{r load_data, echo=FALSE}
-library(qtl2)
-```
-
 Genome-wide association studies (GWAS) often identify variants in non-coding 
 regions of the genome, indicating that regulation of gene expression 
 predominates in common diseases like type II diabetes. Most of the more than 100 
