@@ -216,7 +216,7 @@ summary(operm,alpha=c(0.1, 0.05, 0.01))
 ```
 #### Genome Scan
 
-```{r QTL, warning=FALSE, error=FALSE}
+```{r QTL, warning=FALSE, eval=FALSE}
 qtl = scan1(genoprobs = probs, 
             pheno = norm[,"ENSMUSG00000020679", drop = FALSE], 
             kinship = K, 
@@ -225,7 +225,7 @@ qtl = scan1(genoprobs = probs,
 
 Next, we plot the genome scan.
 
-```{r qtl_plot, fig.width=8, fig.height=6, warning=FALSE}
+```{r qtl_plot, fig.width=8, fig.height=6, eval=FALSE}
 plot_scan1(x = qtl, 
            map = map, 
            lodcolumn = "ENSMUSG00000020679",
@@ -240,7 +240,7 @@ plot_scan1(x = qtl,
 
 Let's find LOD peaks
 
-```{r interval}
+```{r interval, eval=FALSE}
 lod_threshold = summary(operm, alpha=0.01)
 peaks = find_peaks(scan1_output = qtl, 
                    map = map, 
@@ -253,7 +253,7 @@ kable(peaks %>%
 
 ### QTL effects
 
-```{r qtl_effects, warning=F}
+```{r qtl_effects, eval=F}
 
 blup <- scan1blup(genoprobs=probs[,peaks$chr[1]], 
                   norm[,peaks$lodcolumn[1], drop=FALSE])
@@ -282,6 +282,7 @@ the same steps.
 :::::::::::::::::::::::: solution 
 
 Replace `<ensembl id>` with your choice of gene expression trait
+
 ```{r, eval=F}
 #1).
 
