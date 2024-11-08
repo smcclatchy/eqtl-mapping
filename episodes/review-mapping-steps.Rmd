@@ -260,14 +260,14 @@ contributed to the DO, so we will get eight founder allele effects.
 First, we need to work out the signifcance level.  Let's find the significance 
 level for 0.1, 0.05 and 0.01.  
 
-```{r QTL_perm, warning=FALSE, error=FALSE, eval=F}
+```{r QTL_perm, warning=FALSE, eval=FALSE}
 operm <- scan1perm(genoprobs = probs, 
                    pheno = pheno_clin[,"Ins_tAUC_log", drop = FALSE],
                    addcovar=covar,
                    n_perm=1000)
 ```
 
-```{r QTL_perm_saving, warning=FALSE, error=FALSE, eval=F, echo=F}
+```{r QTL_perm_saving, warning=FALSE, eval=FALSE, eval=F, echo=F}
 save(operm, file="../data/operm_Ins_tAUC_log_1000.Rdata")
 
 ```
@@ -278,7 +278,7 @@ and will load it in here.  We will also perform a summary to find the summary
 level for 0.1, 0.05 and 0.01
 
 
-```{r QTL_perm_file, warning=FALSE, error=FALSE}
+```{r QTL_perm_file, warning=FALSE, eval =FALSE}
 load("../data/operm_Ins_tAUC_log_1000.Rdata")
 
 summary(operm,alpha=c(0.1, 0.05, 0.01))
@@ -287,7 +287,7 @@ summary(operm,alpha=c(0.1, 0.05, 0.01))
 ```
 #### Genome Scan
 
-```{r QTL, warning=FALSE, error=FALSE}
+```{r QTL, warning=FALSE, eval=FALSE}
 qtl = scan1(genoprobs = probs, 
             pheno = pheno_clin[,"Ins_tAUC_log", drop = FALSE], 
             kinship = K, 
