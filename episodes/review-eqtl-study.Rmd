@@ -2,22 +2,20 @@
 title: "Genetic Drivers of Pancreatic Islet Function"
 teaching: 15
 exercises: 15
-questions:
-- "How I can learn more from an example eQTL study?"
-- "What is the hypothesis of an example eQTL study?"
-objectives:
-- Describe an example eQTL study in Diversity Outbred mice.
-- State the hypothesis from an example eQTL study in Diversity Outbred mice.
-keypoints:
-- "."
-- "."
-source: Rmd
 ---
 
-```{r, include=FALSE}
-source("../bin/chunk-options.R")
-knitr_fig_path("02-")
-```
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- What is the hypothesis of an example eQTL study?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Describe an example eQTL study in Diversity Outbred mice.
+- State the hypothesis from an example eQTL study in Diversity Outbred mice.
+
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 ```{r load_data, echo=FALSE}
 library(qtl2)
@@ -63,5 +61,13 @@ covariates. The results of one scan for insulin area under the curve (AUC) is
 shown below with a strong peak on chromosome 11. In this lesson, we will look
 into genes located under this peak.
 
-![LOD plot for insulin area under the curve](../fig/insulin-auc-lod-plot.png)  
+![LOD plot for insulin area under the curve](fig/insulin-auc-lod-plot.png)  
 
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
