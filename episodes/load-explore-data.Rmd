@@ -2,19 +2,19 @@
 title: "Load and explore the data"
 teaching: 15
 exercises: 30
-questions:
-- "What data are required for eqtl mapping?"
-objectives:
-- To provide an example and exploration of data used for eqtl mapping.
-keypoints:
-- ""
-source: Rmd
 ---
 
-```{r, include=FALSE}
-source("../bin/chunk-options.R")
-knitr_fig_path("03-")
-```
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- What data are required for eqtl mapping?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- To provide an example and exploration of data used for eqtl mapping.
+
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 Load the libraries.
 ```{r, load_tidyverse, message=FALSE, warning=FALSE}
@@ -65,15 +65,16 @@ ggplot(pheno_clin, aes(sex, Ins_tAUC)) +
 ```
 
 Another visualization that has become popular is the 
-[Violin Plot][https://en.wikipedia.org/wiki/Violin_plot]. We can create one
-using ggplot's [geom_violin][https://ggplot2.tidyverse.org/reference/geom_violin.html].
+[Violin Plot][https://en.wikipedia.org/wiki/Violin_plot]. We can create one 
+using ggplot's 
+[geom_violin][https://ggplot2.tidyverse.org/reference/geom_violin.html].
 Whereas the boxplot automatically adds the median, we must tell `geom_violin()`
 which quantiles that we want to draw using the argument 
-"draw_quantiles = c(0.25, 0.5, 0.75)". We have also overlaid the data points 
+`draw_quantiles = c(0.25, 0.5, 0.75)`. We have also overlaid the data points 
 using ggbeeswarm's
 [geom_beeswarm][https://www.rdocumentation.org/packages/ggbeeswarm/versions/0.5.3/topics/geom_beeswarm].
 We have told `geom_beeswarm()` to plot the points using the argument 
-"alpha = 0.1". The alpha argument ranges between 0 (completely transparent) to
+`alpha = 0.1`. The `alpha` argument ranges between 0 (completely transparent) to
 1 (completely opaque). A value of 0.1 means mostly transparent.
 
 ```{r Ins_tAUC_violin, warning=FALSE}
@@ -85,22 +86,30 @@ ggplot(pheno_clin, aes(sex, Ins_tAUC)) +
   labs(title = "Insulin tAUC", y = "Insulin tAUC")
 ```
 
-> ## Challenge 1
-> How many orders of magnitude (powers of 10) does Insulin tAUC span?  
->
-> > ## Solution
-> > Insulin tAUC spans three orders of magnitude, from near 10 to over 1000.  
-> {: .solution}
-{: .challenge}
-  
-  
-> ## Challenge 2
-> Which sex has higher median Insulin tAUC values?  
->
-> > ## Solution
-> > Males have higher Insulin tAUC than females.  
-> {: .solution}
-{: .challenge}
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Challenge 1: 
+
+How many orders of magnitude (powers of 10) does Insulin tAUC span?
+
+
+:::::::::::::::::::::::: solution 
+
+Insulin tAUC spans three orders of magnitude, from near 10 to over 1000.
+
+:::::::::::::::::::::::::::::::::
+
+
+## Challenge 2: 
+
+Which sex has higher median Insulin tAUC values?
+
+:::::::::::::::::::::::: solution 
+
+Males have higher Insulin tAUC than females.  
+
+:::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 Both of the boxplot and the violin plot are useful visualizations which you can
 use to get some sense of the distribution of your data.
@@ -140,27 +149,34 @@ pheno_clin %>%
     facet_wrap(~sex)
 ```
 
-> ## Challenge 3
-> Does the log transformation make the data more normally distributed? Explain 
-> your answer.
->
-> > ## Solution
-> > Yes. The log transformation makes the data more normally distributed because
-> > the data points follow the normality line more closely.  
-> {: .solution}
-{: .challenge}
-  
-  
-> ## Challenge 4
-> Do any data points look suspicious to you? Explain your answer.
->
-> > ## Solution
-> > The data points that deviate from the normality line would be worth
-> > investigating. All data deviates somewhat from normality, but the three
-> > lowest points in the male data plot would be worth investigating. They may
-> > be real, but there may also have been mishap in the assay.
-> {: .solution}
-{: .challenge}
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Challenge 3: 
+
+Does the log transformation make the data more normally distributed? Explain 
+your answer.
+
+:::::::::::::::::::::::: solution 
+
+Yes. The log transformation makes the data more normally distributed because the 
+data points follow the normality line more closely. 
+
+:::::::::::::::::::::::::::::::::
+
+
+## Challenge 4: 
+
+Do any data points look suspicious to you? Explain your answer.
+
+:::::::::::::::::::::::: solution 
+
+The data points that deviate from the normality line would be worth 
+investigating. All data deviates somewhat from normality, but the three lowest 
+points in the male data plot would be worth investigating. They may be real, but 
+there may also have been mishap in the assay.
+
+:::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 Another way to identify outliers is to standardize the data and look for data 
 points that are more than four standard deviations from the mean.
@@ -256,8 +272,8 @@ dataset.islet.rnaseq$expr %>%
          xlab = 'Normal percentiles', y = 'Count percentiles')
 ```
 
-Boxplots of raw counts for six example genes are shown at left below. Notice that 
-the median count values (horizontal black bar in each boxplot) are not 
+Boxplots of raw counts for six example genes are shown at left below. Notice 
+that the median count values (horizontal black bar in each boxplot) are not 
 comparable between the genes because the counts are not on the same scale. At
 right, boxplots for the same genes show normalized count data on the same 
 scale.
@@ -328,3 +344,12 @@ range(chr11_peaks$pos, na.rm = TRUE)
 chr11_peaks %>% arrange(desc(lod)) %>% 
   ggplot(aes(pos, lod)) + geom_point()
 ```
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
