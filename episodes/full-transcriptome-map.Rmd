@@ -38,33 +38,33 @@ Load in the RNA-seq eQTL mapping results.
 load("../data/dataset.islet.rnaseq.RData")
 ```
 
-Next, we need to format the column names of our eQTL results to that the `
-ggtmap` function can use the results.
+Next, we need to format the column names of our eQTL results to that the 
+`ggtmap` function can use the results.
 
 ```{r lod_summary, eval=FALSE, message=FALSE}
-lod_summary = dataset.islet.rnaseq$lod.peaks
-
-# Get gene positions.
-ensembl <- get_ensembl_genes()
-df <- data.frame(ensembl    = ensembl$gene_id, 
-                 gene_chr   = seqnames(ensembl), 
-                 gene_start = start(ensembl) * 1e-6, 
-                 gene_end   = end(ensembl)   * 1e-6,
-                 stringsAsFactors = F)
-
-# Create eQTL table for transcriptome map function.
-lod_summary <- lod_summary %>% 
-                 rename(annot.id  = "ensembl",
-                        chrom     = "qtl_chr",
-                        pos       = "qtl_pos",
-                        lod       = "qtl_lod") %>% 
-                 left_join(df, by = "ensembl") %>% 
-                 mutate(marker.id = str_c(qtl_chr, qtl_pos * 1e6, sep = "_"),
-                        gene_chr  = factor(gene_chr, levels = c(1:19, "X")),
-                        qtl_chr   = factor(qtl_chr, levels = c(1:19, "X"))) %>% 
-                 mutate(cis = if_else(qtl_chr == gene_chr & abs(gene_start - qtl_pos) < 4, "cis", "trans"))
-
-rm(df)
+# lod_summary = dataset.islet.rnaseq$lod.peaks
+# 
+# # Get gene positions.
+# ensembl <- get_ensembl_genes()
+# df <- data.frame(ensembl    = ensembl$gene_id, 
+#                  gene_chr   = seqnames(ensembl), 
+#                  gene_start = start(ensembl) * 1e-6, 
+#                  gene_end   = end(ensembl)   * 1e-6,
+#                  stringsAsFactors = F)
+# 
+# # Create eQTL table for transcriptome map function.
+# lod_summary <- lod_summary %>% 
+#                  rename(annot.id  = "ensembl",
+#                         chrom     = "qtl_chr",
+#                         pos       = "qtl_pos",
+#                         lod       = "qtl_lod") %>% 
+#                  left_join(df, by = "ensembl") %>% 
+#                  mutate(marker.id = str_c(qtl_chr, qtl_pos * 1e6, sep = "_"),
+#                         gene_chr  = factor(gene_chr, levels = c(1:19, "X")),
+#                         qtl_chr   = factor(qtl_chr, levels = c(1:19, "X"))) %>% 
+#                  mutate(cis = if_else(qtl_chr == gene_chr & abs(gene_start - qtl_pos) < 4, "cis", "trans"))
+# 
+# rm(df)
 ```
 
 
@@ -74,10 +74,10 @@ In the previous lesson, we mapped the QTL locations of 50 genes. In this lesson,
 we will map the QTL positions of `r nrow(lod_summary)` genes.
 
 ```{r fig.width=8, fig.height=8, eval=FALSE, message=FALSE}
-ggtmap(data = lod_summary %>% 
-      filter(qtl_lod >= 7.18), 
-      cis.points = TRUE, 
-      cis.radius = 4)
+# ggtmap(data = lod_summary %>% 
+#       filter(qtl_lod >= 7.18), 
+#       cis.points = TRUE, 
+#       cis.radius = 4)
 ```
 
 This transcriptome map is definitely a lot more crowded than the one in the 
@@ -139,7 +139,7 @@ create the transcriptome map. First, we will look at the overall QTL density for
 all peaks with LOD > 7.18.
 
 ```{r all_eqtl_density, fig.width=8, eval=FALSE}
-eqtl_density_plot(data = lod_summary, lod_thr = 7.18)
+# eqtl_density_plot(data = lod_summary, lod_thr = 7.18)
 ```
 
 There are clearly some loci that have an enrichment of eQTL. We have drawn a 
@@ -154,7 +154,7 @@ Next, we will look at the locations of the cis-eQTL. We must also select a LOD
 threshold. We will use 7.18 since this is what was used in the Keller et al. paper.
 
 ```{r cis_eqtl_density, fig.width=6, eval=FALSE}
-eqtl_density_plot(data = filter(lod_summary, cis == "cis"), lod_thr = 7.18)
+# eqtl_density_plot(data = filter(lod_summary, cis == "cis"), lod_thr = 7.18)
 ```
 
 In the plot above, there are many loci that have many genes associated with 
@@ -169,7 +169,7 @@ Next, we will create an eQTL density plot of the trans-eQTL. These are QTL for
 which the gene and QTL are far from each other.
 
 ```{r trans_eqtl_density, fig.width=6, eval=FALSE}
-eqtl_density_plot(data = filter(lod_summary, cis == "trans"), lod_thr = 7.18)
+# eqtl_density_plot(data = filter(lod_summary, cis == "trans"), lod_thr = 7.18)
 ```
 
 In this case, we see much taller peaks than in the cis-eQTL density plot and 
@@ -203,13 +203,13 @@ function. We will filter to retain QTL with LOD > 7.8 and will get the position
 on each chromosome with the highest density of eQTL.
 
 ```{r get_qtl_dens, eval=FALSE}
-qtl_dens = lod_summary %>%
-             filter(qtl_lod > 7.18 & cis == 'trans') %>% 
-             group_by(qtl_chr) %>% 
-             summarize(dens_x = density(qtl_pos, adjust = 0.1)$x,
-                       dens_y = density(qtl_pos, adjust = 0.1)$y) %>% 
-             slice_max(dens_y, n = 1)
-qtl_dens
+# qtl_dens = lod_summary %>%
+#              filter(qtl_lod > 7.18 & cis == 'trans') %>% 
+#              group_by(qtl_chr) %>% 
+#              summarize(dens_x = density(qtl_pos, adjust = 0.1)$x,
+#                        dens_y = density(qtl_pos, adjust = 0.1)$y) %>% 
+#              slice_max(dens_y, n = 1)
+# qtl_dens
 ```
 
 In the table above, there is one row per chromosome. `x` is the position on each 
@@ -220,13 +220,13 @@ Now that we have the location of maximum eQTL density on each chromosome, we
 will count the number of eQTL within +/- 2 Mb of the center.
 
 ```{r count_eqtl, eval=FALSE}
-hotspots = left_join(lod_summary, select(qtl_dens, qtl_chr, dens_x)) %>% 
-             filter(qtl_lod > 7.18 & cis == 'trans') %>% 
-             mutate(pos_diff = abs(dens_x - qtl_pos)) %>% 
-             filter(pos_diff <= 2) %>% 
-             select(-pos_diff) %>% 
-             rename(dens_x = 'center')
-head(hotspots)
+# hotspots = left_join(lod_summary, select(qtl_dens, qtl_chr, dens_x)) %>% 
+#              filter(qtl_lod > 7.18 & cis == 'trans') %>% 
+#              mutate(pos_diff = abs(dens_x - qtl_pos)) %>% 
+#              filter(pos_diff <= 2) %>% 
+#              select(-pos_diff) %>% 
+#              rename(dens_x = 'center')
+# head(hotspots)
 ```
 
 Now that we have a list of genes near the position of highest eQTL density on 
@@ -234,10 +234,10 @@ each chromosome, we can count the number of genes in each potential hotspot and
 retain the ones containing more than 100 genes.
 
 ```{r select_eqtl_hotspots, eval=FALSE}
-hotspots = hotspots %>% 
-             count(qtl_chr, center) %>% 
-             filter(n >= 100)
-kable(hotspots, caption = "Islet trans-eQTL hotspots")
+# hotspots = hotspots %>% 
+#              count(qtl_chr, center) %>% 
+#              filter(n >= 100)
+# kable(hotspots, caption = "Islet trans-eQTL hotspots")
 ```
 
 ### Chr 11 eQTL Hotspot
@@ -249,14 +249,14 @@ we will get all of the genes with an eQTL in within +/- 2 Mb of the chromosome
 11 eQTL hotspot.
 
 ```{r get_chr11_genes, eval=FALSE}
-chr11_mid =  hotspots %>% 
-               filter(qtl_chr == '11') %>% 
-               pull(center)
-chr11_eqtl = lod_summary %>% 
-               filter(qtl_lod >  7.18 & 
-                      qtl_chr == '11' & 
-                      abs(chr11_mid - qtl_pos) < 2 &
-                      !is.na(cis))
+# chr11_mid =  hotspots %>% 
+#                filter(qtl_chr == '11') %>% 
+#                pull(center)
+# chr11_eqtl = lod_summary %>% 
+#                filter(qtl_lod >  7.18 & 
+#                       qtl_chr == '11' & 
+#                       abs(chr11_mid - qtl_pos) < 2 &
+#                       !is.na(cis))
 ```
 
 Next, we will filter to retain the cis-eQTL in the same interval. It is possible 
@@ -264,9 +264,9 @@ that one or more genes near 71.5 Mb on chromosome 11 have a cis-eQTL, which in
 turn alters the expression of the trans-eQTL genes.
 
 ```{r get_chr11_cis_eqtl, eval=FALSE}
-chr11_cis = chr11_eqtl %>% 
-              filter(cis == 'cis')
-kable(chr11_cis, caption = 'Chr 11 cis-eQTL')
+# chr11_cis = chr11_eqtl %>% 
+#               filter(cis == 'cis')
+# kable(chr11_cis, caption = 'Chr 11 cis-eQTL')
 ```
 
 As you can see, there are `r nrow(chr11_cis)` cis-eQTL genes under the 
@@ -288,18 +288,18 @@ The expression data is a numeric matrix, so we will use the colnames to filter
 the genes.
 
 ```{r get_hotspot_genes, eval=FALSE}
-chr11_genes = dataset.islet.rnaseq$expr[,chr11_eqtl$ensembl]
+# chr11_genes = dataset.islet.rnaseq$expr[,chr11_eqtl$ensembl]
 ```
 
 Next, we will join the eQTL and expression data and write it out to a file. This 
 way you will have all of the data for the hotspot in one place.
 
 ```{r write_hotspot_genes, eval=FALSE}
-chr11_expr = tibble(ensembl = colnames(chr11_genes),
-              data.frame(t(chr11_genes)))
-chr11_all = left_join(chr11_eqtl, chr11_expr, by = 'ensembl')
+# chr11_expr = tibble(ensembl = colnames(chr11_genes),
+#              data.frame(t(chr11_genes)))
+# chr11_all = left_join(chr11_eqtl, chr11_expr, by = 'ensembl')
 
-write_csv(chr11_all, file = file.path('../results/', 'chr11_eqtl_genes.csv'))
+# write_csv(chr11_all, file = file.path('../results/', 'chr11_eqtl_genes.csv'))
 ```
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
