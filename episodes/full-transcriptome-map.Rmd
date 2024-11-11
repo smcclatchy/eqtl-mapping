@@ -71,7 +71,7 @@ Next, we need to format the column names of our eQTL results to that the
 ### Plot Transcriptome Map
 
 In the previous lesson, we mapped the QTL locations of 50 genes. In this lesson, 
-we will map the QTL positions of `r nrow(lod_summary)` genes.
+we will map the QTL positions of `r # nrow(lod_summary)` genes.
 
 ```{r fig.width=8, fig.height=8, eval=FALSE, message=FALSE}
 # ggtmap(data = lod_summary %>% 
