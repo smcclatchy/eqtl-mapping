@@ -186,8 +186,8 @@ then this gene is a good candidate.
 
 > TBD: Need a figure with physiological QTL effect & cis-eQTL effects.
 
-We have a QTL for insulin tAUC that extends from `r peaks$ci_lo[1]` Mb to 
-`r peaks$ci_hi[1]` Mb. This support interval means that we expect the causal 
+We have a QTL for insulin tAUC that extends from `r # peaks$ci_lo[1]` Mb to 
+`r # peaks$ci_hi[1]` Mb. This support interval means that we expect the causal 
 variant to be within this interval 95% of the time. We would like to select a 
 set of candidate genes located near this QTL.  If the causal variant is a coding 
 SNP, then the gene will be located within this interval. However, if the causal 
