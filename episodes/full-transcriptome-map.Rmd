@@ -269,7 +269,7 @@ turn alters the expression of the trans-eQTL genes.
 # kable(chr11_cis, caption = 'Chr 11 cis-eQTL')
 ```
 
-As you can see, there are `r nrow(chr11_cis)` cis-eQTL genes under the 
+As you can see, there are `r # nrow(chr11_cis)` cis-eQTL genes under the 
 chromosome 11 eQTL hotspot. This is a large number of candidate genes to screen. 
 There may be more genes with non-synonymous, splice, or stop mutations under the 
 eQTL hotspot as well. The Sanger Mouse Genomes website has been removed and we 
