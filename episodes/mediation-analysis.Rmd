@@ -212,10 +212,10 @@ cis_eqtl = dataset.islet.rnaseq$lod.peaks %>%
                       pos <= ci[2])
 ```
 
-There are `r nrow(cis_eqtl)` genes with cis-eQTL in this interval. That is a lot 
-of genes! We could estimate the founder allele effects for each of the genes and 
-stare at them pensively. Or we could add each gene to the QTL mapping model and 
-see if the LOD score changes.
+There are r nrow(cis_eqtl) genes with cis-eQTL in this interval. That is a 
+lot of genes! We could estimate the founder allele effects for each of the genes 
+and stare at them pensively. Or we could add each gene to the QTL mapping model 
+and see if the LOD score changes.
 
 ### Mapping the Phenotype with a Gene as as Covariate
 
