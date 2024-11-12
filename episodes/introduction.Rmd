@@ -21,9 +21,12 @@ exercises: 2
 ## Introduction
 
 Differences in disease risk between individuals are often caused by genetic
-variants. Identifying the effects of genetic variants is key to understanding disease phenotypes and their underlying biology. The effects of variants in many single-gene disorders, such as cystic fibrosis, are generally well-characterized
+variants. Identifying the effects of genetic variants is key to understanding 
+disease phenotypes and their underlying biology. The effects of variants in many 
+single-gene disorders, such as cystic fibrosis, are generally well-characterized
 and their disease biology well understood. For example, in cystic fibrosis,
-mutations in the coding region of the CFTR gene alter the three-dimensional structure of the chloride channel proteins in epithelial cells, affecting not
+mutations in the coding region of the CFTR gene alter the three-dimensional 
+structure of the chloride channel proteins in epithelial cells, affecting not
 only chloride transport, but also sodium and potassium transport in the lungs, 
 pancreas and skin. The path from gene mutation to altered protein to disease 
 phenotype is relatively simple and well understood. 
@@ -32,23 +35,24 @@ phenotype is relatively simple and well understood.
 
 The most common human disorders, however, involve many genes interacting with
 each other and with the environment, a far more complicated path to follow than
-the path from a single gene mutation to its protein to a disease phenotype. Cardiovascular disease, Alzheimer's disease, arthritis, diabetes and cancer
+the path from a single gene mutation to its protein to a disease phenotype. 
+Cardiovascular disease, Alzheimer's disease, arthritis, diabetes and cancer
 involve a complex interplay of genes with environment, and their mechanisms are 
-not well understood. One method of understanding the relationship between genetic
-variants and disease is a "Genome-wide association study (GWAS), which associates
-genetic variants with disease traits. It is tempting to think that these genetic
-variants would fall in coding regions. However, most GWAS variants for common 
-diseases like diabetes are located in **non-coding** regions of the genome. 
-These variants are therefore likely to fall in regulatory sequences which are 
-involved in gene regulation. 
+not well understood. One method of understanding the relationship between 
+genetic variants and disease is a "Genome-wide association study (GWAS), which 
+associates genetic variants with disease traits. It is tempting to think that 
+these genetic variants would fall in coding regions. However, most GWAS variants 
+for common diseases like diabetes are located in **non-coding** regions of the 
+genome. These variants are therefore likely to fall in regulatory sequences 
+which are involved in gene regulation. 
 
 ![GWAS variants such as SNPs are often in non-coding regions of the genome, indicating that they regulate gene expression.](fig/gwas-catalog.png){alt="Figures showing GWAS Catalog"}
 
 ![Here a non-coding SNP influences expression of a gene, which in turn affects a disease phenotype or other outcome of interest.](fig/cis-regulation-single-gene.png){alt="Figure showing regulation of gene by SNP"}
 
 Gene regulation controls the quantity, timing and locale of gene expression. 
-Analyzing the association between gene expression and genetic variants is known as 
-expression quantitative trait locus (eQTL) mapping. eQTL mapping searches for
+Analyzing the association between gene expression and genetic variants is known 
+as expression quantitative trait locus (eQTL) mapping. eQTL mapping searches for
 associations between the expression of one or more genes and a genetic locus.
 Specifically, genetic variants underlying eQTL peak explain some of the 
 variation in gene expression levels. eQTL studies can reveal the architecture 
@@ -138,4 +142,3 @@ underlie eQTL illuminate transcriptional regulation and variation.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-[r-markdown]: https://rmarkdown.rstudio.com/

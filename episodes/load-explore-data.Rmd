@@ -241,6 +241,23 @@ names(rna)
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+The `rna` object contains several objects. We describe them briefly in the 
+table below.
+
+
+Name          | Description | Dimensions
+--------------+-------------+-------------------------------------------
+annots        | Transcript annotation | `r nrow(annot)` X `r ncol(annot)`
+covar         | Sample covariates     |  `r nrow(annot)` X `r ncol(covar)`
+covar.factors |
+datatype      |
+display.name  |
+expr          |
+lod.peaks     |
+raw           |
+samples       |
+
+
 ![Data Diagram](fig/expr_sample_annot.png){alt="Figure showing relationship between samples, expression, and transcripts."}
 
 ```{r view_annot_rawCounts_metadata}

@@ -1,0 +1,312 @@
+---
+title: "Transcriptome Map of cis and trans eQTL"
+teaching: 10
+exercises: 20
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How do I create a full transcriptome map?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Explain how to use markdown with the new lesson template
+- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+### Load Libraries  
+
+```{r load libraries, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(qtl2)
+library(knitr)
+library(RColorBrewer)
+library(qtl2ggplot)
+
+# source("../code/gg_transcriptome_map.R")
+```
+
+## Load Data
+
+Load in the RNA-seq eQTL mapping results.
+
+```{r load_dependencies, eval=FALSE}
+# loading previous results
+load("../data/dataset.islet.rnaseq.RData")
+```
+
+Next, we need to format the column names of our eQTL results to that the 
+`ggtmap` function can use the results.
+
+```{r lod_summary, eval=FALSE, message=FALSE}
+lod_summary = dataset.islet.rnaseq$lod.peaks
+
+# Get gene positions.
+ensembl <- get_ensembl_genes()
+df <- data.frame(ensembl    = ensembl$gene_id,
+                 gene_chr   = seqnames(ensembl),
+                 gene_start = start(ensembl) * 1e-6,
+                 gene_end   = end(ensembl)   * 1e-6,
+                 stringsAsFactors = F)
+
+# Create eQTL table for transcriptome map function.
+lod_summary <- lod_summary %>%
+                 rename(annot.id  = "ensembl",
+                        chrom     = "qtl_chr",
+                        pos       = "qtl_pos",
+                        lod       = "qtl_lod") %>%
+                 left_join(df, by = "ensembl") %>%
+                 mutate(marker.id = str_c(qtl_chr, qtl_pos * 1e6, sep = "_"),
+                        gene_chr  = factor(gene_chr, levels = c(1:19, "X")),
+                        qtl_chr   = factor(qtl_chr, levels = c(1:19, "X"))) %>%
+                 mutate(cis = if_else(qtl_chr == gene_chr & abs(gene_start - qtl_pos) < 4, "cis", "trans"))
+
+rm(df)
+```
+
+
+### Plot Transcriptome Map
+
+In the previous lesson, we mapped the QTL locations of 50 genes. In this lesson, 
+we will map the QTL positions of `r # nrow(lod_summary)` genes.
+
+```{r fig.width=8, fig.height=8, eval=FALSE, message=FALSE}
+ggtmap(data = lod_summary %>%
+      filter(qtl_lod >= 7.18),
+      cis.points = TRUE,
+      cis.radius = 4)
+```
+
+This transcriptome map is definitely a lot more crowded than the one in the 
+previous lesson. Again, the gene locations are shown on the X-axis and the QTL 
+locations are shown on the Y-axis.
+
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Challenge 1: What patterns among the points do you see in the transcriptome map?
+
+:::::::::::::::::::::::: solution 
+
+There are at least two patterns. One is the dense diagonal line of cis-eQTL. The 
+other is the increased density of QTL in vertical lines.
+
+:::::::::::::::::::::::::::::::::
+
+
+## Challenge 2: What would a vertical band in the transcriptome map mean?
+
+:::::::::::::::::::::::: solution 
+
+A vertical band indicates that one locus regulates the expression of many genes.
+
+:::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+Look at the transcriptome map. How many vertical bands do you see and which 
+chromosomes are they on?
+
+### QTL Density Plot
+
+In the transcriptome map above, we noticed vertical banding patterns in the 
+eQTL, which indicate that one locus may regulate the expression of dozens of 
+genes. How many genes are regulated by each locus and which genes are they? In 
+order to address this question, we need to make a plot of the density of eQTL 
+along the genome. This is like stacking up the eQTL onto the X-axis.
+
+We have provided a function to do this in the `gg_transcriptome_map.R` file in 
+the `code` directory of this lesson. The function is called `eqtl_density_plot` 
+and takes the following arguments:
+
+* `data`: data.frame (or tibble) with the following columns:
+    * `ensembl`: (required) character string containing the Ensembl gene ID.
+    * `qtl_chr`: (required) character string containing QTL chromsome.
+    * `qtl_pos`: (required) floating point number containing the QTL position in 
+    Mb.
+    * `qtl_lod`: (optional) floating point number containing the LOD score.
+    * `gene_chr`:  (optional) character string containing transcript chromosome.
+    * `gene_start`: (optional) character string containing transcript start 
+    position in Mb.
+    * `gene_end`:  (optional) character string containing transcript end 
+    position in Mb.
+* `lod_thr`: numeric value that is the LOD above which QTL will be retained. 
+Default = 7.
+
+This function has been designed to use the same data structure as we used to 
+create the transcriptome map. First, we will look at the overall QTL density for 
+all peaks with LOD > 7.18.
+
+```{r all_eqtl_density, fig.width=8, eval=FALSE}
+eqtl_density_plot(data = lod_summary, lod_thr = 7.18)
+```
+
+There are clearly some loci that have an enrichment of eQTL. We have drawn a 
+dashed line at `100"` as an arbitrary cutoff as a potential cutoff to use when 
+selecting peaks.
+
+Compare this plot with the transcriptome map, in which we saw vertical bands of 
+eQTL. Do the peaks in the eQTL density plot match the bands in the transcriptome 
+map? 
+
+Next, we will look at the locations of the cis-eQTL. We must also select a LOD 
+threshold. We will use 7.18 since this is what was used in the Keller et al. paper.
+
+```{r cis_eqtl_density, fig.width=6, eval=FALSE}
+eqtl_density_plot(data = filter(lod_summary, cis == "cis"), lod_thr = 7.18)
+```
+
+In the plot above, there are many loci that have many genes associated with 
+their expression. Some loci have over 100 genes associated with them. For 
+example, there is a locus on chromosome 17 that may regulate over 100 genes. In 
+this case, we are looking at cis-eQTL, QTL which are co-located with the gene. 
+What might this mean biologically? Perhaps there is a mutation which causes a 
+region of chromatin to open, which leads to increased expression of a set of 
+genes. This increased expression may have biological consequences. 
+
+Next, we will create an eQTL density plot of the trans-eQTL. These are QTL for 
+which the gene and QTL are far from each other.
+
+```{r trans_eqtl_density, fig.width=6, eval=FALSE}
+eqtl_density_plot(data = filter(lod_summary, cis == "trans"), lod_thr = 7.18)
+```
+
+In this case, we see much taller peaks than in the cis-eQTL density plot and 
+these peaks match the ones in the overall eQTL density plot. 
+
+There are many potential explanations for a trans-eQTL band. There may be a 
+polymorphism in a transcription factor which alters the expression of many other 
+genes. Or there may be a polymorphism that alters an amino acid and prevents it 
+from binding properly to another protein in a signalling cascade. Biologists are 
+often interested in these trans-eQTL bands, which are called "eQTL hotspots". A 
+set of over 100 genes with differential expression between  genotypes may help 
+us to understand the biology behind variation in higher level phenotypes. It is 
+also possible that one of the genes with a cis-eQTL under the eQTL hotspot 
+regulates the expression of the remaining hotspot genes.
+
+## Islet RNASeq eQTL Hotspots
+
+### Select eQTL Hotspots
+
+There are several decisions to make when selecting eQTL hotspots. What LOD 
+threshold should you use to select the genes that comprise hotspots? What number 
+of genes should you use as a threshold to call a peak an eQTL hotspot? In this 
+case, the authors select a LOD of 7.18 and decided that 100 trans-regulated 
+genes was a useful threshold. 
+
+> TBD: Add references for eQTL module selection. Possibly augment lesson?
+
+In order to identify eQTL hotspots, we will look at the density of trans-eQTL 
+along the genome using the [density](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/density) 
+function. We will filter to retain QTL with LOD > 7.8 and will get the position 
+on each chromosome with the highest density of eQTL.
+
+```{r get_qtl_dens, eval=FALSE}
+qtl_dens = lod_summary %>%
+             filter(qtl_lod > 7.18 & cis == 'trans') %>%
+             group_by(qtl_chr) %>%
+             summarize(dens_x = density(qtl_pos, adjust = 0.1)$x,
+                       dens_y = density(qtl_pos, adjust = 0.1)$y) %>%
+             slice_max(dens_y, n = 1)
+qtl_dens
+```
+
+In the table above, there is one row per chromosome. `x` is the position on each 
+chromosome with the highest density of eQTL. `y` is the density, which we needed 
+to obtain the `x` position but is not used further.
+
+Now that we have the location of maximum eQTL density on each chromosome, we 
+will count the number of eQTL within +/- 2 Mb of the center.
+
+```{r count_eqtl, eval=FALSE}
+hotspots = left_join(lod_summary, select(qtl_dens, qtl_chr, dens_x)) %>%
+             filter(qtl_lod > 7.18 & cis == 'trans') %>%
+             mutate(pos_diff = abs(dens_x - qtl_pos)) %>%
+             filter(pos_diff <= 2) %>%
+             select(-pos_diff) %>%
+             rename(dens_x = 'center')
+head(hotspots)
+```
+
+Now that we have a list of genes near the position of highest eQTL density on 
+each chromosome, we can count the number of genes in each potential hotspot and 
+retain the ones containing more than 100 genes.
+
+```{r select_eqtl_hotspots, eval=FALSE}
+hotspots = hotspots %>%
+             count(qtl_chr, center) %>%
+             filter(n >= 100)
+kable(hotspots, caption = "Islet trans-eQTL hotspots")
+```
+
+### Chr 11 eQTL Hotspot
+
+From this analysis, we have identified five eQTL hotspots. Due to time 
+constraints, we will not examine all of them in depth. We will look at the 
+chromosome 11 eQTL hotspot in greater depth. It contains 163 trans-eQTL. First,
+we will get all of the genes with an eQTL in within +/- 2 Mb of the chromosome 
+11 eQTL hotspot.
+
+```{r get_chr11_genes, eval=FALSE}
+chr11_mid =  hotspots %>%
+               filter(qtl_chr == '11') %>%
+               pull(center)
+chr11_eqtl = lod_summary %>%
+               filter(qtl_lod >  7.18 &
+                      qtl_chr == '11' &
+                      abs(chr11_mid - qtl_pos) < 2 &
+                      !is.na(cis))
+```
+
+Next, we will filter to retain the cis-eQTL in the same interval. It is possible 
+that one or more genes near 71.5 Mb on chromosome 11 have a cis-eQTL, which in 
+turn alters the expression of the trans-eQTL genes.
+
+```{r get_chr11_cis_eqtl, eval=FALSE}
+chr11_cis = chr11_eqtl %>%
+              filter(cis == 'cis')
+kable(chr11_cis, caption = 'Chr 11 cis-eQTL')
+```
+
+As you can see, there are `r # nrow(chr11_cis)` cis-eQTL genes under the 
+chromosome 11 eQTL hotspot. This is a large number of candidate genes to screen. 
+There may be more genes with non-synonymous, splice, or stop mutations under the 
+eQTL hotspot as well. The Sanger Mouse Genomes website has been removed and we 
+are uncertain if it will be replaced. There are two websites where you can find 
+this information:
+
+1. [Ensembl](http://nov2020.archive.ensembl.org/Mus_musculus/Info/Index): Once 
+you search for a gene, you can select the "Variant Table" under 
+"Genetic Variation" in the left navigation panel.
+2. [Founder Variant Search](https://churchilllab.jax.org/foundersnps/search): 
+You can use this site to search for variants in specific genes or genomic 
+intervals.
+
+Next, we will get the expression of the genes in the chromosome 11 eQTL hotspot. 
+The expression data is a numeric matrix, so we will use the colnames to filter 
+the genes.
+
+```{r get_hotspot_genes, eval=FALSE}
+chr11_genes = dataset.islet.rnaseq$expr[,chr11_eqtl$ensembl]
+```
+
+Next, we will join the eQTL and expression data and write it out to a file. This 
+way you will have all of the data for the hotspot in one place.
+
+```{r write_hotspot_genes, eval=FALSE}
+chr11_expr = tibble(ensembl = colnames(chr11_genes),
+              data.frame(t(chr11_genes)))
+chr11_all = left_join(chr11_eqtl, chr11_expr, by = 'ensembl')
+
+write_csv(chr11_all, file = file.path('../results/', 'chr11_eqtl_genes.csv'))
+```
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::

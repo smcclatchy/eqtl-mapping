@@ -2,21 +2,24 @@
 title: "Mapping Many Gene Expression Traits"
 teaching: 30
 exercises: 30
-questions:
-- "How do I map many genes?"
-objectives:
-- "To map several genes at the same time"
-source: Rmd
 ---
 
-```{r, include=FALSE}
-source("../bin/chunk-options.R")
-knitr_fig_path("06-")
-```
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How do I map many genes?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- To map several genes at the same time
+
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 ### Load Libraries  
 
-For this lesson, we need to install two more libraries and load them.  You can do this by typing the following code:
+For this lesson, we need to install two more libraries and load them.  You can 
+do this by typing the following code:
 
 ```{r installing_packages, eval=F}
 BiocManager::install(c("AnnotationHub","rtracklayer"))
@@ -32,15 +35,18 @@ library(qtl2)
 library(qtl2ggplot)
 library(RColorBrewer)
 
-source("../code/gg_transcriptome_map.R")
-source("../code/qtl_heatmap.R")
+#source("../code/gg_transcriptome_map.R")
+#source("../code/qtl_heatmap.R")
 ```
 
-Before we begin this lesson, we need to create another directory called `results` in our main directory.  You can do this by clicking on the "Files" tab and navigate into the main directory.  Then select "New Folder" and name it "results".
+Before we begin this lesson, we need to create another directory called 
+`results` in our main directory.  You can do this by clicking on the "Files" tab 
+and navigate into the main directory.  Then select "New Folder" and name it 
+"results".
 
 ### Load Data
 
-```{r load_dependencies}
+```{r load_dependencies, eval=FALSE}
 # expression data
 load("../data/attie_DO500_expr.datasets.RData")
 
@@ -84,7 +90,9 @@ kable(gene.info[1:10,])
 
 ### Expression Data
 
-Lets check the distribution for the first 20 gene expression phenotypes. If you would like to check the distribution of all 50 genes, change `for(gene in genes[1:20])` in the code below to `for(gene in genes)`.
+Lets check the distribution for the first 20 gene expression phenotypes. If you 
+would like to check the distribution of all 50 genes, change 
+`for(gene in genes[1:20])` in the code below to `for(gene in genes)`.
 
 ```{r hist_untransformed}
 par(mfrow=c(3,4))
@@ -96,41 +104,48 @@ for(gene in genes[1:20]){
 
 Check the distributions.  Do they all have a normal distribution?
 
-You will notice that the distribtion of some genes are skewed to the left.  This means that that only a small amount of samples have data and therefore, will need to be removed.  A suitable qc would be keeping expression data that have at least 5% of the samples with more than 10 reads.
+You will notice that the distribtion of some genes are skewed to the left. This 
+means that that only a small amount of samples have data and therefore, will 
+need to be removed.  A suitable qc would be keeping expression data that have at 
+least 5% of the samples with more than 10 reads.
 
 ```{r qc_genes}
 
-genes_qc <- which(as.numeric(colSums(counts[,genes] > 10)) >= 0.05 * nrow(counts[,genes]))
+genes_qc <- which(as.numeric(colSums(counts[ , genes] > 10)) >= 0.05 * nrow(counts[,genes]))
 genes <- genes[genes_qc]
 
 ```
 
 ### The Marker Map  
 
-We are using the same marker map as in the previous [lesson](https://smcclatchy.github.io/gene-expression-qtl/04-review-mapping-steps/index.html#the-marker-map)
+We are using the same marker map as in the previous [lesson](https://smcclatchy.github.io/eqtl-mapping/review-mapping-steps/index.html#the-marker-map)
 
 
 ### Genotype probabilities  
 
-We have explored this earlier in th previous [lesson](https://smcclatchy.github.io/gene-expression-qtl/04-review-mapping-steps/index.html#genotype-probabilities).  But, as a reminder, we have already calculated genotype probabilities which we loaded above called `probs`.  This contains the 8 state genotype probabilities using the 69k grid  map of the same 500 DO mice that also have clinical phenotypes. 
+We have explored this earlier in th previous [lesson](https://smcclatchy.github.io/eqtl-mapping/review-mapping-steps/index.html#genotype-probabilities).  But, as a reminder, we have already calculated genotype 
+probabilities which we loaded above called `probs`.  This contains the 8 state g
+enotype probabilities using the 69k grid  map of the same 500 DO mice that also 
+have clinical phenotypes. 
 
 
 ### [Kinship Matrix](https://smcclatchy.github.io/mapping/04-calc-kinship/)
 
-We have explored the kinship matrix in the previous [lesson](https://smcclatchy.github.io/gene-expression-qtl/04-review-mapping-steps/index.html#kinship-matrix). It has already been calculated and loaded in above. 
+We have explored the kinship matrix in the previous [lesson](https://smcclatchy.github.io/eqtl-mapping/review-mapping-steps/index.html#kinship-matrix). It has already been calculated and loaded in above. 
 
 
 ### Covariates    
 
-Now let's add the necessary covariates. For these 50 gene expression data, we will correct for `DOwave`,`sex` and `diet_days`.
+Now let's add the necessary covariates. For these 50 gene expression data, we 
+will correct for `DOwave`,`sex` and `diet_days`.
 
 ```{r covariates_sig, eval=F, echo=F}
 
-###merging covariate data and expression data to test for sex, wave and diet_days.
+# merging covariate data and expression data to test for sex, wave and diet_days
 
 cov.counts <- merge(covar, norm[,genes], by=c("row.names"), sort=F)
 
-#testing covairates on expression data
+#testing covariates on expression data
 
 tmp = cov.counts %>%
         dplyr::select(mouse, sex, DOwave, diet_days, names(cov.counts[,genes])) %>%
@@ -176,11 +191,14 @@ covar = model.matrix(~sex + DOwave + diet_days, data = pheno_clin)[,-1]
 
 ### [Performing a genome scan](https://smcclatchy.github.io/mapping/06-perform-genome-scan/) 
 
-Now lets perform the genome scan!  We are also going to save our qtl results in an `Rdata` file to be used in further lessons.  We will not perform permutations in this lesson as it will take too long.  Instead we will use 6, which is the LOD score used in the paper to determine significance.
+Now lets perform the genome scan!  We are also going to save our qtl results in 
+an `Rdata` file to be used in further lessons.  We will not perform permutations 
+in this lesson as it will take too long.  Instead we will use 6, which is the 
+LOD score used in the paper to determine significance.
 
 ### QTL Scans
 
-```{r qtl_scans}
+```{r qtl_scans, eval=FALSE}
 
 qtl.file = "../results/gene.norm_qtl_cis.trans.Rdata"
 
@@ -199,7 +217,8 @@ if(file.exists(qtl.file)) {
 
 ### QTL plots
 
-Let's plot the first 20 gene expression phenotypes.  If you would like to plot all 50, change `for(i in 1:20)` in the code below to `for(i in 1:ncol(qtl))`.
+Let's plot the first 20 gene expression phenotypes.  If you would like to plot 
+all 50, change `for(i in 1:20)` in the code below to `for(i in 1:ncol(qtl))`.
 
 ```{r set_plot_rows_columns, echo=FALSE}
 par(mfrow=c(17, 3))
@@ -226,7 +245,8 @@ for(i in 1:20) {
 
 ### QTL Peaks
 
-We are also going to save our peak results so we can use these again else where.  First, lets get out peaks with a LOD score greater than 6. 
+We are also going to save our peak results so we can use these again else where.  
+First, lets get out peaks with a LOD score greater than 6. 
 
 ```{r qtl_peaks}
 lod_threshold = 6
@@ -244,7 +264,7 @@ kable(peaks[1:10,] %>%
         dplyr::select(-lodindex) %>% 
         arrange(chr, pos), caption = "Expression QTL (eQTL) Peaks with LOD >= 6")
 
-write_csv(peaks, "../results/gene.norm_qtl_peaks_cis.trans.csv")
+# write_csv(peaks, "../results/gene.norm_qtl_peaks_cis.trans.csv")
 ```
 
 ```{r short_qtl_peaks_table, echo=FALSE}
@@ -253,7 +273,7 @@ kable(peaks[1:10,] %>%
         arrange(chr, pos), caption = "Phenotype QTL Peaks with LOD >= 6" %>%
         head(n=25))
 
-write_csv(peaks, "../results/gene.norm_qtl_peaks_cis.trans.csv")
+# write_csv(peaks, "../results/gene.norm_qtl_peaks_cis.trans.csv")
 ```
 
 ### QTL Peaks Figure
@@ -264,26 +284,45 @@ qtl_heatmap(qtl = qtl, map = map, low.thr = 3.5)
 
 ```
 
-> ## Challenge
-> What do the qtl scans for all gene exression traits look like? *Note:* Don't worry, we've done the qtl scans for you!!!
-> You can read in this file, `../data/gene.norm_qtl_all.genes.Rdata`, which are the `scan1` results for all gene expression traits. 
->
-> > ## Solution
-> > 
-> > ```{r, eval=F}
-> > load("../data/gene.norm_qtl_all.genes.Rdata")
-> >
-> > lod_threshold = 6
-> > peaks = find_peaks(scan1_output = qtl.all, 
-> >                map = map, 
-> >                threshold = lod_threshold, 
-> >                peakdrop = 4, 
-> >                prob = 0.95)
-> > write_csv(peaks, "../results/gene.norm_qtl_all.genes_peaks.csv")
-> >
-> > ## Heat Map
-> > qtl_heatmap(qtl = qtl, map = map, low.thr = 3.5)
-> >
-> > ```
-> {: .solution}
-{: .challenge}
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Challenge 1: 
+
+
+What do the qtl scans for all gene exression traits look like? *Note:* Don't 
+worry, we've done the qtl scans for you!!!
+You can read in this file, `../data/gene.norm_qtl_all.genes.Rdata`, which are 
+the `scan1` results for all gene expression traits. 
+
+:::::::::::::::::::::::: solution 
+
+```{r, eval=F}
+load("../data/gene.norm_qtl_all.genes.Rdata")
+
+lod_threshold = 6
+peaks = find_peaks(scan1_output = qtl.all, 
+                map = map, 
+                threshold = lod_threshold, 
+                peakdrop = 4, 
+                prob = 0.95)
+write_csv(peaks, "../results/gene.norm_qtl_all.genes_peaks.csv")
+
+## Heat Map
+qtl_heatmap(qtl = qtl, map = map, low.thr = 3.5)
+
+```
+
+:::::::::::::::::::::::::::::::::
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
