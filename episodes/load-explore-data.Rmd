@@ -62,13 +62,14 @@ We have told `geom_beeswarm()` to plot the points with some transparency using
 the argument "alpha = 0.2". The alpha argument ranges between 0 (completely 
 transparent) to 1 (completely opaque). A value of 0.1 means mostly transparent.
 
-```{r Ins_tAUC_boxplot, warning=FALSE}
+```{r Ins_tAUC_boxplot,fig.width=8,fig.height=6,warning=FALSE}
 # plot Insulin on a log 10 scale
 ggplot(pheno, aes(sex, Ins_tAUC)) +
   geom_boxplot() +
   geom_beeswarm(alpha = 0.2) +
   scale_y_log10() +
-  labs(title = "Insulin tAUC", y = "Insulin tAUC")
+  labs(title = "Insulin tAUC", y = "Insulin tAUC") +
+  theme(text = element_text(size = 20))
 ```
 
 ::::::::::::::::::::::::::::::::::::: challenge 
@@ -108,7 +109,7 @@ in the plots above.
 While we can "eyeball" the distributions in the boxplot, it would be 
 better to use a "quantile-quantile" plot. 
 
-```{r qqplot, warning=FALSE}
+```{r qqplot,fig.width=8,fig.height=6,warning=FALSE}
 pheno |> 
   ggplot(aes(sample = Ins_tAUC)) +
     stat_qq() +
@@ -128,7 +129,7 @@ the line.
 
 Next, we will log-transform the data and then create a quantile-quantile plot.
 
-```{r qqplot_log, warning=FALSE}
+```{r qqplot_log,fig.height=6,fig.width=8,warning=FALSE}
 pheno |> 
   mutate(Ins_tAUC = log(Ins_tAUC)) |> 
   ggplot(aes(sample = Ins_tAUC)) +
@@ -174,7 +175,7 @@ points that are more than four standard deviations from the mean.
 
 To do this, we will log transform and standardize Insulin tAUC. 
 
-```{r pheno_std, warning=FALSE}
+```{r pheno_std,fig.width=8,fig.height=6,warning=FALSE}
 ins_tauc = pheno |> 
              select(mouse, sex, Ins_tAUC) |>
              group_by(sex) |> 
@@ -256,14 +257,15 @@ the first gene are plotted over a diagonal line tracing a normal distribution
 for those counts. Notice that most of the count data values lie off of this 
 line, indicating that these gene counts are not normally distributed. 
 
-```{r view_manual_qqplot_raw, echo=FALSE, warning=FALSE}
+```{r view_manual_qqplot_raw,fig.height=6,fig.width=8,echo=FALSE,warning=FALSE}
 raw |> 
   as.data.frame() |> 
   ggplot(aes(sample = ENSMUSG00000000001)) +
     stat_qq() +
     geom_qq_line() +
     labs(title = 'Count distribution for gene ENSMUSG00000000001',
-         xlab = 'Normal percentiles', y = 'Count percentiles')
+         xlab = 'Normal percentiles', y = 'Count percentiles') +
+    theme(text = element_text(size = 20))
 ```
 
 Q-Q plots for the first six genes show that count data for these genes are not
@@ -271,7 +273,7 @@ normally distributed. They are also not on the same scale. The y-axis values for
 each subplot range to 20,000 counts in the first subplot, 250 in the second, 90
 in the third, and so on. 
 
-```{r view_qqplots_raw}
+```{r view_qqplots_raw,fig.width=8,fig.height=6}
 raw |> 
   as.data.frame() |>
   select(ENSMUSG00000000001:ENSMUSG00000000058) |> 
@@ -281,7 +283,8 @@ raw |>
     geom_qq_line() +
     facet_wrap(~gene, scales = 'free') +
     labs(title = 'Count distribution for six genes',
-         xlab = 'Normal percentiles', y = 'Count percentiles')
+         xlab = 'Normal percentiles', y = 'Count percentiles') +
+    theme(text = element_text(size = 20))
 ```
 
 Since each gene has a different distribution and range, and the distributions
@@ -356,7 +359,7 @@ lesson or type it to show the plot live.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-```{r show_expr_mean_var}
+```{r show_expr_mean_var,fig.width=8,fig.height=6}
 expr = assays(dds)[[1]]
 tibble(mean = rowMeans(expr),
        sd   = apply(expr, 1, sd)) |>
@@ -388,7 +391,7 @@ expr = t(expr)
 Let's look at the mean versus the standard deviation of each gene after 
 normalization.
 
-```{r}
+```{r mean_sd_after_vst,fig.height=6,fig.width=8}
 tibble(mean = colMeans(expr),
        sd   = apply(expr, 2, sd)) |>
   ggplot(aes(mean, sd)) +
