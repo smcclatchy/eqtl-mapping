@@ -41,41 +41,8 @@ Load in the physiological phenotypes.
 ``` r
 # load the data
 pheno       <- readRDS(file = 'data/attie_do_pheno.rds')
-```
-
-``` warning
-Warning in gzfile(file, "rb"): cannot open compressed file
-'data/attie_do_pheno.rds', probable reason 'No such file or directory'
-```
-
-``` error
-Error in gzfile(file, "rb"): cannot open the connection
-```
-
-``` r
 pheno_dict  <- readRDS(file = 'data/attie_do_pheno_dict.rds')
-```
-
-``` warning
-Warning in gzfile(file, "rb"): cannot open compressed file
-'data/attie_do_pheno_dict.rds', probable reason 'No such file or directory'
-```
-
-``` error
-Error in gzfile(file, "rb"): cannot open the connection
-```
-
-``` r
 covar       <- readRDS(file = 'data/attie_do_covar.rds')
-```
-
-``` warning
-Warning in gzfile(file, "rb"): cannot open compressed file
-'data/attie_do_covar.rds', probable reason 'No such file or directory'
-```
-
-``` error
-Error in gzfile(file, "rb"): cannot open the connection
 ```
 
 See the [data dictionary](data/Attie-232_Attie_DO_Islets-dictionary.csv) to 
@@ -89,9 +56,42 @@ pheno_dict |>
   kable()
 ```
 
-``` error
-Error: object 'pheno_dict' not found
-```
+
+
+|                   |description                                                                                                                                                                                                                                             |formula                          |
+|:------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------|
+|mouse              |Animal identifier.                                                                                                                                                                                                                                      |NA                               |
+|sex                |Male (M) or female (F).                                                                                                                                                                                                                                 |NA                               |
+|sac_date           |Date when mouse was sacrificed; used to compute days on diet, using birth dates.                                                                                                                                                                        |NA                               |
+|partial_inflation  |Some mice showed a partial pancreatic inflation which would negatively effect the total number of islets collected from these mice.                                                                                                                     |NA                               |
+|coat_color         |Visual inspection by Kathy Schuler on coat color.                                                                                                                                                                                                       |NA                               |
+|oGTT_date          |Date the oGTT was performed.                                                                                                                                                                                                                            |NA                               |
+|FAD_NAD_paired     |A change in the method that was used to make this measurement by Matt Merrins' lab. Paired was the same islet for the value at 3.3mM vs. 8.3mM glucose; unpaired was where averages were used for each glucose concentration and used to compute ratio. |NA                               |
+|FAD_NAD_filter_set |A different filter set was used on the microscope to make the fluorescent measurement; may have influenced the values.                                                                                                                                  |NA                               |
+|crumblers          |Some mice store food in their bedding (hoarders) which would be incorrectly interpreted as consumed.                                                                                                                                                    |NA                               |
+|birthdate          |Birth date                                                                                                                                                                                                                                              |NA                               |
+|diet_days          |Number of days.                                                                                                                                                                                                                                         |NA                               |
+|num_islets         |Total number of islets harvested per mouse; negatively impacted by those with partial inflation.                                                                                                                                                        |NA                               |
+|Ins_per_islet      |Amount of insulin per islet in units of ng/ml/islet.                                                                                                                                                                                                    |NA                               |
+|WPIC               |Derived number; equal to total number of islets times insulin content per islet.                                                                                                                                                                        |Ins_per_islet * num_islets       |
+|HOMA_IR_0min       |glucose*insulin/405 at time t=0 for the oGTT                                                                                                                                                                                                            |Glu_0min * Ins_0min / 405        |
+|HOMA_B_0min        |360 * Insulin / (Glucose - 63) at time t=0 for the oGTT                                                                                                                                                                                                 |360 * Ins_0min / (Glu_0min - 63) |
+|Glu_tAUC           |Area under the curve (AUC) calculation without any correction for baseline differences.                                                                                                                                                                 |complicated                      |
+|Ins_tAUC           |Area under the curve (AUC) calculation without any correction for baseline differences.                                                                                                                                                                 |complicated                      |
+|Glu_6wk            |Plasma glucose with units of mg/dl; fasting.                                                                                                                                                                                                            |NA                               |
+|Ins_6wk            |Plasma insulin with units of ng/ml; fasting.                                                                                                                                                                                                            |NA                               |
+|TG_6wk             |Plasma triglyceride (TG) with units of mg/dl; fasting.                                                                                                                                                                                                  |NA                               |
+|Glu_10wk           |Plasma glucose with units of mg/dl; fasting.                                                                                                                                                                                                            |NA                               |
+|Ins_10wk           |Plasma insulin with units of ng/ml; fasting.                                                                                                                                                                                                            |NA                               |
+|TG_10wk            |Plasma triglyceride (TG) with units of mg/dl; fasting.                                                                                                                                                                                                  |NA                               |
+|Glu_14wk           |Plasma glucose with units of mg/dl; fasting.                                                                                                                                                                                                            |NA                               |
+|Ins_14wk           |Plasma insulin with units of ng/ml; fasting.                                                                                                                                                                                                            |NA                               |
+|TG_14wk            |Plasma triglyceride (TG) with units of mg/dl; fasting.                                                                                                                                                                                                  |NA                               |
+|food_ave           |Average food consumption over the measurements made for each mouse.                                                                                                                                                                                     |complicated                      |
+|weight_2wk         |Body weight at indicated date; units are gm.                                                                                                                                                                                                            |NA                               |
+|weight_6wk         |Body weight at indicated date; units are gm.                                                                                                                                                                                                            |NA                               |
+|weight_10wk        |Body weight at indicated date; units are gm.                                                                                                                                                                                                            |NA                               |
+|DOwave             |Wave (i.e., batch) of DO mice                                                                                                                                                                                                                           |NA                               |
 
 ### Phenotype Distributions
 
@@ -117,9 +117,7 @@ ggplot(pheno, aes(sex, Ins_tAUC)) +
   labs(title = "Insulin tAUC", y = "Insulin tAUC")
 ```
 
-``` error
-Error: object 'pheno' not found
-```
+<img src="fig/load-explore-data-rendered-Ins_tAUC_boxplot-1.png" style="display: block; margin: auto;" />
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
@@ -171,9 +169,7 @@ pheno |>
     theme(text = element_text(size = 20))
 ```
 
-``` error
-Error: object 'pheno' not found
-```
+<img src="fig/load-explore-data-rendered-qqplot-1.png" style="display: block; margin: auto;" />
 
 In these plots, the "quantiles" of the normal distribution are plotted on the
 X-axis and the data are plotted on the Y-axis. The line indicates the 
@@ -197,9 +193,7 @@ pheno |>
     theme(text = element_text(size = 20))
 ```
 
-``` error
-Error: object 'pheno' not found
-```
+<img src="fig/load-explore-data-rendered-qqplot_log-1.png" style="display: block; margin: auto;" />
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
@@ -241,13 +235,7 @@ ins_tauc = pheno |>
              group_by(sex) |> 
              mutate(Ins_tAUC = log(Ins_tAUC),
                     Ins_tAUC = scale(Ins_tAUC))
-```
 
-``` error
-Error: object 'pheno' not found
-```
-
-``` r
 ins_tauc |> 
   ggplot(aes(x = sex, y = Ins_tAUC)) +
     geom_boxplot() +
@@ -258,9 +246,7 @@ ins_tauc |>
     theme(text = element_text(size = 20))
 ```
 
-``` error
-Error: object 'ins_tauc' not found
-```
+<img src="fig/load-explore-data-rendered-pheno_std-1.png" style="display: block; margin: auto;" />
 
 There are no data points outside of the four standard deviation limits.
 
@@ -271,28 +257,7 @@ Let's read in the gene expression data. This has been compiled in
 
 ``` r
 annot <- readRDS(file = 'data/attie_do_expr_annot.rds')
-```
-
-``` warning
-Warning in gzfile(file, "rb"): cannot open compressed file
-'data/attie_do_expr_annot.rds', probable reason 'No such file or directory'
-```
-
-``` error
-Error in gzfile(file, "rb"): cannot open the connection
-```
-
-``` r
 raw   <- readRDS(file = 'data/attie_do_expr_raw.rds')
-```
-
-``` warning
-Warning in gzfile(file, "rb"): cannot open compressed file
-'data/attie_do_expr_raw.rds', probable reason 'No such file or directory'
-```
-
-``` error
-Error in gzfile(file, "rb"): cannot open the connection
 ```
 
 We have loaded in two data objects: 
@@ -337,8 +302,28 @@ Let's look at the rows in the gene annotation object.
 head(annot)
 ```
 
-``` error
-Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'head': object 'annot' not found
+``` output
+                              gene_id symbol chr     start       end strand
+ENSMUSG00000000001 ENSMUSG00000000001  Gnai3   3 108.10728 108.14615     -1
+ENSMUSG00000000028 ENSMUSG00000000028  Cdc45  16  18.78045  18.81199     -1
+ENSMUSG00000000037 ENSMUSG00000000037  Scml2   X 161.11719 161.25821      1
+ENSMUSG00000000049 ENSMUSG00000000049   Apoh  11 108.34335 108.41440      1
+ENSMUSG00000000056 ENSMUSG00000000056   Narf  11 121.23725 121.25586      1
+ENSMUSG00000000058 ENSMUSG00000000058   Cav2   6  17.28119  17.28911      1
+                      middle nearest.marker.id        biotype      module
+ENSMUSG00000000001 108.12671       3_108090236 protein_coding   darkgreen
+ENSMUSG00000000028  18.79622       16_18817262 protein_coding        grey
+ENSMUSG00000000037 161.18770       X_161182677 protein_coding        grey
+ENSMUSG00000000049 108.37887      11_108369225 protein_coding greenyellow
+ENSMUSG00000000056 121.24655      11_121200487 protein_coding       brown
+ENSMUSG00000000058  17.28515        6_17288298 protein_coding       brown
+                   hotspot
+ENSMUSG00000000001    <NA>
+ENSMUSG00000000028    <NA>
+ENSMUSG00000000037    <NA>
+ENSMUSG00000000049    <NA>
+ENSMUSG00000000056    <NA>
+ENSMUSG00000000058    <NA>
 ```
 
 There are many columns in the gene annotation file, including the Ensembl ID,
@@ -351,8 +336,14 @@ Next, let's look at the sample covariates.
 head(covar)
 ```
 
-``` error
-Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'head': object 'covar' not found
+``` output
+      mouse sex DOwave diet_days
+DO021 DO021   F      1       112
+DO022 DO022   F      1       112
+DO023 DO023   F      1       112
+DO024 DO024   F      1       112
+DO025 DO025   F      1       114
+DO026 DO026   F      1       114
 ```
 
 The sample covariates have information about the sex and DO generation, 
@@ -364,10 +355,7 @@ the first gene are plotted over a diagonal line tracing a normal distribution
 for those counts. Notice that most of the count data values lie off of this 
 line, indicating that these gene counts are not normally distributed. 
 
-
-``` error
-Error in as.data.frame.default(raw): cannot coerce class '"function"' to a data.frame
-```
+<img src="fig/load-explore-data-rendered-view_manual_qqplot_raw-1.png" style="display: block; margin: auto;" />
 
 Q-Q plots for the first six genes show that count data for these genes are not
 normally distributed. They are also not on the same scale. The y-axis values for
@@ -388,9 +376,7 @@ raw |>
          xlab = 'Normal percentiles', y = 'Count percentiles')
 ```
 
-``` error
-Error in as.data.frame.default(raw): cannot coerce class '"function"' to a data.frame
-```
+<img src="fig/load-explore-data-rendered-view_qqplots_raw-1.png" style="display: block; margin: auto;" />
 
 Since each gene has a different distribution and range, and the distributions
 are not Gaussian, we need to normalize the counts. Further, the total counts
@@ -431,18 +417,7 @@ the sample covariates to include only the expression samples.
 
 ``` r
 expr_covar = subset(covar, mouse %in% rownames(raw))
-```
-
-``` error
-Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'subset': object 'covar' not found
-```
-
-``` r
 expr_covar = expr_covar[match(rownames(raw), expr_covar$mouse),]
-```
-
-``` error
-Error: object 'expr_covar' not found
 ```
 
 In order to create the DESeq2 object, we will need to transpose the expression
@@ -457,8 +432,8 @@ dds  = DESeqDataSetFromMatrix(countData = t(round(raw)), colData = expr_covar,
                               design = ~ 1)
 ```
 
-``` error
-Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'ncol': error in evaluating the argument 'x' in selecting a method for function 't': non-numeric argument to mathematical function
+``` output
+converting counts to integer mode
 ```
 
 Next, we will run DESeq2 and let is adjust the expression data for differing
@@ -469,8 +444,46 @@ library sizes.
 dds  = DESeq(dds)
 ```
 
-``` error
-Error: object 'dds' not found
+``` warning
+Warning in DESeq(dds): the design is ~ 1 (just an intercept). is this intended?
+```
+
+``` output
+estimating size factors
+```
+
+``` output
+estimating dispersions
+```
+
+``` output
+gene-wise dispersion estimates
+```
+
+``` output
+mean-dispersion relationship
+```
+
+``` output
+final dispersion estimates
+```
+
+``` output
+fitting model and testing
+```
+
+``` output
+-- replacing outliers and refitting for 155 genes
+-- DESeq argument 'minReplicatesForReplace' = 7 
+-- original counts are preserved in counts(dds)
+```
+
+``` output
+estimating dispersions
+```
+
+``` output
+fitting model and testing
 ```
 
 Once this is done, we will get the expression data after it has been transformed
@@ -489,13 +502,6 @@ lesson or type it to show the plot live.
 
 ``` r
 expr = assays(dds)[[1]]
-```
-
-``` error
-Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'assays': object 'dds' not found
-```
-
-``` r
 tibble(mean = rowMeans(expr),
        sd   = apply(expr, 1, sd)) |>
   ggplot(aes(mean, sd)) +
@@ -507,16 +513,18 @@ tibble(mean = rowMeans(expr),
     theme(text = element_text(size = 20))
 ```
 
-``` error
-Error in base::rowMeans(x, na.rm = na.rm, dims = dims, ...): 'x' must be an array of at least two dimensions
-```
-
-``` r
-rm(expr)
+``` warning
+Warning in scale_x_log10(): log-10 transformation introduced infinite values.
 ```
 
 ``` warning
-Warning in rm(expr): object 'expr' not found
+Warning in scale_y_log10(): log-10 transformation introduced infinite values.
+```
+
+<img src="fig/load-explore-data-rendered-show_expr_mean_var-1.png" style="display: block; margin: auto;" />
+
+``` r
+rm(expr)
 ```
 
 The plot above shows the mean expression value for each gene versus the 
@@ -531,18 +539,7 @@ the expression values.
 
 ``` r
 expr = assays(vst(dds))[[1]]
-```
-
-``` error
-Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'assays': error in evaluating the argument 'x' in selecting a method for function 'nrow': object 'dds' not found
-```
-
-``` r
 expr = t(expr)
-```
-
-``` error
-Error in t.default(expr): argument is not a matrix
 ```
 
 Let's look at the mean versus the standard deviation of each gene after 
@@ -561,9 +558,11 @@ tibble(mean = colMeans(expr),
     theme(text = element_text(size = 20))
 ```
 
-``` error
-Error in base::colMeans(x, na.rm = na.rm, dims = dims, ...): 'x' must be an array of at least two dimensions
+``` warning
+Warning in scale_y_log10(): log-10 transformation introduced infinite values.
 ```
+
+<img src="fig/load-explore-data-rendered-unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
 
 The standard deviation is now largely unrelated to the mean. At lower expression
 levels, the standard deviation is somewhat related to the mean.
@@ -593,10 +592,6 @@ rankZ = function(x) {
 expr_rz = apply(expr, 2, rankZ)
 ```
 
-``` error
-Error in apply(expr, 2, rankZ): dim(X) must have a positive length
-```
-
 Q-Q plots of the normalized expression data for the first six genes show that 
 the data values match the diagonal line well, meaning that they are now normally
 distributed. They are also all on the same scale now as well.
@@ -624,9 +619,7 @@ expr |>
     theme(text = element_text(size = 20))
 ```
 
-``` error
-Error in as.data.frame.default(expr): cannot coerce class '"function"' to a data.frame
-```
+<img src="fig/load-explore-data-rendered-view_qqplots_normalized-1.png" style="display: block; margin: auto;" />
 
 Boxplots of raw counts for six example genes are shown at left below. Notice that 
 the median count values (horizontal black bar in each boxplot) are not 
@@ -648,25 +641,13 @@ tmp = raw |>
         select(ENSMUSG00000000001:ENSMUSG00000000058) |> 
         pivot_longer(cols = everything(), names_to = 'gene', values_to = 'value') |> 
         mutate(type = 'raw')
-```
 
-``` error
-Error in as.data.frame.default(raw): cannot coerce class '"function"' to a data.frame
-```
-
-``` r
 norm = expr |> 
          as.data.frame() |> 
          select(ENSMUSG00000000001:ENSMUSG00000000058) |> 
          pivot_longer(cols = everything(), names_to = 'gene', values_to = 'value') |> 
          mutate(type = 'normalized')
-```
 
-``` error
-Error in as.data.frame.default(expr): cannot coerce class '"function"' to a data.frame
-```
-
-``` r
 bind_rows(tmp, norm) |>
   mutate(type = factor(type, levels = c('raw', 'normalized'))) |> 
   ggplot(aes(gene, value)) +
@@ -677,20 +658,10 @@ bind_rows(tmp, norm) |>
           axis.text.x = element_text(angle = 90, hjust = 0.5, vjust = 1))
 ```
 
-``` error
-Error: object 'tmp' not found
-```
+<img src="fig/load-explore-data-rendered-view_example_boxplots-1.png" style="display: block; margin: auto;" />
 
 ``` r
 rm(tmp, norm)
-```
-
-``` warning
-Warning in rm(tmp, norm): object 'tmp' not found
-```
-
-``` warning
-Warning in rm(tmp, norm): object 'norm' not found
 ```
 
 In the rankZ-transformed data, every gene has the same distribution.
@@ -715,9 +686,7 @@ expr_rz |>
           axis.text.x = element_text(angle = 90, hjust = 0.5, vjust = 1))
 ```
 
-``` error
-Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'as.data.frame': object 'expr_rz' not found
-```
+<img src="fig/load-explore-data-rendered-rankz_exprr-1.png" style="display: block; margin: auto;" />
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
