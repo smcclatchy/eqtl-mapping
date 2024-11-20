@@ -429,57 +429,14 @@ mapping.</li>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># load the data</span></span>
-<span><span class="va">pheno</span>       <span class="op">&lt;-</span> <span class="fu">readRDS</span><span class="op">(</span>file <span class="op">=</span> <span class="st">'data/attie_do_pheno.rds'</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="warning" tabindex="0"><code>Warning in gzfile(file, "rb"): cannot open compressed file
-'data/attie_do_pheno.rds', probable reason 'No such file or directory'</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in gzfile(file, "rb"): cannot open the connection</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb6">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pheno_dict</span>  <span class="op">&lt;-</span> <span class="fu">readRDS</span><span class="op">(</span>file <span class="op">=</span> <span class="st">'data/attie_do_pheno_dict.rds'</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="warning" tabindex="0"><code>Warning in gzfile(file, "rb"): cannot open compressed file
-'data/attie_do_pheno_dict.rds', probable reason 'No such file or directory'</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in gzfile(file, "rb"): cannot open the connection</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb9">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">covar</span>       <span class="op">&lt;-</span> <span class="fu">readRDS</span><span class="op">(</span>file <span class="op">=</span> <span class="st">'data/attie_do_covar.rds'</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="warning" tabindex="0"><code>Warning in gzfile(file, "rb"): cannot open compressed file
-'data/attie_do_covar.rds', probable reason 'No such file or directory'</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in gzfile(file, "rb"): cannot open the connection</code></pre>
+<span><span class="va">pheno</span>       <span class="op">&lt;-</span> <span class="fu">readRDS</span><span class="op">(</span>file <span class="op">=</span> <span class="st">'data/attie_do_pheno.rds'</span><span class="op">)</span></span>
+<span><span class="va">pheno_dict</span>  <span class="op">&lt;-</span> <span class="fu">readRDS</span><span class="op">(</span>file <span class="op">=</span> <span class="st">'data/attie_do_pheno_dict.rds'</span><span class="op">)</span></span>
+<span><span class="va">covar</span>       <span class="op">&lt;-</span> <span class="fu">readRDS</span><span class="op">(</span>file <span class="op">=</span> <span class="st">'data/attie_do_covar.rds'</span><span class="op">)</span></span></code></pre>
 </div>
 <p>See the <a href="data/Attie-232_Attie_DO_Islets-dictionary.csv">data
 dictionary</a> to see a description of each of these phenotypes. You can
 also view a table of the data dictionary.</p>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -487,12 +444,124 @@ also view a table of the data dictionary.</p>
 <span>  <span class="fu">select</span><span class="op">(</span><span class="va">description</span>, <span class="va">formula</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">kable</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'pheno_dict' not found</code></pre>
-</div>
-<div class="section level3">
+<table class="table"><colgroup><col width="6%"><col width="82%"><col width="11%"></colgroup><thead><tr class="header"><th align="left"></th>
+<th align="left">description</th>
+<th align="left">formula</th>
+</tr></thead><tbody><tr class="odd"><td align="left">mouse</td>
+<td align="left">Animal identifier.</td>
+<td align="left">NA</td>
+</tr><tr class="even"><td align="left">sex</td>
+<td align="left">Male (M) or female (F).</td>
+<td align="left">NA</td>
+</tr><tr class="odd"><td align="left">sac_date</td>
+<td align="left">Date when mouse was sacrificed; used to compute days on
+diet, using birth dates.</td>
+<td align="left">NA</td>
+</tr><tr class="even"><td align="left">partial_inflation</td>
+<td align="left">Some mice showed a partial pancreatic inflation which
+would negatively effect the total number of islets collected from these
+mice.</td>
+<td align="left">NA</td>
+</tr><tr class="odd"><td align="left">coat_color</td>
+<td align="left">Visual inspection by Kathy Schuler on coat color.</td>
+<td align="left">NA</td>
+</tr><tr class="even"><td align="left">oGTT_date</td>
+<td align="left">Date the oGTT was performed.</td>
+<td align="left">NA</td>
+</tr><tr class="odd"><td align="left">FAD_NAD_paired</td>
+<td align="left">A change in the method that was used to make this
+measurement by Matt Merrins’ lab. Paired was the same islet for the
+value at 3.3mM vs. 8.3mM glucose; unpaired was where averages were used
+for each glucose concentration and used to compute ratio.</td>
+<td align="left">NA</td>
+</tr><tr class="even"><td align="left">FAD_NAD_filter_set</td>
+<td align="left">A different filter set was used on the microscope to
+make the fluorescent measurement; may have influenced the values.</td>
+<td align="left">NA</td>
+</tr><tr class="odd"><td align="left">crumblers</td>
+<td align="left">Some mice store food in their bedding (hoarders) which
+would be incorrectly interpreted as consumed.</td>
+<td align="left">NA</td>
+</tr><tr class="even"><td align="left">birthdate</td>
+<td align="left">Birth date</td>
+<td align="left">NA</td>
+</tr><tr class="odd"><td align="left">diet_days</td>
+<td align="left">Number of days.</td>
+<td align="left">NA</td>
+</tr><tr class="even"><td align="left">num_islets</td>
+<td align="left">Total number of islets harvested per mouse; negatively
+impacted by those with partial inflation.</td>
+<td align="left">NA</td>
+</tr><tr class="odd"><td align="left">Ins_per_islet</td>
+<td align="left">Amount of insulin per islet in units of
+ng/ml/islet.</td>
+<td align="left">NA</td>
+</tr><tr class="even"><td align="left">WPIC</td>
+<td align="left">Derived number; equal to total number of islets times
+insulin content per islet.</td>
+<td align="left">Ins_per_islet * num_islets</td>
+</tr><tr class="odd"><td align="left">HOMA_IR_0min</td>
+<td align="left">glucose*insulin/405 at time t=0 for the oGTT</td>
+<td align="left">Glu_0min * Ins_0min / 405</td>
+</tr><tr class="even"><td align="left">HOMA_B_0min</td>
+<td align="left">360 * Insulin / (Glucose - 63) at time t=0 for the
+oGTT</td>
+<td align="left">360 * Ins_0min / (Glu_0min - 63)</td>
+</tr><tr class="odd"><td align="left">Glu_tAUC</td>
+<td align="left">Area under the curve (AUC) calculation without any
+correction for baseline differences.</td>
+<td align="left">complicated</td>
+</tr><tr class="even"><td align="left">Ins_tAUC</td>
+<td align="left">Area under the curve (AUC) calculation without any
+correction for baseline differences.</td>
+<td align="left">complicated</td>
+</tr><tr class="odd"><td align="left">Glu_6wk</td>
+<td align="left">Plasma glucose with units of mg/dl; fasting.</td>
+<td align="left">NA</td>
+</tr><tr class="even"><td align="left">Ins_6wk</td>
+<td align="left">Plasma insulin with units of ng/ml; fasting.</td>
+<td align="left">NA</td>
+</tr><tr class="odd"><td align="left">TG_6wk</td>
+<td align="left">Plasma triglyceride (TG) with units of mg/dl;
+fasting.</td>
+<td align="left">NA</td>
+</tr><tr class="even"><td align="left">Glu_10wk</td>
+<td align="left">Plasma glucose with units of mg/dl; fasting.</td>
+<td align="left">NA</td>
+</tr><tr class="odd"><td align="left">Ins_10wk</td>
+<td align="left">Plasma insulin with units of ng/ml; fasting.</td>
+<td align="left">NA</td>
+</tr><tr class="even"><td align="left">TG_10wk</td>
+<td align="left">Plasma triglyceride (TG) with units of mg/dl;
+fasting.</td>
+<td align="left">NA</td>
+</tr><tr class="odd"><td align="left">Glu_14wk</td>
+<td align="left">Plasma glucose with units of mg/dl; fasting.</td>
+<td align="left">NA</td>
+</tr><tr class="even"><td align="left">Ins_14wk</td>
+<td align="left">Plasma insulin with units of ng/ml; fasting.</td>
+<td align="left">NA</td>
+</tr><tr class="odd"><td align="left">TG_14wk</td>
+<td align="left">Plasma triglyceride (TG) with units of mg/dl;
+fasting.</td>
+<td align="left">NA</td>
+</tr><tr class="even"><td align="left">food_ave</td>
+<td align="left">Average food consumption over the measurements made for
+each mouse.</td>
+<td align="left">complicated</td>
+</tr><tr class="odd"><td align="left">weight_2wk</td>
+<td align="left">Body weight at indicated date; units are gm.</td>
+<td align="left">NA</td>
+</tr><tr class="even"><td align="left">weight_6wk</td>
+<td align="left">Body weight at indicated date; units are gm.</td>
+<td align="left">NA</td>
+</tr><tr class="odd"><td align="left">weight_10wk</td>
+<td align="left">Body weight at indicated date; units are gm.</td>
+<td align="left">NA</td>
+</tr><tr class="even"><td align="left">DOwave</td>
+<td align="left">Wave (i.e., batch) of DO mice</td>
+<td align="left">NA</td>
+</tr></tbody></table><div class="section level3">
 <h3 id="phenotype-distributions">Phenotype Distributions<a class="anchor" aria-label="anchor" href="#phenotype-distributions"></a></h3>
 <p>Boxplots are a great way to view the distribution of the data and to
 identify any outliers. We will be using the total area under the curve
@@ -503,7 +572,7 @@ We have told <code>geom_beeswarm()</code> to plot the points with some
 transparency using the argument “alpha = 0.2”. The alpha argument ranges
 between 0 (completely transparent) to 1 (completely opaque). A value of
 0.1 means mostly transparent.</p>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -514,12 +583,7 @@ between 0 (completely transparent) to 1 (completely opaque). A value of
 <span>  <span class="fu">scale_y_log10</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Insulin tAUC"</span>, y <span class="op">=</span> <span class="st">"Insulin tAUC"</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'pheno' not found</code></pre>
-</div>
-<div id="challenge-1" class="callout challenge">
+<figure><img src="fig/load-explore-data-rendered-Ins_tAUC_boxplot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-1" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -578,7 +642,7 @@ distribution and must be transformed before analysis. This is why we
 log-transformed the data in the plots above.</p>
 <p>While we can “eyeball” the distributions in the boxplot, it would be
 better to use a “quantile-quantile” plot.</p>
-<div class="codewrapper sourceCode" id="cb16">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -592,19 +656,14 @@ better to use a “quantile-quantile” plot.</p>
 <span>         y     <span class="op">=</span> <span class="st">"Ins_tAUC"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">theme</span><span class="op">(</span>text <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'pheno' not found</code></pre>
-</div>
-<p>In these plots, the “quantiles” of the normal distribution are
+<figure><img src="fig/load-explore-data-rendered-qqplot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>In these plots, the “quantiles” of the normal distribution are
 plotted on the X-axis and the data are plotted on the Y-axis. The line
 indicates the quantiles that would be followed by a normal distribution.
 The untransformed data do <strong>not</strong> follow a normal
 distribution because the points are far from the line.</p>
 <p>Next, we will log-transform the data and then create a
 quantile-quantile plot.</p>
-<div class="codewrapper sourceCode" id="cb18">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -619,12 +678,7 @@ quantile-quantile plot.</p>
 <span>         y     <span class="op">=</span> <span class="st">"log(Ins_tAUC)"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">theme</span><span class="op">(</span>text <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'pheno' not found</code></pre>
-</div>
-<div id="challenge-3" class="callout challenge">
+<figure><img src="fig/load-explore-data-rendered-qqplot_log-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-3" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -679,7 +733,7 @@ may be real, but there may also have been mishap in the assay.</p>
 for data points that are more than four standard deviations from the
 mean.</p>
 <p>To do this, we will log transform and standardize Insulin tAUC.</p>
-<div class="codewrapper sourceCode" id="cb20">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -687,18 +741,9 @@ mean.</p>
 <span>             <span class="fu">select</span><span class="op">(</span><span class="va">mouse</span>, <span class="va">sex</span>, <span class="va">Ins_tAUC</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>             <span class="fu">group_by</span><span class="op">(</span><span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>             <span class="fu">mutate</span><span class="op">(</span>Ins_tAUC <span class="op">=</span> <span class="fu">log</span><span class="op">(</span><span class="va">Ins_tAUC</span><span class="op">)</span>,</span>
-<span>                    Ins_tAUC <span class="op">=</span> <span class="fu">scale</span><span class="op">(</span><span class="va">Ins_tAUC</span><span class="op">)</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'pheno' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb22">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ins_tauc</span> <span class="op">|&gt;</span> </span>
+<span>                    Ins_tAUC <span class="op">=</span> <span class="fu">scale</span><span class="op">(</span><span class="va">Ins_tAUC</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ins_tauc</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">sex</span>, y <span class="op">=</span> <span class="va">Ins_tAUC</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">geom_beeswarm</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span></span>
@@ -707,49 +752,17 @@ mean.</p>
 <span>    <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Distribution of Standardized Ins_tAUC"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">theme</span><span class="op">(</span>text <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'ins_tauc' not found</code></pre>
-</div>
-<p>There are no data points outside of the four standard deviation
+<figure><img src="fig/load-explore-data-rendered-pheno_std-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>There are no data points outside of the four standard deviation
 limits.</p>
 </div>
 </section><section><h2 class="section-heading" id="gene-expression-data">Gene Expression Data<a class="anchor" aria-label="anchor" href="#gene-expression-data"></a></h2>
 <hr class="half-width"><p>Let’s read in the gene expression data. This has been compiled in</p>
-<div class="codewrapper sourceCode" id="cb24">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">annot</span> <span class="op">&lt;-</span> <span class="fu">readRDS</span><span class="op">(</span>file <span class="op">=</span> <span class="st">'data/attie_do_expr_annot.rds'</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="warning" tabindex="0"><code>Warning in gzfile(file, "rb"): cannot open compressed file
-'data/attie_do_expr_annot.rds', probable reason 'No such file or directory'</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in gzfile(file, "rb"): cannot open the connection</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb27">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">raw</span>   <span class="op">&lt;-</span> <span class="fu">readRDS</span><span class="op">(</span>file <span class="op">=</span> <span class="st">'data/attie_do_expr_raw.rds'</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="warning" tabindex="0"><code>Warning in gzfile(file, "rb"): cannot open compressed file
-'data/attie_do_expr_raw.rds', probable reason 'No such file or directory'</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in gzfile(file, "rb"): cannot open the connection</code></pre>
+<code class="sourceCode R"><span><span class="va">annot</span> <span class="op">&lt;-</span> <span class="fu">readRDS</span><span class="op">(</span>file <span class="op">=</span> <span class="st">'data/attie_do_expr_annot.rds'</span><span class="op">)</span></span>
+<span><span class="va">raw</span>   <span class="op">&lt;-</span> <span class="fu">readRDS</span><span class="op">(</span>file <span class="op">=</span> <span class="st">'data/attie_do_expr_raw.rds'</span><span class="op">)</span></span></code></pre>
 </div>
 <p>We have loaded in two data objects:</p>
 <ol style="list-style-type: decimal"><li>annot: data.frame containing gene annotation,</li>
@@ -775,7 +788,7 @@ counts,</li>
 <div class="accordion-body">
 <p>Use the <code>dim</code> command or the Environment tab to determine
 the number of samples and genes in <code>norm</code>.</p>
-<div class="codewrapper sourceCode" id="cb30">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -797,30 +810,56 @@ below may help you to visualize the relationship between the expression,
 annotation, and covariates.</p>
 <figure><img src="fig/expr_sample_annot.png" alt="Figure showing relationship between samples, expression, and transcripts." class="figure mx-auto d-block"><div class="figcaption">Data Diagram</div>
 </figure><p>Let’s look at the rows in the gene annotation object.</p>
-<div class="codewrapper sourceCode" id="cb32">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">annot</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'head': object 'annot' not found</code></pre>
+<pre class="output" tabindex="0"><code>                              gene_id symbol chr     start       end strand
+ENSMUSG00000000001 ENSMUSG00000000001  Gnai3   3 108.10728 108.14615     -1
+ENSMUSG00000000028 ENSMUSG00000000028  Cdc45  16  18.78045  18.81199     -1
+ENSMUSG00000000037 ENSMUSG00000000037  Scml2   X 161.11719 161.25821      1
+ENSMUSG00000000049 ENSMUSG00000000049   Apoh  11 108.34335 108.41440      1
+ENSMUSG00000000056 ENSMUSG00000000056   Narf  11 121.23725 121.25586      1
+ENSMUSG00000000058 ENSMUSG00000000058   Cav2   6  17.28119  17.28911      1
+                      middle nearest.marker.id        biotype      module
+ENSMUSG00000000001 108.12671       3_108090236 protein_coding   darkgreen
+ENSMUSG00000000028  18.79622       16_18817262 protein_coding        grey
+ENSMUSG00000000037 161.18770       X_161182677 protein_coding        grey
+ENSMUSG00000000049 108.37887      11_108369225 protein_coding greenyellow
+ENSMUSG00000000056 121.24655      11_121200487 protein_coding       brown
+ENSMUSG00000000058  17.28515        6_17288298 protein_coding       brown
+                   hotspot
+ENSMUSG00000000001    &lt;NA&gt;
+ENSMUSG00000000028    &lt;NA&gt;
+ENSMUSG00000000037    &lt;NA&gt;
+ENSMUSG00000000049    &lt;NA&gt;
+ENSMUSG00000000056    &lt;NA&gt;
+ENSMUSG00000000058    &lt;NA&gt;</code></pre>
 </div>
 <p>There are many columns in the gene annotation file, including the
 Ensembl ID, gene symbol, chromosome, start and end of the gene.</p>
 <p>Next, let’s look at the sample covariates.</p>
-<div class="codewrapper sourceCode" id="cb34">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">covar</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'head': object 'covar' not found</code></pre>
+<pre class="output" tabindex="0"><code>      mouse sex DOwave diet_days
+DO021 DO021   F      1       112
+DO022 DO022   F      1       112
+DO023 DO023   F      1       112
+DO024 DO024   F      1       112
+DO025 DO025   F      1       114
+DO026 DO026   F      1       114</code></pre>
 </div>
 <p>The sample covariates have information about the sex and DO
 generation, indicated as “DOwave”, of each mouse.</p>
@@ -830,16 +869,11 @@ below, count data for the first gene are plotted over a diagonal line
 tracing a normal distribution for those counts. Notice that most of the
 count data values lie off of this line, indicating that these gene
 counts are not normally distributed.</p>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in as.data.frame.default(raw): cannot coerce class '"function"' to a data.frame</code></pre>
-</div>
-<p>Q-Q plots for the first six genes show that count data for these
+<figure><img src="fig/load-explore-data-rendered-view_manual_qqplot_raw-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Q-Q plots for the first six genes show that count data for these
 genes are not normally distributed. They are also not on the same scale.
 The y-axis values for each subplot range to 20,000 counts in the first
 subplot, 250 in the second, 90 in the third, and so on.</p>
-<div class="codewrapper sourceCode" id="cb37">
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -854,12 +888,7 @@ subplot, 250 in the second, 90 in the third, and so on.</p>
 <span>    <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">'Count distribution for six genes'</span>,</span>
 <span>         xlab <span class="op">=</span> <span class="st">'Normal percentiles'</span>, y <span class="op">=</span> <span class="st">'Count percentiles'</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in as.data.frame.default(raw): cannot coerce class '"function"' to a data.frame</code></pre>
-</div>
-<p>Since each gene has a different distribution and range, and the
+<figure><img src="fig/load-explore-data-rendered-view_qqplots_raw-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Since each gene has a different distribution and range, and the
 distributions are not Gaussian, we need to normalize the counts.
 Further, the total counts in each sample is not uniform. This affects
 our ability to compare values between samples. For example, say that we
@@ -900,27 +929,12 @@ Tutorial</a>.</p>
 so that all values are integers, and the sample covariate data. We will
 have to subset the sample covariates to include only the expression
 samples.</p>
-<div class="codewrapper sourceCode" id="cb39">
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">expr_covar</span> <span class="op">=</span> <span class="fu">subset</span><span class="op">(</span><span class="va">covar</span>, <span class="va">mouse</span> <span class="op">%in%</span> <span class="fu">rownames</span><span class="op">(</span><span class="va">raw</span><span class="op">)</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'subset': object 'covar' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb41">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">expr_covar</span> <span class="op">=</span> <span class="va">expr_covar</span><span class="op">[</span><span class="fu">match</span><span class="op">(</span><span class="fu">rownames</span><span class="op">(</span><span class="va">raw</span><span class="op">)</span>, <span class="va">expr_covar</span><span class="op">$</span><span class="va">mouse</span><span class="op">)</span>,<span class="op">]</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'expr_covar' not found</code></pre>
+<code class="sourceCode R"><span><span class="va">expr_covar</span> <span class="op">=</span> <span class="fu">subset</span><span class="op">(</span><span class="va">covar</span>, <span class="va">mouse</span> <span class="op">%in%</span> <span class="fu">rownames</span><span class="op">(</span><span class="va">raw</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">expr_covar</span> <span class="op">=</span> <span class="va">expr_covar</span><span class="op">[</span><span class="fu">match</span><span class="op">(</span><span class="fu">rownames</span><span class="op">(</span><span class="va">raw</span><span class="op">)</span>, <span class="va">expr_covar</span><span class="op">$</span><span class="va">mouse</span><span class="op">)</span>,<span class="op">]</span></span></code></pre>
 </div>
 <p>In order to create the DESeq2 object, we will need to transpose the
 expression data. This is because DESeq2 requires that the samples be in
@@ -928,7 +942,7 @@ columns and the genes in rows. We will also tell DESeq2 which the design
 variables are for our data, although they are not used in this case.
 These would be used if we were searching for differentially expression
 genes.</p>
-<div class="codewrapper sourceCode" id="cb43">
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -936,22 +950,69 @@ genes.</p>
 <span>                              design <span class="op">=</span> <span class="op">~</span> <span class="fl">1</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'ncol': error in evaluating the argument 'x' in selecting a method for function 't': non-numeric argument to mathematical function</code></pre>
+<pre class="output" tabindex="0"><code>converting counts to integer mode</code></pre>
 </div>
 <p>Next, we will run DESeq2 and let is adjust the expression data for
 differing library sizes.</p>
-<div class="codewrapper sourceCode" id="cb45">
+<div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dds</span>  <span class="op">=</span> <span class="fu">DESeq</span><span class="op">(</span><span class="va">dds</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'dds' not found</code></pre>
+<pre class="warning" tabindex="0"><code>Warning in DESeq(dds): the design is ~ 1 (just an intercept). is this intended?</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>estimating size factors</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>estimating dispersions</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>gene-wise dispersion estimates</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>mean-dispersion relationship</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>final dispersion estimates</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>fitting model and testing</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>-- replacing outliers and refitting for 155 genes
+-- DESeq argument 'minReplicatesForReplace' = 7
+-- original counts are preserved in counts(dds)</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>estimating dispersions</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>fitting model and testing</code></pre>
 </div>
 <p>Once this is done, we will get the expression data after it has been
 transformed using the <a href="https://en.wikipedia.org/wiki/Variance-stabilizing_transformation" class="external-link">Variance
@@ -959,22 +1020,12 @@ Stabilizing Transformation</a> (VST). The VST adjusts the variance of
 the genes such that it is not related to the mean gene expression
 level.</p>
 
-<div class="codewrapper sourceCode" id="cb47">
+<div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">expr</span> <span class="op">=</span> <span class="fu">assays</span><span class="op">(</span><span class="va">dds</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'assays': object 'dds' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb49">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">tibble</span><span class="op">(</span>mean <span class="op">=</span> <span class="fu">rowMeans</span><span class="op">(</span><span class="va">expr</span><span class="op">)</span>,</span>
+<code class="sourceCode R"><span><span class="va">expr</span> <span class="op">=</span> <span class="fu">assays</span><span class="op">(</span><span class="va">dds</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="fu">tibble</span><span class="op">(</span>mean <span class="op">=</span> <span class="fu">rowMeans</span><span class="op">(</span><span class="va">expr</span><span class="op">)</span>,</span>
 <span>       sd   <span class="op">=</span> <span class="fu">apply</span><span class="op">(</span><span class="va">expr</span>, <span class="fl">1</span>, <span class="va">sd</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">mean</span>, <span class="va">sd</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -985,20 +1036,20 @@ level.</p>
 <span>    <span class="fu">theme</span><span class="op">(</span>text <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in base::rowMeans(x, na.rm = na.rm, dims = dims, ...): 'x' must be an array of at least two dimensions</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb51">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">rm</span><span class="op">(</span><span class="va">expr</span><span class="op">)</span></span></code></pre>
+<pre class="warning" tabindex="0"><code>Warning in scale_x_log10(): log-10 transformation introduced infinite values.</code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="warning" tabindex="0"><code>Warning in rm(expr): object 'expr' not found</code></pre>
+<pre class="warning" tabindex="0"><code>Warning in scale_y_log10(): log-10 transformation introduced infinite values.</code></pre>
+</div>
+<figure><img src="fig/load-explore-data-rendered-show_expr_mean_var-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb34">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">rm</span><span class="op">(</span><span class="va">expr</span><span class="op">)</span></span></code></pre>
 </div>
 <p>The plot above shows the mean expression value for each gene versus
 the standard deviation of each gene. Both axes are log-transformed. As
@@ -1007,31 +1058,16 @@ standard deviation. We would like each gene to have the same variance,
 regardless of the mean, for each gene.</p>
 <p>Next, we will apply the variance stabilizing transformation and will
 transpose the expression values.</p>
-<div class="codewrapper sourceCode" id="cb53">
+<div class="codewrapper sourceCode" id="cb35">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">expr</span> <span class="op">=</span> <span class="fu">assays</span><span class="op">(</span><span class="fu">vst</span><span class="op">(</span><span class="va">dds</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'assays': error in evaluating the argument 'x' in selecting a method for function 'nrow': object 'dds' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb55">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">expr</span> <span class="op">=</span> <span class="fu">t</span><span class="op">(</span><span class="va">expr</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in t.default(expr): argument is not a matrix</code></pre>
+<code class="sourceCode R"><span><span class="va">expr</span> <span class="op">=</span> <span class="fu">assays</span><span class="op">(</span><span class="fu">vst</span><span class="op">(</span><span class="va">dds</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">expr</span> <span class="op">=</span> <span class="fu">t</span><span class="op">(</span><span class="va">expr</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Let’s look at the mean versus the standard deviation of each gene
 after normalization.</p>
-<div class="codewrapper sourceCode" id="cb57">
+<div class="codewrapper sourceCode" id="cb36">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1046,11 +1082,11 @@ after normalization.</p>
 <span>    <span class="fu">theme</span><span class="op">(</span>text <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in base::colMeans(x, na.rm = na.rm, dims = dims, ...): 'x' must be an array of at least two dimensions</code></pre>
+<pre class="warning" tabindex="0"><code>Warning in scale_y_log10(): log-10 transformation introduced infinite values.</code></pre>
 </div>
-<p>The standard deviation is now largely unrelated to the mean. At lower
+<figure><img src="fig/load-explore-data-rendered-unnamed-chunk-1-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The standard deviation is now largely unrelated to the mean. At lower
 expression levels, the standard deviation is somewhat related to the
 mean.</p>
 <p>At this point, while each gene has been normalized, each gene has a
@@ -1067,7 +1103,7 @@ significance threshold for all genes.</p>
 <p>We can force the distribution of each gene to be Gaussian and
 identical for all genes using an inverse-normal or rank-Z
 transformation.</p>
-<div class="codewrapper sourceCode" id="cb59">
+<div class="codewrapper sourceCode" id="cb38">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1078,17 +1114,12 @@ transformation.</p>
 <span></span>
 <span><span class="va">expr_rz</span> <span class="op">=</span> <span class="fu">apply</span><span class="op">(</span><span class="va">expr</span>, <span class="fl">2</span>, <span class="va">rankZ</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in apply(expr, 2, rankZ): dim(X) must have a positive length</code></pre>
-</div>
 <p>Q-Q plots of the normalized expression data for the first six genes
 show that the data values match the diagonal line well, meaning that
 they are now normally distributed. They are also all on the same scale
 now as well.</p>
 
-<div class="codewrapper sourceCode" id="cb61">
+<div class="codewrapper sourceCode" id="cb39">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1104,18 +1135,13 @@ now as well.</p>
 <span>         xlab <span class="op">=</span> <span class="st">'Normal percentiles'</span>, y <span class="op">=</span> <span class="st">'Count percentiles'</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">theme</span><span class="op">(</span>text <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in as.data.frame.default(expr): cannot coerce class '"function"' to a data.frame</code></pre>
-</div>
-<p>Boxplots of raw counts for six example genes are shown at left below.
+<figure><img src="fig/load-explore-data-rendered-view_qqplots_normalized-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Boxplots of raw counts for six example genes are shown at left below.
 Notice that the median count values (horizontal black bar in each
 boxplot) are not comparable between the genes because the counts are not
 on the same scale. At right, boxplots for the same genes show normalized
 count data on the same scale.</p>
 
-<div class="codewrapper sourceCode" id="cb63">
+<div class="codewrapper sourceCode" id="cb40">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1123,33 +1149,15 @@ count data on the same scale.</p>
 <span>        <span class="fu">as.data.frame</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>        <span class="fu">select</span><span class="op">(</span><span class="va">ENSMUSG00000000001</span><span class="op">:</span><span class="va">ENSMUSG00000000058</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>        <span class="fu">pivot_longer</span><span class="op">(</span>cols <span class="op">=</span> <span class="fu">everything</span><span class="op">(</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">'gene'</span>, values_to <span class="op">=</span> <span class="st">'value'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>        <span class="fu">mutate</span><span class="op">(</span>type <span class="op">=</span> <span class="st">'raw'</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in as.data.frame.default(raw): cannot coerce class '"function"' to a data.frame</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb65">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">norm</span> <span class="op">=</span> <span class="va">expr</span> <span class="op">|&gt;</span> </span>
+<span>        <span class="fu">mutate</span><span class="op">(</span>type <span class="op">=</span> <span class="st">'raw'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">norm</span> <span class="op">=</span> <span class="va">expr</span> <span class="op">|&gt;</span> </span>
 <span>         <span class="fu">as.data.frame</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>         <span class="fu">select</span><span class="op">(</span><span class="va">ENSMUSG00000000001</span><span class="op">:</span><span class="va">ENSMUSG00000000058</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>         <span class="fu">pivot_longer</span><span class="op">(</span>cols <span class="op">=</span> <span class="fu">everything</span><span class="op">(</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">'gene'</span>, values_to <span class="op">=</span> <span class="st">'value'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>         <span class="fu">mutate</span><span class="op">(</span>type <span class="op">=</span> <span class="st">'normalized'</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in as.data.frame.default(expr): cannot coerce class '"function"' to a data.frame</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb67">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">bind_rows</span><span class="op">(</span><span class="va">tmp</span>, <span class="va">norm</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>         <span class="fu">mutate</span><span class="op">(</span>type <span class="op">=</span> <span class="st">'normalized'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">bind_rows</span><span class="op">(</span><span class="va">tmp</span>, <span class="va">norm</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">mutate</span><span class="op">(</span>type <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">type</span>, levels <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">'raw'</span>, <span class="st">'normalized'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">gene</span>, <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -1158,31 +1166,16 @@ count data on the same scale.</p>
 <span>    <span class="fu">theme</span><span class="op">(</span>text <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
 <span>          axis.text.x <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">90</span>, hjust <span class="op">=</span> <span class="fl">0.5</span>, vjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'tmp' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb69">
+<figure><img src="fig/load-explore-data-rendered-view_example_boxplots-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb41">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">rm</span><span class="op">(</span><span class="va">tmp</span>, <span class="va">norm</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="warning" tabindex="0"><code>Warning in rm(tmp, norm): object 'tmp' not found</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="warning" tabindex="0"><code>Warning in rm(tmp, norm): object 'norm' not found</code></pre>
-</div>
 <p>In the rankZ-transformed data, every gene has the same
 distribution.</p>
 
-<div class="codewrapper sourceCode" id="cb72">
+<div class="codewrapper sourceCode" id="cb42">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1196,12 +1189,7 @@ distribution.</p>
 <span>    <span class="fu">theme</span><span class="op">(</span>text <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
 <span>          axis.text.x <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">90</span>, hjust <span class="op">=</span> <span class="fl">0.5</span>, vjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'as.data.frame': object 'expr_rz' not found</code></pre>
-</div>
-<div id="keypoints1" class="callout keypoints">
+<figure><img src="fig/load-explore-data-rendered-rankz_exprr-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
 </div>
