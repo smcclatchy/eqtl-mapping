@@ -67,9 +67,6 @@ contact: 'susan.mcclatchy@jax.org'
 # Order of episodes in your lesson
 episodes:
 - introduction.Rmd
-<<<<<<< HEAD
-- load-explore-data.Rmd
-=======
 - review-eqtl-study.Rmd
 - load-explore-data.Rmd
 - review-mapping-steps.Rmd
@@ -80,7 +77,6 @@ episodes:
 - maximum-peaks-genes.Rmd
 - interpret-results.Rmd
 - mediation-analysis.Rmd
->>>>>>> 0317e70b3131616d9b59b55d5427fc6b976e4902
 
 # Information for Learners
 learners:
