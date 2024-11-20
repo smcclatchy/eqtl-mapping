@@ -99,8 +99,7 @@
           <button class="nav-link dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
             More <i data-feather="chevron-down"></i>
           </button>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown"><li><a class="dropdown-item" href="reference.html">Reference</a></li>
-          </ul></li>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown"></ul></li>
       </ul></div>
     <!--
     <form class="d-flex col-md-2 search-form">
@@ -235,7 +234,7 @@
 <div class="accordion accordion-flush" id="accordionFlush4">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading4">
-        <a href="load-explore-data.html">3. Load and explore the data</a>
+        <a href="load-explore-data.html">3. Load and Explore Data</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -335,7 +334,7 @@
                       <li>
                         <a href="profiles.html">Learner Profiles</a>
                       </li>
-                      <li><a href="reference.html">Reference</a></li>
+
                     </ul></div>
                 </div>
               </div>
@@ -371,7 +370,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Introduction</h1>
-        <p>Last updated on 2024-11-19 |
+        <p>Last updated on 2024-11-20 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/introduction.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -443,7 +442,7 @@ expression.</div>
 </figure><figure><img src="fig/cis-regulation-single-gene.png" alt="Figure showing regulation of gene by SNP" class="figure mx-auto d-block"><div class="figcaption">Here a non-coding SNP influences expression of a
 gene, which in turn affects a disease phenotype or other outcome of
 interest.</div>
-</figure><!-- DMG: STOPPED HERE --><p>Gene regulation controls the quantity, timing and locale of gene
+</figure><p>Gene regulation controls the quantity, timing and locale of gene
 expression. Analyzing the association between gene expression and
 genetic variants is known as expression quantitative trait locus (eQTL)
 mapping. eQTL mapping searches for associations between the expression
@@ -478,7 +477,47 @@ pancreatic islet gene expression in Diversity Outbred mice on either a
 regular chow or high-fat, high-sugar diet. Islet mRNA abundance was
 quantified and analyzed, and the study identified more than 18,000 eQTL
 peaks.</p>
-<div id="keypoints1" class="callout keypoints">
+<p>Genome-wide association studies (GWAS) often identify variants in
+non-coding regions of the genome, indicating that regulation of gene
+expression predominates in common diseases like type II diabetes. Most
+of the more than 100 genetic loci associated with type II diabetes
+affect the function of pancreatic islets, which produce insulin for
+regulating blood glucose levels. Susceptibility to type II diabetes
+(T2D) increases with obesity, such that T2D-associated genetic loci
+operate mainly under conditions of obesity (See <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5937189/" class="external-link">Keller,
+Mark P et al. “Genetic Drivers of Pancreatic Islet Function.” Genetics
+vol. 209,1 (2018): 335-356</a>). Like most GWAS loci, the T2D-associated
+genetic loci identified from genome-wide association studies (GWAS) have
+very small effect sizes and odds ratios just slightly more than 1.</p>
+<p>This study explored islet gene expression in diabetes. The authors
+hypothesized that gene expression changes in response to dietary
+challenge would reveal signaling pathways involved in stress responses.
+The expression of many genes often map to the same locus, indicating
+that expression of these genes is controlled in common. If their mRNAs
+encode proteins with common physiological functions, the function of the
+controlling gene(s) is revealed. Variation in expression of the
+controlling gene(s), rather than a genetic variant, can be tested as an
+immediate cause of a disease-related phenotype.</p>
+<p>In this study, Diversity Outbred (DO) mice were fed a high-fat,
+high-sugar diet as a stressor, sensitizing the mice to develop diabetic
+traits. Body weight and plasma glucose, insulin, and triglyceride
+measurements were taken biweekly. Food intake could be measured since
+animals were individually housed. A glucose tolerance test at 18 weeks
+of age provided measurement of dynamic glucose and insulin changes at 5,
+15, 30, 60 and 120 minutes after glucose administration. Area under the
+curve (AUC) was determined from these time points for both plasma
+glucose and insulin levels. Homeostatic model assessment (HOMA) of
+insulin resistance (IR) and pancreatic islet function (B) were
+determined after the glucose tolerance test was given. Islet cells were
+isolated from pancreas, and RNA extracted and libraries constructed from
+isolated RNA for gene expression measurements.</p>
+<p>Genome scans were performed with the leave-one-chromosome-out (LOCO)
+method for kinship correction. Sex and experimental cohort (DO wave)
+were used as covariates. The results of one scan for insulin area under
+the curve (AUC) is shown below with a strong peak on chromosome 11. In
+this lesson, we will look into genes located under this peak.</p>
+<figure><img src="fig/insulin-auc-lod-plot.png" alt="Insulin AUC LOD plot" class="figure mx-auto d-block"><div class="figcaption">LOD plot for insulin area under the curve</div>
+</figure><div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
 </div>
@@ -557,8 +596,8 @@ any links that you are not going to use.
   "url": "https://carpentries.github.io/workbench-template-rmd/introduction.html",
   "identifier": "https://carpentries.github.io/workbench-template-rmd/introduction.html",
   "dateCreated": "2024-11-07",
-  "dateModified": "2024-11-19",
-  "datePublished": "2024-11-19"
+  "dateModified": "2024-11-20",
+  "datePublished": "2024-11-20"
 }
 
   </script><script>
