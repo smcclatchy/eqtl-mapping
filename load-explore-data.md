@@ -114,7 +114,8 @@ ggplot(pheno, aes(sex, Ins_tAUC)) +
   geom_boxplot() +
   geom_beeswarm(alpha = 0.2) +
   scale_y_log10() +
-  labs(title = "Insulin tAUC", y = "Insulin tAUC")
+  labs(title = "Insulin tAUC", y = "Insulin tAUC") +
+  theme(text = element_text(size = 20))
 ```
 
 <img src="fig/load-explore-data-rendered-Ins_tAUC_boxplot-1.png" style="display: block; margin: auto;" />
@@ -373,7 +374,8 @@ raw |>
     geom_qq_line() +
     facet_wrap(~gene, scales = 'free') +
     labs(title = 'Count distribution for six genes',
-         xlab = 'Normal percentiles', y = 'Count percentiles')
+         xlab = 'Normal percentiles', y = 'Count percentiles') +
+    theme(text = element_text(size = 20))
 ```
 
 <img src="fig/load-explore-data-rendered-view_qqplots_raw-1.png" style="display: block; margin: auto;" />
@@ -562,7 +564,7 @@ tibble(mean = colMeans(expr),
 Warning in scale_y_log10(): log-10 transformation introduced infinite values.
 ```
 
-<img src="fig/load-explore-data-rendered-unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
+<img src="fig/load-explore-data-rendered-mean_sd_after_vst-1.png" style="display: block; margin: auto;" />
 
 The standard deviation is now largely unrelated to the mean. At lower expression
 levels, the standard deviation is somewhat related to the mean.
