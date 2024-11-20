@@ -1,3 +1,4 @@
+
 ---
 title: "Genetic Drivers of Pancreatic Islet Function"
 teaching: 15
@@ -51,6 +52,13 @@ glucose tolerance test was given. Islet cells were isolated from pancreas, and
 RNA extracted and libraries constructed from isolated RNA for gene expression 
 measurements.
 
+![Glucose and Insulin GTT Plots](fig/gtt_auc_example.png){alt="Figure showing glucose and insulin changes over time."}
+
+In the figure above, time is plotted on the X-axis and glucose or insulin levels
+are plotted on the Y-axis. Blood is taken at the beginning of the test and at
+several time points after the glucose bolus. The glucose or insulin
+AUC is the area under the measured points down to the baseline level.
+
 Genome scans were performed with the leave-one-chromosome-out (LOCO) method for
 kinship correction. Sex and experimental cohort (DO wave) were used as 
 covariates. The results of one scan for insulin area under the curve (AUC) is 
@@ -61,9 +69,11 @@ into genes located under this peak.
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+- Many GWAS studies identify SNPs which to no lie within coding regions of the
+genome.
+- This implies that the SNPs lie within regulatory sequences which affect gene
+expression levels.
+- Merging gene expression with physiological trait QTL mapping can help to
+identify genes which affect physiological trait variation.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::

@@ -1,5 +1,5 @@
 ---
-title: "Load and explore the data"
+title: "Load and Explore Data"
 teaching: 15
 exercises: 30
 ---
@@ -16,16 +16,18 @@ exercises: 30
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-Load the libraries.
 
 ``` r
-library(ggbeeswarm)
-library(tidyverse)
-library(knitr)
-library(corrplot)
-# the following analysis is derived from supplementary 
-# File S1 Attie_eQTL_paper_physiology.Rmd 
-# by Daniel Gatti. See Data Dryad entry for more information.
+suppressPackageStartupMessages(library(ggbeeswarm))
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(knitr))
+suppressPackageStartupMessages(library(corrplot))
+suppressPackageStartupMessages(library(DESeq2))
+```
+
+``` warning
+Warning: replacing previous import 'S4Arrays::makeNindexFromArrayViewport' by
+'DelayedArray::makeNindexFromArrayViewport' when loading 'SummarizedExperiment'
 ```
 
 ## Physiological Phenotypes
@@ -33,103 +35,108 @@ library(corrplot)
 The complete data used in these analyses are available from 
 [Data Dryad](https://doi.org/10.5061/dryad.pj105). 
 
-Load in the clinical phenotypes.
+Load in the physiological phenotypes.
 
 
 ``` r
 # load the data
-load("../data/attie_DO500_clinical.phenotypes.RData")
+pheno       <- readRDS(file = 'data/attie_do_pheno.rds')
 ```
 
 ``` warning
-Warning in readChar(con, 5L, useBytes = TRUE): cannot open compressed file
-'../data/attie_DO500_clinical.phenotypes.RData', probable reason 'No such file
-or directory'
+Warning in gzfile(file, "rb"): cannot open compressed file
+'data/attie_do_pheno.rds', probable reason 'No such file or directory'
 ```
 
 ``` error
-Error in readChar(con, 5L, useBytes = TRUE): cannot open the connection
+Error in gzfile(file, "rb"): cannot open the connection
 ```
 
-See the [data dictionary](../data/Attie-232_Attie_DO_Islets-dictionary.csv) to 
+``` r
+pheno_dict  <- readRDS(file = 'data/attie_do_pheno_dict.rds')
+```
+
+``` warning
+Warning in gzfile(file, "rb"): cannot open compressed file
+'data/attie_do_pheno_dict.rds', probable reason 'No such file or directory'
+```
+
+``` error
+Error in gzfile(file, "rb"): cannot open the connection
+```
+
+``` r
+covar       <- readRDS(file = 'data/attie_do_covar.rds')
+```
+
+``` warning
+Warning in gzfile(file, "rb"): cannot open compressed file
+'data/attie_do_covar.rds', probable reason 'No such file or directory'
+```
+
+``` error
+Error in gzfile(file, "rb"): cannot open the connection
+```
+
+See the [data dictionary](data/Attie-232_Attie_DO_Islets-dictionary.csv) to 
 see a description of each of these phenotypes. You can also view a table of
 the data dictionary.
 
 
 ``` r
-pheno_clin_dict %>% 
-  select(description, formula) %>% 
+pheno_dict |> 
+  select(description, formula) |> 
   kable()
 ```
 
 ``` error
-Error: object 'pheno_clin_dict' not found
+Error: object 'pheno_dict' not found
 ```
 
 ### Phenotype Distributions
 
 Boxplots are a great way to view the distribution of the data and to identify 
 any outliers. We will be using the total area under the curve of insulin from 
-the glucose tolerance test (Ins_tAUC). We will also log-transform the data 
-using the [scale_y_log10()][scale_y_log10] function.
+the glucose tolerance test (Ins_tAUC). 
+
+We will log-transform the data using the 
+[scale_y_log10()](https://ggplot2.tidyverse.org/reference/scale_continuous.html)
+function. We have also overlaid the data points using ggbeeswarm's
+[geom_beeswarm](https://www.rdocumentation.org/packages/ggbeeswarm/versions/0.7.2/topics/geom_beeswarm).
+We have told `geom_beeswarm()` to plot the points with some transparency using 
+the argument "alpha = 0.2". The alpha argument ranges between 0 (completely 
+transparent) to 1 (completely opaque). A value of 0.1 means mostly transparent.
 
 
 ``` r
 # plot Insulin on a log 10 scale
-ggplot(pheno_clin, aes(sex, Ins_tAUC)) +
+ggplot(pheno, aes(sex, Ins_tAUC)) +
   geom_boxplot() +
+  geom_beeswarm(alpha = 0.2) +
   scale_y_log10() +
   labs(title = "Insulin tAUC", y = "Insulin tAUC")
 ```
 
 ``` error
-Error: object 'pheno_clin' not found
-```
-
-Another visualization that has become popular is the 
-[Violin Plot][https://en.wikipedia.org/wiki/Violin_plot]. We can create one 
-using ggplot's 
-[geom_violin][https://ggplot2.tidyverse.org/reference/geom_violin.html].
-Whereas the boxplot automatically adds the median, we must tell `geom_violin()`
-which quantiles that we want to draw using the argument 
-`draw_quantiles = c(0.25, 0.5, 0.75)`. We have also overlaid the data points 
-using ggbeeswarm's
-[geom_beeswarm][https://www.rdocumentation.org/packages/ggbeeswarm/versions/0.5.3/topics/geom_beeswarm].
-We have told `geom_beeswarm()` to plot the points using the argument 
-`alpha = 0.1`. The `alpha` argument ranges between 0 (completely transparent) to
-1 (completely opaque). A value of 0.1 means mostly transparent.
-
-
-``` r
-# plot Insulin on a log 10 scale
-ggplot(pheno_clin, aes(sex, Ins_tAUC)) +
-  geom_violin(draw_quantiles = c(0.25, 0.5, 0.75)) +
-  geom_beeswarm(alpha = 0.1) +
-  scale_y_log10() +
-  labs(title = "Insulin tAUC", y = "Insulin tAUC")
-```
-
-``` error
-Error: object 'pheno_clin' not found
+Error: object 'pheno' not found
 ```
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Challenge 1: 
+## Challenge 1
 
-How many orders of magnitude (powers of 10) does Insulin tAUC span?
-
+How many orders of magnitude (powers of 10) does Insulin tAUC span?  
 
 :::::::::::::::::::::::: solution 
 
-Insulin tAUC spans three orders of magnitude, from near 10 to over 1000.
+Insulin tAUC spans three orders of magnitude, from near 10 to over 1000.  
 
 :::::::::::::::::::::::::::::::::
 
 
-## Challenge 2: 
+## Challenge 2
 
-Which sex has higher median Insulin tAUC values?
+Which sex has higher median Insulin tAUC values?  
 
 :::::::::::::::::::::::: solution 
 
@@ -138,8 +145,8 @@ Males have higher Insulin tAUC than females.
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-Both of the boxplot and the violin plot are useful visualizations which you can
-use to get some sense of the distribution of your data.
+The boxplot is a useful visualizations which you can use to visualize 
+the distribution of your data.
 
 ### Quality Control of Data
 
@@ -148,20 +155,24 @@ distribution. Many biological phenotypes do not follow this distribution and
 must be transformed before analysis. This is why we log-transformed the data
 in the plots above. 
 
-While we can "eyeball" the distributions in the violin plot, it would be 
+While we can "eyeball" the distributions in the boxplot, it would be 
 better to use a "quantile-quantile" plot. 
 
 
 ``` r
-pheno_clin %>% 
+pheno |> 
   ggplot(aes(sample = Ins_tAUC)) +
     stat_qq() +
     geom_qq_line() +
-    facet_wrap(~sex)
+    facet_wrap(~sex) +
+    labs(title = "Quantile-Quantile Plot of Ins_tAUC",
+         x     = "Normal Quantiles",
+         y     = "Ins_tAUC") +
+    theme(text = element_text(size = 20))
 ```
 
 ``` error
-Error: object 'pheno_clin' not found
+Error: object 'pheno' not found
 ```
 
 In these plots, the "quantiles" of the normal distribution are plotted on the
@@ -170,47 +181,50 @@ quantiles that would be followed by a normal distribution. The untransformed
 data do **not** follow a normal distribution because the points are far from
 the line.  
 
-Next, we will loag-transform the data and then create a quantile-quantile plot.
+Next, we will log-transform the data and then create a quantile-quantile plot.
 
 
 ``` r
-pheno_clin %>% 
-  mutate(Ins_tAUC = log(Ins_tAUC)) %>% 
+pheno |> 
+  mutate(Ins_tAUC = log(Ins_tAUC)) |> 
   ggplot(aes(sample = Ins_tAUC)) +
     stat_qq() +
     geom_qq_line() +
-    facet_wrap(~sex)
+    facet_wrap(~sex) +
+    labs(title = "Quantile-Quantile Plot of log(Ins_tAUC)",
+         x     = "Normal Quantiles",
+         y     = "log(Ins_tAUC)") +
+    theme(text = element_text(size = 20))
 ```
 
 ``` error
-Error: object 'pheno_clin' not found
+Error: object 'pheno' not found
 ```
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Challenge 3: 
+## Challenge 3
 
 Does the log transformation make the data more normally distributed? Explain 
 your answer.
 
 :::::::::::::::::::::::: solution 
 
-Yes. The log transformation makes the data more normally distributed because the 
-data points follow the normality line more closely. 
+Yes. The log transformation makes the data more normally distributed because
+the data points follow the normality line more closely. 
 
 :::::::::::::::::::::::::::::::::
 
-
-## Challenge 4: 
+## Challenge 4
 
 Do any data points look suspicious to you? Explain your answer.
 
 :::::::::::::::::::::::: solution 
 
-The data points that deviate from the normality line would be worth 
-investigating. All data deviates somewhat from normality, but the three lowest 
-points in the male data plot would be worth investigating. They may be real, but 
-there may also have been mishap in the assay.
+The data points that deviate from the normality line would be worth
+investigating. All data deviates somewhat from normality, but the three
+lowest points in the male data plot would be worth investigating. They may
+be real, but there may also have been mishap in the assay.
 
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -222,24 +236,26 @@ To do this, we will log transform and standardize Insulin tAUC.
 
 
 ``` r
-ins_tauc = pheno_clin %>% 
-             select(mouse, sex, Ins_tAUC) %>%
-             group_by(sex) %>% 
+ins_tauc = pheno |> 
+             select(mouse, sex, Ins_tAUC) |>
+             group_by(sex) |> 
              mutate(Ins_tAUC = log(Ins_tAUC),
                     Ins_tAUC = scale(Ins_tAUC))
 ```
 
 ``` error
-Error: object 'pheno_clin' not found
+Error: object 'pheno' not found
 ```
 
 ``` r
-ins_tauc %>% 
+ins_tauc |> 
   ggplot(aes(x = sex, y = Ins_tAUC)) +
     geom_boxplot() +
+    geom_beeswarm(alpha = 0.2) +
     geom_hline(aes(yintercept = -4), color = 'red') +
     geom_hline(aes(yintercept =  4), color = 'red') +
-    labs(title = "Distribution of Standardized Ins_tAUC")
+    labs(title = "Distribution of Standardized Ins_tAUC") +
+    theme(text = element_text(size = 20))
 ```
 
 ``` error
@@ -248,78 +264,109 @@ Error: object 'ins_tauc' not found
 
 There are no data points outside of the four standard deviation limits.
 
-## Gene Expression Phenotypes
+## Gene Expression Data
+
+Let's read in the gene expression data. This has been compiled in
 
 
 ``` r
-# load the expression data along with annotations and metadata
-load("../data/dataset.islet.rnaseq.RData")
+annot <- readRDS(file = 'data/attie_do_expr_annot.rds')
 ```
 
 ``` warning
-Warning in readChar(con, 5L, useBytes = TRUE): cannot open compressed file
-'../data/dataset.islet.rnaseq.RData', probable reason 'No such file or
-directory'
+Warning in gzfile(file, "rb"): cannot open compressed file
+'data/attie_do_expr_annot.rds', probable reason 'No such file or directory'
 ```
 
 ``` error
-Error in readChar(con, 5L, useBytes = TRUE): cannot open the connection
+Error in gzfile(file, "rb"): cannot open the connection
 ```
 
 ``` r
-names(dataset.islet.rnaseq)
+raw   <- readRDS(file = 'data/attie_do_expr_raw.rds')
+```
+
+``` warning
+Warning in gzfile(file, "rb"): cannot open compressed file
+'data/attie_do_expr_raw.rds', probable reason 'No such file or directory'
 ```
 
 ``` error
-Error: object 'dataset.islet.rnaseq' not found
+Error in gzfile(file, "rb"): cannot open the connection
 ```
+
+We have loaded in two data objects: 
+
+1. annot: data.frame containing gene annotation,
+2. raw: numeric matrix containing the un-normalized expression counts,
+
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Challenge 5: How many samples and genes are there?
+
+:::::::::::::::::::::::: solution 
+
+Use the `dim` command or the Environment tab to determine the number of samples 
+and genes in `norm`.
 
 
 ``` r
-# look at gene annotations
-dataset.islet.rnaseq$annots[1:6,]
+dim(norm)
 ```
 
-``` error
-Error: object 'dataset.islet.rnaseq' not found
+``` output
+NULL
 ```
 
-``` r
-# look at raw counts
-dataset.islet.rnaseq$raw[1:6,1:6]
-```
+There are 378 samples and 21,771 genes.
 
-``` error
-Error: object 'dataset.islet.rnaseq' not found
-```
+:::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::
 
-``` r
-# look at sample metadata
-# summarize mouse sex, birth dates and DO waves
-table(dataset.islet.rnaseq$samples[, c("sex", "birthdate")])
-```
+The expression objects that we have loaded in are organized such that the 
+transcripts and samples are aligned between the objects. The figure below may
+help you to visualize the relationship between the expression, annotation,
+and covariates.
 
-``` error
-Error: object 'dataset.islet.rnaseq' not found
-```
+![Data Diagram](fig/expr_sample_annot.png){alt="Figure showing relationship between samples, expression, and transcripts."}
+
+Let's look at the rows in the gene annotation object.
+
 
 ``` r
-table(dataset.islet.rnaseq$samples[, c("sex", "DOwave")])
+head(annot)
 ```
 
 ``` error
-Error: object 'dataset.islet.rnaseq' not found
+Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'head': object 'annot' not found
 ```
+
+There are many columns in the gene annotation file, including the Ensembl ID,
+gene symbol, chromosome, start and end of the gene.
+
+Next, let's look at the sample covariates.
+
+
+``` r
+head(covar)
+```
+
+``` error
+Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'head': object 'covar' not found
+```
+
+The sample covariates have information about the sex and DO generation, 
+indicated as "DOwave", of each mouse.
 
 In order to make reasonable gene comparisons between samples, the count data 
-need to be normalized. In the quantile-quantile (Q-Q) plot below, count data for 
+needs to be normalized. In the quantile-quantile (Q-Q) plot below, count data for 
 the first gene are plotted over a diagonal line tracing a normal distribution 
 for those counts. Notice that most of the count data values lie off of this 
 line, indicating that these gene counts are not normally distributed. 
 
 
 ``` error
-Error: object 'dataset.islet.rnaseq' not found
+Error in as.data.frame.default(raw): cannot coerce class '"function"' to a data.frame
 ```
 
 Q-Q plots for the first six genes show that count data for these genes are not
@@ -329,10 +376,10 @@ in the third, and so on.
 
 
 ``` r
-dataset.islet.rnaseq$raw %>% 
-  as.data.frame() %>%
-  select(ENSMUSG00000000001:ENSMUSG00000000058) %>% 
-  pivot_longer(cols = everything(), names_to = 'gene', values_to = 'value') %>% 
+raw |> 
+  as.data.frame() |>
+  select(ENSMUSG00000000001:ENSMUSG00000000058) |> 
+  pivot_longer(cols = everything(), names_to = 'gene', values_to = 'value') |> 
   ggplot(aes(sample = value)) +
     stat_qq() +
     geom_qq_line() +
@@ -342,196 +389,346 @@ dataset.islet.rnaseq$raw %>%
 ```
 
 ``` error
-Error: object 'dataset.islet.rnaseq' not found
+Error in as.data.frame.default(raw): cannot coerce class '"function"' to a data.frame
+```
+
+Since each gene has a different distribution and range, and the distributions
+are not Gaussian, we need to normalize the counts. Further, the total counts
+in each sample is not uniform. This affects our ability to compare values
+between samples. For example, say that we look at the expression of "Gene1" in
+two samples and find that both samples have 500 counts for Gene1. It appears
+that Gene1 is equally expressed in both samples. However, suppose that the total
+counts (i.e. the sum of counts for all genes in each sample) is 10 million for
+sample 1 and 20 million for sample 2. The sum of all counts across all genes in 
+a sample is also called the "library size." Then we need to scale the counts for 
+Gene1 by the total counts. This is shown in the table below.
+
+
+ Sample | Gene1 Counts | Total Counts | Proportion
+--------+--------------+--------------+------------
+    1   |     500      |    10e6      |   5e-05
+    2   |     500      |    20e6      |  2.5e-05
+
+In this case, we can see that Gene1 has lower expression in sample 2 compared
+to sample 1. Although the actual adjustment for library size, or the total
+counts, is more complicated, this is the rationale for adjusting each sample.
+
+To recap, before we perform any analysis using the transcript expression data,
+we need to normalize it by adjusting for library size and transforming the
+expression of each gene to be Gaussian.
+
+### Normalizing Gene Expression
+
+We will use the [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) 
+package to adjust the counts for library size. DESeq2 is a large package which
+performs many types of analyses. Further details are in the
+[DESeq2 Tutorial](https://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html).
+
+First, we must create a DESeq object. We need the raw counts, rounded so that
+all values are integers, and the sample covariate data. We will have to subset
+the sample covariates to include only the expression samples.
+
+
+``` r
+expr_covar = subset(covar, mouse %in% rownames(raw))
+```
+
+``` error
+Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'subset': object 'covar' not found
+```
+
+``` r
+expr_covar = expr_covar[match(rownames(raw), expr_covar$mouse),]
+```
+
+``` error
+Error: object 'expr_covar' not found
+```
+
+In order to create the DESeq2 object, we will need to transpose the expression
+data. This is because DESeq2 requires that the samples be in columns and the 
+genes in rows. We will also tell DESeq2 which the design variables are for our
+data, although they are not used in this case. These would be used if we were
+searching for differentially expression genes.
+
+
+``` r
+dds  = DESeqDataSetFromMatrix(countData = t(round(raw)), colData = expr_covar, 
+                              design = ~ 1)
+```
+
+``` error
+Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'ncol': error in evaluating the argument 'x' in selecting a method for function 't': non-numeric argument to mathematical function
+```
+
+Next, we will run DESeq2 and let is adjust the expression data for differing
+library sizes.
+
+
+``` r
+dds  = DESeq(dds)
+```
+
+``` error
+Error: object 'dds' not found
+```
+
+Once this is done, we will get the expression data after it has been transformed
+using the
+[Variance Stabilizing Transformation](https://en.wikipedia.org/wiki/Variance-stabilizing_transformation)
+(VST). The VST adjusts the variance of the genes such that it is not related to
+the mean gene expression level.
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
+
+The students don't have to type the next block. You can show the plow in the 
+lesson or type it to show the plot live.
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+``` r
+expr = assays(dds)[[1]]
+```
+
+``` error
+Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'assays': object 'dds' not found
+```
+
+``` r
+tibble(mean = rowMeans(expr),
+       sd   = apply(expr, 1, sd)) |>
+  ggplot(aes(mean, sd)) +
+    geom_point() +
+    scale_x_log10() +
+    scale_y_log10() +
+    labs(title = "Mean vs. Std. Dev. of Before VST",
+         x     = "log(Mean)", y = "log(Std. Dev.)") +
+    theme(text = element_text(size = 20))
+```
+
+``` error
+Error in base::rowMeans(x, na.rm = na.rm, dims = dims, ...): 'x' must be an array of at least two dimensions
+```
+
+``` r
+rm(expr)
+```
+
+``` warning
+Warning in rm(expr): object 'expr' not found
+```
+
+The plot above shows the mean expression value for each gene versus the 
+standard deviation of each gene. Both axes are log-transformed. As you can see,
+there is a positive correlation between the mean and the standard deviation. We
+would like each gene to have the same variance, regardless of the mean, for each
+gene.
+
+Next, we will apply the variance stabilizing transformation and will transpose
+the expression values.
+
+
+``` r
+expr = assays(vst(dds))[[1]]
+```
+
+``` error
+Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'assays': error in evaluating the argument 'x' in selecting a method for function 'nrow': object 'dds' not found
+```
+
+``` r
+expr = t(expr)
+```
+
+``` error
+Error in t.default(expr): argument is not a matrix
+```
+
+Let's look at the mean versus the standard deviation of each gene after 
+normalization.
+
+
+``` r
+tibble(mean = colMeans(expr),
+       sd   = apply(expr, 2, sd)) |>
+  ggplot(aes(mean, sd)) +
+    geom_point() +
+    scale_x_log10() +
+    scale_y_log10() +
+    labs(title = "Mean vs. Std. Dev. of After VST",
+         x     = "log(Mean)", y = "log(Std. Dev.)") +
+    theme(text = element_text(size = 20))
+```
+
+``` error
+Error in base::colMeans(x, na.rm = na.rm, dims = dims, ...): 'x' must be an array of at least two dimensions
+```
+
+The standard deviation is now largely unrelated to the mean. At lower expression
+levels, the standard deviation is somewhat related to the mean.
+
+At this point, while each gene has been normalized, each gene has a different 
+distribution. In QTL mapping, we often use permutations to estimate significance
+thresholds. This approach works for one phenotype. However, if other phenotypes
+have different distributions, then the significance threshold for one phenotype
+cannot be used for another. This means that we would have to perform 
+1,000 permutations for **each** gene. While modern computing clusters can do 
+this, it is time consuming. 
+
+Another approach is to force the distribution of each gene to be identical. Then,
+we can perform permutations on one gene and get a significance threshold for
+all genes. 
+
+We can force the distribution of each gene to be Gaussian and identical for all
+genes using an inverse-normal or rank-Z transformation.
+
+
+``` r
+rankZ = function(x) {
+  x = rank(x, na.last = "keep", ties.method = "average") / (sum(!is.na(x)) + 1)
+  return(qnorm(x))
+}
+
+expr_rz = apply(expr, 2, rankZ)
+```
+
+``` error
+Error in apply(expr, 2, rankZ): dim(X) must have a positive length
 ```
 
 Q-Q plots of the normalized expression data for the first six genes show that 
 the data values match the diagonal line well, meaning that they are now normally
 distributed. They are also all on the same scale now as well.
 
+::::::::::::::::::::::::::::::::::::::::::::::::instructor
+
+Show this in the lesson website. Don't type all of this out or have the 
+students type it either.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
 
 ``` r
-dataset.islet.rnaseq$expr %>% 
-  as.data.frame() %>%
-  select(ENSMUSG00000000001:ENSMUSG00000000058) %>% 
-  pivot_longer(cols = everything(), names_to = 'gene', values_to = 'value') %>% 
+expr |> 
+  as.data.frame() |>
+  select(ENSMUSG00000000001:ENSMUSG00000000058) |> 
+  pivot_longer(cols = everything(), names_to = 'gene', values_to = 'value') |> 
   ggplot(aes(sample = value)) +
     stat_qq() +
     geom_qq_line() +
     facet_wrap(~gene, scales = 'free') +
     labs(title = 'Normalized count distribution for six genes',
-         xlab = 'Normal percentiles', y = 'Count percentiles')
+         xlab = 'Normal percentiles', y = 'Count percentiles') +
+    theme(text = element_text(size = 20))
 ```
 
 ``` error
-Error: object 'dataset.islet.rnaseq' not found
+Error in as.data.frame.default(expr): cannot coerce class '"function"' to a data.frame
 ```
 
-Boxplots of raw counts for six example genes are shown at left below. Notice 
-that the median count values (horizontal black bar in each boxplot) are not 
+Boxplots of raw counts for six example genes are shown at left below. Notice that 
+the median count values (horizontal black bar in each boxplot) are not 
 comparable between the genes because the counts are not on the same scale. At
 right, boxplots for the same genes show normalized count data on the same 
 scale.
 
+::::::::::::::::::::::::::::::::::::::::::::::::instructor
+
+Show this in the lesson website. Don't type all of this out or have the 
+students type it either.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 
 ``` r
-raw = dataset.islet.rnaseq$raw %>% 
-        as.data.frame() %>% 
-        select(ENSMUSG00000000001:ENSMUSG00000000058) %>% 
-        pivot_longer(cols = everything(), names_to = 'gene', values_to = 'value') %>% 
+tmp = raw |> 
+        as.data.frame() |> 
+        select(ENSMUSG00000000001:ENSMUSG00000000058) |> 
+        pivot_longer(cols = everything(), names_to = 'gene', values_to = 'value') |> 
         mutate(type = 'raw')
 ```
 
 ``` error
-Error: object 'dataset.islet.rnaseq' not found
+Error in as.data.frame.default(raw): cannot coerce class '"function"' to a data.frame
 ```
 
 ``` r
-norm = dataset.islet.rnaseq$expr %>% 
-         as.data.frame() %>% 
-         select(ENSMUSG00000000001:ENSMUSG00000000058) %>% 
-         pivot_longer(cols = everything(), names_to = 'gene', values_to = 'value') %>% 
+norm = expr |> 
+         as.data.frame() |> 
+         select(ENSMUSG00000000001:ENSMUSG00000000058) |> 
+         pivot_longer(cols = everything(), names_to = 'gene', values_to = 'value') |> 
          mutate(type = 'normalized')
 ```
 
 ``` error
-Error: object 'dataset.islet.rnaseq' not found
+Error in as.data.frame.default(expr): cannot coerce class '"function"' to a data.frame
 ```
 
 ``` r
-bind_rows(raw, norm) %>%
-  mutate(type = factor(type, levels = c('raw', 'normalized'))) %>% 
+bind_rows(tmp, norm) |>
+  mutate(type = factor(type, levels = c('raw', 'normalized'))) |> 
   ggplot(aes(gene, value)) +
     geom_boxplot() +
     facet_wrap(~type, scales = 'free') +
     labs(title = 'Count distributions for example genes') +
-    theme(axis.text.x = element_text(angle = 90, hjust = 0.5, vjust = 1))
+    theme(text = element_text(size = 20),
+          axis.text.x = element_text(angle = 90, hjust = 0.5, vjust = 1))
 ```
 
 ``` error
-Error in `bind_rows()` at dplyr/R/mutate.R:146:3:
-! Argument 1 must be a data frame or a named atomic vector.
+Error: object 'tmp' not found
 ```
 
 ``` r
-rm(raw, norm)
+rm(tmp, norm)
 ```
 
 ``` warning
-Warning in rm(raw, norm): object 'raw' not found
+Warning in rm(tmp, norm): object 'tmp' not found
 ```
 
 ``` warning
-Warning in rm(raw, norm): object 'norm' not found
+Warning in rm(tmp, norm): object 'norm' not found
 ```
 
-Have a look at the first several rows of normalized count data.
+In the rankZ-transformed data, every gene has the same distribution.
+
+::::::::::::::::::::::::::::::::::::::::::::::::instructor
+
+Show this in the lesson website. Don't type all of this out or have the 
+students type it either.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 ``` r
-# look at normalized counts
-dataset.islet.rnaseq$expr[1:6,1:6]
+expr_rz |> 
+  as.data.frame() |> 
+  select(ENSMUSG00000000001:ENSMUSG00000000058) |> 
+  pivot_longer(cols = everything(), names_to = 'gene', values_to = 'value') |>
+  ggplot(aes(gene, value)) +
+    geom_boxplot() +
+    labs(title = 'RankZ distributions for example genes') +
+    theme(text = element_text(size = 20),
+          axis.text.x = element_text(angle = 90, hjust = 0.5, vjust = 1))
 ```
 
 ``` error
-Error: object 'dataset.islet.rnaseq' not found
+Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'as.data.frame': object 'expr_rz' not found
 ```
 
-The expression data loaded provides LOD peaks for the eQTL analyses performed in
-this study. As a preview of what you will be doing next, look at the first 
-several rows of LOD peak values and extract the LOD peaks for chromosome 11.
-
-
-``` r
-# look at LOD peaks
-dataset.islet.rnaseq$lod.peaks[1:6,]
-```
-
-``` error
-Error: object 'dataset.islet.rnaseq' not found
-```
-
-``` r
-# look at chromosome 11 LOD peaks
-chr11_peaks <- dataset.islet.rnaseq$annots %>% 
-   select(gene_id, chr) %>% 
-   filter(chr=="11") %>%
-   left_join(dataset.islet.rnaseq$lod.peaks, 
-             by = c("chr" = "chrom", "gene_id" = "annot.id")) 
-```
-
-``` error
-Error: object 'dataset.islet.rnaseq' not found
-```
-
-``` r
-# look at the first several rows of chromosome 11 peaks
-head(chr11_peaks)
-```
-
-``` error
-Error: object 'chr11_peaks' not found
-```
-
-``` r
-# how many rows?
-dim(chr11_peaks)
-```
-
-``` error
-Error: object 'chr11_peaks' not found
-```
-
-``` r
-# how many rows have LOD scores?
-chr11_peaks %>% filter(!is.na(lod)) %>% dim()
-```
-
-``` error
-Error: object 'chr11_peaks' not found
-```
-
-``` r
-# sort chromosome 11 peaks by LOD score
-chr11_peaks %>% arrange(desc(lod)) %>% head()
-```
-
-``` error
-Error: object 'chr11_peaks' not found
-```
-
-``` r
-# range of LOD scores and positions
-range(chr11_peaks$lod, na.rm = TRUE)
-```
-
-``` error
-Error: object 'chr11_peaks' not found
-```
-
-``` r
-range(chr11_peaks$pos, na.rm = TRUE)
-```
-
-``` error
-Error: object 'chr11_peaks' not found
-```
-
-``` r
-# view LOD scores by position
-chr11_peaks %>% arrange(desc(lod)) %>% 
-  ggplot(aes(pos, lod)) + geom_point()
-```
-
-``` error
-Error: object 'chr11_peaks' not found
-```
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+- It is important to inspect the phenotype distributions and to transform them
+to be nearly normal.
+- Gene expression values must be normalized to account for the library size of
+each sample.
+- After normalization, gene expression values can be rankZ transformed to make
+the distribution of every gene the same.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
+
+[r-markdown]: https://rmarkdown.rstudio.com/
