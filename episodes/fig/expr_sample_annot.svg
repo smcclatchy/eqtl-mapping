@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
+   sodipodi:docname="expr_sample_annot.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.2810465"
+     inkscape:cx="186.95652"
+     inkscape:cy="345.81101"
+     inkscape:window-width="2560"
+     inkscape:window-height="1377"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <rect
+       x="576.81477"
+       y="56.853513"
+       width="141.30582"
+       height="124.19456"
+       id="rect25539" />
+    <rect
+       x="-261.63656"
+       y="139.64989"
+       width="125.29853"
+       height="186.56784"
+       id="rect9117" />
+    <marker
+       style="overflow:visible;"
+       id="Arrow1Mend"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="scale(0.4) rotate(180) translate(10,0)"
+         style="fill-rule:evenodd;fill:context-stroke;stroke:context-stroke;stroke-width:1.0pt;"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path1057" />
+    </marker>
+    <rect
+       x="-285.7039"
+       y="163.92847"
+       width="168.61214"
+       height="84.306066"
+       id="rect32497" />
+    <rect
+       x="277.89778"
+       y="362.20385"
+       width="177.19886"
+       height="106.1632"
+       id="rect3776" />
+    <rect
+       x="277.89777"
+       y="362.20386"
+       width="181.10191"
+       height="117.09176"
+       id="rect3776-1" />
+    <rect
+       x="277.89777"
+       y="362.20386"
+       width="177.19885"
+       height="106.1632"
+       id="rect3776-8" />
+    <rect
+       x="-285.70389"
+       y="163.92847"
+       width="168.61214"
+       height="84.306068"
+       id="rect32497-9" />
+    <marker
+       style="overflow:visible"
+       id="Arrow1Mend-8"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path1057-2" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Mend-4"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path1057-6" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Mend-4-4"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path1057-6-7" />
+    </marker>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#ffffff;stroke:none;stroke-width:0.492447"
+       id="rect115"
+       width="153.25789"
+       height="191.88031"
+       x="28.085236"
+       y="4.746572"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 105.21732,42.853329 v 11.35489"
+       id="path45606-92"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 112.06736,42.853329 v 11.35489"
+       id="path45606-92-0"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 118.9174,42.853329 v 11.35489"
+       id="path45606-92-1"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 125.76744,42.853329 v 11.35489"
+       id="path45606-92-7"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 132.61748,42.853329 v 11.35489"
+       id="path45606-92-5"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 139.46748,42.853329 v 11.35489"
+       id="path45606-92-6"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 146.31748,42.853329 v 11.35489"
+       id="path45606-92-8"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 89.163415,189.04208 H 100.5183"
+       id="path45606-45"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 89.163415,182.19208 H 100.5183"
+       id="path45606-44"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 89.163415,175.34208 H 100.5183"
+       id="path45606-07"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 89.163415,168.49208 H 100.5183"
+       id="path45606-28"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 89.163415,161.64208 H 100.5183"
+       id="path45606-715"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 89.163415,154.79208 H 100.5183"
+       id="path45606-4"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 89.163415,147.94208 H 100.5183"
+       id="path45606-16"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 89.163415,141.09208 H 100.5183"
+       id="path45606-71"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 89.163415,134.24208 H 100.5183"
+       id="path45606-7"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 89.163415,127.39208 H 100.5183"
+       id="path45606-2"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 89.163415,120.54208 H 100.5183"
+       id="path45606-5"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 89.163415,113.69208 H 100.5183"
+       id="path45606-10"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 89.163415,106.84208 H 100.5183"
+       id="path45606-089"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 89.163415,99.992087 H 100.5183"
+       id="path45606-97"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 89.163415,93.142087 H 100.5183"
+       id="path45606-08"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 89.163415,86.292087 H 100.5183"
+       id="path45606-1"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 89.163415,79.442087 H 100.5183"
+       id="path45606-3"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 89.163415,72.592087 H 100.5183"
+       id="path45606-9"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 89.163415,65.742087 H 100.5183"
+       id="path45606-0"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 89.163415,58.892087 H 100.5183"
+       id="path45606"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       style="fill:none;stroke:#404040;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect114"
+       width="48.742695"
+       height="139.41237"
+       x="39.804951"
+       y="54.319191"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       style="fill:none;stroke:#404040;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect114-7"
+       width="48.742695"
+       height="139.41237"
+       x="100.71851"
+       y="54.319191"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <rect
+       style="fill:none;stroke:#404040;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect114-7-5"
+       width="48.742695"
+       height="26.849783"
+       x="100.92503"
+       y="15.532096"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,28.032349,-76.289049)"
+       id="text3774"
+       style="font-size:29.3333px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect3776)"
+       x="112.60426"
+       y="0"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         x="311.49713"
+         y="388.96478"
+         id="tspan1298"><tspan
+           style="text-align:center;text-anchor:middle"
+           id="tspan1296">Sample
+</tspan></tspan><tspan
+         x="298.2771"
+         y="425.63141"
+         id="tspan1302"><tspan
+           style="text-align:center;text-anchor:middle"
+           id="tspan1300">Metadata</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,28.569945,11.905276)"
+       id="text3774-9"
+       style="font-size:29.3333px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect3776-8)"
+       x="112.60426"
+       y="0"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         x="294.31681"
+         y="388.96478"
+         id="tspan1306"><tspan
+           style="text-align:center;text-anchor:middle"
+           id="tspan1304">Transcript
+</tspan></tspan><tspan
+         x="286.91904"
+         y="425.63141"
+         id="tspan1310"><tspan
+           style="text-align:center;text-anchor:middle"
+           id="tspan1308">Expression</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-33.042825,12.02137)"
+       id="text3774-3"
+       style="font-size:29.3333px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect3776-1)"
+       x="112.60426"
+       y="0"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         x="296.26896"
+         y="388.96478"
+         id="tspan1314"><tspan
+           style="text-align:center;text-anchor:middle"
+           id="tspan1312">Transcript
+</tspan></tspan><tspan
+         x="300.22925"
+         y="425.63141"
+         id="tspan1318"><tspan
+           style="text-align:center;text-anchor:middle"
+           id="tspan1316">Metadata
+</tspan></tspan><tspan
+         x="283.55328"
+         y="462.29804"
+         id="tspan1322"><tspan
+           style="font-size:26.6667px"
+           id="tspan1320">(Annotation)</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,178.68346,-37.34135)"
+       id="text32495"
+       style="font-size:26.6667px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect32497)"
+       x="33.316406"
+       y="0"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         x="-258.34415"
+         y="188.25657"
+         id="tspan1326"><tspan
+           style="text-align:center;text-anchor:middle"
+           id="tspan1324">Samples</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0,-0.26458333,0.26458333,0,-14.905705,70.244226)"
+       id="text32495-1"
+       style="font-size:26.6667px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect32497-9)"
+       x="98.132812"
+       y="0"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         x="-273.96266"
+         y="188.25657"
+         id="tspan1330"><tspan
+           style="text-align:center;text-anchor:middle"
+           id="tspan1328">Transcripts</tspan></tspan></text>
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
+       d="M 32.261167,103.47405 V 54.913919"
+       id="path97"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend-4)"
+       d="m 109.43856,10.007191 h -7.95271"
+       id="path97-2"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend-4-4)"
+       d="m 141.39884,9.8796284 h 7.64286"
+       id="path97-2-6"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend-8)"
+       d="m 32.608263,143.55062 v 49.79936"
+       id="path97-3"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0,-0.26458333,0.26458333,0,2.6108935,-16.159248)"
+       id="text9115"
+       style="font-size:18.6667px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect9117)"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         x="-261.63672"
+         y="156.68059"
+         id="tspan1332">Ensembl
+</tspan><tspan
+         x="-261.63672"
+         y="180.01396"
+         id="tspan1334">Symbol
+</tspan><tspan
+         x="-261.63672"
+         y="203.34734"
+         id="tspan1336">Chr
+</tspan><tspan
+         x="-261.63672"
+         y="226.68071"
+         id="tspan1338">Start
+</tspan><tspan
+         x="-261.63672"
+         y="250.01408"
+         id="tspan1340">End
+</tspan><tspan
+         x="-261.63672"
+         y="273.34746"
+         id="tspan1342">Strand
+</tspan><tspan
+         x="-261.63672"
+         y="296.68083"
+         id="tspan1344">...</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-0.73021806,0.87626167)"
+       id="text25537"
+       style="font-size:18.6667px;line-height:1.05;font-family:sans-serif;white-space:pre;shape-inside:url(#rect25539)"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\eqtl-mapping\episodes\fig\expr_sample_annot.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         x="576.81445"
+         y="72.017042"
+         id="tspan1346">ID
+</tspan><tspan
+         x="576.81445"
+         y="91.617078"
+         id="tspan1348">Sex
+</tspan><tspan
+         x="576.81445"
+         y="111.21712"
+         id="tspan1350">Generation
+</tspan><tspan
+         x="576.81445"
+         y="130.81715"
+         id="tspan1352">Batch
+</tspan><tspan
+         x="576.81445"
+         y="150.41719"
+         id="tspan1354">...</tspan></text>
+  </g>
+</svg>
