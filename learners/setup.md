@@ -29,6 +29,7 @@ if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
 BiocManager::install("AnnotationHub")
+BiocManager::install("DeSeq2")
 BiocManager::install("rtracklayer")
 ```
 
