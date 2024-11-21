@@ -2,147 +2,121 @@
 title: Setup
 ---
 
-## Data Sets
-
-<!--
-FIXME: place any data you want learners to use in `episodes/data` and then use
-       a relative link ( [data zip file](data/lesson-data.zip) ) to provide a
-       link to it, replacing the example.com link.
--->
-Download the [data zip file](https://example.com/FIXME) and unzip it to your Desktop
-
 ## Software Setup
 
-Install Gcloud tools.
+R is a programming language that is especially powerful for data exploration, 
+visualization, and statistical analysis. To interact with R, we use RStudio. 
 
-Open a Google Cloud SDK Shell window and run the following command:
+1. Install the latest version of R from [CRAN](https://cran.r-project.org/).
 
-```
-gcloud compute ssh --zone "us-east1-b" "sumnergcp-controller" --tunnel-through-iap --project "jax-presgraves-edusumner2"
-```
+2. Install the latest version of [RStudio](https://www.rstudio.com/products/rstudio/download/). 
+Choose the free RStudio Desktop version for Windows, Mac, or Linux. 
 
-This will open another terminal window which will connect to the Google Cloud
-Platform (GCP).
+3. Start RStudio. 
 
-![GCP window with slurm prompt](fig/gcp_slurm_window.png){alt="Picture of slurm window open on GCP"}
+4. Install packages. 
+    a. The [qtl2](https://github.com/rqtl/qtl2) package contains code for
+    haplotype reconstruction, QTL mapping and plotting. 
+    b. The [qtl2convert](https://github.com/rqtl/qtl2convert) package contains
+    code for converting data objects from one format to another.
+    c. Bioconductor packages and BiocManager if not already installed.
+    c. Install all by copying and pasting the following code in the R console.
 
-Next, type the following command:
+```r
+install.packages(c("tidyverse", "ggbeeswarm", "qtl2", "qtl2convert"))
 
-```
-module load rstudio
-```
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
 
-This will produce the following message:
-
-```
-Rstudio 4.4.1 loaded. Use the command 'sbatch -w sumnergcp-computenodeset-1 
-rstudio-session.job' to start a new session on node 2. You can change the node 
-number if you want to run on a different node. The cluster has 30 compute nodes
-ranging from 0 to 29
-```
-
-Follow the instructions in the message by typing the following command into
-the GCP window.
-
-```
-sbatch -w sumnergcp-computenodeset-1 rstudio-session.job
+BiocManager::install("AnnotationHub")
+BiocManager::install("rtracklayer")
 ```
 
-This will start a compute queue job which will be reported as:
+Once the installation is complete, load the libraries to make sure that they 
+installed correctly. 
 
-```
-Submitted batch job <N>
-```
-
-where <N> is an integer that is your slurm job ID. The login node is spawning
-a compute node where RStudio will run.
-
-After about two minutes, you should see a file like this in your home directory:
-
-```
-rstudio-server.job.<N>
+```r
+library(tidyverse)
+library(ggbeeswarm)
+library(qtl2)
+library(qtl2convert)
+library(AnnotationHub)
+library(rtracklayer)
 ```
 
-where <N> is the same integer as your batch job ID.
+If the libraries don't load and you received errors during the installation,
+please contact the workshop instructors before the workshop to help you.
 
-View the contents of the file using teh `cat` command:
+## Project organization
 
-```
-cat rstudio-server.job.<N>
-```
+1. Create a new project in your Desktop called `eqtl_mapping`. 
+- Click the `File` menu button, then `New Project`.
+- Click `New Directory`. 
+- Click `New Project`.
+- Type `eqtl_mapping` as the directory name. Browse to your Desktop to create the project there.
+- Click the `Create Project` button.
 
-You will be instructions which tell you how to access your GCP RStudio 
-instance along with a user name and password.
+2. Use the `Files` tab to create  a `data` folder to hold the data, a `scripts` folder to 
+house your scripts, and a `results` folder to hold results. Alternatively, you can use the 
+R console to run the following commands for step 2 only. You still need to create a 
+project with step 1.
 
-```
-> cat rstudio-server.job.53 
-**********************************************************************
-  RStudio server IP address: 35.196.22.80
-  The name of the compute instance running the server is sumnergcp-computenodeset-1
-***********************************************************************
-
-Follow the instaructions below to connect to your 
-rstudio instance:
-
-1. point your web browser to http://35.196.22.80:8787
-2. log in to RStudio Server using the following credentials:
-
-  user: dan_gatti_jax_org
-  password: Dw7Qr3ejbOwBmtOPHxQt
-
-When done using RStudio Server, terminate the job by:
-
-1. Exit the RStudio Session ("power" button in the top right corner of the RStudio window)
-2. Issue the following command on the login node:
-
-      scancel -f 53
+```r
+dir.create("./data")
+dir.create("./scripts")
+dir.create("./results")
 ```
 
-Install R packages:
+## Data Sets
 
-```{r eval=FALSE}
-install.packages(c('BiocManager', 'remotes', 'tidyverse', 'qtl2'))
+For this course, we will have several data files which you will need to 
+download to the `data` directory in the project folder on your Desktop.
+Copy, paste, and run the following code in the RStudio console.
+
+The first file contains the data that we will use for QTL mapping in an F2
+population. Download it using the code below.
+
+```r
+download.file(url      = "https://thejacksonlaboratory.box.com/shared/static/svw7ivp5hhmd7vb8fy26tc53h7r85wez.zip",
+              destfile = "data/attie_b6btbr_grcm39.zip",
+              mode     = "wb")
+              
+unzip(zipfile = "data/attie_b6btbr_grcm39.zip",
+      exdir   = "./data/")
 ```
 
-```{ eval=FALSE}
-remotes::install_github('churchill-lab/intermediate')
+The second file contains the Diversity Outbred mapping data.
+
+```r
+download.file(url      = "https://thejacksonlaboratory.box.com/shared/static/wspizp2jgrtngvvw5ixredpu7627mh5w.rdata",
+              destfile = "data/qtl2_demo_grcm39.Rdata",
+              mode     = "wb")
 ```
 
-<!-- DMG: STOPPED HERE -->
+Next, download the MUGA marker positions from Karl Broman's Github page.
 
-::::::::::::::::::::::::::::::::::::::: discussion
+```r
+download.file(url      = "https://raw.githubusercontent.com/kbroman/MUGAarrays/main/UWisc/muga_uwisc_v4.csv",
+              destfile = "data/muga_uwisc_v4.csv",
+              mode     = "wb")
+```
 
-### Details
+Next, we need a database of the DO founder SNPs and gene positions. This file
+is 10 GB, so it will take a while to download.
 
-Setup for different systems can be presented in dropdown menus via a `spoiler`
-tag. They will join to this discussion block, so you can give a general overview
-of the software used in this lesson here and fill out the individual operating
-systems (and potentially add more, e.g. online setup) in the solutions blocks.
+```r
+download.file(url      = "https://figshare.com/ndownloader/files/40157572",
+              destfile = "data/fv.2021.snps.db3",
+              mode     = "wb")
+```
 
-:::::::::::::::::::::::::::::::::::::::::::::::::::
+If you get an error message downloading this file from figshare, use a web 
+browser to download from the URL. Go to 
+[https://figshare.com/ndownloader/files/40157572](https://figshare.com/ndownloader/files/40157572)
+to start the download. Then move the file from wherever your downloads go 
+(*e.g.* `Downloads`) to the `data` directory in the `qtl_mapping` project. You 
+can use a graphical user interface (*e.g.* Windows File Explorer, Mac Finder) to 
+move the file.
 
-:::::::::::::::: spoiler
-
-### Windows
-
-Use PuTTY
-
-::::::::::::::::::::::::
-
-:::::::::::::::: spoiler
-
-### MacOS
-
-Use Terminal.app
-
-::::::::::::::::::::::::
-
-
-:::::::::::::::: spoiler
-
-### Linux
-
-Use Terminal
-
-::::::::::::::::::::::::
-
+Development of this lesson was funded by NIH award GM070683 to Dr. Gary Churchill at The 
+Jackson Laboratory.
