@@ -17,11 +17,11 @@ exercises: 30
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ```{r load_libraries}
+suppressPackageStartupMessages(library(DESeq2))
 suppressPackageStartupMessages(library(ggbeeswarm))
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(knitr))
 suppressPackageStartupMessages(library(corrplot))
-suppressPackageStartupMessages(library(DESeq2))
 ```
 
 ## Physiological Phenotypes
@@ -442,7 +442,7 @@ students type it either.
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-```{r view_qqplots_normalized}
+```{r view_qqplots_normalized,fig.width=8,fig.height=6}
 expr |> 
   as.data.frame() |>
   select(ENSMUSG00000000001:ENSMUSG00000000058) |> 
@@ -469,7 +469,7 @@ students type it either.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-```{r view_example_boxplots}
+```{r view_example_boxplots,fig.width=8,fig.height=6}
 tmp = raw |> 
         as.data.frame() |> 
         select(ENSMUSG00000000001:ENSMUSG00000000058) |> 
@@ -503,7 +503,7 @@ students type it either.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-```{r rankz_exprr}
+```{r rankz_exprr,fig.width=8,fig.height=6}
 expr_rz |> 
   as.data.frame() |> 
   select(ENSMUSG00000000001:ENSMUSG00000000058) |> 
@@ -516,6 +516,18 @@ expr_rz |>
   
 ```
 
+## Clean up Environment
+
+Before moving to the next lesson, let's remove data objects that we won't be 
+using again.
+
+```{r rm_obj}
+rm(dds, raw, expr)
+```
+
+```{r save_data,include=FALSE}
+saveRDS(expr_rz, file = 'data/attie_do_expr_rz.rds')
+```
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 

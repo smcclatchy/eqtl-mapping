@@ -12,76 +12,60 @@ exercises: 30
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- To understand the key steps running a QTL mapping analysis
+- To understand the key steps running a QTL mapping analysis.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 Before we begin to run QTL mapping on gene expression data to find eQTLs, let's 
-review the main QTL mapping steps that we learnt in the [QTL mapping course](https://smcclatchy.github.io/qtl-mapping/).  As a reminder, we are using 
-data from the Keller et al. [paper](https://academic.oup.com/genetics/article/209/1/335/5931013?login=false) 
-that are freely available to [download](doi:10.5061/dryad.pj105).
+review the main QTL mapping steps that we learnt in the 
+[QTL mapping course](https://smcclatchy.github.io/qtl-mapping/). As a reminder, 
+we are using data from 
+[Keller et al., 2018](https://academic.oup.com/genetics/article/209/1/335/5931013?login=false) 
+which are freely available to download from 
+[Data Dryad](https://datadryad.org/stash/dataset/doi:10.5061/dryad.pj105).
 
-Make sure that you are in your main directory. If you’re not sure where you are 
-working right now, you can check your working directory with `getwd()`. If you 
-are not in your main directory, run `setwd("code")` in the Console or 
-Session -> Set Working Directory -> Choose Directory in the RStudio menu to set 
-your working directory to the code directory.
+Make sure that you have opened the project which you created so that you will
+be in the correct directory and will be able to load the data.
+
+```{r load_data,include=FALSE}
+pheno      <- readRDS(file = 'data/attie_do_pheno.rds')
+pheno_dict <- readRDS(file = 'data/attie_do_pheno_dict.rds')
+covar      <- readRDS(file = 'data/attie_do_covar.rds')
+annot      <- readRDS(file = 'data/attie_do_expr_annot.rds')
+expr_rz    <- readRDS(file = 'data/attie_do_expr_rz.rds')
+probs      <- readRDS(file = url('https://thejacksonlaboratory.box.com/shared/static/4hy4hbjyrxjbrzh570i4g02r62bx3lgk.rds'))
+ins_tauc   <- pheno[,'Ins_tAUC', drop = FALSE]
+expr_covar <- covar[rownames(expr_rz),]
+```
 
 
-### Load Libraries  
+## Load Libraries  
 
-Below are the neccessary libraries that we require for this review.  They are 
+Below are the necessary libraries that we require for this review.  They are 
 already installed on your machines so go ahead an load them using the following 
 code:
 
-```{r load libraries, message=FALSE, warning=FALSE}
-library(tidyverse)
-library(knitr)
-library(broom)
-library(qtl2)
+```{r load_libraries, message=FALSE, warning=FALSE}
+suppressPackageStartupMessages(library(knitr))
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(broom))
+suppressPackageStartupMessages(library(qtl2))
 ```
 
-### Load Data
-
-The data for this tutorial has been saved as several R binary files which 
-contain several data objects, including phenotypes and mapping data as well as 
-the genoprobs.  
-
-Load the data in now by running the following command in your new script. 
-
-
-```{r load_dependencies, message=F}
-##phenotypes
-load("../data/attie_DO500_clinical.phenotypes.RData")
-
-##mapping data
-load("../data/attie_DO500_mapping.data.RData")
-
-##genotype probabilities
-probs = readRDS("../data/attie_DO500_genoprobs_v5.rds")
-```
-
-We loaded in a few data objects today. Check the Environment tab to see what was 
-loaded. You should see a phenotypes object called `pheno_clin` with 500 
-observations (in rows) of 32 variables (in columns), an object called map 
-(physical map), and an object called probs (genotype probabilities).
-
-
-### Phenotypes
+## Phenotypes
 
 In this data set, we have 20 phenotypes for 500 Diversity Outbred mice. 
-`pheno_clin` is a data frame containing the phenotype data as well as covariate 
-information. Click on the triangle to the left of `pheno_clin` in the 
-Environment pane to view its contents. Run `names(pheno_clin)` to list the 
-variables. 
+`pheno` is a data frame containing the phenotype data as well as covariates. 
+Click on the triangle to the left of `pheno` in the Environment pane to view its
+contents. Run `names(pheno)` to list the variables. 
 
-`pheno_clin_dict` is the phenotype dictionary.  This data frame contains 
-information on each variable in `pheno_clin`, including `name`,`short name`, 
+`pheno_dict` is the phenotype dictionary.  This data frame contains 
+information on each variable in `pheno`, including `name`,`short name`, 
 `pheno_type`, `formula` (if used) and `description`.
 
 Since the paper is interested in type 2 diabetes and insulin secretion, we will 
 choose `insulin tAUC` (area  under the curve (AUC) which was calculated without 
-any correction for baseline differences) for this review
+any correction for baseline differences) for this review.
 
 Many statistical models, including the QTL mapping model in qtl2, expect that 
 the incoming data will be normally distributed. You may use transformations such 
@@ -90,52 +74,109 @@ log transform the data.
 
 Here is a histogram of the untransformed data.
 
-```{r hist_untransformed}
-hist(pheno_clin$Ins_tAUC, main = "Insulin Area Under the Curve")
+```{r hist_untransformed,fig.width=8,fig.height=6}
+hist(ins_tauc[,1], main = "Insulin Area Under the Curve")
 ```
+
+This is clearly **not** Normally distributed.
 
 Now, let's apply the `log()` function to this data to correct the distribution.
 
 ```{r log_transform}
-pheno_clin$Ins_tAUC_log <- log(pheno_clin$Ins_tAUC)
+ins_tauc$Ins_tAUC_log <- log(ins_tauc$Ins_tAUC)
 ```
 
-Now, let's make a histogram of the log-transformed data.
+Let's make a histogram of the log-transformed data.
 
 ```{r hist_log_transform}
-hist(pheno_clin$Ins_tAUC_log, main = "insulin tAUC (log-transformed)")
+hist(ins_tauc$Ins_tAUC_log, 
+     breaks = 20,
+     main   = "Insulin tAUC (log-transformed)")
 ```
 
-This looks much better!
+This looks much better! The data has a somewhat Gaussian shape. Technically,
+the assumptions of a linear model require that the **residuals** be Normally
+distributed. In practice, transforming the input data to be Normally distributed
+helps to make the residuals Normally distributed.
 
 
-### The Marker Map  
+## The Marker Map  
+
+The marker map contains a list of the genetic marker positions for each marker
+in the genoprobs. Let's read it in now.
+
+```{r read_map}
+map <- readRDS(file = 'data/attie_do_map.rds')
+```
 
 The marker map for each chromosome is stored in the `map` object. This is used 
 to plot the LOD scores calculated at each marker during QTL mapping. Each list 
 element is a numeric vector with each marker position in megabases (Mb). Here we 
 are using the 69K grid marker file. Often when there are numerous genotype 
-arrays used in a study, we interoplate all to a 69k grid file so we are able to 
+arrays used in a study, we interpolate all to a 69k grid file so we are able to 
 combine all samples across different array types. 
 
 Look at the structure of `map` in the Environment tab by clicking the triangle 
-to the left or by running `str(map)` in the Console. 
+to the left or by running `str(map)` in the Console.  
 
+Each element in map cointains a list of marker positions and names.
 
-### Genotype probabilities  
+```{r head_map}
+head(map[[1]])
+```
+
+The names of the markers consist of the chromosome and the bp position, 
+separated by an underscore (_).
+
+::::::::::::::::::::::::::::::::::::::::::: callout
+
+The marker positions in the map must be in Mb.
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Genoprobs Data
+
+Previously, we loaded in the physiological phenotypes, the sample covariates,
+and the transcript expression data and annotation. We also normalized and rankZ 
+transformed the expression data.
+
+In order to perform QTL mapping, we also need the genotype probabilities 
+(i.e genoprobs). In this lesson, we have already processed the genotypes and 
+produced the genoprobs using 
+[calc_genoprob](https://github.com/kbroman/qtl2/blob/main/R/calc_genoprob.R).
+
+<!-- We don't evaluate this block when building the website because the file is 
+too large (1.7 GB). We load the probs from Box above . -->
+
+```{r load_genoprobs,eval=FALSE,message=FALSE}
+probs <- readRDS("data/attie_DO500_genoprobs_v5.rds")
+```
+
+At this point, you should have several data objects in your environment. Look at
+the Environment tab to see what data objects are in your environment. It should
+look like the figure below.
+
+![Data Environment](fig/data_env_review_qtl.png){alt="Picture of Environment tab with data objects."}
 
 Each element of `probs` is a 3 dimensional array containing the founder allele 
 dosages for each sample at each marker on one chromosome. These are the 8 state 
 allelle probabilities (not 32) using the 69k marker grid for same 500 DO mice 
 that also have clinical phenotypes. We have already calculated genotype 
-probabilities for you, so you can skip the step for [calculating genotype probabilities](https://smcclatchy.github.io/qtl-mapping/calc-genoprob/) and the 
-optional step for calculating allele probabilities.
+probabilities for you, so you can skip the step for
+[calculating genotype probabilities](https://smcclatchy.github.io/qtl-mapping/calc-genoprob/) 
+and the optional step for calculating allele probabilities.
 
 Next, we look at the dimensions of `probs` for chromosome 1: 
 
 ```{r dim_genoprobs}
 dim(probs[[1]])
 ```
+
+Each list element of the genoprobs has 500 samples, eight founders, and a 
+variable number of markers, depending on the chromosome.
+
+As a reminder, this is what the genoprobs of one mouse look like along one
+chromosome.
 
 ```{r geno_plot, fig.width=8, fig.height=6}
 plot_genoprob(probs, map, ind = 1, chr = 1)
@@ -151,14 +192,26 @@ row is black indicating a value of 1.0.  This is followed by CD, DD, DG, AD, AH,
 CE, etc. The values at each marker sum to 1.0.  
 
 
-### [Kinship Matrix](https://smcclatchy.github.io/qtl-mapping/calc-kinship/)
+## [Kinship Matrix](https://smcclatchy.github.io/qtl-mapping/calc-kinship/)
 
-The kinship matrix has already been calculated and loaded in above
+We also use a kinship matrix in the mapping model to adjust the relatedness
+between mice. We also use a different kinship matrix on each chromosome by 
+including all of the markers except the ones on the current chromosome. This 
+is called the "Leave-One-Chromosome-Out" (LOCO) method. We use the genoprobs 
+to create the kinship matrices in the 
+[calc-kinship](https://github.com/kbroman/qtl2/blob/main/R/calc_kinship.R) 
+function.
 
+```{r calc_kinsihp}
+K <- calc_kinship(probs = probs,
+                  type = 'loco')
+```
+
+Let's look at a part of one of the kinship matrices.
 
 ```{r kinship_probs, fig.width=8, fig.height=8}
 n_samples <- 50
-heatmap(K[[1]][1:n_samples, 1:n_samples])
+heatmap(K[[1]][1:n_samples, 1:n_samples], main = "Kinship Between Mice")
 ```
 
 The figure above shows kinship between all pairs of samples. Light yellow 
@@ -167,87 +220,37 @@ indicate varying levels of kinship between 0 and 1. The dark red diagonal of the
 matrix indicates that each sample is identical to itself. The orange blocks 
 along the diagonal may indicate close relatives (i.e. siblings or cousins).
 
-
 ### Covariates    
 
 Next, we need to create additive covariates that will be used in the mapping 
 model.  First, we need to see which covariates are significant. In the data set, 
 we have `sex`, `DOwave` (Wave (i.e., batch) of DO mice) 
-and `diet_days` (number of days on diet) to test whether there are any gender,
+and `diet_days` (number of days on diet) to test whether there are any sex,
 batch or diet effects.
 
-First we are going to select out the covariates and phenotype we want from 
-`pheno_clin` data frame.  Then reformat these selected variables into a long 
-format (using the `gather` command) grouped by the phenotypes (in this case, we 
-only have `Ins_tAUC_log`)
+We will use `sex` and `DOwave` as additive covariates. Sex and DO outbreeding
+generation are often sensible covariates to add. We will convert `sex` and 
+`DOwave` to factors and then use 
+[model.matrix](https://rdrr.io/r/stats/model.matrix.html)
+to create the covariates matrix that `qtl2` will use.
 
-```{r covariates_sig}
-
-### Tests for sex, wave and diet_days.
-
-tmp = pheno_clin %>%
-        dplyr::select(mouse, sex, DOwave, diet_days, Ins_tAUC_log) %>%
-        gather(phenotype, value, -mouse, -sex, -DOwave, -diet_days) %>%
-        group_by(phenotype) %>%
-        nest()
-
-```
-
-Let's create a linear model function that will regress the covariates and the 
-phenotype.
-
-```{r covariates_sig_function}
-mod_fxn = function(df) {
-  lm(value ~ sex + DOwave + diet_days, data = df)
-}
-
-```
-
-Now let's apply that function to the data object `tmp` that we created above. 
-
-```{r covariates_sig_function_app}
-tmp = tmp %>%
-  mutate(model = map(data, mod_fxn)) %>%
-  mutate(summ = map(model, tidy)) %>%
-  unnest(summ)
-
-tmp
-
-```
-
-```{r covariates_sig_function_plots}
-tmp %>%
-  filter(term != "(Intercept)") %>%
-  mutate(neg.log.p = -log10(p.value)) %>%
-  ggplot(aes(term, neg.log.p)) +
-    geom_point() +
-    facet_wrap(~phenotype) +
-    labs(title = "Significance of Sex, Wave & Diet Days on Phenotypes") +
-    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
-rm(tmp)
-
-```
-
-We can see that sex and DOwave (especially the third batch) are significant. 
-Here DOwave is the group or batch number as not all mice are in the experiment 
-at the same time. Because of this, we now have to correct for it.
 
 ```{r covariates}
+pheno$sex    <- factor(pheno$sex)
+pheno$DOwave <- factor(pheno$DOwave)
 
-# convert sex and DO wave (batch) to factors
-pheno_clin$sex = factor(pheno_clin$sex)
-pheno_clin$DOwave = factor(pheno_clin$DOwave)
-
-covar = model.matrix(~sex + DOwave, data = pheno_clin)[,-1]
-
+addcovar     <- model.matrix(~sex + DOwave, data = pheno)[,-1]
 ```
 
-**REMEMBER:** the sample IDs must be in the rownames of `pheno`, `addcovar`, 
+::::::::::::::::::::::::::::::::::::::::::::::: callout
+
+The sample IDs must be in the rownames of `pheno`, `addcovar`, 
 `genoprobs` and `K`. `qtl2` uses the sample IDs to align the samples between 
 objects.
 
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-### [Performing a genome scan](https://smcclatchy.github.io/qtl-mapping/perform-genome-scan/) 
+## [Performing a genome scan](https://smcclatchy.github.io/qtl-mapping/perform-genome-scan/) 
 
 At each marker on the genotyping array, we will fit a model that regresses the 
 phenotype (insulin secretion AUC) on covariates and the founder allele 
@@ -255,197 +258,183 @@ proportions.  Note that this model will give us an estimate of the effect of
 each founder allele at each marker. There are eight founder strains that 
 contributed to the DO, so we will get eight founder allele effects.
 
-#### [Permutations]
+### Using Permutations to Asses Significance Thresholds
 
 First, we need to work out the signifcance level.  Let's find the significance 
-level for 0.1, 0.05 and 0.01.  
+level for 0.1, 0.05 and 0.01. We would run this code to get the thresholds.
+Since this takes several minutes, we have pre-computed the permutations and
+have made these available for you to read in.
 
 ```{r QTL_perm, warning=FALSE, eval=FALSE}
 operm <- scan1perm(genoprobs = probs, 
-                   pheno = pheno_clin[,"Ins_tAUC_log", drop = FALSE],
-                   addcovar=covar,
-                   n_perm=1000)
+                   pheno     = ins_tauc,
+                   addcovar  = addcovar,
+                   n_perm    = 1000)
 ```
 
 ```{r QTL_perm_saving, warning=FALSE, eval=FALSE, eval=F, echo=F}
-save(operm, file="../data/operm_Ins_tAUC_log_1000.Rdata")
+saveRDS(operm, file="data/ins_tauc_perm_1000.rds")
+```
 
+Read in the pre-computed permutations.
+
+```{r QTL_perm_file, warning=FALSE, eval=FALSE}
+perm <- readRDS("data/ins_tauc_perm_1000.rds")
+
+thr = summary(perm,alpha = c(0.1, 0.05, 0.01))
+```
+
+### Genome Scan
+
+Now that we have the phenotypes, genoprobs, covariates, and kinship matrices,
+we are ready to perform a genome scan on insulin tAUC. We will map both the
+untransformed and log-transformed data.
+
+```{r first_scan1, warning=FALSE}
+lod = scan1(genoprobs = probs, 
+            pheno     = ins_tauc, 
+            kinship   = K, 
+            addcovar  = addcovar)
+```
+
+Next, we plot the genome scan of the untransformed data.
+
+```{r qtl_plot1, fig.width=8, fig.height=6, warning=FALSE}
+plot_scan1(x         = qtl,
+           map       = map, 
+           lodcolumn = "Ins_tAUC", 
+           ylim      = c(0, 8.5),
+           main      = "Insulin tAUC (untransformed)")
+add_threshold(map        = map, 
+              thresholdA = thr[2], 
+              col        = 'red')
+```
+
+We then find the significant peaks using 
+[find_peaks](https://github.com/kbroman/qtl2/blob/main/R/find_peaks.R).
+
+```{r find_peaks1}
+find_peaks(scan1_output = lod[,1, drop = FALSE], 
+           map          = map, 
+           threshold    = thr[2],
+           prob         = 0.95)
+```
+
+There are two peaks on chromosomes 11 and 17. The peak on chromosome 17 has
+the highest LOD score.
+
+Next, let's plot the log-transformed data and find the peaks.
+
+```{r qtl_plot2, fig.width=8, fig.height=6, warning=FALSE}
+plot_scan1(x         = lod,
+           map       = map, 
+           lodcolumn = "Ins_tAUC_log", 
+           main      = "Insulin tAUC (log-transformed)")
+add_threshold(map        = map, 
+              thresholdA = thr[2], 
+              col        = 'red')
+```
+
+We can see that the peaks on chromosome 11 has a higher LOD score when using
+the log-transformed data. Let's find the significant peaks.
+
+```{r find_peaks2}
+find_peaks(scan1_output = lod[,2,drop = FALSE], 
+           map          = map, 
+           threshold    = thr[2],
+           prob         = 0.95)
+```
+
+::::::::::::::::::::::::::::::::::::::::::::::: challenge
+
+#### Challenge 1: Width of QTL Interval
+
+Campare the results of `find_peaks` function for the untransformed and 
+log-transformed mapping results. Which one has the narrower support interval?
+
+:::::::::::::::::::::::::::: solution
+
+```{r echo=FALSE}
+p1 <- find_peaks(scan1_output = lod, 
+                 map          = map, 
+                 threshold    = thr[2],
+                 prob         = 0.95)
 ```
 
 
-*Note* DO NOT RUN THIS (it will take too long).  Instead, I have run it earlier 
-and will load it in here.  We will also perform a summary to find the summary 
-level for 0.1, 0.05 and 0.01
+The untransformed data has a `r p1$ci_hi[1] - p1$ci_lo[1]` Mb support interval 
+from `r p1$ci_lo[1]` to `r p1$ci_hi[1]` Mb. 
+
+The log-transformed data has a `r p1$ci_hi[4] - p1$ci_lo[4]` Mb support interval 
+from `r p1$ci_lo[4]` to `r p1$ci_hi[4]` Mb. 
+
+The log-transformed data produces a higher LOD and a narrower support interval.
+
+:::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-```{r QTL_perm_file, warning=FALSE, eval =FALSE}
-load("../data/operm_Ins_tAUC_log_1000.Rdata")
+We can see a very strong peak on chromosome 11 with no other distiguishable 
+peaks. Since the log-transformed data produced the highest LOD score, we will
+proceed with that phenotype and discard the untransformed tAUC.
 
-summary(operm,alpha=c(0.1, 0.05, 0.01))
-
-
+```{r discard_untransformed}
+ins_tauc = ins_tauc[, 2, drop = FALSE]
 ```
-#### Genome Scan
-
-```{r QTL, warning=FALSE, eval=FALSE}
-qtl = scan1(genoprobs = probs, 
-            pheno = pheno_clin[,"Ins_tAUC_log", drop = FALSE], 
-            kinship = K, 
-            addcovar = covar)
-```
-
-Next, we plot the genome scan.
-
-```{r qtl_plot, fig.width=8, fig.height=6, warning=FALSE}
-plot_scan1(x = qtl, 
-           map = map, 
-           lodcolumn = "Ins_tAUC_log")
-           add_threshold(map,  summary(operm,alpha=0.1), col = 'purple')
-           add_threshold(map,  summary(operm, alpha=0.05), col = 'red')
-           add_threshold(map,  summary(operm, alpha=0.01), col = 'blue')
-
-```
-
-We can see a very strong peak on chromosome 11 with no other distibuishable 
-peaks.
-
-### [Finding LOD peaks](https://smcclatchy.github.io/qtl-mapping/find-lod-peaks/)
-
-We can find all of the peaks above the significance threshold using the [find_peaks](https://github.com/rqtl/qtl2/blob/master/R/find_peaks.R) function. 
-
-The support interval is determined using the [Bayesian Credible Interval](http://www.ncbi.nlm.nih.gov/pubmed/11560912) and represents the region 
-most likely to contain the causative polymorphism(s). We can obtain this 
-interval by adding a `prob` argument to [find_peaks](https://github.com/rqtl/qtl2/blob/master/R/find_peaks.R). We pass 
-in a value of `0.95` to request a support interval that contains the causal SNP 
-95% of the time.
-
-In case there are multiple peaks are found on a chromosome, the `peakdrop` 
-argument allows us to the find the peak which has a certain LOD score drop 
-between other peaks. 
-
-Let's find LOD peaks.  Here we are choosing to find peaks with a LOD score 
-greater than 6. 
-
-```{r interval}
-lod_threshold = summary(operm, alpha=0.01)
-peaks = find_peaks(scan1_output = qtl, map = map, 
-                   threshold = lod_threshold, 
-                   peakdrop = 4, 
-                   prob = 0.95)
-
-kable(peaks %>% dplyr::select (-lodindex) %>% 
-        arrange(chr, pos), caption = "Phenotype QTL Peaks with LOD >= 6")
-```
-
 
 ### QTL effects
 
-```{r qtl_effects, warning=F}
+We then estimate the founder allele effects on the chromosome containing the
+peak that we are interested in. In this case, we will look at chromosome 11.
 
-g <- maxmarg(probs, 
-             map=map, 
-             chr=peaks$chr[1],
-             pos=peaks$pos[1], 
-             minprob = 0.4,
-             return_char=TRUE)
-
-plot_pxg(g, 
-         pheno_clin[,peaks$lodcolumn[1]], 
-         ylab=peaks$lodcolumn[1], 
-         sort=FALSE)
-
-blup <- scan1blup(genoprobs=probs[,peaks$chr[1]], 
-                  pheno=pheno_clin[,peaks$lodcolumn[1], drop=FALSE])
-
-plot_coefCC(blup, 
-       map=map, 
-       columns=1:8,
-       bgcolor="gray95", 
-       legend="bottomleft",
-       scan1_output = qtl
-       )
-
+```{r blups}
+chr  <- '11'
+blup <- scan1blup(genoprobs = probs[,chr], 
+                  pheno     = ins_tauc,
+                  kinship   = K[[chr]],
+                  addcovar  = addcovar)
 ```
 
+We then plot the founder allele effects.
+
+```{r plot_blub,fig.width=8,fig.height=6}
+plot_coefCC(x       = blup, 
+            map     = map, 
+            bgcolor = "gray95", 
+            legend  = "bottomleft",
+            scan1_output = lod,
+            main    = "log(Insulin tAUC)")
+```
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Challenge 1: 
-Now choose another phenotype in `pheno_clin` and perform the same steps.  
-1). Check the distribution. Does it need transforming?  If so, how would you do it?
-2). Are there any sex, batch, diet effects?  
-3). Run a genome scan with the genotype probabilities and kinship provided.   
-4). Plot the genome scan for this phenotype.  
-5). Find the peaks above LOD score of 6. 
+#### Challenge 2: Founder Allele Effects
 
-:::::::::::::::::::::::: solution 
+Which founder alleles contribute to higher insulin tAUC? Use the colors on the
+plot and the legend to find the founder strain names.
 
-```{r, eval=F}
-#1).
+:::::::::::::::::::::::: solution
 
-hist(pheno_clin$<pheno name>)
+The strains whose alleles contribute to higher tAUC are:
 
-pheno_clin$<pheno name>_log <- log(pheno_clin$<pheno name>)
-
-hist(pheno_clin$<pheno name>_log)
-
-
-#2).
-
-tmp = pheno_clin %>%
-        dplyr::select(mouse, sex, DOwave, diet_days, <pheno name>) %>%
-        gather(phenotype, value, -mouse, -sex, -DOwave, -diet_days) %>%
-        group_by(phenotype) %>%
-        nest()
-mod_fxn = function(df) {
-  lm(value ~ sex + DOwave + diet_days, data = df)
-}
-tmp = tmp %>%
-  mutate(model = map(data, mod_fxn)) %>%
-  mutate(summ = map(model, tidy)) %>%
-  unnest(summ) 
-
-tmp
-
-tmp %>%
-  filter(term != "(Intercept)") %>%
-  mutate(neg.log.p = -log10(p.value)) %>%
-  ggplot(aes(term, neg.log.p)) +
-    geom_point() +
-    facet_wrap(~phenotype) +
-    labs(title = "Significance of Sex, Wave & Diet Days on Phenotypes") +
-    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
-rm(tmp)
-
-#3).
-
-qtl = scan1(genoprobs = probs, 
-           pheno = pheno_clin[,"<pheno name>", drop = FALSE], 
-        kinship = K, 
-        addcovar = covar)
-
-#4).
-
-plot_scan1(x = qtl, map = map, lodcolumn = "<pheno name>")
-abline(h = 6, col = 2, lwd = 2)
-
-#5). 
-
-peaks = find_peaks(scan1_output = qtl, map = map, 
-               threshold = lod_threshold, 
-               peakdrop = 4, 
-               prob = 0.95)
-```
+A/J  
+C57BL/6J  
+129S1/SvImJ  
+NOD/ShiLtJ  
 
 :::::::::::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+- QTL mapping requires phenotypes and genotypes on the same set of mice.
+- We calculate genotype probabilities at each marker and map using founder
+allele dosages.
+- We use a list of kinship matrices to adjust for the relatedness between mice.
+- We add covariates to the model to adjust for the effects of sex and 
+generation.
+- Log-transforming data to make the distribution more Normal satisfies the 
+mapping model assumptions and can lead to higher LOD scores.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
