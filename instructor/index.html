@@ -486,128 +486,133 @@ any links that you are not going to use.
  --></tbody></table><p>
       The actual schedule may vary slightly depending on the topics and exercises chosen by the instructor.
       </p>
-      </section><section id="setup"><section><h2 class="section-heading" id="data-sets">Data Sets<a class="anchor" aria-label="anchor" href="#data-sets"></a></h2>
-<hr class="half-width"><!--
-FIXME: place any data you want learners to use in `episodes/data` and then use
-       a relative link ( [data zip file](data/lesson-data.zip) ) to provide a
-       link to it, replacing the example.com link.
---><p>Download the <a href="https://example.com/FIXME" class="external-link">data zip file</a>
-and unzip it to your Desktop</p>
-</section><section><h2 class="section-heading" id="software-setup">Software Setup<a class="anchor" aria-label="anchor" href="#software-setup"></a></h2>
-<hr class="half-width"><p>Install Gcloud tools.</p>
-<p>Open a Google Cloud SDK Shell window and run the following
-command:</p>
-<pre><code>gcloud compute ssh --zone "us-east1-b" "sumnergcp-controller" --tunnel-through-iap --project "jax-presgraves-edusumner2"</code></pre>
-<p>This will open another terminal window which will connect to the
-Google Cloud Platform (GCP).</p>
-<figure><img src="../fig/gcp_slurm_window.png" alt="Picture of slurm window open on GCP" class="figure mx-auto d-block"><div class="figcaption">GCP window with slurm prompt</div>
-</figure><p>Next, type the following command:</p>
-<pre><code>module load rstudio</code></pre>
-<p>This will produce the following message:</p>
-<pre><code>Rstudio 4.4.1 loaded. Use the command 'sbatch -w sumnergcp-computenodeset-1
-rstudio-session.job' to start a new session on node 2. You can change the node
-number if you want to run on a different node. The cluster has 30 compute nodes
-ranging from 0 to 29</code></pre>
-<p>Follow the instructions in the message by typing the following
-command into the GCP window.</p>
-<pre><code>sbatch -w sumnergcp-computenodeset-1 rstudio-session.job</code></pre>
-<p>This will start a compute queue job which will be reported as:</p>
-<pre><code>Submitted batch job &lt;N&gt;</code></pre>
-<p>where <n> is an integer that is your slurm job ID. The login node is
-spawning a compute node where RStudio will run.</n></p>
-<p>After about two minutes, you should see a file like this in your home
-directory:</p>
-<pre><code>rstudio-server.job.&lt;N&gt;</code></pre>
-<p>where <n> is the same integer as your batch job ID.</n></p>
-<p>View the contents of the file using teh <code>cat</code> command:</p>
-<pre><code>cat rstudio-server.job.&lt;N&gt;</code></pre>
-<p>You will be instructions which tell you how to access your GCP
-RStudio instance along with a user name and password.</p>
-<pre><code>&gt; cat rstudio-server.job.53
-**********************************************************************
-  RStudio server IP address: 35.196.22.80
-  The name of the compute instance running the server is sumnergcp-computenodeset-1
-***********************************************************************
-
-Follow the instaructions below to connect to your
-rstudio instance:
-
-1. point your web browser to http://35.196.22.80:8787
-2. log in to RStudio Server using the following credentials:
-
-  user: dan_gatti_jax_org
-  password: Dw7Qr3ejbOwBmtOPHxQt
-
-When done using RStudio Server, terminate the job by:
-
-1. Exit the RStudio Session ("power" button in the top right corner of the RStudio window)
-2. Issue the following command on the login node:
-
-      scancel -f 53</code></pre>
-<p>Install R packages:</p>
-<p><code>{r eval=FALSE} install.packages(c('BiocManager', 'remotes', 'tidyverse', 'qtl2'))</code></p>
-<pre eval="FALSE"><code><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">'churchill-lab/intermediate'</span><span class="op">)</span></span></code></pre>
-<!-- DMG: STOPPED HERE -->
-<div id="details" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
+      </section><section id="setup"><section><h2 class="section-heading" id="software-setup">Software Setup<a class="anchor" aria-label="anchor" href="#software-setup"></a></h2>
+<hr class="half-width"><p>R is a programming language that is especially powerful for data
+exploration, visualization, and statistical analysis. To interact with
+R, we use RStudio.</p>
+<ol style="list-style-type: decimal"><li><p>Install the latest version of R from <a href="https://cran.r-project.org/" class="external-link">CRAN</a>.</p></li>
+<li><p>Install the latest version of <a href="https://www.rstudio.com/products/rstudio/download/" class="external-link">RStudio</a>.
+Choose the free RStudio Desktop version for Windows, Mac, or
+Linux.</p></li>
+<li><p>Start RStudio.</p></li>
+<li>
+<p>Install packages.</p>
+<ol style="list-style-type: lower-alpha"><li>The <a href="https://github.com/rqtl/qtl2" class="external-link">qtl2</a> package contains
+code for haplotype reconstruction, QTL mapping and plotting.</li>
+<li>The <a href="https://github.com/rqtl/qtl2convert" class="external-link">qtl2convert</a>
+package contains code for converting data objects from one format to
+another.</li>
+<li>Bioconductor packages and BiocManager if not already installed.</li>
+<li>Install all by copying and pasting the following code in the R
+console.</li>
+</ol></li>
+</ol><div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">install.packages</span><span class="op">(</span><span class="fu">c</span><span class="op">(</span><span class="st">"tidyverse"</span>, <span class="st">"ggbeeswarm"</span>, <span class="st">"qtl2"</span>, <span class="st">"qtl2convert"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw">require</span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu">install.packages</span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu">install</span><span class="op">(</span><span class="st">"AnnotationHub"</span><span class="op">)</span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu">install</span><span class="op">(</span><span class="st">"rtracklayer"</span><span class="op">)</span></span></code></pre>
 </div>
-<div id="details" class="callout-inner">
-<h3 class="callout-title">Details</h3>
-<div class="callout-content">
-<p>Setup for different systems can be presented in dropdown menus via a
-<code>spoiler</code> tag. They will join to this discussion block, so
-you can give a general overview of the software used in this lesson here
-and fill out the individual operating systems (and potentially add more,
-e.g. online setup) in the solutions blocks.</p>
+<p>Once the installation is complete, load the libraries to make sure
+that they installed correctly.</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">ggbeeswarm</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">qtl2</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">qtl2convert</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">AnnotationHub</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">rtracklayer</span><span class="op">)</span></span></code></pre>
 </div>
+<p>If the libraries don’t load and you received errors during the
+installation, please contact the workshop instructors before the
+workshop to help you.</p>
+</section><section><h2 class="section-heading" id="project-organization">Project organization<a class="anchor" aria-label="anchor" href="#project-organization"></a></h2>
+<hr class="half-width"><ol style="list-style-type: decimal"><li>Create a new project in your Desktop called
+<code>eqtl_mapping</code>.</li>
+</ol><ul><li>Click the <code>File</code> menu button, then
+<code>New Project</code>.</li>
+<li>Click <code>New Directory</code>.</li>
+<li>Click <code>New Project</code>.</li>
+<li>Type <code>eqtl_mapping</code> as the directory name. Browse to your
+Desktop to create the project there.</li>
+<li>Click the <code>Create Project</code> button.</li>
+</ul><ol start="2" style="list-style-type: decimal"><li>Use the <code>Files</code> tab to create a <code>data</code> folder
+to hold the data, a <code>scripts</code> folder to house your scripts,
+and a <code>results</code> folder to hold results. Alternatively, you
+can use the R console to run the following commands for step 2 only. You
+still need to create a project with step 1.</li>
+</ol><div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">dir.create</span><span class="op">(</span><span class="st">"./data"</span><span class="op">)</span></span>
+<span><span class="fu">dir.create</span><span class="op">(</span><span class="st">"./scripts"</span><span class="op">)</span></span>
+<span><span class="fu">dir.create</span><span class="op">(</span><span class="st">"./results"</span><span class="op">)</span></span></code></pre>
 </div>
+</section><section><h2 class="section-heading" id="data-sets">Data Sets<a class="anchor" aria-label="anchor" href="#data-sets"></a></h2>
+<hr class="half-width"><p>For this course, we will have several data files which you will need
+to download to the <code>data</code> directory in the project folder on
+your Desktop. Copy, paste, and run the following code in the RStudio
+console.</p>
+<p>The first file contains the data that we will use for QTL mapping in
+an F2 population. Download it using the code below.</p>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">download.file</span><span class="op">(</span>url      <span class="op">=</span> <span class="st">"https://thejacksonlaboratory.box.com/shared/static/svw7ivp5hhmd7vb8fy26tc53h7r85wez.zip"</span>,</span>
+<span>              destfile <span class="op">=</span> <span class="st">"data/attie_b6btbr_grcm39.zip"</span>,</span>
+<span>              mode     <span class="op">=</span> <span class="st">"wb"</span><span class="op">)</span></span>
+<span>              </span>
+<span><span class="fu">unzip</span><span class="op">(</span>zipfile <span class="op">=</span> <span class="st">"data/attie_b6btbr_grcm39.zip"</span>,</span>
+<span>      exdir   <span class="op">=</span> <span class="st">"./data/"</span><span class="op">)</span></span></code></pre>
 </div>
-<div id="accordionSpoiler1" class="accordion spoiler-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler1" aria-expanded="false" aria-controls="collapseSpoiler1">
-  <h3 class="accordion-header" id="headingSpoiler1">
-  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div>
-  Windows
-  </h3>
-</button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
-<div class="accordion-body">
-<p>Use PuTTY</p>
+<p>The second file contains the Diversity Outbred mapping data.</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">download.file</span><span class="op">(</span>url      <span class="op">=</span> <span class="st">"https://thejacksonlaboratory.box.com/shared/static/wspizp2jgrtngvvw5ixredpu7627mh5w.rdata"</span>,</span>
+<span>              destfile <span class="op">=</span> <span class="st">"data/qtl2_demo_grcm39.Rdata"</span>,</span>
+<span>              mode     <span class="op">=</span> <span class="st">"wb"</span><span class="op">)</span></span></code></pre>
 </div>
+<p>Next, download the MUGA marker positions from Karl Broman’s Github
+page.</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">download.file</span><span class="op">(</span>url      <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/kbroman/MUGAarrays/main/UWisc/muga_uwisc_v4.csv"</span>,</span>
+<span>              destfile <span class="op">=</span> <span class="st">"data/muga_uwisc_v4.csv"</span>,</span>
+<span>              mode     <span class="op">=</span> <span class="st">"wb"</span><span class="op">)</span></span></code></pre>
 </div>
+<p>Next, we need a database of the DO founder SNPs and gene positions.
+This file is 10 GB, so it will take a while to download.</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">download.file</span><span class="op">(</span>url      <span class="op">=</span> <span class="st">"https://figshare.com/ndownloader/files/40157572"</span>,</span>
+<span>              destfile <span class="op">=</span> <span class="st">"data/fv.2021.snps.db3"</span>,</span>
+<span>              mode     <span class="op">=</span> <span class="st">"wb"</span><span class="op">)</span></span></code></pre>
 </div>
-</div>
-<div id="accordionSpoiler2" class="accordion spoiler-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler2" aria-expanded="false" aria-controls="collapseSpoiler2">
-  <h3 class="accordion-header" id="headingSpoiler2">
-  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div>
-  MacOS
-  </h3>
-</button>
-<div id="collapseSpoiler2" class="accordion-collapse collapse" aria-labelledby="headingSpoiler2" data-bs-parent="#accordionSpoiler2">
-<div class="accordion-body">
-<p>Use Terminal.app</p>
-</div>
-</div>
-</div>
-</div>
-<div id="accordionSpoiler3" class="accordion spoiler-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler3" aria-expanded="false" aria-controls="collapseSpoiler3">
-  <h3 class="accordion-header" id="headingSpoiler3">
-  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div>
-  Linux
-  </h3>
-</button>
-<div id="collapseSpoiler3" class="accordion-collapse collapse" aria-labelledby="headingSpoiler3" data-bs-parent="#accordionSpoiler3">
-<div class="accordion-body">
-<p>Use Terminal</p>
-</div>
-</div>
-</div>
-</div>
+<p>If you get an error message downloading this file from figshare, use
+a web browser to download from the URL. Go to <a href="https://figshare.com/ndownloader/files/40157572" class="external-link">https://figshare.com/ndownloader/files/40157572</a>
+to start the download. Then move the file from wherever your downloads
+go (<em>e.g.</em> <code>Downloads</code>) to the <code>data</code>
+directory in the <code>qtl_mapping</code> project. You can use a
+graphical user interface (<em>e.g.</em> Windows File Explorer, Mac
+Finder) to move the file.</p>
+<p>Development of this lesson was funded by NIH award GM070683 to
+Dr. Gary Churchill at The Jackson Laboratory.</p>
 <!--
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
@@ -661,8 +666,8 @@ any links that you are not going to use.
   "url": "https://carpentries.github.io/workbench-template-rmd/instructor/index.html",
   "identifier": "https://carpentries.github.io/workbench-template-rmd/instructor/index.html",
   "dateCreated": "2024-11-07",
-  "dateModified": "2024-11-20",
-  "datePublished": "2024-11-20"
+  "dateModified": "2024-11-21",
+  "datePublished": "2024-11-21"
 }
 
   </script><script>
