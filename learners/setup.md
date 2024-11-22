@@ -72,6 +72,23 @@ dir.create("./results")
 
 For this course, we will have several data files which you will need to 
 download to the `data` directory in the project folder on your Desktop.
+
+1. Download all files from the 
+[Github lesson repository](https://github.com/smcclatchy/eqtl-mapping/tree/main/episodes/data).
+You will need to download them one by one. Click on the file name and locate the
+download button at upper right.
+
+![Select the download button](../episodes/fig/download-button.png){alt="Graphic showing the download button at right on the Github data file page"}
+
+Repeat this process for each file. Then move the files from wherever your 
+downloads go (*e.g.* `Downloads`) to the `data` directory in the `eqtl_mapping` 
+project. You can use a graphical user interface (*e.g.* Windows File Explorer, 
+Mac Finder) to move the files.
+
+
+
+
+
 Copy, paste, and run the following code in the RStudio console.
 
 The first file contains the data that we will use for QTL mapping in an F2
@@ -118,6 +135,3 @@ to start the download. Then move the file from wherever your downloads go
 (*e.g.* `Downloads`) to the `data` directory in the `qtl_mapping` project. You 
 can use a graphical user interface (*e.g.* Windows File Explorer, Mac Finder) to 
 move the file.
-
-Development of this lesson was funded by NIH award GM070683 to Dr. Gary Churchill at The 
-Jackson Laboratory.
