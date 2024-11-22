@@ -811,7 +811,7 @@ results.
 Below is the code that you would use. It will take too long to run in this 
 class, so we will read the results in below.
 
-```{r ins_qtl_effects,eval=FALSE}
+```{r hnf1b_qtl_effects,eval=FALSE}
 t1 = proc.time()
 chr      <- peaks_hnf1b$chr[1]
 blup_hnf1b <- scan1blup(genoprobs = probs[,chr],
