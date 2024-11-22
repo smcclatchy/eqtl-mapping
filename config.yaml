@@ -69,7 +69,6 @@ episodes:
 - introduction.Rmd
 - review-eqtl-study.Rmd
 - load-explore-data.Rmd
-- review-mapping-steps.Rmd
 - map-one-eqtl.Rmd
 - map-many-eqtls.Rmd
 - create-transcriptome-map.Rmd

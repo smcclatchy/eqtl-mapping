@@ -27,7 +27,7 @@ which are freely available to download from
 Make sure that you have opened the project which you created so that you will
 be in the correct directory and will be able to load the data.
 
-```{r load_data,include=FALSE}
+```{r setup,include=FALSE}
 pheno      <- readRDS(file = 'data/attie_do_pheno.rds')
 pheno_dict <- readRDS(file = 'data/attie_do_pheno_dict.rds')
 covar      <- readRDS(file = 'data/attie_do_covar.rds')
@@ -52,52 +52,6 @@ suppressPackageStartupMessages(library(broom))
 suppressPackageStartupMessages(library(qtl2))
 ```
 
-## Phenotypes
-
-In this data set, we have 20 phenotypes for 500 Diversity Outbred mice. 
-`pheno` is a data frame containing the phenotype data as well as covariates. 
-Click on the triangle to the left of `pheno` in the Environment pane to view its
-contents. Run `names(pheno)` to list the variables. 
-
-`pheno_dict` is the phenotype dictionary.  This data frame contains 
-information on each variable in `pheno`, including `name`,`short name`, 
-`pheno_type`, `formula` (if used) and `description`.
-
-Since the paper is interested in type 2 diabetes and insulin secretion, we will 
-choose `insulin tAUC` (area  under the curve (AUC) which was calculated without 
-any correction for baseline differences) for this review.
-
-Many statistical models, including the QTL mapping model in qtl2, expect that 
-the incoming data will be normally distributed. You may use transformations such 
-as log or square root to make your data more normally distributed. Here, we will 
-log transform the data. 
-
-Here is a histogram of the untransformed data.
-
-```{r hist_untransformed,fig.width=8,fig.height=6}
-hist(ins_tauc[,1], main = "Insulin Area Under the Curve")
-```
-
-This is clearly **not** Normally distributed.
-
-Now, let's apply the `log()` function to this data to correct the distribution.
-
-```{r log_transform}
-ins_tauc$Ins_tAUC_log <- log(ins_tauc$Ins_tAUC)
-```
-
-Let's make a histogram of the log-transformed data.
-
-```{r hist_log_transform}
-hist(ins_tauc$Ins_tAUC_log, 
-     breaks = 20,
-     main   = "Insulin tAUC (log-transformed)")
-```
-
-This looks much better! The data has a somewhat Gaussian shape. Technically,
-the assumptions of a linear model require that the **residuals** be Normally
-distributed. In practice, transforming the input data to be Normally distributed
-helps to make the residuals Normally distributed.
 
 
 ## The Marker Map  
@@ -266,14 +220,14 @@ Since this takes several minutes, we have pre-computed the permutations and
 have made these available for you to read in.
 
 ```{r QTL_perm, warning=FALSE, eval=FALSE}
-operm <- scan1perm(genoprobs = probs, 
-                   pheno     = ins_tauc,
-                   addcovar  = addcovar,
-                   n_perm    = 1000)
+perm <- scan1perm(genoprobs = probs, 
+                  pheno     = ins_tauc,
+                  addcovar  = addcovar,
+                  n_perm    = 1000)
 ```
 
 ```{r QTL_perm_saving, warning=FALSE, eval=FALSE, eval=F, echo=F}
-saveRDS(operm, file="data/ins_tauc_perm_1000.rds")
+saveRDS(perm, file = "data/ins_tauc_perm_1000.rds")
 ```
 
 Read in the pre-computed permutations.
@@ -349,12 +303,12 @@ find_peaks(scan1_output = lod[,2,drop = FALSE],
 
 #### Challenge 1: Width of QTL Interval
 
-Campare the results of `find_peaks` function for the untransformed and 
+Compare the results of `find_peaks` function for the untransformed and 
 log-transformed mapping results. Which one has the narrower support interval?
 
 :::::::::::::::::::::::::::: solution
 
-```{r echo=FALSE}
+```{r find_peaks3,echo=FALSE}
 p1 <- find_peaks(scan1_output = lod, 
                  map          = map, 
                  threshold    = thr[2],
@@ -375,7 +329,7 @@ The log-transformed data produces a higher LOD and a narrower support interval.
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-We can see a very strong peak on chromosome 11 with no other distiguishable 
+We can see a very strong peak on chromosome 11 with no other distinguishable 
 peaks. Since the log-transformed data produced the highest LOD score, we will
 proceed with that phenotype and discard the untransformed tAUC.
 
