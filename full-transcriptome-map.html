@@ -117,11 +117,11 @@
   Expression Quantitative Trait Locus (eQTL) Mapping
 </div>
 
-<aside class="col-md-12 lesson-progress"><div style="width: 73%" class="percentage">
-    73%
+<aside class="col-md-12 lesson-progress"><div style="width: 69%" class="percentage">
+    69%
   </div>
   <div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 73%" aria-valuenow="73" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar incubator" role="progressbar" style="width: 69%" aria-valuenow="69" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
     </div>
   </div>
 </aside><div class="container">
@@ -232,7 +232,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="review-mapping-steps.html">4. Review Mapping Steps</a>
+        <a href="map-one-eqtl.html">4. Mapping A Single Gene Expression Trait</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -241,7 +241,7 @@
 <div class="accordion accordion-flush" id="accordionFlush6">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading6">
-        <a href="map-one-eqtl.html">5. Mapping A Single Gene Expression Trait</a>
+        <a href="map-many-eqtls.html">5. Mapping Many Gene Expression Traits</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -250,16 +250,7 @@
 <div class="accordion accordion-flush" id="accordionFlush7">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading7">
-        <a href="map-many-eqtls.html">6. Mapping Many Gene Expression Traits</a>
-    </div><!--/div.accordion-header-->
-
-  </div><!--/div.accordion-item-->
-</div><!--/div.accordion-flush-->
-
-<div class="accordion accordion-flush" id="accordionFlush8">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading8">
-        <a href="create-transcriptome-map.html">7. Creating A Transcriptome Map</a>
+        <a href="create-transcriptome-map.html">6. Creating A Transcriptome Map</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -271,7 +262,7 @@
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
-        8. Transcriptome Map of cis and trans eQTL
+        7. Transcriptome Map of cis and trans eQTL
         </span>
       </button>
     </div><!--/div.accordion-header-->
@@ -286,10 +277,19 @@
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
+<div class="accordion accordion-flush" id="accordionFlush9">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading9">
+        <a href="maximum-peaks-genes.html">8. Maximum eQTL Peaks and Nearby Genes</a>
+    </div><!--/div.accordion-header-->
+
+  </div><!--/div.accordion-item-->
+</div><!--/div.accordion-flush-->
+
 <div class="accordion accordion-flush" id="accordionFlush10">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading10">
-        <a href="maximum-peaks-genes.html">9. Maximum eQTL Peaks and Nearby Genes</a>
+        <a href="interpret-results.html">9. Interpreting qtl2 results</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -298,16 +298,7 @@
 <div class="accordion accordion-flush" id="accordionFlush11">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading11">
-        <a href="interpret-results.html">10. Interpreting qtl2 results</a>
-    </div><!--/div.accordion-header-->
-
-  </div><!--/div.accordion-item-->
-</div><!--/div.accordion-flush-->
-
-<div class="accordion accordion-flush" id="accordionFlush12">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading12">
-        <a href="mediation-analysis.html">11. Mediation Analysis</a>
+        <a href="mediation-analysis.html">10. Mediation Analysis</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -371,7 +362,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Transcriptome Map of cis and trans eQTL</h1>
-        <p>Last updated on 2024-11-21 |
+        <p>Last updated on 2024-11-23 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/full-transcriptome-map.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -492,7 +483,7 @@ X-axis and the QTL locations are shown on the Y-axis.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>There are at least two patterns. One is the dense diagonal line of
 cis-eQTL. The other is the increased density of QTL in vertical
@@ -517,7 +508,7 @@ lines.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>A vertical band indicates that one locus regulates the expression of
 many genes.</p>
@@ -832,8 +823,8 @@ any links that you are not going to use.
   "url": "https://carpentries.github.io/workbench-template-rmd/full-transcriptome-map.html",
   "identifier": "https://carpentries.github.io/workbench-template-rmd/full-transcriptome-map.html",
   "dateCreated": "2024-11-07",
-  "dateModified": "2024-11-21",
-  "datePublished": "2024-11-21"
+  "dateModified": "2024-11-23",
+  "datePublished": "2024-11-23"
 }
 
   </script><script>

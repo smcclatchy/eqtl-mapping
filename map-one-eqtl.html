@@ -117,11 +117,11 @@
   Expression Quantitative Trait Locus (eQTL) Mapping
 </div>
 
-<aside class="col-md-12 lesson-progress"><div style="width: 33%" class="percentage">
-    33%
+<aside class="col-md-12 lesson-progress"><div style="width: 22%" class="percentage">
+    22%
   </div>
   <div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 33%" aria-valuenow="33" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar incubator" role="progressbar" style="width: 22%" aria-valuenow="22" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
     </div>
   </div>
 </aside><div class="container">
@@ -229,23 +229,32 @@
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
-<div class="accordion accordion-flush" id="accordionFlush5">
+<div class="accordion accordion-flush" id="accordionFlushcurrent">
   <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading5">
-        <a href="review-mapping-steps.html">4. Review Mapping Steps</a>
+    <div class="accordion-header" id="flush-headingcurrent">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
+        <span class="visually-hidden">Current Chapter</span>
+        <span class="current-chapter">
+        4. Mapping A Single Gene Expression Trait
+        </span>
+      </button>
     </div><!--/div.accordion-header-->
+
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+      <div class="accordion-body">
+        <ul><li><a href="#physiological-phenotypes">Physiological Phenotypes</a></li>
+<li><a href="#expression-data">Expression Data</a></li>
+<li><a href="#performing-a-genome-scan">Performing a Genome Scan</a></li>
+        </ul></div><!--/div.accordion-body-->
+    </div><!--/div.accordion-collapse-->
 
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
 
-<div class="accordion accordion-flush" id="accordionFlushcurrent">
+<div class="accordion accordion-flush" id="accordionFlush6">
   <div class="accordion-item">
-    <div class="accordion-header" id="flush-headingcurrent">
-        <span class="visually-hidden">Current Chapter</span>
-        <span class="current-chapter">
-        5. Mapping A Single Gene Expression Trait
-        </span>
-      
+    <div class="accordion-header" id="flush-heading6">
+        <a href="map-many-eqtls.html">5. Mapping Many Gene Expression Traits</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -254,7 +263,7 @@
 <div class="accordion accordion-flush" id="accordionFlush7">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading7">
-        <a href="map-many-eqtls.html">6. Mapping Many Gene Expression Traits</a>
+        <a href="create-transcriptome-map.html">6. Creating A Transcriptome Map</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -263,7 +272,7 @@
 <div class="accordion accordion-flush" id="accordionFlush8">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading8">
-        <a href="create-transcriptome-map.html">7. Creating A Transcriptome Map</a>
+        <a href="full-transcriptome-map.html">7. Transcriptome Map of cis and trans eQTL</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -272,7 +281,7 @@
 <div class="accordion accordion-flush" id="accordionFlush9">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading9">
-        <a href="full-transcriptome-map.html">8. Transcriptome Map of cis and trans eQTL</a>
+        <a href="maximum-peaks-genes.html">8. Maximum eQTL Peaks and Nearby Genes</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -281,7 +290,7 @@
 <div class="accordion accordion-flush" id="accordionFlush10">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading10">
-        <a href="maximum-peaks-genes.html">9. Maximum eQTL Peaks and Nearby Genes</a>
+        <a href="interpret-results.html">9. Interpreting qtl2 results</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -290,16 +299,7 @@
 <div class="accordion accordion-flush" id="accordionFlush11">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading11">
-        <a href="interpret-results.html">10. Interpreting qtl2 results</a>
-    </div><!--/div.accordion-header-->
-
-  </div><!--/div.accordion-item-->
-</div><!--/div.accordion-flush-->
-
-<div class="accordion accordion-flush" id="accordionFlush12">
-  <div class="accordion-item">
-    <div class="accordion-header" id="flush-heading12">
-        <a href="mediation-analysis.html">11. Mediation Analysis</a>
+        <a href="mediation-analysis.html">10. Mediation Analysis</a>
     </div><!--/div.accordion-header-->
 
   </div><!--/div.accordion-item-->
@@ -347,14 +347,14 @@
         <!-- START: inst/pkgdown/templates/content-instructor.html -->
   <div class="col-xl-8 col-lg-12 primary-content">
     <nav class="lesson-content mx-md-4" aria-label="Previous and Next Chapter"><!-- content for small screens --><div class="d-block d-sm-block d-md-none">
-        <a class="chapter-link" href="review-mapping-steps.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
+        <a class="chapter-link" href="load-explore-data.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="map-many-eqtls.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
-        <a class="chapter-link" href="review-mapping-steps.html" rel="prev">
+        <a class="chapter-link" href="load-explore-data.html" rel="prev">
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
-          Previous: Review Mapping Steps
+          Previous: Load and Explore
         </a>
         <a class="chapter-link float-end" href="map-many-eqtls.html" rel="next">
           Next: Mapping Many Gene...
@@ -363,7 +363,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Mapping A Single Gene Expression Trait</h1>
-        <p>Last updated on 2024-11-21 |
+        <p>Last updated on 2024-11-23 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/map-one-eqtl.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -382,7 +382,8 @@
 <div class="card-body">
 <div class="inner">
 <h3 class="card-title">Questions</h3>
-<ul><li>How do I map one gene expression trait?</li>
+<ul><li>What are the steps in QTL mapping?</li>
+<li>How do I map one gene expression trait?</li>
 </ul></div>
 </div>
 </div>
@@ -390,457 +391,654 @@
 <div class="card-body">
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
-<ul><li>To run a QTL analysis for expression data</li>
+<ul><li>Review the steps in QTL mapping.</li>
+<li>To run a QTL analysis for expression data.</li>
 </ul></div>
 </div>
 </div>
 </div>
 </div>
-<p>In this tutorial, we are going to use the gene expression data as our
-phenotype to map QTLs. That is, we are looking to find any QTLs (cis or
-trans) that are responsible for variation in gene expression across
-samples.</p>
-<p>We are using the same directory as our previous tutorial, which you
-can check by typing <code>getwd()</code> in the Console. If you are not
-in the correct directory, type in <code>setwd("code")</code> in the
-console or Session -&gt; Set Working Directory -&gt; Choose Directory in
-the RStudio menu to set your working directory to the main
-directory.</p>
-<p>If you have started a new R session, you will need to load the
-libraries again. If you haven’t, the libraries listed below are already
-loaded.</p>
-<div class="section level3">
-<h3 id="load-libraries">Load Libraries<a class="anchor" aria-label="anchor" href="#load-libraries"></a></h3>
-<div class="codewrapper sourceCode" id="cb1">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<div class="codewrapper">
+<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">knitr</span><span class="op">)</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">broom</span><span class="op">)</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">qtl2</span><span class="op">)</span></span></code></pre>
+<pre class="warning" tabindex="0"><code>Warning: replacing previous import 'S4Arrays::makeNindexFromArrayViewport' by
+'DelayedArray::makeNindexFromArrayViewport' when loading 'SummarizedExperiment'</code></pre>
 </div>
-</div>
-<div class="section level3">
-<h3 id="load-data">Load Data<a class="anchor" aria-label="anchor" href="#load-data"></a></h3>
-<p>In this lesson, we are loading in gene expression data for
-<code>21,771</code> genes: <code>attie_DO500_expr.datasets.RData</code>
-that includes normalised and raw gene expression data.
-<code>dataset.islet.rnaseq</code> is the dataset you can download
-directly from Dryad. Again, if you are using the same R session, you
-will not need to the load the mapping, phenotypes and genotype
-probabilities data, again.</p>
+<section><h2 class="section-heading" id="physiological-phenotypes">Physiological Phenotypes<a class="anchor" aria-label="anchor" href="#physiological-phenotypes"></a></h2>
+<hr class="half-width"><p>In this data set, we have 20 phenotypes for 500 Diversity Outbred
+mice. <code>pheno</code> is a data frame containing the phenotype data
+as well as covariates. Click on the triangle to the left of
+<code>pheno</code> in the Environment pane to view its contents. Run
+<code>names(pheno)</code> to list the variables.</p>
+<p><code>pheno_dict</code> is the phenotype dictionary. This data frame
+contains information on each variable in <code>pheno</code>, including
+<code>name</code>,<code>short name</code>, <code>pheno_type</code>,
+<code>formula</code> (if used) and <code>description</code>.</p>
+<p>Since the paper is interested in type 2 diabetes and insulin
+secretion, we will choose <code>insulin tAUC</code> (area under the
+curve (AUC) which was calculated without any correction for baseline
+differences) for this review.</p>
+<p>Many statistical models, including the QTL mapping model in qtl2,
+expect that the incoming data will be normally distributed. You may use
+transformations such as log or square root to make your data more
+normally distributed. Here, we will log transform the data.</p>
+<p>Let’s make a variable for insulin tAUC so that we don’t have to type
+as much.</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># expression data</span></span>
-<span><span class="fu">load</span><span class="op">(</span><span class="st">"../data/attie_DO500_expr.datasets.RData"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">ins_tauc</span> <span class="op">&lt;-</span> <span class="va">pheno</span><span class="op">[</span>,<span class="st">'Ins_tAUC'</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<p>Next, let’s look at the distribution of insulin tAUC using a
+histogram.</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="warning" tabindex="0"><code>Warning in readChar(con, 5L, useBytes = TRUE): cannot open compressed file
-'../data/attie_DO500_expr.datasets.RData', probable reason 'No such file or
-directory'</code></pre>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">hist</span><span class="op">(</span><span class="va">ins_tauc</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, </span>
+<span>     breaks <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>     main   <span class="op">=</span> <span class="st">"Insulin Area Under the Curve"</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<figure><img src="fig/map-one-eqtl-rendered-hist_untransformed-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>This is clearly <strong>not</strong> Normally distributed. In fact,
+this type of distribution is often log Normal.</p>
+<p>Now, let’s apply the <code>log()</code> function to this data iun an
+effort to make the distribution more Normal.</p>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in readChar(con, 5L, useBytes = TRUE): cannot open the connection</code></pre>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ins_tauc</span><span class="op">$</span><span class="va">Ins_tAUC_log</span> <span class="op">&lt;-</span> <span class="fu">log</span><span class="op">(</span><span class="va">ins_tauc</span><span class="op">$</span><span class="va">Ins_tAUC</span><span class="op">)</span></span></code></pre>
 </div>
+<p>Let’s make a histogram of the log-transformed data.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># data from paper</span></span>
-<span><span class="fu">load</span><span class="op">(</span><span class="st">"../data/dataset.islet.rnaseq.RData"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">hist</span><span class="op">(</span><span class="va">ins_tauc</span><span class="op">$</span><span class="va">Ins_tAUC_log</span>, </span>
+<span>     breaks <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>     main   <span class="op">=</span> <span class="st">"Insulin tAUC (log-transformed)"</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<figure><img src="fig/map-one-eqtl-rendered-hist_log_transform-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>This looks much better! The data has a somewhat Gaussian shape.
+Technically, the assumptions of a linear model require that the
+<strong>residuals</strong> be Normally distributed. In practice,
+transforming the input data to be Normally distributed helps to make the
+residuals Normally distributed.</p>
+</section><section><h2 class="section-heading" id="expression-data">Expression Data<a class="anchor" aria-label="anchor" href="#expression-data"></a></h2>
+<hr class="half-width"><p>In a previous lesson, we loaded in the raw transcript expression data
+and noticed that the distribution of each gene was non-Gaussian and
+different.</p>
+<p>There is another issue that we must also be addressed. Each sample
+has a different total number of counts. This affects our ability to
+compare values between samples. For example, say that we look at the
+expression of “Gene1” in two samples and find that both samples have 500
+counts for Gene1. It appears that Gene1 is equally expressed in both
+samples. However, suppose that the total counts (i.e. the sum of counts
+for all genes in each sample) is 10 million for sample 1 and 20 million
+for sample 2. The sum of all counts across all genes in a sample is also
+called the “library size.” Then we need to scale the counts for Gene1 by
+the total counts. This is shown in the table below.</p>
+<table class="table"><thead><tr class="header"><th>Sample</th>
+<th>Gene1 Counts</th>
+<th>Total Counts</th>
+<th>Proportion</th>
+</tr></thead><tbody><tr class="odd"><td>1</td>
+<td>500</td>
+<td>10e6</td>
+<td>5e-05</td>
+</tr><tr class="even"><td>2</td>
+<td>500</td>
+<td>20e6</td>
+<td>2.5e-05</td>
+</tr></tbody></table><p>In this case, we can see that Gene1 has lower expression in sample 2
+compared to sample 1. Although the actual adjustment for library size,
+or the total counts, is more complicated, this is the rationale for
+adjusting each sample.</p>
+<p>Let’s plot a histogram of the total counts in each sample.</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="warning" tabindex="0"><code>Warning in readChar(con, 5L, useBytes = TRUE): cannot open compressed file
-'../data/dataset.islet.rnaseq.RData', probable reason 'No such file or
-directory'</code></pre>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">hist</span><span class="op">(</span><span class="fu">rowSums</span><span class="op">(</span><span class="va">raw</span><span class="op">)</span> <span class="op">*</span> <span class="fl">1e-6</span>,</span>
+<span>     breaks <span class="op">=</span> <span class="fl">50</span>, </span>
+<span>     main   <span class="op">=</span> <span class="st">"Histogram of Total Counts per Sample"</span>,</span>
+<span>     xlab   <span class="op">=</span> <span class="st">"Total Counts (Millions)"</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<figure><img src="fig/map-one-eqtl-rendered-hist_total_counts-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>As you can see, total counts range from 15 to 50 million reads.</p>
+<p>To recap, before we perform any analysis using the transcript
+expression data, we need to normalize it by adjusting for library size
+and transforming the expression of each gene to be Gaussian.</p>
+<div class="section level3">
+<h3 id="normalizing-gene-expression">Normalizing Gene Expression<a class="anchor" aria-label="anchor" href="#normalizing-gene-expression"></a></h3>
+<p>We will use the <a href="https://bioconductor.org/packages/release/bioc/html/DESeq2.html" class="external-link">DESeq2</a>
+package to adjust the counts for library size. DESeq2 is a large package
+which performs many types of analyses. Further details are in the <a href="https://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html" class="external-link">DESeq2
+Tutorial</a>.</p>
+<p>First, we must create a DESeq object. We need the raw counts, rounded
+so that all values are integers, and the sample covariate data. We will
+have to subset the sample covariates to include only the expression
+samples.</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in readChar(con, 5L, useBytes = TRUE): cannot open the connection</code></pre>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">expr_covar</span> <span class="op">=</span> <span class="fu">subset</span><span class="op">(</span><span class="va">covar</span>, <span class="va">mouse</span> <span class="op">%in%</span> <span class="fu">rownames</span><span class="op">(</span><span class="va">raw</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">expr_covar</span> <span class="op">=</span> <span class="va">expr_covar</span><span class="op">[</span><span class="fu">match</span><span class="op">(</span><span class="fu">rownames</span><span class="op">(</span><span class="va">raw</span><span class="op">)</span>, <span class="va">expr_covar</span><span class="op">$</span><span class="va">mouse</span><span class="op">)</span>,<span class="op">]</span></span></code></pre>
 </div>
+<p>In order to create the DESeq2 object, we will need to transpose the
+expression data. This is because DESeq2 requires that the samples be in
+columns and the genes in rows. We will also tell DESeq2 which the design
+variables are for our data, although they are not used in this case.
+These would be used if we were searching for differentially expression
+genes.</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># phenotypes</span></span>
-<span><span class="fu">load</span><span class="op">(</span><span class="st">"../data/attie_DO500_clinical.phenotypes.RData"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">dds</span>  <span class="op">=</span> <span class="fu">DESeqDataSetFromMatrix</span><span class="op">(</span>countData <span class="op">=</span> <span class="fu">t</span><span class="op">(</span><span class="fu">round</span><span class="op">(</span><span class="va">raw</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>                              colData   <span class="op">=</span> <span class="va">expr_covar</span>, </span>
+<span>                              design    <span class="op">=</span> <span class="op">~</span> <span class="fl">1</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>converting counts to integer mode</code></pre>
+</div>
+<p>Next, we will run DESeq2 and let is adjust the expression data for
+differing library sizes.</p>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dds</span>  <span class="op">=</span> <span class="fu">DESeq</span><span class="op">(</span><span class="va">dds</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="warning" tabindex="0"><code>Warning in readChar(con, 5L, useBytes = TRUE): cannot open compressed file
-'../data/attie_DO500_clinical.phenotypes.RData', probable reason 'No such file
-or directory'</code></pre>
+<pre class="warning" tabindex="0"><code>Warning in DESeq(dds): the design is ~ 1 (just an intercept). is this intended?</code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in readChar(con, 5L, useBytes = TRUE): cannot open the connection</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb11">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># mapping data</span></span>
-<span><span class="fu">load</span><span class="op">(</span><span class="st">"../data/attie_DO500_mapping.data.RData"</span><span class="op">)</span></span></code></pre>
+<pre class="output" tabindex="0"><code>estimating size factors</code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="warning" tabindex="0"><code>Warning in readChar(con, 5L, useBytes = TRUE): cannot open compressed file
-'../data/attie_DO500_mapping.data.RData', probable reason 'No such file or
-directory'</code></pre>
+<pre class="output" tabindex="0"><code>estimating dispersions</code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in readChar(con, 5L, useBytes = TRUE): cannot open the connection</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb14">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># genotype probabilities</span></span>
-<span><span class="va">probs</span> <span class="op">=</span> <span class="fu">readRDS</span><span class="op">(</span><span class="st">"../data/attie_DO500_genoprobs_v5.rds"</span><span class="op">)</span></span></code></pre>
+<pre class="output" tabindex="0"><code>gene-wise dispersion estimates</code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="warning" tabindex="0"><code>Warning in gzfile(file, "rb"): cannot open compressed file
-'../data/attie_DO500_genoprobs_v5.rds', probable reason 'No such file or
-directory'</code></pre>
+<pre class="output" tabindex="0"><code>mean-dispersion relationship</code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in gzfile(file, "rb"): cannot open the connection</code></pre>
-</div>
-</div>
-<div class="section level3">
-<h3 id="expression-data">Expression Data<a class="anchor" aria-label="anchor" href="#expression-data"></a></h3>
-<p>Raw gene expression counts are in the <code>counts</code> data
-object. These counts have been normalised and saved in the
-<code>norm</code> data object. More information is about normalisation
-is <a href="https://whoatemycookie.github.io/gene-expression-qtl/03-load-explore-data/index.html#gene-expression-phenotypes" class="external-link">here</a>.</p>
-<p>To view the contents of either one of these data , click the table on
-the right hand side either <code>norm</code> or <code>counts</code> in
-the Environment tab. If you type in <code>names(counts)</code>, you will
-see the names all start with <code>ENSMUSG</code>. These are Ensembl
-IDs. If we want to see which gene these IDs correspond to, type in
-<code>dataset.islet.rnaseq$annots</code>, which gives information about
-each gene, including ensemble id, gene symbol as well as start &amp;
-stop location of the gene and chromsome on which the gene lies.</p>
-<p>Because we are working with the <code>insulin tAUC</code> phenotype,
-let’s map the expression counts for <code>Hnf1b</code> which is known to
-influence this phenotype is these data. First, we need to find the
-Ensembl ID for this gene:</p>
-<div class="codewrapper sourceCode" id="cb17">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dataset.islet.rnaseq</span><span class="op">$</span><span class="va">annots</span><span class="op">[</span><span class="va">dataset.islet.rnaseq</span><span class="op">$</span><span class="va">annots</span><span class="op">$</span><span class="va">symbol</span> <span class="op">==</span> <span class="st">"Hnf1b"</span>,<span class="op">]</span></span></code></pre>
+<pre class="output" tabindex="0"><code>final dispersion estimates</code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'dataset.islet.rnaseq' not found</code></pre>
-</div>
-<p>We can see that the ensembl ID of <code>Hnf1b</code> is
-<code>ENSMUSG00000020679</code>. If we check the distribution for
-<code>Hnf1b</code> expression data between the raw and normalised data,
-we can see there distribution has been corrected. Here is the
-distribution of the raw counts:</p>
-<div class="codewrapper sourceCode" id="cb19">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">hist</span><span class="op">(</span><span class="va">counts</span><span class="op">$</span><span class="va">ENSMUSG00000020679</span>, main <span class="op">=</span> <span class="st">"Hnf1b"</span><span class="op">)</span></span></code></pre>
+<pre class="output" tabindex="0"><code>fitting model and testing</code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'counts' not found</code></pre>
+<pre class="output" tabindex="0"><code>-- replacing outliers and refitting for 155 genes
+-- DESeq argument 'minReplicatesForReplace' = 7
+-- original counts are preserved in counts(dds)</code></pre>
 </div>
-<p>and here is the distribution of the normalised counts:</p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>estimating dispersions</code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>fitting model and testing</code></pre>
+</div>
+<p>Once this is done, we will get the expression data after it has been
+transformed using the <a href="https://en.wikipedia.org/wiki/Variance-stabilizing_transformation" class="external-link">Variance
+Stabilizing Transformation</a> (VST). The VST adjusts the variance of
+the genes such that it is not related to the mean gene expression
+level.</p>
+
 <div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">hist</span><span class="op">(</span><span class="va">norm</span><span class="op">$</span><span class="va">ENSMUSG00000020679</span>, main <span class="op">=</span> <span class="st">"Hnf1b"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">expr</span> <span class="op">=</span> <span class="fu">assays</span><span class="op">(</span><span class="va">dds</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="fu">tibble</span><span class="op">(</span>mean <span class="op">=</span> <span class="fu">rowMeans</span><span class="op">(</span><span class="va">expr</span><span class="op">)</span>,</span>
+<span>       sd   <span class="op">=</span> <span class="fu">apply</span><span class="op">(</span><span class="va">expr</span>, <span class="fl">1</span>, <span class="va">sd</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">mean</span>, <span class="va">sd</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">scale_x_log10</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">scale_y_log10</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Mean vs. Std. Dev. of Before VST"</span>,</span>
+<span>         x     <span class="op">=</span> <span class="st">"log(Mean)"</span>, y <span class="op">=</span> <span class="st">"log(Std. Dev.)"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">theme</span><span class="op">(</span>text <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in norm$ENSMUSG00000020679: object of type 'closure' is not subsettable</code></pre>
+<pre class="warning" tabindex="0"><code>Warning in scale_x_log10(): log-10 transformation introduced infinite values.</code></pre>
 </div>
-<p>The histogram indicates that distribution of these counts are
-normalised.</p>
+<div class="codewrapper">
+<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="warning" tabindex="0"><code>Warning in scale_y_log10(): log-10 transformation introduced infinite values.</code></pre>
 </div>
-<div class="section level3">
-<h3 id="the-marker-map">The Marker Map<a class="anchor" aria-label="anchor" href="#the-marker-map"></a></h3>
-<p>We are using the same marker map as in the previous <a href="https://smcclatchy.github.io/eqtl-mapping/review-mapping-steps/index.html#the-marker-map" class="external-link">lesson</a></p>
-</div>
-<div class="section level3">
-<h3 id="genotype-probabilities">Genotype probabilities<a class="anchor" aria-label="anchor" href="#genotype-probabilities"></a></h3>
-<p>We have explored this earlier in th previous <a href="https://smcclatchy.github.io/eqtl-mapping/review-mapping-steps/index.html#genotype-probabilities" class="external-link">lesson</a>.
-But, as a reminder, we have already calculated genotype probabilities
-which we loaded above called <code>probs</code>. This contains the 8
-state genotype probabilities using the 69k grid map of the same 500 DO
-mice that also have clinical phenotypes.</p>
-</div>
-<div class="section level3">
-<h3 id="kinship-matrix"><a href="https://smcclatchy.github.io/qtl-mapping/calc-kinship/" class="external-link">Kinship
-Matrix</a><a class="anchor" aria-label="anchor" href="#kinship-matrix"></a></h3>
-<p>We have explored the kinship matrix in the previous <a href="https://smcclatchy.github.io/eqtl-mapping/review-mapping-steps/index.html#kinship-matrix" class="external-link">lesson</a>.
-It has already been calculated and loaded in above.</p>
-</div>
-<div class="section level3">
-<h3 id="covariates">Covariates<a class="anchor" aria-label="anchor" href="#covariates"></a></h3>
-<p>Now let’s add the necessary covariates. For <code>Hnf1b</code>
-expression data, let’s see which covariates are significant.</p>
-<div class="codewrapper sourceCode" id="cb23">
+<figure><img src="fig/map-one-eqtl-rendered-show_expr_mean_var-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">###merging covariate data and expression data to test for sex, wave and diet_days.</span></span>
-<span></span>
-<span><span class="va">cov.counts</span> <span class="op">&lt;-</span> <span class="fu">merge</span><span class="op">(</span><span class="va">covar</span>, <span class="va">norm</span>, by<span class="op">=</span><span class="fu">c</span><span class="op">(</span><span class="st">"row.names"</span><span class="op">)</span>, sort<span class="op">=</span><span class="cn">F</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">rm</span><span class="op">(</span><span class="va">expr</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'covar' not found</code></pre>
-</div>
+<p>The plot above shows the mean expression value for each gene versus
+the standard deviation of each gene. Both axes are log-transformed. As
+you can see, there is a positive correlation between the mean and the
+standard deviation. We would like each gene to have the same variance,
+regardless of the mean, for each gene.</p>
+<p>Next, we will apply the variance stabilizing transformation and will
+transpose the expression values.</p>
 <div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#testing covairates on expression data</span></span>
-<span></span>
-<span><span class="va">tmp</span> <span class="op">=</span> <span class="va">cov.counts</span> <span class="op">%&gt;%</span></span>
-<span>        <span class="fu">dplyr</span><span class="fu">::</span><span class="fu">select</span><span class="op">(</span><span class="va">mouse</span>, <span class="va">sex</span>, <span class="va">DOwave</span>, <span class="va">diet_days</span>, <span class="va">ENSMUSG00000020679</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>        <span class="fu">gather</span><span class="op">(</span><span class="va">expression</span>, <span class="va">value</span>, <span class="op">-</span><span class="va">mouse</span>, <span class="op">-</span><span class="va">sex</span>, <span class="op">-</span><span class="va">DOwave</span>, <span class="op">-</span><span class="va">diet_days</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>        <span class="fu">group_by</span><span class="op">(</span><span class="va">expression</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>        <span class="fu">nest</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">expr</span> <span class="op">=</span> <span class="fu">assays</span><span class="op">(</span><span class="fu">vst</span><span class="op">(</span><span class="va">dds</span><span class="op">)</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">expr</span> <span class="op">=</span> <span class="fu">t</span><span class="op">(</span><span class="va">expr</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'cov.counts' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb27">
+<p>Let’s look at the mean versus the standard deviation of each gene
+after normalization.</p>
+<div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mod_fxn</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu">lm</span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">sex</span> <span class="op">+</span> <span class="va">DOwave</span> <span class="op">+</span> <span class="va">diet_days</span>, data <span class="op">=</span> <span class="va">df</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="va">tmp</span> <span class="op">=</span> <span class="va">tmp</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>model <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">data</span>, <span class="va">mod_fxn</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>summ <span class="op">=</span> <span class="fu">map</span><span class="op">(</span><span class="va">model</span>, <span class="va">tidy</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">unnest</span><span class="op">(</span><span class="va">summ</span><span class="op">)</span> </span></code></pre>
+<code class="sourceCode R"><span><span class="fu">tibble</span><span class="op">(</span>mean <span class="op">=</span> <span class="fu">colMeans</span><span class="op">(</span><span class="va">expr</span><span class="op">)</span>,</span>
+<span>       sd   <span class="op">=</span> <span class="fu">apply</span><span class="op">(</span><span class="va">expr</span>, <span class="fl">2</span>, <span class="va">sd</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">mean</span>, <span class="va">sd</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">scale_x_log10</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">scale_y_log10</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Mean vs. Std. Dev. of After VST"</span>,</span>
+<span>         x     <span class="op">=</span> <span class="st">"log(Mean)"</span>, y <span class="op">=</span> <span class="st">"log(Std. Dev.)"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">theme</span><span class="op">(</span>text <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'tmp' not found</code></pre>
+<pre class="warning" tabindex="0"><code>Warning in scale_y_log10(): log-10 transformation introduced infinite values.</code></pre>
 </div>
+<figure><img src="fig/map-one-eqtl-rendered-mean_sd_after_vst-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The standard deviation is now largely unrelated to the mean. At lower
+expression levels, the standard deviation is somewhat related to the
+mean.</p>
+<p>At this point, while each gene has been normalized, each gene has a
+different distribution. In QTL mapping, we often use permutations to
+estimate significance thresholds. This approach works for one phenotype.
+However, if other phenotypes have different distributions, then the
+significance threshold for one phenotype cannot be used for another.
+This means that we would have to perform 1,000 permutations for
+<strong>each</strong> gene. While modern computing clusters can do this,
+it is time consuming.</p>
+<p>Another approach is to force the distribution of each gene to be
+identical. Then, we can perform permutations on one gene and get a
+significance threshold for all genes.</p>
+<p>We can force the distribution of each gene to be Gaussian and
+identical for all genes using an inverse-normal or rank-Z
+transformation.</p>
+<div class="codewrapper sourceCode" id="cb28">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">rankZ</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">x</span> <span class="op">=</span> <span class="fu">rank</span><span class="op">(</span><span class="va">x</span>, na.last <span class="op">=</span> <span class="st">"keep"</span>, ties.method <span class="op">=</span> <span class="st">"average"</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fu">sum</span><span class="op">(</span><span class="op">!</span><span class="fu">is.na</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>  <span class="kw">return</span><span class="op">(</span><span class="fu">qnorm</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">expr_rz</span> <span class="op">=</span> <span class="fu">apply</span><span class="op">(</span><span class="va">expr</span>, <span class="fl">2</span>, <span class="va">rankZ</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Boxplots of raw counts for six example genes are shown at left below.
+Notice that the median count values (horizontal black bar in each
+boxplot) are not comparable between the genes because the counts are not
+on the same scale. At right, boxplots for the same genes show normalized
+count data on the same scale.</p>
+
 <div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#  kable(tmp, caption = "Effects of Sex, Wave &amp; Diet Days on Expression")</span></span>
+<code class="sourceCode R"><span><span class="va">tmp</span> <span class="op">=</span> <span class="va">raw</span> <span class="op">|&gt;</span> </span>
+<span>        <span class="fu">as.data.frame</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>        <span class="fu">select</span><span class="op">(</span><span class="va">ENSMUSG00000000001</span><span class="op">:</span><span class="va">ENSMUSG00000000058</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>        <span class="fu">pivot_longer</span><span class="op">(</span>cols <span class="op">=</span> <span class="fu">everything</span><span class="op">(</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">'gene'</span>, values_to <span class="op">=</span> <span class="st">'value'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>        <span class="fu">mutate</span><span class="op">(</span>type <span class="op">=</span> <span class="st">'raw'</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">tmp</span></span></code></pre>
+<span><span class="va">norm</span> <span class="op">=</span> <span class="va">expr</span> <span class="op">|&gt;</span> </span>
+<span>         <span class="fu">as.data.frame</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>         <span class="fu">select</span><span class="op">(</span><span class="va">ENSMUSG00000000001</span><span class="op">:</span><span class="va">ENSMUSG00000000058</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>         <span class="fu">pivot_longer</span><span class="op">(</span>cols <span class="op">=</span> <span class="fu">everything</span><span class="op">(</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">'gene'</span>, values_to <span class="op">=</span> <span class="st">'value'</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>         <span class="fu">mutate</span><span class="op">(</span>type <span class="op">=</span> <span class="st">'normalized'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">bind_rows</span><span class="op">(</span><span class="va">tmp</span>, <span class="va">norm</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>type <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">type</span>, levels <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">'raw'</span>, <span class="st">'normalized'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">gene</span>, <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">type</span>, scales <span class="op">=</span> <span class="st">'free'</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">'Count distributions for example genes'</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">theme</span><span class="op">(</span>text <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
+<span>          axis.text.x <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">90</span>, hjust <span class="op">=</span> <span class="fl">0.5</span>, vjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<figure><img src="fig/map-one-eqtl-rendered-view_example_boxplots-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb30">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'tmp' not found</code></pre>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">rm</span><span class="op">(</span><span class="va">tmp</span>, <span class="va">norm</span><span class="op">)</span></span></code></pre>
 </div>
+<p>In the rankZ-transformed data, every gene has the same
+distribution.</p>
+
 <div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tmp</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">term</span> <span class="op">!=</span> <span class="st">"(Intercept)"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>neg.log.p <span class="op">=</span> <span class="op">-</span><span class="fu">log10</span><span class="op">(</span><span class="va">p.value</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">term</span>, <span class="va">neg.log.p</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">expression</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Significance of Sex, Wave &amp; Diet Days on Expression"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">theme</span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">90</span>, hjust <span class="op">=</span> <span class="fl">1</span>, vjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span><span class="fu">rm</span><span class="op">(</span><span class="va">tmp</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">expr_rz</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">as.data.frame</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">select</span><span class="op">(</span><span class="va">ENSMUSG00000000001</span><span class="op">:</span><span class="va">ENSMUSG00000000058</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">pivot_longer</span><span class="op">(</span>cols <span class="op">=</span> <span class="fu">everything</span><span class="op">(</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">'gene'</span>, values_to <span class="op">=</span> <span class="st">'value'</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">gene</span>, <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">'RankZ distributions for example genes'</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">theme</span><span class="op">(</span>text <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
+<span>          axis.text.x <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">90</span>, hjust <span class="op">=</span> <span class="fl">0.5</span>, vjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<figure><img src="fig/map-one-eqtl-rendered-rankz_exprr-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Before moving on, let’s remove data objects that we won’t be using
+again.</p>
+<div class="codewrapper sourceCode" id="cb32">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'tmp' not found</code></pre>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">rm</span><span class="op">(</span><span class="va">dds</span>, <span class="va">raw</span>, <span class="va">expr</span><span class="op">)</span></span></code></pre>
 </div>
-<p>We can see that sex and DOwave are significant. Here DOwave is the
-group or batch number as not all mice were submitted for genotyping at
-the same time. Because of this, we now have to correct for it.
-Considering the paper included the covariate, <code>diet_days</code>, we
-will include that as well.</p>
+</div>
+<div class="section level3">
+<h3 id="the-marker-map">The Marker Map<a class="anchor" aria-label="anchor" href="#the-marker-map"></a></h3>
+<p>The marker map contains a list of the genetic marker positions for
+each marker in the genoprobs. Let’s read it in now.</p>
 <div class="codewrapper sourceCode" id="cb33">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># convert sex and DO wave (batch) to factors</span></span>
-<span><span class="va">pheno_clin</span><span class="op">$</span><span class="va">sex</span> <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">pheno_clin</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">map</span> <span class="op">&lt;-</span> <span class="fu">readRDS</span><span class="op">(</span>file <span class="op">=</span> <span class="st">'data/attie_do_map.rds'</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'pheno_clin' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb35">
+<p>The marker map for each chromosome is stored in the <code>map</code>
+object. This is used to plot the LOD scores calculated at each marker
+during QTL mapping. Each list element is a numeric vector with each
+marker position in megabases (Mb). Here we are using the 69K grid marker
+file. Often when there are numerous genotype arrays used in a study, we
+interpolate all to a 69k grid file so we are able to combine all samples
+across different array types.</p>
+<p>Look at the structure of <code>map</code> in the Environment tab by
+clicking the triangle to the left or by running <code>str(map)</code> in
+the Console.</p>
+<p>Each element in map cointains a list of marker positions and
+names.</p>
+<div class="codewrapper sourceCode" id="cb34">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pheno_clin</span><span class="op">$</span><span class="va">DOwave</span> <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">pheno_clin</span><span class="op">$</span><span class="va">DOwave</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">map</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'pheno_clin' not found</code></pre>
+<pre class="output" tabindex="0"><code>  1_3e+06 1_3041392 1_3346528 1_3651663 1_3657931 1_3664199
+ 3.000000  3.041392  3.346528  3.651663  3.657931  3.664199 </code></pre>
 </div>
+<p>The names of the markers consist of the chromosome and the bp
+position, separated by an underscore (_).</p>
+<div id="callout1" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Callout</h3>
+<div class="callout-content">
+<p>The marker positions in the map must be in Mb.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="genotype-probabilities">Genotype probabilities<a class="anchor" aria-label="anchor" href="#genotype-probabilities"></a></h3>
+<p>Previously, we loaded in the physiological phenotypes, the sample
+covariates, and the transcript expression data and annotation. We also
+normalized and rankZ transformed the expression data.</p>
+<p>In order to perform QTL mapping, we also need the genotype
+probabilities (i.e genoprobs). In this lesson, we have already processed
+the genotypes and produced the genoprobs using <a href="https://github.com/kbroman/qtl2/blob/main/R/calc_genoprob.R" class="external-link">calc_genoprob</a>.</p>
+<!-- We don't evaluate this block when building the website because the file is
+too large (1.7 GB). We load the probs from Box above . -->
+<div class="codewrapper sourceCode" id="cb36">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">probs</span> <span class="op">&lt;-</span> <span class="fu">readRDS</span><span class="op">(</span><span class="st">"data/attie_DO500_genoprobs_v5.rds"</span><span class="op">)</span></span></code></pre>
+</div>
+<p>At this point, you should have several data objects in your
+environment. Look at the Environment tab to see what data objects are in
+your environment. It should look like the figure below.</p>
+<figure><img src="fig/data_env_review_qtl.png" alt="Picture of Environment tab with data objects." class="figure mx-auto d-block"><div class="figcaption">Data Environment</div>
+</figure><p>Each element of <code>probs</code> is a 3 dimensional array
+containing the founder allele dosages for each sample at each marker on
+one chromosome. These are the 8 state allelle probabilities (not 32)
+using the 69k marker grid for same 500 DO mice that also have clinical
+phenotypes. We have already calculated genotype probabilities for you,
+so you can skip the step for <a href="https://smcclatchy.github.io/qtl-mapping/calc-genoprob/" class="external-link">calculating
+genotype probabilities</a> and the optional step for calculating allele
+probabilities.</p>
+<p>Next, we look at the dimensions of <code>probs</code> for chromosome
+1:</p>
 <div class="codewrapper sourceCode" id="cb37">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pheno_clin</span><span class="op">$</span><span class="va">diet_days</span> <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">pheno_clin</span><span class="op">$</span><span class="va">DOwave</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">dim</span><span class="op">(</span><span class="va">probs</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error: object 'pheno_clin' not found</code></pre>
+<pre class="output" tabindex="0"><code>[1]  500    8 4711</code></pre>
 </div>
+<p>Each list element of the genoprobs has 500 samples, eight founders,
+and a variable number of markers, depending on the chromosome.</p>
+<p>As a reminder, this is what the genoprobs of one mouse look like
+along one chromosome.</p>
 <div class="codewrapper sourceCode" id="cb39">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">covar</span> <span class="op">=</span> <span class="fu">model.matrix</span><span class="op">(</span><span class="op">~</span><span class="va">sex</span> <span class="op">+</span> <span class="va">DOwave</span> <span class="op">+</span> <span class="va">diet_days</span>, data <span class="op">=</span> <span class="va">pheno_clin</span><span class="op">)</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">plot_genoprob</span><span class="op">(</span><span class="va">probs</span>, <span class="va">map</span>, ind <span class="op">=</span> <span class="fl">1</span>, chr <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'pheno_clin' not found</code></pre>
-</div>
+<figure><img src="fig/map-one-eqtl-rendered-geno_plot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>In the plot above, the founder contributions, which range between 0
+and 1, are colored from white (= 0) to black (= 1.0). A value of ~0.5 is
+grey. The markers are on the X-axis and the eight founders (denoted by
+the letters A through H) on the Y-axis. Starting at the left, we see
+that this sample has genotype GH because the rows for G &amp; H are
+grey, indicating values of 0.5 for both alleles. Moving along the genome
+to the right, the genotype becomes HH where where the row is black
+indicating a value of 1.0. This is followed by CD, DD, DG, AD, AH, CE,
+etc. The values at each marker sum to 1.0.</p>
 </div>
 <div class="section level3">
-<h3 id="performing-a-genome-scan"><a href="https://smcclatchy.github.io/qtl-mapping/perform-genome-scan/" class="external-link">Performing
-a genome scan</a><a class="anchor" aria-label="anchor" href="#performing-a-genome-scan"></a></h3>
-<div class="section level4">
-<h4 id="permutations">[Permutations]<a class="anchor" aria-label="anchor" href="#permutations"></a></h4>
-<p>First, we need to work out the signifcance level. Let’s find the
-signifance level for 0.1, 0.05 and 0.01.</p>
+<h3 id="kinship-matrix">Kinship Matrix<a class="anchor" aria-label="anchor" href="#kinship-matrix"></a></h3>
+<p>We also use a kinship matrix in the mapping model to adjust the
+relatedness between mice. We also use a different kinship matrix on each
+chromosome by including all of the markers except the ones on the
+current chromosome. This is called the “Leave-One-Chromosome-Out” (LOCO)
+method. We use the genoprobs to create the kinship matrices in the <a href="https://github.com/kbroman/qtl2/blob/main/R/calc_kinship.R" class="external-link">calc-kinship</a>
+function.</p>
+
+<div class="codewrapper sourceCode" id="cb40">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">K</span> <span class="op">&lt;-</span> <span class="fu">calc_kinship</span><span class="op">(</span>probs <span class="op">=</span> <span class="va">probs</span>,</span>
+<span>                  type <span class="op">=</span> <span class="st">'loco'</span><span class="op">)</span></span></code></pre>
+</div>
+<p>And let’s save the kinship matrices so that we don’t have to build
+them again.</p>
 <div class="codewrapper sourceCode" id="cb41">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">operm</span> <span class="op">&lt;-</span> <span class="fu">scan1perm</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>, </span>
-<span>                   pheno <span class="op">=</span> <span class="va">norm</span><span class="op">[</span>,<span class="st">"ENSMUSG00000020679"</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, </span>
-<span>                   addcovar<span class="op">=</span><span class="va">covar</span>,</span>
-<span>                   n_perm<span class="op">=</span><span class="fl">1000</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">saveRDS</span><span class="op">(</span><span class="va">K</span>, file <span class="op">=</span> <span class="st">"data/attie_do_kinship.rds"</span><span class="op">)</span></span></code></pre>
 </div>
-<p><em>Note</em> DO NOT RUN THIS (it will take too long). Instead, I
-have run it earlier and will load it in here. We will also perform a
-summary to find the summary level for 0.1, 0.05 and 0.01</p>
+<p>Let’s look at a part of one of the kinship matrices.</p>
 <div class="codewrapper sourceCode" id="cb42">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">load</span><span class="op">(</span><span class="st">"../data/operm_ENSMUSG00000020679_1000.Rdata"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">summary</span><span class="op">(</span><span class="va">operm</span>,alpha<span class="op">=</span><span class="fu">c</span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.05</span>, <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">n_samples</span> <span class="op">&lt;-</span> <span class="fl">50</span></span>
+<span><span class="fu">heatmap</span><span class="op">(</span><span class="va">K</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="va">n_samples</span>, <span class="fl">1</span><span class="op">:</span><span class="va">n_samples</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"Kinship Between Mice"</span><span class="op">)</span></span></code></pre>
 </div>
+<figure><img src="fig/map-one-eqtl-rendered-kinship_probs-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The figure above shows kinship between all pairs of samples. Light
+yellow indicates low kinship and dark red indicates higher kinship.
+Orange values indicate varying levels of kinship between 0 and 1. The
+dark red diagonal of the matrix indicates that each sample is identical
+to itself. The orange blocks along the diagonal may indicate close
+relatives (i.e. siblings or cousins).</p>
 </div>
-<div class="section level4">
-<h4 id="genome-scan">Genome Scan<a class="anchor" aria-label="anchor" href="#genome-scan"></a></h4>
+<div class="section level3">
+<h3 id="covariates">Covariates<a class="anchor" aria-label="anchor" href="#covariates"></a></h3>
+<p>Next, we need to create additive covariates that will be used in the
+mapping model. First, we need to see which covariates are significant.
+In the data set, we have <code>sex</code>, <code>DOwave</code> (Wave
+(i.e., batch) of DO mice) and <code>diet_days</code> (number of days on
+diet) to test whether there are any sex, batch or diet effects.</p>
+<p>We will use <code>sex</code> and <code>DOwave</code> as additive
+covariates. Sex and DO outbreeding generation are often sensible
+covariates to add. We will convert <code>sex</code> and
+<code>DOwave</code> to factors and then use <a href="https://rdrr.io/r/stats/model.matrix.html" class="external-link">model.matrix</a> to
+create the covariates matrix that <code>qtl2</code> will use.</p>
 <div class="codewrapper sourceCode" id="cb43">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">qtl</span> <span class="op">=</span> <span class="fu">scan1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>, </span>
-<span>            pheno <span class="op">=</span> <span class="va">norm</span><span class="op">[</span>,<span class="st">"ENSMUSG00000020679"</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, </span>
-<span>            kinship <span class="op">=</span> <span class="va">K</span>, </span>
-<span>            addcovar <span class="op">=</span> <span class="va">covar</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">pheno</span><span class="op">$</span><span class="va">sex</span>    <span class="op">&lt;-</span> <span class="fu">factor</span><span class="op">(</span><span class="va">pheno</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span></span>
+<span><span class="va">pheno</span><span class="op">$</span><span class="va">DOwave</span> <span class="op">&lt;-</span> <span class="fu">factor</span><span class="op">(</span><span class="va">pheno</span><span class="op">$</span><span class="va">DOwave</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">addcovar</span>     <span class="op">&lt;-</span> <span class="fu">model.matrix</span><span class="op">(</span><span class="op">~</span><span class="va">sex</span> <span class="op">+</span> <span class="va">DOwave</span>, data <span class="op">=</span> <span class="va">pheno</span><span class="op">)</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span></span></code></pre>
 </div>
-<p>Next, we plot the genome scan.</p>
+<div id="callout2" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Callout</h3>
+<div class="callout-content">
+<p>The sample IDs must be in the rownames of <code>pheno</code>,
+<code>addcovar</code>, <code>genoprobs</code> and <code>K</code>.
+<code>qtl2</code> uses the sample IDs to align the samples between
+objects.</p>
+</div>
+</div>
+</div>
+<!-- DMG: Not sure about this yet. -->
+<p>Considering the paper included the covariate, <code>diet_days</code>,
+we will include that as well.</p>
 <div class="codewrapper sourceCode" id="cb44">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot_scan1</span><span class="op">(</span>x <span class="op">=</span> <span class="va">qtl</span>, </span>
-<span>           map <span class="op">=</span> <span class="va">map</span>, </span>
-<span>           lodcolumn <span class="op">=</span> <span class="st">"ENSMUSG00000020679"</span>,</span>
-<span>           main <span class="op">=</span> <span class="fu">colnames</span><span class="op">(</span><span class="va">qtl</span><span class="op">)</span><span class="op">)</span></span>
-<span>           <span class="fu">add_threshold</span><span class="op">(</span><span class="va">map</span>,  <span class="fu">summary</span><span class="op">(</span><span class="va">operm</span>, alpha<span class="op">=</span><span class="fl">0.1</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">'purple'</span><span class="op">)</span></span>
-<span>           <span class="fu">add_threshold</span><span class="op">(</span><span class="va">map</span>,  <span class="fu">summary</span><span class="op">(</span><span class="va">operm</span>, alpha<span class="op">=</span><span class="fl">0.05</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">'red'</span><span class="op">)</span></span>
-<span>           <span class="fu">add_threshold</span><span class="op">(</span><span class="va">map</span>,  <span class="fu">summary</span><span class="op">(</span><span class="va">operm</span>, alpha<span class="op">=</span><span class="fl">0.01</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">'blue'</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">addcovar</span><span class="op">)</span></span></code></pre>
 </div>
-</div>
-</div>
-<div class="section level3">
-<h3 id="finding-lod-peaks"><a href="https://smcclatchy.github.io/qtl-mapping/find-lod-peaks/" class="external-link">Finding
-LOD peaks</a><a class="anchor" aria-label="anchor" href="#finding-lod-peaks"></a></h3>
-<p>Let’s find LOD peaks</p>
-<div class="codewrapper sourceCode" id="cb45">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">lod_threshold</span> <span class="op">=</span> <span class="fu">summary</span><span class="op">(</span><span class="va">operm</span>, alpha<span class="op">=</span><span class="fl">0.01</span><span class="op">)</span></span>
-<span><span class="va">peaks</span> <span class="op">=</span> <span class="fu">find_peaks</span><span class="op">(</span>scan1_output <span class="op">=</span> <span class="va">qtl</span>, </span>
-<span>                   map <span class="op">=</span> <span class="va">map</span>, </span>
-<span>                   threshold <span class="op">=</span> <span class="va">lod_threshold</span>, </span>
-<span>                   peakdrop <span class="op">=</span> <span class="fl">4</span>, prob <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span>
-<span><span class="fu">kable</span><span class="op">(</span><span class="va">peaks</span> <span class="op">%&gt;%</span> </span>
-<span>        <span class="fu">dplyr</span><span class="fu">::</span><span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">lodindex</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>        <span class="fu">arrange</span><span class="op">(</span><span class="va">chr</span>, <span class="va">pos</span><span class="op">)</span>, caption <span class="op">=</span> <span class="st">"Phenotype QTL Peaks with LOD &gt;= 6"</span><span class="op">)</span></span></code></pre>
+<pre class="output" tabindex="0"><code>      sexM DOwave2 DOwave3 DOwave4 DOwave5
+DO021    0       0       0       0       0
+DO022    0       0       0       0       0
+DO023    0       0       0       0       0
+DO024    0       0       0       0       0
+DO025    0       0       0       0       0
+DO026    0       0       0       0       0</code></pre>
 </div>
 </div>
-<div class="section level3">
-<h3 id="qtl-effects">QTL effects<a class="anchor" aria-label="anchor" href="#qtl-effects"></a></h3>
+</section><section><h2 class="section-heading" id="performing-a-genome-scan">Performing a Genome Scan<a class="anchor" aria-label="anchor" href="#performing-a-genome-scan"></a></h2>
+<hr class="half-width"><p>We will perform a genome scan for insulin tAUC, comparing the results
+of the untrasformed and log-transformed results. Use the <a href="https://github.com/kbroman/qtl2/blob/main/R/scan1.R" class="external-link">scan1</a>
+function to map insulin tAUC.</p>
+
 <div class="codewrapper sourceCode" id="cb46">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">blup</span> <span class="op">&lt;-</span> <span class="fu">scan1blup</span><span class="op">(</span>genoprobs<span class="op">=</span><span class="va">probs</span><span class="op">[</span>,<span class="va">peaks</span><span class="op">$</span><span class="va">chr</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, </span>
-<span>                  <span class="va">norm</span><span class="op">[</span>,<span class="va">peaks</span><span class="op">$</span><span class="va">lodcolumn</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, drop<span class="op">=</span><span class="cn">FALSE</span><span class="op">]</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">plot_coefCC</span><span class="op">(</span><span class="va">blup</span>, </span>
-<span>       map<span class="op">=</span><span class="va">map</span>, </span>
-<span>       columns<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span>,</span>
-<span>       bgcolor<span class="op">=</span><span class="st">"gray95"</span>, </span>
-<span>       legend<span class="op">=</span><span class="st">"bottomleft"</span>,</span>
-<span>       scan1_output <span class="op">=</span> <span class="va">qtl</span> <span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">lod_ins</span> <span class="op">&lt;-</span> <span class="fu">scan1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>,</span>
+<span>                 pheno     <span class="op">=</span> <span class="va">ins_tauc</span>,</span>
+<span>                 kinsihp   <span class="op">=</span> <span class="va">K</span>,</span>
+<span>                 addcovar  <span class="op">=</span> <span class="va">addcovar</span><span class="op">)</span></span></code></pre>
 </div>
-<div id="challenge-1" class="callout challenge">
+<div class="codewrapper">
+<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="warning" tabindex="0"><code>Warning in check_extra_dots(dotargs, c("tol", "intcovar_method", "quiet", :
+Extra argument ignored: kinsihp</code></pre>
+</div>
+<p>After the genome scan, <code>lod_ins</code> contains the LOD scores
+for both the untransformed and log-transformed insulin values.</p>
+<div class="codewrapper sourceCode" id="cb48">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">lod_ins</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>          Ins_tAUC Ins_tAUC_log
+1_3000000 4.709381     3.652337
+1_3041392 4.709871     3.652666
+1_3346528 4.754830     3.693434
+1_3651663 4.582070     3.574225
+1_3657931 4.631835     3.599469
+1_3664199 4.679481     3.631266</code></pre>
+</div>
+<p>Let’s plot both LOD curves.</p>
+
+<div class="codewrapper sourceCode" id="cb50">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">plot_scan1</span><span class="op">(</span>x         <span class="op">=</span> <span class="va">lod_ins</span>, </span>
+<span>           map       <span class="op">=</span> <span class="va">map</span>,</span>
+<span>           lodcolumn <span class="op">=</span> <span class="st">"Ins_tAUC_log"</span>,</span>
+<span>           main      <span class="op">=</span> <span class="st">"Insulin tAUC"</span><span class="op">)</span></span>
+<span><span class="fu">plot_scan1</span><span class="op">(</span>x         <span class="op">=</span> <span class="va">lod_ins</span>, </span>
+<span>           map       <span class="op">=</span> <span class="va">map</span>,</span>
+<span>           lodcolumn <span class="op">=</span> <span class="st">"Ins_tAUC"</span>,</span>
+<span>           col       <span class="op">=</span> <span class="fu">rgb</span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span>,</span>
+<span>           lty       <span class="op">=</span> <span class="st">"dashed"</span>,</span>
+<span>           add       <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">legend</span><span class="op">(</span><span class="st">"topleft"</span>, </span>
+<span>       legend <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"log-transformed"</span>, <span class="st">"untransformed"</span><span class="op">)</span>, </span>
+<span>       col    <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"black"</span>,           <span class="st">"red3"</span><span class="op">)</span>, </span>
+<span>       lwd    <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="fig/map-one-eqtl-rendered-plot_ins_tauc-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-1-which-phenotype-has-the-higher-lod-score-on-chromosomes-11-and-17" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="challenge-1" class="callout-inner">
-<h3 class="callout-title">Challenge 1:</h3>
+<div id="challenge-1-which-phenotype-has-the-higher-lod-score-on-chromosomes-11-and-17" class="callout-inner">
+<h3 class="callout-title">Challenge 1: Which phenotype has the higher LOD score on chromosomes 11 and 17?</h3>
 <div class="callout-content">
-<p>Now choose another gene expression trait in <code>norm</code> data
-object and perform the same steps.<br>
-1). Check the distribution of the raw counts and normalised counts 2).
-Are there any sex, batch, diet effects?<br>
-3). Run a genome scan with the genotype probabilities and kinship
-provided.<br>
-4). Plot the genome scan for this gene.<br>
-5). Find the peaks above LOD score of 6.</p>
+
 </div>
 </div>
 </div>
@@ -851,66 +1049,431 @@ provided.<br>
 </button>
 <div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
-<p>Replace <code>&lt;ensembl id&gt;</code> with your choice of gene
-expression trait</p>
-<div class="codewrapper sourceCode" id="cb47">
+<p>The log-transformed data has a higher LOD score on chromosome 11.
+However, the untransformed data has a higher LOD on chromosome 17.</p>
+</div>
+</div>
+</div>
+</div>
+<p>The challenge above shows the value off transforming data to make it
+more Normally distributed. We not have a peak for log(ins_tauc) on
+chromosome 11 which we will work with for the rest of the lesson.</p>
+<p>Because we are working with the <code>insulin tAUC</code> phenotype,
+wihch has a QTL peak on chromosome 11, we will map a gene on chromosome
+11 which may influence insulin and glucose levels. This gene is called
+<a href="https://www.alliancegenome.org/gene/MGI:98505" class="external-link">Hnf1b</a>. Since
+the expression data uses Ensembl IDs in its colnames, we need to find
+the Ensembl ID for this gene:</p>
+<div class="codewrapper sourceCode" id="cb51">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a><span class="co">#1).</span></span>
-<span id="cb47-2"><a href="#cb47-2" tabindex="-1"></a></span>
-<span id="cb47-3"><a href="#cb47-3" tabindex="-1"></a><span class="fu">hist</span>(pheno_clin<span class="sc">$</span><span class="er">&lt;</span>ensembl id<span class="sc">&gt;</span>)</span>
-<span id="cb47-4"><a href="#cb47-4" tabindex="-1"></a></span>
-<span id="cb47-5"><a href="#cb47-5" tabindex="-1"></a>pheno_clin<span class="sc">$</span><span class="er">&lt;</span>ensembl id<span class="sc">&gt;</span>_log <span class="ot">&lt;-</span> <span class="fu">log</span>(pheno_clin<span class="sc">$</span><span class="er">&lt;</span>ensembl id<span class="sc">&gt;</span>)</span>
-<span id="cb47-6"><a href="#cb47-6" tabindex="-1"></a></span>
-<span id="cb47-7"><a href="#cb47-7" tabindex="-1"></a><span class="fu">hist</span>(pheno_clin<span class="sc">$</span><span class="er">&lt;</span>ensembl id<span class="sc">&gt;</span>_log)</span>
-<span id="cb47-8"><a href="#cb47-8" tabindex="-1"></a></span>
-<span id="cb47-9"><a href="#cb47-9" tabindex="-1"></a></span>
-<span id="cb47-10"><a href="#cb47-10" tabindex="-1"></a><span class="co">#2).</span></span>
-<span id="cb47-11"><a href="#cb47-11" tabindex="-1"></a></span>
-<span id="cb47-12"><a href="#cb47-12" tabindex="-1"></a>tmp <span class="ot">=</span> pheno_clin <span class="sc">%&gt;%</span></span>
-<span id="cb47-13"><a href="#cb47-13" tabindex="-1"></a>        dplyr<span class="sc">::</span><span class="fu">select</span>(mouse, sex, DOwave, diet_days, <span class="sc">&lt;</span>ensembl id<span class="sc">&gt;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb47-14"><a href="#cb47-14" tabindex="-1"></a>        <span class="fu">gather</span>(expression, value, <span class="sc">-</span>mouse, <span class="sc">-</span>sex, <span class="sc">-</span>DOwave, <span class="sc">-</span>diet_days) <span class="sc">%&gt;%</span></span>
-<span id="cb47-15"><a href="#cb47-15" tabindex="-1"></a>        <span class="fu">group_by</span>(expression) <span class="sc">%&gt;%</span></span>
-<span id="cb47-16"><a href="#cb47-16" tabindex="-1"></a>        <span class="fu">nest</span>()</span>
-<span id="cb47-17"><a href="#cb47-17" tabindex="-1"></a>mod_fxn <span class="ot">=</span> <span class="cf">function</span>(df) {</span>
-<span id="cb47-18"><a href="#cb47-18" tabindex="-1"></a>  <span class="fu">lm</span>(value <span class="sc">~</span> sex <span class="sc">+</span> DOwave <span class="sc">+</span> diet_days, <span class="at">data =</span> df)</span>
-<span id="cb47-19"><a href="#cb47-19" tabindex="-1"></a>}</span>
-<span id="cb47-20"><a href="#cb47-20" tabindex="-1"></a>tmp <span class="ot">=</span> tmp <span class="sc">%&gt;%</span></span>
-<span id="cb47-21"><a href="#cb47-21" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model =</span> <span class="fu">map</span>(data, mod_fxn)) <span class="sc">%&gt;%</span></span>
-<span id="cb47-22"><a href="#cb47-22" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">summ =</span> <span class="fu">map</span>(model, tidy)) <span class="sc">%&gt;%</span></span>
-<span id="cb47-23"><a href="#cb47-23" tabindex="-1"></a>  <span class="fu">unnest</span>(summ) </span>
-<span id="cb47-24"><a href="#cb47-24" tabindex="-1"></a></span>
-<span id="cb47-25"><a href="#cb47-25" tabindex="-1"></a>tmp</span>
-<span id="cb47-26"><a href="#cb47-26" tabindex="-1"></a></span>
-<span id="cb47-27"><a href="#cb47-27" tabindex="-1"></a>tmp <span class="sc">%&gt;%</span></span>
-<span id="cb47-28"><a href="#cb47-28" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">!=</span> <span class="st">"(Intercept)"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb47-29"><a href="#cb47-29" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">neg.log.p =</span> <span class="sc">-</span><span class="fu">log10</span>(p.value)) <span class="sc">%&gt;%</span></span>
-<span id="cb47-30"><a href="#cb47-30" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(term, neg.log.p)) <span class="sc">+</span></span>
-<span id="cb47-31"><a href="#cb47-31" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb47-32"><a href="#cb47-32" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>expression) <span class="sc">+</span></span>
-<span id="cb47-33"><a href="#cb47-33" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Significance of Sex, Wave &amp; Diet Days on Phenotypes"</span>) <span class="sc">+</span></span>
-<span id="cb47-34"><a href="#cb47-34" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
-<span id="cb47-35"><a href="#cb47-35" tabindex="-1"></a><span class="fu">rm</span>(tmp)</span>
-<span id="cb47-36"><a href="#cb47-36" tabindex="-1"></a></span>
-<span id="cb47-37"><a href="#cb47-37" tabindex="-1"></a><span class="co">#3).</span></span>
-<span id="cb47-38"><a href="#cb47-38" tabindex="-1"></a></span>
-<span id="cb47-39"><a href="#cb47-39" tabindex="-1"></a>qtl <span class="ot">=</span> <span class="fu">scan1</span>(<span class="at">genoprobs =</span> probs, </span>
-<span id="cb47-40"><a href="#cb47-40" tabindex="-1"></a>           <span class="at">pheno =</span> pheno_clin[,<span class="st">"&lt;ensembl id&gt;"</span>, <span class="at">drop =</span> <span class="cn">FALSE</span>], </span>
-<span id="cb47-41"><a href="#cb47-41" tabindex="-1"></a>        <span class="at">kinship =</span> K, </span>
-<span id="cb47-42"><a href="#cb47-42" tabindex="-1"></a>        <span class="at">addcovar =</span> covar)</span>
-<span id="cb47-43"><a href="#cb47-43" tabindex="-1"></a></span>
-<span id="cb47-44"><a href="#cb47-44" tabindex="-1"></a><span class="co">#4).</span></span>
-<span id="cb47-45"><a href="#cb47-45" tabindex="-1"></a></span>
-<span id="cb47-46"><a href="#cb47-46" tabindex="-1"></a><span class="fu">plot_scan1</span>(<span class="at">x =</span> qtl, <span class="at">map =</span> map, <span class="at">lodcolumn =</span> <span class="st">"&lt;ensembl id&gt;"</span>)</span>
-<span id="cb47-47"><a href="#cb47-47" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">6</span>, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb47-48"><a href="#cb47-48" tabindex="-1"></a></span>
-<span id="cb47-49"><a href="#cb47-49" tabindex="-1"></a><span class="co">#5). </span></span>
-<span id="cb47-50"><a href="#cb47-50" tabindex="-1"></a></span>
-<span id="cb47-51"><a href="#cb47-51" tabindex="-1"></a>peaks <span class="ot">=</span> <span class="fu">find_peaks</span>(<span class="at">scan1_output =</span> qtl, <span class="at">map =</span> map, </span>
-<span id="cb47-52"><a href="#cb47-52" tabindex="-1"></a>               <span class="at">threshold =</span> lod_threshold, </span>
-<span id="cb47-53"><a href="#cb47-53" tabindex="-1"></a>               <span class="at">peakdrop =</span> <span class="dv">4</span>, </span>
-<span id="cb47-54"><a href="#cb47-54" tabindex="-1"></a>               <span class="at">prob =</span> <span class="fl">0.95</span>)</span></code></pre>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ensid</span> <span class="op">&lt;-</span> <span class="va">annot</span> <span class="op">|&gt;</span></span>
+<span>           <span class="fu">subset</span><span class="op">(</span><span class="va">symbol</span> <span class="op">==</span> <span class="st">"Hnf1b"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>           <span class="fu">pull</span><span class="op">(</span><span class="va">gene_id</span><span class="op">)</span></span>
+<span><span class="va">ensid</span></span></code></pre>
 </div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>[1] "ENSMUSG00000020679"</code></pre>
+</div>
+<p>Next, we will create a variable which contains the rankZ Hnf1b
+expression values to reduce our typing.</p>
+<div class="codewrapper sourceCode" id="cb53">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hnf1b</span> <span class="op">=</span> <span class="va">expr_rz</span><span class="op">[</span>,<span class="va">ensid</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span></span></code></pre>
+</div>
+<div id="callout3" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Callout</h3>
+<div class="callout-content">
+<p>Remember to use the “drop = FALSE” argument so that R will not
+convert the expression data from a matrix to a vector.</p>
+</div>
+</div>
+</div>
+<div class="codewrapper sourceCode" id="cb54">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">lod_hnf1b</span> <span class="op">=</span> <span class="fu">scan1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>,</span>
+<span>                  pheno     <span class="op">=</span> <span class="va">hnf1b</span>,</span>
+<span>                  kinship   <span class="op">=</span> <span class="va">K</span>,</span>
+<span>                  addcovar  <span class="op">=</span> <span class="va">addcovar</span><span class="op">)</span></span></code></pre>
+</div>
+<div id="challenge-2-plot-hnf1b-genome-scan" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="challenge-2-plot-hnf1b-genome-scan" class="callout-inner">
+<h3 class="callout-title">Challenge 2: Plot Hnf1b Genome Scan</h3>
+<div class="callout-content">
+<p>Use the <a href="https://github.com/kbroman/qtl2/blob/main/R/plot_scan1.R" class="external-link">plot_scan1</a>
+function to plot the Hnf1b genome scan.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
+</button>
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div class="accordion-body">
+<div class="codewrapper sourceCode" id="cb55">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">plot_scan1</span><span class="op">(</span>x    <span class="op">=</span> <span class="va">lod_hnf1b</span>,</span>
+<span>           map  <span class="op">=</span> <span class="va">map</span>,</span>
+<span>           main <span class="op">=</span> <span class="st">"Hnf1b"</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="fig/map-one-eqtl-rendered-challenge2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></div>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="permutations">Permutations<a class="anchor" aria-label="anchor" href="#permutations"></a></h3>
+<p>We now have a peaks on chromosome 11 for both insulin tAUC and Hnf1b,
+but we do not know if the LODs are significant. In order to assess
+significance, we will use permutations.</p>
+<div id="callout4" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Callout</h3>
+<div class="callout-content">
+<p>Don’t run the permutation block below. It will take hours to
+complete. We have pre-computed the permutations and have code for you to
+load them in below.</p>
+</div>
+</div>
+</div>
+<div class="codewrapper sourceCode" id="cb56">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">iperm</span> <span class="op">&lt;-</span> <span class="fu">scan1perm</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>, </span>
+<span>                   pheno     <span class="op">=</span> <span class="va">ins_tauc</span><span class="op">[</span>,<span class="fl">2</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, </span>
+<span>                   addcovar  <span class="op">=</span> <span class="va">addcovar</span>,</span>
+<span>                   n_perm    <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Since calculating permutations takes a long time, we will read in
+pre-computed permutations.</p>
+<div class="codewrapper sourceCode" id="cb57">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">iperm</span> <span class="op">&lt;-</span> <span class="fu">readRDS</span><span class="op">(</span>file <span class="op">=</span> <span class="st">'data/ins_tauc_log_perm_1000.rds'</span><span class="op">)</span></span></code></pre>
+</div>
+<p>We then obtain the permutation thresholds using the <a href="https://github.com/kbroman/qtl2/blob/main/R/summary_scan1perm.R" class="external-link">summary</a>
+function. Let’s find the significance level for 0.1, 0.05 and 0.01.</p>
+<div class="codewrapper sourceCode" id="cb58">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">thr_ins</span> <span class="op">&lt;-</span> <span class="fu">summary</span><span class="op">(</span>object <span class="op">=</span> <span class="va">iperm</span>,</span>
+<span>                   alpha  <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.05</span>, <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">thr_ins</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>LOD thresholds (1000 permutations)
+     Ins_tAUC_log
+0.1          7.06
+0.05         7.42
+0.01         8.34</code></pre>
+</div>
+<p>We also need to perform permutations of the Hnf1b values since they
+have a different distribution that insulin tAUC.</p>
+<div id="callout5" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Callout</h3>
+<div class="callout-content">
+<p>Don’t run the permutation block below. It will take hours to
+complete. We have pre-computed the permutations and have code for you to
+load them in below.</p>
+</div>
+</div>
+</div>
+<div class="codewrapper sourceCode" id="cb60">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">eperm</span> <span class="op">&lt;-</span> <span class="fu">scan1perm</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>, </span>
+<span>                   pheno     <span class="op">=</span> <span class="va">expr_rz</span><span class="op">[</span>,<span class="va">ensid</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, </span>
+<span>                   addcovar  <span class="op">=</span> <span class="va">addcovar</span>,</span>
+<span>                   n_perm    <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span></code></pre>
+</div>
+<p><em>Note</em> DO NOT RUN THIS (it will take too long). Instead, I
+have run it earlier and will load it in here. We will also perform a
+summary to find the summary level for 0.1, 0.05 and 0.01</p>
+<div class="codewrapper sourceCode" id="cb61">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">eperm</span> <span class="op">&lt;-</span> <span class="fu">readRDS</span><span class="op">(</span>file <span class="op">=</span> <span class="fu">str_c</span><span class="op">(</span><span class="st">"data/"</span>, <span class="va">ensid</span>, <span class="st">"_perm_1000.rds"</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb62">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">thr_hnf1b</span> <span class="op">&lt;-</span> <span class="fu">summary</span><span class="op">(</span><span class="va">eperm</span>, </span>
+<span>                     alpha <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.05</span>, <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">thr_hnf1b</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>LOD thresholds (1000 permutations)
+     ENSMUSG00000020679
+0.1                7.08
+0.05               7.47
+0.01               8.35</code></pre>
+</div>
+</div>
+<div class="section level3">
+<h3 id="finding-significant-peaks">Finding Significant Peaks<a class="anchor" aria-label="anchor" href="#finding-significant-peaks"></a></h3>
+<p>Let’s use <code>find_peaks</code> to identify the significant peaks
+in the insulin tAUC genome scan. We will use the 0.05 significance
+threshold.</p>
+<div class="codewrapper sourceCode" id="cb64">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">peaks_ins</span> <span class="op">&lt;-</span> <span class="fu">find_peaks</span><span class="op">(</span>scan1_output <span class="op">=</span> <span class="va">lod_ins</span>, </span>
+<span>                        map          <span class="op">=</span> <span class="va">map</span>, </span>
+<span>                        threshold    <span class="op">=</span> <span class="va">thr_ins</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, </span>
+<span>                        prob         <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span>
+<span><span class="va">peaks_ins</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">lodindex</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">arrange</span><span class="op">(</span><span class="va">chr</span>, <span class="va">pos</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">kable</span><span class="op">(</span>caption <span class="op">=</span> <span class="st">"Insulin tAUC QTL Peaks"</span><span class="op">)</span></span></code></pre>
+</div>
+<table class="table"><caption>Insulin tAUC QTL Peaks</caption>
+<thead><tr class="header"><th align="left">lodcolumn</th>
+<th align="left">chr</th>
+<th align="right">pos</th>
+<th align="right">lod</th>
+<th align="right">ci_lo</th>
+<th align="right">ci_hi</th>
+</tr></thead><tbody><tr class="odd"><td align="left">Ins_tAUC_log</td>
+<td align="left">11</td>
+<td align="right">83.59467</td>
+<td align="right">11.241455</td>
+<td align="right">83.58553</td>
+<td align="right">84.95444</td>
+</tr><tr class="even"><td align="left">Ins_tAUC</td>
+<td align="left">17</td>
+<td align="right">31.73419</td>
+<td align="right">7.528895</td>
+<td align="right">25.57974</td>
+<td align="right">73.89085</td>
+</tr></tbody></table><p>We can see that we have a peak for insulin tAUC on chromosome 17 at
+31.734191 Mb.</p>
+<div id="challenge-3-significant-peaks-for-hnf1b" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="challenge-3-significant-peaks-for-hnf1b" class="callout-inner">
+<h3 class="callout-title">Challenge 3: Significant Peaks for Hnf1b</h3>
+<div class="callout-content">
+<p>Use the <a href="https://github.com/kbroman/qtl2/blob/main/R/find_peaks.R" class="external-link">find_peaks</a>
+function to find the significant peaks for Hnf1b at the alpha = 0.05
+threshold. Make a note of the QTL support interval.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
+  <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
+</button>
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div class="accordion-body">
+<div class="codewrapper sourceCode" id="cb65">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">peaks_hnf1b</span> <span class="op">&lt;-</span> <span class="fu">find_peaks</span><span class="op">(</span>scan1_output <span class="op">=</span> <span class="va">lod_hnf1b</span>,</span>
+<span>                          map          <span class="op">=</span> <span class="va">map</span>,</span>
+<span>                          threshold    <span class="op">=</span> <span class="va">thr_hnf1b</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
+<span>                          prob         <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">peaks_hnf1b</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">lodindex</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">arrange</span><span class="op">(</span><span class="va">chr</span>, <span class="va">pos</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">kable</span><span class="op">(</span>caption <span class="op">=</span> <span class="st">"Hnf1b QTL Peaks"</span><span class="op">)</span></span></code></pre>
+</div>
+<table class="table"><caption>Hnf1b QTL Peaks</caption>
+<thead><tr class="header"><th align="left">lodcolumn</th>
+<th align="left">chr</th>
+<th align="right">pos</th>
+<th align="right">lod</th>
+<th align="right">ci_lo</th>
+<th align="right">ci_hi</th>
+</tr></thead><tbody><tr class="odd"><td align="left">ENSMUSG00000020679</td>
+<td align="left">11</td>
+<td align="right">84.40138</td>
+<td align="right">36.92828</td>
+<td align="right">83.64714</td>
+<td align="right">84.40138</td>
+</tr></tbody></table></div>
+</div>
+</div>
+</div>
+<div id="challenge-4-genomic-position-of-hnf1b" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="challenge-4-genomic-position-of-hnf1b" class="callout-inner">
+<h3 class="callout-title">Challenge 4: Genomic Position of Hnf1b</h3>
+<div class="callout-content">
+<p>Find the position of the Hnf1b gene in the gene annotation. You may
+want to use the <code>filter</code> or <code>subset</code> functions on
+the <code>annot</code> object.</p>
+<p>Where is Hnf1b in relation to the QTL interval in Challenge 3?</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution4" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
+  <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
+</button>
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div class="accordion-body">
+<div class="codewrapper sourceCode" id="cb66">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pos_hnf1b</span> <span class="op">&lt;-</span> <span class="fu">filter</span><span class="op">(</span><span class="va">annot</span>, <span class="va">symbol</span> <span class="op">==</span> <span class="st">"Hnf1b"</span><span class="op">)</span></span>
+<span><span class="va">pos_hnf1b</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>                              gene_id symbol chr    start      end strand
+ENSMUSG00000020679 ENSMUSG00000020679  Hnf1b  11 83.85006 83.90592      1
+                     middle nearest.marker.id        biotype       module
+ENSMUSG00000020679 83.87799       11_84097611 protein_coding midnightblue
+                   hotspot
+ENSMUSG00000020679    &lt;NA&gt;</code></pre>
+</div>
+<p>The support interval ranges from 83.647144 to 84.401384 Mb. Hnf1b is
+located on chromosome 11 at 83.850063` Mb, which is within the support
+interval.</p>
+</div>
+</div>
+</div>
+</div>
+<p>In the challenges above, we saw that Hnf1b has a QTL peak directly
+over the gene’s genomic position. When this happens, we call is a “local
+eQTL” because the QTL is col-located with the gene. We will revisit this
+phenomena more in later episodes.</p>
+</div>
+<div class="section level3">
+<h3 id="estimating-founder-allele-effects">Estimating Founder Allele Effects<a class="anchor" aria-label="anchor" href="#estimating-founder-allele-effects"></a></h3>
+<p>Let’s look at the QTL effects for insulin tAUC on chromosome 11.</p>
+
+<p>Below is the code that you would use. It will take too long to run in
+this class, so we will read the results in below.</p>
+<div class="codewrapper sourceCode" id="cb68">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">chr</span>      <span class="op">&lt;-</span> <span class="va">peaks_ins</span><span class="op">$</span><span class="va">chr</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
+<span><span class="va">blup_ins</span> <span class="op">&lt;-</span> <span class="fu">scan1blup</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span><span class="op">[</span>,<span class="va">chr</span><span class="op">]</span>,</span>
+<span>                      pheno     <span class="op">=</span> <span class="va">ins_tauc</span><span class="op">[</span>,<span class="fl">2</span>,drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>,</span>
+<span>                      kinship   <span class="op">=</span> <span class="va">K</span><span class="op">[[</span><span class="va">chr</span><span class="op">]</span><span class="op">]</span>,</span>
+<span>                      addcovar  <span class="op">=</span> <span class="va">addcovar</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Read in the insulin tAUC founder allele effects.</p>
+<div class="codewrapper sourceCode" id="cb69">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">blup_ins</span> <span class="op">&lt;-</span> <span class="fu">readRDS</span><span class="op">(</span>file <span class="op">=</span> <span class="st">'data/ins_tauc_blup_chr11.rds'</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Next, we will plot the founder allele effects.</p>
+<div class="codewrapper sourceCode" id="cb70">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">plot_coefCC</span><span class="op">(</span>x      <span class="op">=</span> <span class="va">blup_ins</span>, </span>
+<span>            map    <span class="op">=</span> <span class="va">map</span>, </span>
+<span>            legend <span class="op">=</span> <span class="st">"bottomleft"</span>,</span>
+<span>            scan1_output <span class="op">=</span> <span class="va">lod_ins</span><span class="op">[</span>,<span class="fl">2</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>,</span>
+<span>            main   <span class="op">=</span> <span class="st">"Insulin tAUC"</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="fig/map-one-eqtl-rendered-plot_ins_blup-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Next we will estimate the founder allele effects for Hnf1b.</p>
+
+<p>Below is the code that you would use. It will take too long to run in
+this class, so we will read the results in below.</p>
+<div class="codewrapper sourceCode" id="cb71">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">t1</span> <span class="op">=</span> <span class="fu">proc.time</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">chr</span>      <span class="op">&lt;-</span> <span class="va">peaks_hnf1b</span><span class="op">$</span><span class="va">chr</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
+<span><span class="va">blup_hnf1b</span> <span class="op">&lt;-</span> <span class="fu">scan1blup</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span><span class="op">[</span>,<span class="va">chr</span><span class="op">]</span>,</span>
+<span>                      pheno     <span class="op">=</span> <span class="va">hnf1b</span>,</span>
+<span>                      kinship   <span class="op">=</span> <span class="va">K</span><span class="op">[[</span><span class="va">chr</span><span class="op">]</span><span class="op">]</span>,</span>
+<span>                      addcovar  <span class="op">=</span> <span class="va">addcovar</span><span class="op">)</span></span>
+<span><span class="va">t2</span> <span class="op">=</span> <span class="fu">proc.time</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">print</span><span class="op">(</span><span class="va">t2</span>  <span class="op">-</span> <span class="va">t1</span><span class="op">)</span></span>
+<span><span class="fu">saveRDS</span><span class="op">(</span><span class="va">blup_hnf1b</span>, file <span class="op">=</span> <span class="st">'data/hnf1b_blup_chr11.rds'</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Read in the Hnf1b founder allele effects.</p>
+<div class="codewrapper sourceCode" id="cb72">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">blup_hnf1b</span> <span class="op">&lt;-</span> <span class="fu">readRDS</span><span class="op">(</span>file <span class="op">=</span> <span class="st">'data/hnf1b_blup_chr11.rds'</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Next, we will plot the founder allele effects.</p>
+<div class="codewrapper sourceCode" id="cb73">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">plot_coefCC</span><span class="op">(</span>x      <span class="op">=</span> <span class="va">blup_hnf1b</span>, </span>
+<span>            map    <span class="op">=</span> <span class="va">map</span>, </span>
+<span>            legend <span class="op">=</span> <span class="st">"bottomleft"</span>,</span>
+<span>            scan1_output <span class="op">=</span> <span class="va">lod_hnf1b</span>,</span>
+<span>            main   <span class="op">=</span> <span class="st">"Hnf1b"</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="fig/map-one-eqtl-rendered-plot_hnf1b_blup-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-5-compare-founder-allele-effects" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="challenge-5-compare-founder-allele-effects" class="callout-inner">
+<h3 class="callout-title">Challenge 5: Compare Founder Allele Effects</h3>
+<div class="callout-content">
+<p>Compare at the pattern of founder allele effects at the QTL position
+for insulin tAUC and Hnf1b.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution5" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
+  <h4 class="accordion-header" id="headingSolution5"> Show me the solution </h4>
+</button>
+<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
+<div class="accordion-body">
+<p>In the Insulin tAUC allele effects, the A/J, C57BL/6J, 129S1/SvmJ,
+and NOD/ShiLtJ alleles contribute to higher insulin tAUC.</p>
 </div>
 </div>
 </div>
@@ -922,14 +1485,10 @@ expression trait</p>
 <div class="callout-inner">
 <h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
-<ul><li>Use <code>.md</code> files for episodes when you want static
-content</li>
-<li>Use <code>.Rmd</code> files for episodes when you need to generate
-output</li>
-<li>Run <code>sandpaper::check_lesson()</code> to identify any issues
-with your lesson</li>
-<li>Run <code>sandpaper::build_lesson()</code> to preview your lesson
-locally</li>
+<ul><li>Gene expression values must be normalized to account for the library
+size of each sample.</li>
+<li>After normalization, gene expression values can be rankZ transformed
+to make the distribution of every gene the same.</li>
 </ul></div>
 </div>
 </div>
@@ -938,19 +1497,16 @@ Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
 </div>
-
-
-
-      </div> <!-- / div.lesson-content -->
+</section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
-        <a class="chapter-link" href="review-mapping-steps.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
+        <a class="chapter-link" href="load-explore-data.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="map-many-eqtls.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
-        <a class="chapter-link" href="review-mapping-steps.html" rel="prev">
+        <a class="chapter-link" href="load-explore-data.html" rel="prev">
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
-          Previous: Review Mapping Steps
+          Previous: Load and Explore
         </a>
         <a class="chapter-link float-end" href="map-many-eqtls.html" rel="next">
           Next: Mapping Many Gene...
@@ -999,8 +1555,8 @@ any links that you are not going to use.
   "url": "https://carpentries.github.io/workbench-template-rmd/map-one-eqtl.html",
   "identifier": "https://carpentries.github.io/workbench-template-rmd/map-one-eqtl.html",
   "dateCreated": "2024-11-07",
-  "dateModified": "2024-11-21",
-  "datePublished": "2024-11-21"
+  "dateModified": "2024-11-23",
+  "datePublished": "2024-11-23"
 }
 
   </script><script>
