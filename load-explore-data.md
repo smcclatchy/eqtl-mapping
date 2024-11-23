@@ -18,10 +18,10 @@ exercises: 30
 
 
 ``` r
+suppressPackageStartupMessages(library(knitr))
 suppressPackageStartupMessages(library(ggbeeswarm))
 suppressPackageStartupMessages(library(tidyverse))
-suppressPackageStartupMessages(library(knitr))
-suppressPackageStartupMessages(library(corrplot))
+suppressPackageStartupMessages(library(qtl2))
 suppressPackageStartupMessages(library(DESeq2))
 ```
 
@@ -200,7 +200,7 @@ pheno |>
 
 ## Challenge 3
 
-Does the log transformation make the data more normally distributed? Explain 
+Does the log transformation make the data more Normally distributed? Explain 
 your answer.
 
 :::::::::::::::::::::::: solution 
@@ -273,15 +273,15 @@ We have loaded in two data objects:
 :::::::::::::::::::::::: solution 
 
 Use the `dim` command or the Environment tab to determine the number of samples 
-and genes in `norm`.
+and genes in `raw`.
 
 
 ``` r
-dim(norm)
+dim(raw)
 ```
 
 ``` output
-NULL
+[1]   378 21771
 ```
 
 There are 378 samples and 21,771 genes.
@@ -380,325 +380,13 @@ raw |>
 
 <img src="fig/load-explore-data-rendered-view_qqplots_raw-1.png" style="display: block; margin: auto;" />
 
-Since each gene has a different distribution and range, and the distributions
-are not Gaussian, we need to normalize the counts. Further, the total counts
-in each sample is not uniform. This affects our ability to compare values
-between samples. For example, say that we look at the expression of "Gene1" in
-two samples and find that both samples have 500 counts for Gene1. It appears
-that Gene1 is equally expressed in both samples. However, suppose that the total
-counts (i.e. the sum of counts for all genes in each sample) is 10 million for
-sample 1 and 20 million for sample 2. The sum of all counts across all genes in 
-a sample is also called the "library size." Then we need to scale the counts for 
-Gene1 by the total counts. This is shown in the table below.
-
-
- Sample | Gene1 Counts | Total Counts | Proportion
---------+--------------+--------------+------------
-    1   |     500      |    10e6      |   5e-05
-    2   |     500      |    20e6      |  2.5e-05
-
-In this case, we can see that Gene1 has lower expression in sample 2 compared
-to sample 1. Although the actual adjustment for library size, or the total
-counts, is more complicated, this is the rationale for adjusting each sample.
-
-To recap, before we perform any analysis using the transcript expression data,
-we need to normalize it by adjusting for library size and transforming the
-expression of each gene to be Gaussian.
-
-### Normalizing Gene Expression
-
-We will use the [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) 
-package to adjust the counts for library size. DESeq2 is a large package which
-performs many types of analyses. Further details are in the
-[DESeq2 Tutorial](https://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html).
-
-First, we must create a DESeq object. We need the raw counts, rounded so that
-all values are integers, and the sample covariate data. We will have to subset
-the sample covariates to include only the expression samples.
-
-
-``` r
-expr_covar = subset(covar, mouse %in% rownames(raw))
-expr_covar = expr_covar[match(rownames(raw), expr_covar$mouse),]
-```
-
-In order to create the DESeq2 object, we will need to transpose the expression
-data. This is because DESeq2 requires that the samples be in columns and the 
-genes in rows. We will also tell DESeq2 which the design variables are for our
-data, although they are not used in this case. These would be used if we were
-searching for differentially expression genes.
-
-
-``` r
-dds  = DESeqDataSetFromMatrix(countData = t(round(raw)), colData = expr_covar, 
-                              design = ~ 1)
-```
-
-``` output
-converting counts to integer mode
-```
-
-Next, we will run DESeq2 and let is adjust the expression data for differing
-library sizes.
-
-
-``` r
-dds  = DESeq(dds)
-```
-
-``` warning
-Warning in DESeq(dds): the design is ~ 1 (just an intercept). is this intended?
-```
-
-``` output
-estimating size factors
-```
-
-``` output
-estimating dispersions
-```
-
-``` output
-gene-wise dispersion estimates
-```
-
-``` output
-mean-dispersion relationship
-```
-
-``` output
-final dispersion estimates
-```
-
-``` output
-fitting model and testing
-```
-
-``` output
--- replacing outliers and refitting for 155 genes
--- DESeq argument 'minReplicatesForReplace' = 7 
--- original counts are preserved in counts(dds)
-```
-
-``` output
-estimating dispersions
-```
-
-``` output
-fitting model and testing
-```
-
-Once this is done, we will get the expression data after it has been transformed
-using the
-[Variance Stabilizing Transformation](https://en.wikipedia.org/wiki/Variance-stabilizing_transformation)
-(VST). The VST adjusts the variance of the genes such that it is not related to
-the mean gene expression level.
-
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
-
-The students don't have to type the next block. You can show the plow in the 
-lesson or type it to show the plot live.
-
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-
-``` r
-expr = assays(dds)[[1]]
-tibble(mean = rowMeans(expr),
-       sd   = apply(expr, 1, sd)) |>
-  ggplot(aes(mean, sd)) +
-    geom_point() +
-    scale_x_log10() +
-    scale_y_log10() +
-    labs(title = "Mean vs. Std. Dev. of Before VST",
-         x     = "log(Mean)", y = "log(Std. Dev.)") +
-    theme(text = element_text(size = 20))
-```
-
-``` warning
-Warning in scale_x_log10(): log-10 transformation introduced infinite values.
-```
-
-``` warning
-Warning in scale_y_log10(): log-10 transformation introduced infinite values.
-```
-
-<img src="fig/load-explore-data-rendered-show_expr_mean_var-1.png" style="display: block; margin: auto;" />
-
-``` r
-rm(expr)
-```
-
-The plot above shows the mean expression value for each gene versus the 
-standard deviation of each gene. Both axes are log-transformed. As you can see,
-there is a positive correlation between the mean and the standard deviation. We
-would like each gene to have the same variance, regardless of the mean, for each
-gene.
-
-Next, we will apply the variance stabilizing transformation and will transpose
-the expression values.
-
-
-``` r
-expr = assays(vst(dds))[[1]]
-expr = t(expr)
-```
-
-Let's look at the mean versus the standard deviation of each gene after 
-normalization.
-
-
-``` r
-tibble(mean = colMeans(expr),
-       sd   = apply(expr, 2, sd)) |>
-  ggplot(aes(mean, sd)) +
-    geom_point() +
-    scale_x_log10() +
-    scale_y_log10() +
-    labs(title = "Mean vs. Std. Dev. of After VST",
-         x     = "log(Mean)", y = "log(Std. Dev.)") +
-    theme(text = element_text(size = 20))
-```
-
-``` warning
-Warning in scale_y_log10(): log-10 transformation introduced infinite values.
-```
-
-<img src="fig/load-explore-data-rendered-mean_sd_after_vst-1.png" style="display: block; margin: auto;" />
-
-The standard deviation is now largely unrelated to the mean. At lower expression
-levels, the standard deviation is somewhat related to the mean.
-
-At this point, while each gene has been normalized, each gene has a different 
-distribution. In QTL mapping, we often use permutations to estimate significance
-thresholds. This approach works for one phenotype. However, if other phenotypes
-have different distributions, then the significance threshold for one phenotype
-cannot be used for another. This means that we would have to perform 
-1,000 permutations for **each** gene. While modern computing clusters can do 
-this, it is time consuming. 
-
-Another approach is to force the distribution of each gene to be identical. Then,
-we can perform permutations on one gene and get a significance threshold for
-all genes. 
-
-We can force the distribution of each gene to be Gaussian and identical for all
-genes using an inverse-normal or rank-Z transformation.
-
-
-``` r
-rankZ = function(x) {
-  x = rank(x, na.last = "keep", ties.method = "average") / (sum(!is.na(x)) + 1)
-  return(qnorm(x))
-}
-
-expr_rz = apply(expr, 2, rankZ)
-```
-
-Q-Q plots of the normalized expression data for the first six genes show that 
-the data values match the diagonal line well, meaning that they are now normally
-distributed. They are also all on the same scale now as well.
-
-::::::::::::::::::::::::::::::::::::::::::::::::instructor
-
-Show this in the lesson website. Don't type all of this out or have the 
-students type it either.
-
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-
-
-``` r
-expr |> 
-  as.data.frame() |>
-  select(ENSMUSG00000000001:ENSMUSG00000000058) |> 
-  pivot_longer(cols = everything(), names_to = 'gene', values_to = 'value') |> 
-  ggplot(aes(sample = value)) +
-    stat_qq() +
-    geom_qq_line() +
-    facet_wrap(~gene, scales = 'free') +
-    labs(title = 'Normalized count distribution for six genes',
-         xlab = 'Normal percentiles', y = 'Count percentiles') +
-    theme(text = element_text(size = 20))
-```
-
-<img src="fig/load-explore-data-rendered-view_qqplots_normalized-1.png" style="display: block; margin: auto;" />
-
-Boxplots of raw counts for six example genes are shown at left below. Notice that 
-the median count values (horizontal black bar in each boxplot) are not 
-comparable between the genes because the counts are not on the same scale. At
-right, boxplots for the same genes show normalized count data on the same 
-scale.
-
-::::::::::::::::::::::::::::::::::::::::::::::::instructor
-
-Show this in the lesson website. Don't type all of this out or have the 
-students type it either.
-
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-
-``` r
-tmp = raw |> 
-        as.data.frame() |> 
-        select(ENSMUSG00000000001:ENSMUSG00000000058) |> 
-        pivot_longer(cols = everything(), names_to = 'gene', values_to = 'value') |> 
-        mutate(type = 'raw')
-
-norm = expr |> 
-         as.data.frame() |> 
-         select(ENSMUSG00000000001:ENSMUSG00000000058) |> 
-         pivot_longer(cols = everything(), names_to = 'gene', values_to = 'value') |> 
-         mutate(type = 'normalized')
-
-bind_rows(tmp, norm) |>
-  mutate(type = factor(type, levels = c('raw', 'normalized'))) |> 
-  ggplot(aes(gene, value)) +
-    geom_boxplot() +
-    facet_wrap(~type, scales = 'free') +
-    labs(title = 'Count distributions for example genes') +
-    theme(text = element_text(size = 20),
-          axis.text.x = element_text(angle = 90, hjust = 0.5, vjust = 1))
-```
-
-<img src="fig/load-explore-data-rendered-view_example_boxplots-1.png" style="display: block; margin: auto;" />
-
-``` r
-rm(tmp, norm)
-```
-
-In the rankZ-transformed data, every gene has the same distribution.
-
-::::::::::::::::::::::::::::::::::::::::::::::::instructor
-
-Show this in the lesson website. Don't type all of this out or have the 
-students type it either.
-
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-
-``` r
-expr_rz |> 
-  as.data.frame() |> 
-  select(ENSMUSG00000000001:ENSMUSG00000000058) |> 
-  pivot_longer(cols = everything(), names_to = 'gene', values_to = 'value') |>
-  ggplot(aes(gene, value)) +
-    geom_boxplot() +
-    labs(title = 'RankZ distributions for example genes') +
-    theme(text = element_text(size = 20),
-          axis.text.x = element_text(angle = 90, hjust = 0.5, vjust = 1))
-```
-
-<img src="fig/load-explore-data-rendered-rankz_exprr-1.png" style="display: block; margin: auto;" />
-
+Since each gene has a different distribution, we will need to normalized the
+gene expression data. We will do this in a future lesson.
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - It is important to inspect the phenotype distributions and to transform them
 to be nearly normal.
-- Gene expression values must be normalized to account for the library size of
-each sample.
-- After normalization, gene expression values can be rankZ transformed to make
-the distribution of every gene the same.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
