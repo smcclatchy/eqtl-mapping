@@ -591,7 +591,7 @@ expression data from a matrix to a vector.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-```{r hnf1s_scan, warning=FALSE, eval=FALSE}
+```{r hnf1s_scan,warning=FALSE}
 lod_hnf1b = scan1(genoprobs = probs,
                   pheno     = hnf1b,
                   kinship   = K,
@@ -664,7 +664,7 @@ pre-computed the permutations and have code for you to load them in below.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-```{r hnf1b_perm, warning=FALSE, error=FALSE, eval=FALSE}
+```{r hnf1b_perm,warning=FALSE,error=FALSE,eval=FALSE}
 eperm <- scan1perm(genoprobs = probs, 
                    pheno     = expr_rz[,ensid, drop = FALSE], 
                    addcovar  = addcovar,
