@@ -694,7 +694,7 @@ thr_hnf1b
 Let's use `find_peaks` to identify the significant peaks in the insulin tAUC
 genome scan. We will use the 0.05 significance threshold.
 
-```{r interval, eval=FALSE}
+```{r ins_peaks}
 peaks_ins <- find_peaks(scan1_output = lod_ins, 
                         map          = map, 
                         threshold    = thr_ins[2], 
