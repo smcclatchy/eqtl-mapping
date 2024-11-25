@@ -16,6 +16,9 @@ exercises: 30
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+<!-- DMG: Notes from sumner run. 11 hours with 20 cores & 100GB of memory.
+11.4 G output file. 69005 rows x 21771 columns. -->
+
 ### Load Libraries  
 
 For this lesson, we need to install two more libraries and load them.  You can 
