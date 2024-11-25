@@ -31,7 +31,8 @@ only chloride transport, but also sodium and potassium transport in the lungs,
 pancreas and skin. The path from gene mutation to altered protein to disease 
 phenotype is relatively simple and well understood. 
 
-![Single-gene diseases like cystic fibrosis are relatively well understood. In cystic fibrosis, mutations in the coding region of the CFTR gene result in a defective protein, leading to excess mucus production that can damage the lungs and digestive system. Created in  https://BioRender.com](fig/cystic-fibrosis.png){alt="Cystic fibrosis is caused by a mutation in the CFTR gene that prevents passage of chloride ions from the airway lumen of the lungs. This results in a loss of water from the airway lumens and a thick sticky mucus in the airway."}
+![Single-gene diseases like cystic fibrosis are relatively well understood. In cystic fibrosis, mutations in the coding region of the CFTR gene result in a defective protein, leading to excess mucus production that can damage the lungs and digestive system.](fig/cystic-fibrosis.png){alt="Cystic fibrosis is caused by a mutation in the CFTR gene that prevents passage of chloride ions from the airway lumen of the lungs. This results in a loss of water from the airway lumens and a thick sticky mucus in the airway."}
+Created in [BioRender](https://BioRender.com)
 
 The most common human disorders, however, involve many genes interacting with
 each other and with the environment, a far more complicated path to follow than
@@ -48,7 +49,8 @@ which are involved in gene regulation.
 
 ![GWAS variants such as SNPs are often in non-coding regions of the genome, indicating that they regulate gene expression.](fig/gwas-catalog.png){alt="Figures showing the GWAS Catalog"}
 
-![Here a non-coding SNP influences expression of a gene, which in turn affects a disease phenotype or other outcome of interest. Created in https://BioRender.com](fig/noncoding-SNP.png){alt="Figure showing regulation of gene by a SNP"}
+![Here a non-coding SNP influences expression of a gene, which in turn affects a disease phenotype or other outcome of interest.](fig/noncoding-SNP.png){alt="Figure showing regulation of gene by a SNP"}
+Created in [BioRender](https://BioRender.com)
 
 Gene regulation controls the quantity, timing and locale of gene expression. 
 Analyzing the association between gene expression and genetic variants is known 
@@ -68,22 +70,36 @@ affecting disease phenotypes.
 To the simple diagram above we'll add two more details. Non-coding SNPs can 
 regulate gene expression from nearby locations on the same chromosome (in cis):
 
-![Genetic variants like SNPs often affect gene expression locally near the gene that they regulate (in cis). Created in  https://BioRender.com.](fig/cis-noncoding-SNP.png){alt="Figure showing SNP regulating gene which affects disease"}
+![Genetic variants like SNPs often affect gene expression locally near the gene that they regulate (in cis).](fig/cis-noncoding-SNP.png){alt="Figure showing SNP regulating gene which affects disease"}
+Created in [BioRender](https://BioRender.com)
 
 SNPs that affect gene expression from afar, often from a different chromosome 
 from the gene that they regulate are called distal (trans) regulators.
 
-![Alternatively, SNPs often affect gene expression distally from the gene that they regulate (in trans), often from a different chromosome altogether. Created in  https://BioRender.com](fig/trans-noncoding-SNP.png){alt="Figure showing trans regulation"}
+![Alternatively, SNPs often affect gene expression distally from the gene that they regulate (in trans), often from a different chromosome altogether.](fig/trans-noncoding-SNP.png){alt="Figure showing trans regulation"}
+
+Created in [BioRender](https://BioRender.com)
 
 In this lesson we revisit genetic mapping of quantitative traits and apply its
 methods to gene expression. The examples are from 
 [Genetic Drivers of Pancreatic Islet Function](https://doi.org/10.1534/genetics.118.300864)
-by Keller, et al. This study offers supporting evidence for type 2 
-diabetes-associated loci in human GWAS, most of which affect pancreatic islet 
-function. The study assessed pancreatic islet gene expression in Diversity 
-Outbred mice on either a regular chow or high-fat, high-sugar diet. Islet mRNA 
-abundance was quantified and analyzed, and the study identified more than 18,000 
-eQTL peaks.
+by Keller, et al. In Type 2 diabetes (T2D) the pancreas produces less insulin 
+and the body becomes less responsive to insulin.
+
+![Insulin resistance in Type 2 diabetes](fig/healthy-vs-T2D.png){alt="Figure showing Type 2 diabetes & insulin."}
+Created in [BioRender](https://BioRender.com)
+
+This study offers supporting evidence for type 2 diabetes-associated loci in 
+human GWAS, most of which affect pancreatic islet function. Pancreatic islet
+cells produce endocrine hormones including insulin. A feedback loop of glucose
+and insulin activates beta cells that produce insulin and inhibits alpha cells.
+
+![Pancreatic islet cells and functions](fig/pancreatic-islet.png){alt="Figure showing the Islet of Langerhans in the pancreas, which is composed of alpha, beta, delta and gamma cells."}
+Created in [BioRender](https://BioRender.com)
+
+The study assessed pancreatic islet gene expression in Diversity Outbred mice on 
+either a regular chow or high-fat, high-sugar diet. Islet mRNA abundance was 
+quantified and analyzed. The study identified more than 18,000 eQTL peaks.
 
 Genome-wide association studies (GWAS) often identify variants in non-coding 
 regions of the genome, indicating that regulation of gene expression 
