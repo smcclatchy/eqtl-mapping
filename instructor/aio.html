@@ -554,13 +554,25 @@ traits. Body weight and plasma glucose, insulin, and triglyceride
 measurements were taken biweekly. Food intake could be measured since
 animals were individually housed. A glucose tolerance test at 18 weeks
 of age provided measurement of dynamic glucose and insulin changes at 5,
-15, 30, 60 and 120 minutes after glucose administration. Area under the
-curve (AUC) was determined from these time points for both plasma
-glucose and insulin levels. Homeostatic model assessment (HOMA) of
-insulin resistance (IR) and pancreatic islet function (B) were
-determined after the glucose tolerance test was given. Islet cells were
-isolated from pancreas, and RNA extracted and libraries constructed from
-isolated RNA for gene expression measurements.</p>
+15, 30, 60 and 120 minutes after glucose ingestion. Area under the curve
+(AUC) was determined from these time points for both plasma glucose and
+insulin levels.</p>
+<figure><img src="../fig/insulin-area-under-curve.png" alt="A plot showing four different curves reflecting insulin levels after administration of glucose starting at time zero" class="figure mx-auto d-block"><div class="figcaption">Insulin curves following glucose tolerance
+test</div>
+</figure><p><a href="https://en.wikipedia.org/wiki/Homeostatic_model_assessment" class="external-link">Homeostatic
+model assessment</a> (HOMA) quantifies insulin resistance (IR) and beta
+cell (<span class="math inline">\(\beta\)</span>) function. For IR, the
+equation quantifying insulin resistance is the product of glucose and
+insulin in mg/dL divided by 405.</p>
+<p><span class="math inline">\(HOMA-IR = (glucose \times insulin) /
+405\)</span></p>
+<p>For beta cell function, the equation is</p>
+<p><span class="math inline">\(HOMA-\beta = (360 \times insulin) /
+(glucose - 63)\)</span></p>
+<p>expressed as a percentage. Insulin resistance and beta cell function
+were determined after the glucose tolerance test was given. Islet cells
+were isolated from pancreas, and RNA extracted and libraries constructed
+from isolated RNA for gene expression measurements.</p>
 <p>Genome scans were performed with the leave-one-chromosome-out (LOCO)
 method for kinship correction. Sex and experimental cohort (DO wave)
 were used as covariates. The results of one scan for insulin area under
@@ -998,7 +1010,7 @@ span?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Insulin tAUC spans three orders of magnitude, from near 10 to over
 1000.</p>
@@ -1022,7 +1034,7 @@ span?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>Males have higher Insulin tAUC than females.</p>
 </div>
@@ -1094,7 +1106,7 @@ Explain your answer.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>Yes. The log transformation makes the data more normally distributed
 because the data points follow the normality line more closely.</p>
@@ -1118,7 +1130,7 @@ because the data points follow the normality line more closely.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>The data points that deviate from the normality line would be worth
 investigating. All data deviates somewhat from normality, but the three
@@ -1187,7 +1199,7 @@ counts,</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
   <h4 class="accordion-header" id="headingSolution5"> Show me the solution </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
 <div class="accordion-body">
 <p>Use the <code>dim</code> command or the Environment tab to determine
 the number of samples and genes in <code>raw</code>.</p>
@@ -2986,7 +2998,7 @@ traits.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb36">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3200,7 +3212,7 @@ call eQTL that are located on a different chromosome than the gene?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>A cis-eQTL is an eQTL that is co-colocated with the gene. A
 trans-eQTL is an eQTL that is located on a chromosome other than the
@@ -3408,7 +3420,7 @@ X-axis and the QTL locations are shown on the Y-axis.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>There are at least two patterns. One is the dense diagonal line of
 cis-eQTL. The other is the increased density of QTL in vertical
@@ -3433,7 +3445,7 @@ lines.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>A vertical band indicates that one locus regulates the expression of
 many genes.</p>
@@ -3763,7 +3775,7 @@ challenge blocks</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Output </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3790,7 +3802,7 @@ challenge blocks</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>You can add a line with at least three colons and a
 <code>solution</code> tag.</p>
