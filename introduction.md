@@ -127,13 +127,28 @@ as a stressor, sensitizing the mice to develop diabetic traits. Body weight and
 plasma glucose, insulin, and triglyceride measurements were taken biweekly. 
 Food intake could be measured since animals were individually housed. A glucose 
 tolerance test at 18 weeks of age provided measurement of dynamic glucose and 
-insulin changes at 5, 15, 30, 60 and 120 minutes after glucose administration. 
+insulin changes at 5, 15, 30, 60 and 120 minutes after glucose ingestion. 
 Area under the curve (AUC) was determined from these time points for both plasma 
-glucose and insulin levels. Homeostatic model assessment (HOMA) of insulin 
-resistance (IR) and pancreatic islet function (B) were determined after the 
-glucose tolerance test was given. Islet cells were isolated from pancreas, and 
-RNA extracted and libraries constructed from isolated RNA for gene expression 
-measurements.
+glucose and insulin levels. 
+
+
+![Insulin curves following glucose tolerance test](fig/insulin-area-under-curve.png){alt="A plot showing four different curves reflecting insulin levels after administration of glucose starting at time zero"}
+
+[Homeostatic model assessment](https://en.wikipedia.org/wiki/Homeostatic_model_assessment)
+(HOMA) quantifies insulin resistance (IR) and beta cell ($\beta$) function. For
+IR, the equation quantifying insulin resistance is the product of glucose and
+insulin in mg/dL divided by 405.
+
+$HOMA-IR = (glucose \times insulin) / 405$
+
+For beta cell function, the equation is 
+
+$HOMA-\beta = (360 \times insulin) / (glucose - 63)$
+
+expressed as a percentage. Insulin resistance and beta cell function were 
+determined after the glucose tolerance test was given. Islet cells were isolated 
+from pancreas, and RNA extracted and libraries constructed from isolated RNA for 
+gene expression measurements.
 
 Genome scans were performed with the leave-one-chromosome-out (LOCO) method for
 kinship correction. Sex and experimental cohort (DO wave) were used as 
