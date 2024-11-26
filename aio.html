@@ -414,7 +414,7 @@
         
 <section id="aio-introduction"><p>Content from <a href="introduction.html">Introduction</a></p>
 <hr>
-<p>Last updated on 2024-11-25 |
+<p>Last updated on 2024-11-26 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/introduction.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -509,76 +509,7 @@ regulators.</p>
 distally from the gene that they regulate (in trans), often from a
 different chromosome altogether.</div>
 </figure><p>Created in <a href="https://BioRender.com" class="external-link">BioRender</a></p>
-<p>In this lesson we revisit genetic mapping of quantitative traits and
-apply its methods to gene expression. The examples are from <a href="https://doi.org/10.1534/genetics.118.300864" class="external-link">Genetic Drivers of
-Pancreatic Islet Function</a> by Keller, et al. In Type 2 diabetes (T2D)
-the pancreas produces less insulin and the body becomes less responsive
-to insulin.</p>
-<p><img src="fig/healthy-vs-T2D.png" alt="Figure showing Type 2 diabetes &amp; insulin." class="figure"> Created in <a href="https://BioRender.com" class="external-link">BioRender</a></p>
-<p>This study offers supporting evidence for type 2 diabetes-associated
-loci in human GWAS, most of which affect pancreatic islet function.
-Pancreatic islet cells produce endocrine hormones including insulin. A
-feedback loop of glucose and insulin activates beta cells that produce
-insulin and inhibits alpha cells.</p>
-<p><img src="fig/pancreatic-islet.png" alt="Figure showing the Islet of Langerhans in the pancreas, which is composed of alpha, beta, delta and gamma cells." class="figure">
-Created in <a href="https://BioRender.com" class="external-link">BioRender</a></p>
-<p>The study assessed pancreatic islet gene expression in Diversity
-Outbred mice on either a regular chow or high-fat, high-sugar diet.
-Islet mRNA abundance was quantified and analyzed. The study identified
-more than 18,000 eQTL peaks.</p>
-<p>Genome-wide association studies (GWAS) often identify variants in
-non-coding regions of the genome, indicating that regulation of gene
-expression predominates in common diseases like type II diabetes. Most
-of the more than 100 genetic loci associated with type II diabetes
-affect the function of pancreatic islets, which produce insulin for
-regulating blood glucose levels. Susceptibility to type II diabetes
-(T2D) increases with obesity, such that T2D-associated genetic loci
-operate mainly under conditions of obesity (See <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5937189/" class="external-link">Keller,
-Mark P et al. “Genetic Drivers of Pancreatic Islet Function.” Genetics
-vol. 209,1 (2018): 335-356</a>). Like most GWAS loci, the T2D-associated
-genetic loci identified from genome-wide association studies (GWAS) have
-very small effect sizes and odds ratios just slightly more than 1.</p>
-<p>This study explored islet gene expression in diabetes. The authors
-hypothesized that gene expression changes in response to dietary
-challenge would reveal signaling pathways involved in stress responses.
-The expression of many genes often map to the same locus, indicating
-that expression of these genes is controlled in common. If their mRNAs
-encode proteins with common physiological functions, the function of the
-controlling gene(s) is revealed. Variation in expression of the
-controlling gene(s), rather than a genetic variant, can be tested as an
-immediate cause of a disease-related phenotype.</p>
-<p>In this study, Diversity Outbred (DO) mice were fed a high-fat,
-high-sugar diet as a stressor, sensitizing the mice to develop diabetic
-traits. Body weight and plasma glucose, insulin, and triglyceride
-measurements were taken biweekly. Food intake could be measured since
-animals were individually housed. A glucose tolerance test at 18 weeks
-of age provided measurement of dynamic glucose and insulin changes at 5,
-15, 30, 60 and 120 minutes after glucose ingestion. Area under the curve
-(AUC) was determined from these time points for both plasma glucose and
-insulin levels.</p>
-<figure><img src="fig/insulin-area-under-curve.png" alt="A plot showing four different curves reflecting insulin levels after administration of glucose starting at time zero" class="figure mx-auto d-block"><div class="figcaption">Insulin curves following glucose tolerance
-test</div>
-</figure><p><a href="https://en.wikipedia.org/wiki/Homeostatic_model_assessment" class="external-link">Homeostatic
-model assessment</a> (HOMA) quantifies insulin resistance (IR) and beta
-cell (<span class="math inline">\(\beta\)</span>) function. For IR, the
-equation quantifying insulin resistance is the product of glucose and
-insulin in mg/dL divided by 405.</p>
-<p><span class="math inline">\(HOMA-IR = (glucose \times insulin) /
-405\)</span></p>
-<p>For beta cell function, the equation is</p>
-<p><span class="math inline">\(HOMA-\beta = (360 \times insulin) /
-(glucose - 63)\)</span></p>
-<p>expressed as a percentage. Insulin resistance and beta cell function
-were determined after the glucose tolerance test was given. Islet cells
-were isolated from pancreas, and RNA extracted and libraries constructed
-from isolated RNA for gene expression measurements.</p>
-<p>Genome scans were performed with the leave-one-chromosome-out (LOCO)
-method for kinship correction. Sex and experimental cohort (DO wave)
-were used as covariates. The results of one scan for insulin area under
-the curve (AUC) is shown below with a strong peak on chromosome 11. In
-this lesson, we will look into genes located under this peak.</p>
-<figure><img src="fig/insulin-auc-lod-plot.png" alt="Insulin AUC LOD plot" class="figure mx-auto d-block"><div class="figcaption">LOD plot for insulin area under the curve</div>
-</figure><div id="keypoints1" class="callout keypoints">
+<div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
 </div>
@@ -603,7 +534,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-review-eqtl-study"><p>Content from <a href="review-eqtl-study.html">Genetic Drivers of Pancreatic Islet Function</a></p>
 <hr>
-<p>Last updated on 2024-11-25 |
+<p>Last updated on 2024-11-26 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/review-eqtl-study.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -681,14 +612,77 @@ method for kinship correction. Sex and experimental cohort (DO wave)
 were used as covariates. The results of one scan for insulin area under
 the curve (AUC) is shown below with a strong peak on chromosome 11. In
 this lesson, we will look into genes located under this peak.</p>
-<figure><img src="fig/insulin-auc-lod-plot.png" alt="LOD plot for insulin area under the curve" class="figure mx-auto d-block"><div class="figcaption">LOD plot for insulin area under the curve</div>
-</figure><div id="keypoints1" class="callout keypoints">
-<div class="callout-square">
-<i class="callout-icon" data-feather="key"></i>
-</div>
-<div class="callout-inner">
-<h3 class="callout-title">Key Points</h3>
-<div class="callout-content">
+<p><img src="fig/insulin-auc-lod-plot.png" alt="LOD plot for insulin area under the curve" class="figure"><br>
+In this lesson we revisit genetic mapping of quantitative traits and
+apply its methods to gene expression. The examples are from <a href="https://doi.org/10.1534/genetics.118.300864" class="external-link">Genetic Drivers of
+Pancreatic Islet Function</a> by Keller, et al. In Type 2 diabetes (T2D)
+the pancreas produces less insulin and the body becomes less responsive
+to insulin.</p>
+<p><img src="fig/healthy-vs-T2D.png" alt="Figure showing Type 2 diabetes and insulin." class="figure"> Created in <a href="https://BioRender.com" class="external-link">BioRender</a></p>
+<p>This study offers supporting evidence for type 2 diabetes-associated
+loci in human GWAS, most of which affect pancreatic islet function.
+Pancreatic islet cells produce endocrine hormones including insulin. A
+feedback loop of glucose and insulin activates beta cells that produce
+insulin and inhibits alpha cells.</p>
+<p><img src="fig/pancreatic-islet.png" alt="Figure showing the Islet of Langerhans in the pancreas, which is composed of alpha, beta, delta and gamma cells." class="figure">
+Created in <a href="https://BioRender.com" class="external-link">BioRender</a></p>
+<p>The study assessed pancreatic islet gene expression in Diversity
+Outbred mice on either a regular chow or high-fat, high-sugar diet.
+Islet mRNA abundance was quantified and analyzed. The study identified
+more than 18,000 eQTL peaks.</p>
+<p>Genome-wide association studies (GWAS) often identify variants in
+non-coding regions of the genome, indicating that regulation of gene
+expression predominates in common diseases like type II diabetes. Most
+of the more than 100 genetic loci associated with type II diabetes
+affect the function of pancreatic islets, which produce insulin for
+regulating blood glucose levels. Susceptibility to type II diabetes
+(T2D) increases with obesity, such that T2D-associated genetic loci
+operate mainly under conditions of obesity (See <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5937189/" class="external-link">Keller,
+Mark P et al. “Genetic Drivers of Pancreatic Islet Function.” Genetics
+vol. 209,1 (2018): 335-356</a>). Like most GWAS loci, the T2D-associated
+genetic loci identified from genome-wide association studies (GWAS) have
+very small effect sizes and odds ratios just slightly more than 1.</p>
+<p>This study explored islet gene expression in diabetes. The authors
+hypothesized that gene expression changes in response to dietary
+challenge would reveal signaling pathways involved in stress responses.
+The expression of many genes often map to the same locus, indicating
+that expression of these genes is controlled in common. If their mRNAs
+encode proteins with common physiological functions, the function of the
+controlling gene(s) is revealed. Variation in expression of the
+controlling gene(s), rather than a genetic variant, can be tested as an
+immediate cause of a disease-related phenotype.</p>
+<p>In this study, Diversity Outbred (DO) mice were fed a high-fat,
+high-sugar diet as a stressor, sensitizing the mice to develop diabetic
+traits. Body weight and plasma glucose, insulin, and triglyceride
+measurements were taken biweekly. Food intake could be measured since
+animals were individually housed. A glucose tolerance test at 18 weeks
+of age provided measurement of dynamic glucose and insulin changes at 5,
+15, 30, 60 and 120 minutes after glucose ingestion. Area under the curve
+(AUC) was determined from these time points for both plasma glucose and
+insulin levels.</p>
+<figure><img src="fig/insulin-area-under-curve.png" alt="A plot showing four different curves reflecting insulin levels after administration of glucose starting at time zero" class="figure mx-auto d-block"><div class="figcaption">Insulin curves following glucose tolerance
+test</div>
+</figure><p><a href="https://en.wikipedia.org/wiki/Homeostatic_model_assessment" class="external-link">Homeostatic
+model assessment</a> (HOMA) quantifies insulin resistance (IR) and beta
+cell (<span class="math inline">\(\beta\)</span>) function. For IR, the
+equation quantifying insulin resistance is the product of glucose and
+insulin in mg/dL divided by 405.</p>
+<p><span class="math inline">\(HOMA-IR = (glucose \times insulin) /
+405\)</span></p>
+<p>For beta cell function, the equation is</p>
+<p><span class="math inline">\(HOMA-\beta = (360 \times insulin) /
+(glucose - 63)\)</span></p>
+<p>expressed as a percentage. Insulin resistance and beta cell function
+were determined after the glucose tolerance test was given. Islet cells
+were isolated from pancreas, and RNA extracted and libraries constructed
+from isolated RNA for gene expression measurements.</p>
+<p>Genome scans were performed with the leave-one-chromosome-out (LOCO)
+method for kinship correction. Sex and experimental cohort (DO wave)
+were used as covariates. The results of one scan for insulin area under
+the curve (AUC) is shown below with a strong peak on chromosome 11. In
+this lesson, we will look into genes located under this peak.</p>
+<p><img src="fig/insulin-auc-lod-plot.png" alt="Insulin AUC LOD plot" class="figure">
+::::::::::::::::::::::::::::::::::::: keypoints</p>
 <ul>
 <li>Many GWAS studies identify SNPs which to no lie within coding
 regions of the genome.</li>
@@ -697,11 +691,9 @@ affect gene expression levels.</li>
 <li>Merging gene expression with physiological trait QTL mapping can
 help to identify genes which affect physiological trait variation.</li>
 </ul>
-</div>
-</div>
-</div></section><section id="aio-load-explore-data"><p>Content from <a href="load-explore-data.html">Load and Explore Data</a></p>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::</p></section><section id="aio-load-explore-data"><p>Content from <a href="load-explore-data.html">Load and Explore Data</a></p>
 <hr>
-<p>Last updated on 2024-11-25 |
+<p>Last updated on 2024-11-26 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/load-explore-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1324,7 +1316,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-map-one-eqtl"><p>Content from <a href="map-one-eqtl.html">Mapping A Single Gene Expression Trait</a></p>
 <hr>
-<p>Last updated on 2024-11-25 |
+<p>Last updated on 2024-11-26 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/map-one-eqtl.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -2501,7 +2493,7 @@ any links that you are not going to use.
 </div>
 </section></section><section id="aio-map-many-eqtls"><p>Content from <a href="map-many-eqtls.html">Mapping Many Gene Expression Traits</a></p>
 <hr>
-<p>Last updated on 2024-11-25 |
+<p>Last updated on 2024-11-26 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/map-many-eqtls.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -2947,7 +2939,7 @@ any links that you are not going to use.
  -->
 </div></section><section id="aio-create-transcriptome-map"><p>Content from <a href="create-transcriptome-map.html">Creating A Transcriptome Map</a></p>
 <hr>
-<p>Last updated on 2024-11-25 |
+<p>Last updated on 2024-11-26 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/create-transcriptome-map.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -3195,7 +3187,7 @@ any links that you are not going to use.
 </div>
 </section></section><section id="aio-full-transcriptome-map"><p>Content from <a href="full-transcriptome-map.html">Transcriptome Map of cis and trans eQTL</a></p>
 <hr>
-<p>Last updated on 2024-11-25 |
+<p>Last updated on 2024-11-26 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/full-transcriptome-map.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -3318,7 +3310,7 @@ X-axis and the QTL locations are shown on the Y-axis.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>There are at least two patterns. One is the dense diagonal line of
 cis-eQTL. The other is the increased density of QTL in vertical
@@ -3343,7 +3335,7 @@ lines.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>A vertical band indicates that one locus regulates the expression of
 many genes.</p>
@@ -3615,7 +3607,7 @@ any links that you are not going to use.
 </div>
 </section></section><section id="aio-maximum-peaks-genes"><p>Content from <a href="maximum-peaks-genes.html">Maximum eQTL Peaks and Nearby Genes</a></p>
 <hr>
-<p>Last updated on 2024-11-25 |
+<p>Last updated on 2024-11-26 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/maximum-peaks-genes.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -3728,7 +3720,7 @@ locally</li>
 </div>
 </div></section><section id="aio-interpret-results"><p>Content from <a href="interpret-results.html">Interpreting qtl2 results</a></p>
 <hr>
-<p>Last updated on 2024-11-25 |
+<p>Last updated on 2024-11-26 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/interpret-results.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -3813,7 +3805,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-mediation-analysis"><p>Content from <a href="mediation-analysis.html">Mediation Analysis</a></p>
 <hr>
-<p>Last updated on 2024-11-25 |
+<p>Last updated on 2024-11-26 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/mediation-analysis.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -4443,8 +4435,8 @@ any links that you are not going to use.
   "url": "https://carpentries.github.io/workbench-template-rmd/aio.html",
   "identifier": "https://carpentries.github.io/workbench-template-rmd/aio.html",
   "dateCreated": "2024-11-07",
-  "dateModified": "2024-11-25",
-  "datePublished": "2024-11-25"
+  "dateModified": "2024-11-26",
+  "datePublished": "2024-11-26"
 }
 
   </script><script>
