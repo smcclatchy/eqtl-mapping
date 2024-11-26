@@ -16,18 +16,21 @@ exercises: 30
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-```{r load_libraries}
-suppressPackageStartupMessages(library(knitr))
-suppressPackageStartupMessages(library(ggbeeswarm))
-suppressPackageStartupMessages(library(tidyverse))
-suppressPackageStartupMessages(library(qtl2))
-suppressPackageStartupMessages(library(DESeq2))
+```{r load_libraries, warning=FALSE}
+library(knitr)
+library(ggbeeswarm)
+library(tidyverse)
+library(qtl2)
+library(DESeq2)
 ```
 
 ## Physiological Phenotypes
 
+You should have downloaded data files already when following the 
+[setup instructions](https://smcclatchy.github.io/eqtl-mapping/index.html). 
 The complete data used in these analyses are available from 
-[Data Dryad](https://doi.org/10.5061/dryad.pj105). 
+[Data Dryad](https://doi.org/10.5061/dryad.pj105). The files we will use are in
+a simpler format than those on Data Dryad.
 
 Load in the physiological phenotypes.
 
@@ -38,8 +41,9 @@ pheno_dict  <- readRDS(file = 'data/attie_do_pheno_dict.rds')
 covar       <- readRDS(file = 'data/attie_do_covar.rds')
 ```
 
-See the [data dictionary](data/Attie-232_Attie_DO_Islets-dictionary.csv) to 
-see a description of each of these phenotypes. You can also view a table of
+See the
+[data dictionary](https://github.com/smcclatchy/gene-expression-qtl/blob/gh-pages/data/Attie-232_Attie_DO_Islets-dictionary.csv) 
+to see a description of each of these phenotypes. You can also view a table of
 the data dictionary.
 
 ```{r dict_phenos}
@@ -59,16 +63,16 @@ We will log-transform the data using the
 function. We have also overlaid the data points using ggbeeswarm's
 [geom_beeswarm](https://www.rdocumentation.org/packages/ggbeeswarm/versions/0.7.2/topics/geom_beeswarm).
 We have told `geom_beeswarm()` to plot the points with some transparency using 
-the argument "alpha = 0.2". The alpha argument ranges between 0 (completely 
+the argument `alpha = 0.2`. The `alpha` argument ranges between 0 (completely 
 transparent) to 1 (completely opaque). A value of 0.1 means mostly transparent.
 
-```{r Ins_tAUC_boxplot,fig.width=8,fig.height=6,warning=FALSE}
+```{r Ins_tAUC_boxplot, fig.width=8, fig.height=6, warning=FALSE}
 # plot Insulin on a log 10 scale
 ggplot(pheno, aes(sex, Ins_tAUC)) +
   geom_boxplot() +
   geom_beeswarm(alpha = 0.2) +
   scale_y_log10() +
-  labs(title = "Insulin tAUC", y = "Insulin tAUC") +
+  labs(title = "Insulin area under the curve", y = "Insulin tAUC") +
   theme(text = element_text(size = 20))
 ```
 
@@ -96,8 +100,7 @@ Males have higher Insulin tAUC than females.
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-The boxplot is a useful visualizations which you can use to visualize 
-the distribution of your data.
+The boxplot is a useful plot to visualize the distribution of your data.
 
 ### Quality Control of Data
 
@@ -109,7 +112,7 @@ in the plots above.
 While we can "eyeball" the distributions in the boxplot, it would be 
 better to use a "quantile-quantile" plot. 
 
-```{r qqplot,fig.width=8,fig.height=6,warning=FALSE}
+```{r qqplot, fig.width=8, fig.height=6, warning=FALSE}
 pheno |> 
   ggplot(aes(sample = Ins_tAUC)) +
     stat_qq() +
@@ -121,15 +124,14 @@ pheno |>
     theme(text = element_text(size = 20))
 ```
 
-In these plots, the "quantiles" of the normal distribution are plotted on the
-X-axis and the data are plotted on the Y-axis. The line indicates the 
-quantiles that would be followed by a normal distribution. The untransformed
-data do **not** follow a normal distribution because the points are far from
-the line.  
+In these plots, the "quantiles" (e.g. percentiles) of the normal distribution 
+are plotted on the X-axis and the data are plotted on the Y-axis. The line 
+indicates the quantiles that would be followed by a normal distribution. The untransformed data do **not** follow a normal distribution because the points 
+are far from the line.  
 
 Next, we will log-transform the data and then create a quantile-quantile plot.
 
-```{r qqplot_log,fig.height=6,fig.width=8,warning=FALSE}
+```{r qqplot_log, fig.height=6, fig.width=8, warning=FALSE}
 pheno |> 
   mutate(Ins_tAUC = log(Ins_tAUC)) |> 
   ggplot(aes(sample = Ins_tAUC)) +
@@ -146,7 +148,7 @@ pheno |>
 
 ## Challenge 3
 
-Does the log transformation make the data more Normally distributed? Explain 
+Does the log transformation make the data more normally distributed? Explain 
 your answer.
 
 :::::::::::::::::::::::: solution 
@@ -163,9 +165,9 @@ Do any data points look suspicious to you? Explain your answer.
 :::::::::::::::::::::::: solution 
 
 The data points that deviate from the normality line would be worth
-investigating. All data deviates somewhat from normality, but the three
-lowest points in the male data plot would be worth investigating. They may
-be real, but there may also have been mishap in the assay.
+investigating. All data deviates somewhat from normality, but the three lowest 
+points in the male data plot would be worth investigating. They may be real, but
+there may also have been mishap in the assay.
 
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -175,7 +177,7 @@ points that are more than four standard deviations from the mean.
 
 To do this, we will log transform and standardize Insulin tAUC. 
 
-```{r pheno_std,fig.width=8,fig.height=6,warning=FALSE}
+```{r pheno_std, fig.width=8, fig.height=6, warning=FALSE}
 ins_tauc = pheno |> 
              select(mouse, sex, Ins_tAUC) |>
              group_by(sex) |> 
@@ -205,8 +207,8 @@ raw   <- readRDS(file = 'data/attie_do_expr_raw.rds')
 
 We have loaded in two data objects: 
 
-1. annot: data.frame containing gene annotation,
-2. raw: numeric matrix containing the un-normalized expression counts,
+1. `annot`: a data frame containing gene annotation, and
+2. `raw`: a numeric matrix containing the un-normalized expression counts.
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
@@ -249,15 +251,15 @@ head(covar)
 ```
 
 The sample covariates have information about the sex and DO generation, 
-indicated as "DOwave", of each mouse.
+indicated as `DOwave`, of each mouse.
 
 In order to make reasonable gene comparisons between samples, the count data 
-needs to be normalized. In the quantile-quantile (Q-Q) plot below, count data for 
-the first gene are plotted over a diagonal line tracing a normal distribution 
-for those counts. Notice that most of the count data values lie off of this 
-line, indicating that these gene counts are not normally distributed. 
+needs to be normalized. In the quantile-quantile (Q-Q) plot below, count data 
+for the first gene are plotted over a diagonal line tracing a normal 
+distribution for those counts. Notice that most of the count data values lie off
+of this line, indicating that these gene counts are not normally distributed. 
 
-```{r view_manual_qqplot_raw,fig.height=6,fig.width=8,echo=FALSE,warning=FALSE}
+```{r view_manual_qqplot_raw, fig.height=6, fig.width=8, echo=FALSE, warning=FALSE}
 raw |> 
   as.data.frame() |> 
   ggplot(aes(sample = ENSMUSG00000000001)) +
@@ -273,7 +275,7 @@ normally distributed. They are also not on the same scale. The y-axis values for
 each subplot range to 20,000 counts in the first subplot, 250 in the second, 90
 in the third, and so on. 
 
-```{r view_qqplots_raw,fig.width=8,fig.height=6}
+```{r view_qqplots_raw, fig.width=8, fig.height=6}
 raw |> 
   as.data.frame() |>
   select(ENSMUSG00000000001:ENSMUSG00000000058) |> 
@@ -287,8 +289,8 @@ raw |>
     theme(text = element_text(size = 20))
 ```
 
-Since each gene has a different distribution, we will need to normalized the
-gene expression data. We will do this in a future lesson.
+Since each gene has a different distribution, we will need to normalize the gene
+expression data. We will do this in a future lesson.
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
@@ -296,5 +298,3 @@ gene expression data. We will do this in a future lesson.
 to be nearly normal.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
-
-[r-markdown]: https://rmarkdown.rstudio.com/

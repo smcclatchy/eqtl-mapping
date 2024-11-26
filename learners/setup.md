@@ -23,7 +23,7 @@ Choose the free RStudio Desktop version for Windows, Mac, or Linux.
     c. Install all by copying and pasting the following code in the R console.
 
 ```r
-install.packages(c("tidyverse", "ggbeeswarm", "qtl2", "qtl2convert"))
+install.packages(c("tidyverse", "ggbeeswarm", "knitr", "qtl2", "qtl2convert"))
 
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
@@ -39,9 +39,11 @@ installed correctly.
 ```r
 library(tidyverse)
 library(ggbeeswarm)
+library(knitr)
 library(qtl2)
 library(qtl2convert)
 library(AnnotationHub)
+library(DESeq2)
 library(rtracklayer)
 ```
 
