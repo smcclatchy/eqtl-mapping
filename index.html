@@ -442,22 +442,35 @@ still need to create a project with step 1.</li>
 <hr class="half-width"><p>For this course, we will have several data files which you will need
 to download to the <code>data</code> directory in the project folder on
 your Desktop.</p>
-<ol style="list-style-type: decimal"><li>Download all files from the <a href="https://github.com/smcclatchy/eqtl-mapping/tree/main/episodes/data" class="external-link">Github
-lesson repository</a>. You will need to download them one by one. Click
-on the file name and locate the download button at upper right.</li>
+<ol style="list-style-type: decimal"><li>Download files from the <a href="https://github.com/smcclatchy/eqtl-mapping/tree/main/episodes/data" class="external-link">Github
+lesson repository</a>. You will need to download them one by one using
+the direct links below. For each file, locate the download button at
+upper right.</li>
 </ol><figure><img src="fig/download-button.png" alt="Graphic showing the download button at right on the Github data file page" class="figure mx-auto d-block"><div class="figcaption">Select the download button</div>
 </figure><p>Repeat this process for each file. Then move the files from wherever
 your downloads go (<em>e.g.</em> <code>Downloads</code>) to the
 <code>data</code> directory in the <code>eqtl_mapping</code> project.
 You can use a graphical user interface (<em>e.g.</em> Windows File
 Explorer, Mac Finder) to move the files.</p>
-<p>Copy, paste, and run the following code in the RStudio console.</p>
-<div class="codewrapper sourceCode" id="cb4">
+<p><a href="https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_pheno.rds" class="external-link">physiological
+phenotypes</a> <a href="https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_pheno_dict.rds" class="external-link">phenotype
+dictionary</a> <a href="https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_covar.rds" class="external-link">covariates</a>
+<a href="https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_expr_annot.rds" class="external-link">gene
+annotations</a> <a href="https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_expr_raw.rds" class="external-link">raw
+gene expression</a> <a href="https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_map.rds" class="external-link">map</a>
+<a href="https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_kinship.rds" class="external-link">kinship</a>
+<a href="https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/ins_tauc_blup_chr11.rds" class="external-link">chromosome
+11 insulin blups</a> <a href="https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/hnf1b_blup_chr11.rds" class="external-link">chromosome
+11 Hnf1b blups</a></p>
+<ol start="2" style="list-style-type: decimal"><li>Copy, paste, and run the following code in the RStudio console to
+download the genotype probabilities for the gene expression study we
+will explore in this lesson.</li>
+</ol><div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">download.file</span><span class="op">(</span>url      <span class="op">=</span> <span class="st">"https://thejacksonlaboratory.box.com/shared/static/4hy4hbjyrxjbrzh570i4g02r62bx3lgk.rds"</span>,</span>
-<span>              destfile <span class="op">=</span> <span class="st">"data/"</span>,</span>
+<span>              destfile <span class="op">=</span> <span class="st">"data/attie_DO500_genoprobs_v5.rds"</span>,</span>
 <span>              mode     <span class="op">=</span> <span class="st">"wb"</span><span class="op">)</span></span></code></pre>
 </div>
 <!--
