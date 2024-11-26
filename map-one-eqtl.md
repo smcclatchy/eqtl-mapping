@@ -170,10 +170,6 @@ library sizes.
 dds  = DESeq(dds)
 ```
 
-``` warning
-Warning in DESeq(dds): the design is ~ 1 (just an intercept). is this intended?
-```
-
 ``` output
 estimating size factors
 ```
@@ -239,14 +235,6 @@ tibble(mean = rowMeans(expr),
     theme(text = element_text(size = 20))
 ```
 
-``` warning
-Warning in scale_x_log10(): log-10 transformation introduced infinite values.
-```
-
-``` warning
-Warning in scale_y_log10(): log-10 transformation introduced infinite values.
-```
-
 <img src="fig/map-one-eqtl-rendered-show_expr_mean_var-1.png" style="display: block; margin: auto;" />
 
 ``` r
@@ -281,10 +269,6 @@ tibble(mean = colMeans(expr),
     labs(title = "Mean vs. Std. Dev. of After VST",
          x     = "log(Mean)", y = "log(Std. Dev.)") +
     theme(text = element_text(size = 20))
-```
-
-``` warning
-Warning in scale_y_log10(): log-10 transformation introduced infinite values.
 ```
 
 <img src="fig/map-one-eqtl-rendered-mean_sd_after_vst-1.png" style="display: block; margin: auto;" />
@@ -611,13 +595,8 @@ This takes about 15 to 30 seconds.
 ``` r
 lod_ins <- scan1(genoprobs = probs,
                  pheno     = ins_tauc,
-                 kinsihp   = K,
+                 kinship   = K,
                  addcovar  = addcovar)
-```
-
-``` warning
-Warning in check_extra_dots(dotargs, c("tol", "intcovar_method", "quiet", :
-Extra argument ignored: kinsihp
 ```
 
 After the genome scan, `lod_ins` contains the LOD scores for both the 
@@ -630,12 +609,12 @@ head(lod_ins)
 
 ``` output
           Ins_tAUC Ins_tAUC_log
-1_3000000 4.709381     3.652337
-1_3041392 4.709871     3.652666
-1_3346528 4.754830     3.693434
-1_3651663 4.582070     3.574225
-1_3657931 4.631835     3.599469
-1_3664199 4.679481     3.631266
+1_3000000 5.162655     4.333006
+1_3041392 5.163071     4.333039
+1_3346528 5.207254     4.396324
+1_3651663 5.011606     4.261237
+1_3657931 5.047916     4.286642
+1_3664199 5.093272     4.314025
 ```
 
 Let's plot both LOD curves.
@@ -862,11 +841,11 @@ Table: Insulin tAUC QTL Peaks
 
 |lodcolumn    |chr |      pos|       lod|    ci_lo|    ci_hi|
 |:------------|:---|--------:|---------:|--------:|--------:|
-|Ins_tAUC_log |11  | 83.59467| 11.241455| 83.58553| 84.95444|
-|Ins_tAUC     |17  | 31.73419|  7.528895| 25.57974| 73.89085|
+|Ins_tAUC_log |11  | 83.59467| 11.258841| 83.58553| 84.95444|
+|Ins_tAUC     |17  | 31.69319|  7.445012| 25.57974| 73.89085|
 
 We can see that we have a peak for insulin tAUC on chromosome 
-17 at 31.734191 Mb.
+17 at 31.693192 Mb.
 
 :::::::::::::::::::::::::::::::::::::::::::::: challenge
 
