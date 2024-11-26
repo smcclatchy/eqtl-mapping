@@ -16,7 +16,7 @@ exercises: 30
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-```{r load_libraries, warning=FALSE}
+```{r load_libraries, warning=FALSE, message=FALSE}
 library(knitr)
 library(ggbeeswarm)
 library(tidyverse)

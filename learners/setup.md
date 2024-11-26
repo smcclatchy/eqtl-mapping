@@ -75,10 +75,10 @@ dir.create("./results")
 For this course, we will have several data files which you will need to 
 download to the `data` directory in the project folder on your Desktop.
 
-1. Download all files from the 
+1. Download files from the 
 [Github lesson repository](https://github.com/smcclatchy/eqtl-mapping/tree/main/episodes/data).
-You will need to download them one by one. Click on the file name and locate the
-download button at upper right.
+You will need to download them one by one using the direct links below. For each
+file, locate the download button at upper right.
 
 ![Select the download button](../episodes/fig/download-button.png){alt="Graphic showing the download button at right on the Github data file page"}
 
@@ -87,10 +87,25 @@ downloads go (*e.g.* `Downloads`) to the `data` directory in the `eqtl_mapping`
 project. You can use a graphical user interface (*e.g.* Windows File Explorer, 
 Mac Finder) to move the files.
 
-Copy, paste, and run the following code in the RStudio console.
+[physiological phenotypes](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_pheno.rds)
+[phenotype dictionary](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_pheno_dict.rds)
+[covariates](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_covar.rds)
+[gene annotations](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_expr_annot.rds)
+[raw gene expression](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_expr_raw.rds)
+[map](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_map.rds)
+[kinship](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_kinship.rds)
+[chromosome 11 insulin blups](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/ins_tauc_blup_chr11.rds)
+[chromosome 11 Hnf1b blups](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/hnf1b_blup_chr11.rds)
+
+
+
+
+2. Copy, paste, and run the following code in the RStudio console to download the
+genotype probabilities for the gene expression study we will explore in this
+lesson.
 
 ```r
 download.file(url      = "https://thejacksonlaboratory.box.com/shared/static/4hy4hbjyrxjbrzh570i4g02r62bx3lgk.rds",
-              destfile = "data/",
+              destfile = "data/attie_DO500_genoprobs_v5.rds",
               mode     = "wb")
 ```
