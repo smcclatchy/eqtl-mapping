@@ -87,53 +87,10 @@ downloads go (*e.g.* `Downloads`) to the `data` directory in the `eqtl_mapping`
 project. You can use a graphical user interface (*e.g.* Windows File Explorer, 
 Mac Finder) to move the files.
 
-
-
-
-
 Copy, paste, and run the following code in the RStudio console.
 
-The first file contains the data that we will use for QTL mapping in an F2
-population. Download it using the code below.
-
 ```r
-download.file(url      = "https://thejacksonlaboratory.box.com/shared/static/svw7ivp5hhmd7vb8fy26tc53h7r85wez.zip",
-              destfile = "data/attie_b6btbr_grcm39.zip",
-              mode     = "wb")
-              
-unzip(zipfile = "data/attie_b6btbr_grcm39.zip",
-      exdir   = "./data/")
-```
-
-The second file contains the Diversity Outbred mapping data.
-
-```r
-download.file(url      = "https://thejacksonlaboratory.box.com/shared/static/wspizp2jgrtngvvw5ixredpu7627mh5w.rdata",
-              destfile = "data/qtl2_demo_grcm39.Rdata",
+download.file(url      = "https://thejacksonlaboratory.box.com/shared/static/4hy4hbjyrxjbrzh570i4g02r62bx3lgk.rds",
+              destfile = "data/",
               mode     = "wb")
 ```
-
-Next, download the MUGA marker positions from Karl Broman's Github page.
-
-```r
-download.file(url      = "https://raw.githubusercontent.com/kbroman/MUGAarrays/main/UWisc/muga_uwisc_v4.csv",
-              destfile = "data/muga_uwisc_v4.csv",
-              mode     = "wb")
-```
-
-Next, we need a database of the DO founder SNPs and gene positions. This file
-is 10 GB, so it will take a while to download.
-
-```r
-download.file(url      = "https://figshare.com/ndownloader/files/40157572",
-              destfile = "data/fv.2021.snps.db3",
-              mode     = "wb")
-```
-
-If you get an error message downloading this file from figshare, use a web 
-browser to download from the URL. Go to 
-[https://figshare.com/ndownloader/files/40157572](https://figshare.com/ndownloader/files/40157572)
-to start the download. Then move the file from wherever your downloads go 
-(*e.g.* `Downloads`) to the `data` directory in the `qtl_mapping` project. You 
-can use a graphical user interface (*e.g.* Windows File Explorer, Mac Finder) to 
-move the file.
