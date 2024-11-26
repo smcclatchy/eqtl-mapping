@@ -18,22 +18,164 @@ exercises: 30
 
 
 ``` r
-suppressPackageStartupMessages(library(knitr))
-suppressPackageStartupMessages(library(ggbeeswarm))
-suppressPackageStartupMessages(library(tidyverse))
-suppressPackageStartupMessages(library(qtl2))
-suppressPackageStartupMessages(library(DESeq2))
+library(knitr)
+library(ggbeeswarm)
 ```
 
-``` warning
-Warning: replacing previous import 'S4Arrays::makeNindexFromArrayViewport' by
-'DelayedArray::makeNindexFromArrayViewport' when loading 'SummarizedExperiment'
+``` output
+Loading required package: ggplot2
+```
+
+``` r
+library(tidyverse)
+```
+
+``` output
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ lubridate 1.9.3     ✔ tibble    3.2.1
+✔ purrr     1.0.2     ✔ tidyr     1.3.1
+```
+
+``` output
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+```
+
+``` r
+library(qtl2)
+library(DESeq2)
+```
+
+``` output
+Loading required package: S4Vectors
+Loading required package: stats4
+Loading required package: BiocGenerics
+
+Attaching package: 'BiocGenerics'
+
+The following objects are masked from 'package:lubridate':
+
+    intersect, setdiff, union
+
+The following objects are masked from 'package:dplyr':
+
+    combine, intersect, setdiff, union
+
+The following objects are masked from 'package:stats':
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from 'package:base':
+
+    anyDuplicated, aperm, append, as.data.frame, basename, cbind,
+    colnames, dirname, do.call, duplicated, eval, evalq, Filter, Find,
+    get, grep, grepl, intersect, is.unsorted, lapply, Map, mapply,
+    match, mget, order, paste, pmax, pmax.int, pmin, pmin.int,
+    Position, rank, rbind, Reduce, rownames, sapply, saveRDS, setdiff,
+    table, tapply, union, unique, unsplit, which.max, which.min
+
+
+Attaching package: 'S4Vectors'
+
+The following objects are masked from 'package:lubridate':
+
+    second, second<-
+
+The following objects are masked from 'package:dplyr':
+
+    first, rename
+
+The following object is masked from 'package:tidyr':
+
+    expand
+
+The following object is masked from 'package:utils':
+
+    findMatches
+
+The following objects are masked from 'package:base':
+
+    expand.grid, I, unname
+
+Loading required package: IRanges
+
+Attaching package: 'IRanges'
+
+The following object is masked from 'package:lubridate':
+
+    %within%
+
+The following objects are masked from 'package:dplyr':
+
+    collapse, desc, slice
+
+The following object is masked from 'package:purrr':
+
+    reduce
+
+Loading required package: GenomicRanges
+Loading required package: GenomeInfoDb
+Loading required package: SummarizedExperiment
+Loading required package: MatrixGenerics
+Loading required package: matrixStats
+
+Attaching package: 'matrixStats'
+
+The following object is masked from 'package:dplyr':
+
+    count
+
+
+Attaching package: 'MatrixGenerics'
+
+The following objects are masked from 'package:matrixStats':
+
+    colAlls, colAnyNAs, colAnys, colAvgsPerRowSet, colCollapse,
+    colCounts, colCummaxs, colCummins, colCumprods, colCumsums,
+    colDiffs, colIQRDiffs, colIQRs, colLogSumExps, colMadDiffs,
+    colMads, colMaxs, colMeans2, colMedians, colMins, colOrderStats,
+    colProds, colQuantiles, colRanges, colRanks, colSdDiffs, colSds,
+    colSums2, colTabulates, colVarDiffs, colVars, colWeightedMads,
+    colWeightedMeans, colWeightedMedians, colWeightedSds,
+    colWeightedVars, rowAlls, rowAnyNAs, rowAnys, rowAvgsPerColSet,
+    rowCollapse, rowCounts, rowCummaxs, rowCummins, rowCumprods,
+    rowCumsums, rowDiffs, rowIQRDiffs, rowIQRs, rowLogSumExps,
+    rowMadDiffs, rowMads, rowMaxs, rowMeans2, rowMedians, rowMins,
+    rowOrderStats, rowProds, rowQuantiles, rowRanges, rowRanks,
+    rowSdDiffs, rowSds, rowSums2, rowTabulates, rowVarDiffs, rowVars,
+    rowWeightedMads, rowWeightedMeans, rowWeightedMedians,
+    rowWeightedSds, rowWeightedVars
+
+Loading required package: Biobase
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+
+Attaching package: 'Biobase'
+
+The following object is masked from 'package:MatrixGenerics':
+
+    rowMedians
+
+The following objects are masked from 'package:matrixStats':
+
+    anyMissing, rowMedians
 ```
 
 ## Physiological Phenotypes
 
+You should have downloaded data files already when following the 
+[setup instructions](https://smcclatchy.github.io/eqtl-mapping/index.html). 
 The complete data used in these analyses are available from 
-[Data Dryad](https://doi.org/10.5061/dryad.pj105). 
+[Data Dryad](https://doi.org/10.5061/dryad.pj105). The files we will use are in
+a simpler format than those on Data Dryad.
 
 Load in the physiological phenotypes.
 
@@ -45,8 +187,9 @@ pheno_dict  <- readRDS(file = 'data/attie_do_pheno_dict.rds')
 covar       <- readRDS(file = 'data/attie_do_covar.rds')
 ```
 
-See the [data dictionary](data/Attie-232_Attie_DO_Islets-dictionary.csv) to 
-see a description of each of these phenotypes. You can also view a table of
+See the
+[data dictionary](https://github.com/smcclatchy/gene-expression-qtl/blob/gh-pages/data/Attie-232_Attie_DO_Islets-dictionary.csv) 
+to see a description of each of these phenotypes. You can also view a table of
 the data dictionary.
 
 
@@ -104,7 +247,7 @@ We will log-transform the data using the
 function. We have also overlaid the data points using ggbeeswarm's
 [geom_beeswarm](https://www.rdocumentation.org/packages/ggbeeswarm/versions/0.7.2/topics/geom_beeswarm).
 We have told `geom_beeswarm()` to plot the points with some transparency using 
-the argument "alpha = 0.2". The alpha argument ranges between 0 (completely 
+the argument `alpha = 0.2`. The `alpha` argument ranges between 0 (completely 
 transparent) to 1 (completely opaque). A value of 0.1 means mostly transparent.
 
 
@@ -114,7 +257,7 @@ ggplot(pheno, aes(sex, Ins_tAUC)) +
   geom_boxplot() +
   geom_beeswarm(alpha = 0.2) +
   scale_y_log10() +
-  labs(title = "Insulin tAUC", y = "Insulin tAUC") +
+  labs(title = "Insulin area under the curve", y = "Insulin tAUC") +
   theme(text = element_text(size = 20))
 ```
 
@@ -144,8 +287,7 @@ Males have higher Insulin tAUC than females.
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-The boxplot is a useful visualizations which you can use to visualize 
-the distribution of your data.
+The boxplot is a useful plot to visualize the distribution of your data.
 
 ### Quality Control of Data
 
@@ -172,11 +314,10 @@ pheno |>
 
 <img src="fig/load-explore-data-rendered-qqplot-1.png" style="display: block; margin: auto;" />
 
-In these plots, the "quantiles" of the normal distribution are plotted on the
-X-axis and the data are plotted on the Y-axis. The line indicates the 
-quantiles that would be followed by a normal distribution. The untransformed
-data do **not** follow a normal distribution because the points are far from
-the line.  
+In these plots, the "quantiles" (e.g. percentiles) of the normal distribution 
+are plotted on the X-axis and the data are plotted on the Y-axis. The line 
+indicates the quantiles that would be followed by a normal distribution. The untransformed data do **not** follow a normal distribution because the points 
+are far from the line.  
 
 Next, we will log-transform the data and then create a quantile-quantile plot.
 
@@ -200,7 +341,7 @@ pheno |>
 
 ## Challenge 3
 
-Does the log transformation make the data more Normally distributed? Explain 
+Does the log transformation make the data more normally distributed? Explain 
 your answer.
 
 :::::::::::::::::::::::: solution 
@@ -217,9 +358,9 @@ Do any data points look suspicious to you? Explain your answer.
 :::::::::::::::::::::::: solution 
 
 The data points that deviate from the normality line would be worth
-investigating. All data deviates somewhat from normality, but the three
-lowest points in the male data plot would be worth investigating. They may
-be real, but there may also have been mishap in the assay.
+investigating. All data deviates somewhat from normality, but the three lowest 
+points in the male data plot would be worth investigating. They may be real, but
+there may also have been mishap in the assay.
 
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -263,8 +404,8 @@ raw   <- readRDS(file = 'data/attie_do_expr_raw.rds')
 
 We have loaded in two data objects: 
 
-1. annot: data.frame containing gene annotation,
-2. raw: numeric matrix containing the un-normalized expression counts,
+1. `annot`: a data frame containing gene annotation, and
+2. `raw`: a numeric matrix containing the un-normalized expression counts.
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
@@ -348,13 +489,13 @@ DO026 DO026   F      1       114
 ```
 
 The sample covariates have information about the sex and DO generation, 
-indicated as "DOwave", of each mouse.
+indicated as `DOwave`, of each mouse.
 
 In order to make reasonable gene comparisons between samples, the count data 
-needs to be normalized. In the quantile-quantile (Q-Q) plot below, count data for 
-the first gene are plotted over a diagonal line tracing a normal distribution 
-for those counts. Notice that most of the count data values lie off of this 
-line, indicating that these gene counts are not normally distributed. 
+needs to be normalized. In the quantile-quantile (Q-Q) plot below, count data 
+for the first gene are plotted over a diagonal line tracing a normal 
+distribution for those counts. Notice that most of the count data values lie off
+of this line, indicating that these gene counts are not normally distributed. 
 
 <img src="fig/load-explore-data-rendered-view_manual_qqplot_raw-1.png" style="display: block; margin: auto;" />
 
@@ -380,8 +521,8 @@ raw |>
 
 <img src="fig/load-explore-data-rendered-view_qqplots_raw-1.png" style="display: block; margin: auto;" />
 
-Since each gene has a different distribution, we will need to normalized the
-gene expression data. We will do this in a future lesson.
+Since each gene has a different distribution, we will need to normalize the gene
+expression data. We will do this in a future lesson.
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
@@ -389,5 +530,3 @@ gene expression data. We will do this in a future lesson.
 to be nearly normal.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
-
-[r-markdown]: https://rmarkdown.rstudio.com/
