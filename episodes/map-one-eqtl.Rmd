@@ -119,7 +119,7 @@ counts) is more complicated, this is the rationale for adjusting each sample.
 
 Let's plot a histogram of the total counts in each sample.
 
-```{r hist_total_counts,fig.width=8,fig.height=6}
+```{r hist_total_counts, fig.width=8, fig.height=6}
 hist(rowSums(raw) * 1e-6,
      breaks = 50, 
      main   = "Histogram of Total Counts per Sample",
@@ -164,7 +164,7 @@ dds  = DESeqDataSetFromMatrix(countData = t(round(raw)),
 Next, we will run DESeq2 and let it adjust the expression data for differing
 library sizes.
 
-```{r run_deseq}
+```{r run_deseq, warning=FALSE, results='hide'}
 dds  = DESeq(dds)
 ```
 
@@ -181,7 +181,7 @@ lesson or type it to show the plot live.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-```{r show_expr_mean_var, fig.width=8, fig.height=6}
+```{r show_expr_mean_var, fig.width=8, fig.height=6, warning=FALSE}
 expr = assays(dds)[[1]]
 tibble(mean = rowMeans(expr),
        sd   = apply(expr, 1, sd)) |>
@@ -212,7 +212,7 @@ expr = t(expr)
 Let's look at the mean versus the standard deviation of each gene after 
 normalization.
 
-```{r mean_sd_after_vst, fig.height=6, fig.width=8}
+```{r mean_sd_after_vst, fig.height=6, fig.width=8, warning=FALSE}
 tibble(mean = colMeans(expr),
        sd   = apply(expr, 2, sd)) |>
   ggplot(aes(mean, sd)) +
@@ -500,10 +500,10 @@ This takes about 15 to 30 seconds.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-```{r map_ins_tauc}
+```{r map_ins_tauc, warning=FALSE}
 lod_ins <- scan1(genoprobs = probs,
                  pheno     = ins_tauc,
-                 kinsihp   = K,
+                 kinship   = K,
                  addcovar  = addcovar)
 ```
 
