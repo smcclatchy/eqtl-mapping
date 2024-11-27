@@ -98,7 +98,7 @@ genes in rows. We will also tell DESeq2 what the design variables are for our
 data, although they are not used in this case. These would be used if we were
 searching for differentially expressed genes.
 
-```{r craete_deseq_obj}
+```{r create_deseq_obj}
 dds  = DESeqDataSetFromMatrix(countData = t(round(raw)), 
                               colData   = expr_covar, 
                               design    = ~ 1)
@@ -567,7 +567,7 @@ pre-computed the permutations and have code for you to load them in below.
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-```{r ins_perm,warning=FALSE,eval=FALSE}
+```{r ins_perm, warning=FALSE, eval=FALSE}
 iperm <- scan1perm(genoprobs = probs, 
                    pheno     = ins_tauc[,2, drop = FALSE], 
                    addcovar  = addcovar,
@@ -601,7 +601,7 @@ pre-computed the permutations and have code for you to load them in below.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-```{r hnf1b_perm,warning=FALSE,error=FALSE,eval=FALSE}
+```{r hnf1b_perm, warning=FALSE, error=FALSE, eval=FALSE}
 eperm <- scan1perm(genoprobs = probs, 
                    pheno     = expr_rz[,ensid, drop = FALSE], 
                    addcovar  = addcovar,
@@ -612,7 +612,7 @@ eperm <- scan1perm(genoprobs = probs,
 and will load it in here.  We will also perform a summary to find the summary 
 level for 0.1, 0.05 and 0.01 significance.
 
-```{r read_hnf1b_perm,warning=FALSE}
+```{r read_hnf1b_perm, warning=FALSE}
 eperm <- readRDS(file = str_c("data/", ensid, "_perm_1000.rds"))
 ```
 
@@ -640,7 +640,7 @@ peaks_ins |>
 ```
 
 We can see that we have a peak for insulin tAUC on chromosome 
-`r peaks_ins$chr[1]` at `r peaks_ins$pos[1]` Mb.
+r peaks_ins$chr[1] at r peaks_ins$pos[1] Mb.
 
 :::::::::::::::::::::::::::::::::::::::::::::: challenge
 
@@ -681,8 +681,8 @@ pos_hnf1b <- filter(annot, symbol == "Hnf1b")
 pos_hnf1b
 ```
 
-The support interval ranges from `r peaks_hnf1b$ci_lo` to `r peaks_hnf1b$ci_hi`
-Mb. Hnf1b is located on chromosome `r pos_hnf1b$chr` at `r pos_hnf1b$start`` Mb,
+The support interval ranges from r peaks_hnf1b$ci_lo to r peaks_hnf1b$ci_hi
+Mb. Hnf1b is located on chromosome r pos_hnf1b$chr at r pos_hnf1b$start Mb,
 which is within the support interval.
 
 ::::::::::::::::::::::::::::::::::::::
