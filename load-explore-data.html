@@ -805,7 +805,7 @@ mean.</p>
 limits.</p>
 </div>
 </section><section><h2 class="section-heading" id="gene-expression-data">Gene Expression Data<a class="anchor" aria-label="anchor" href="#gene-expression-data"></a></h2>
-<hr class="half-width"><p>Let’s read in the gene expression data. This has been compiled in</p>
+<hr class="half-width"><p>Let’s read in the gene expression data.</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -914,7 +914,8 @@ DO025 DO025   F      1       114
 DO026 DO026   F      1       114</code></pre>
 </div>
 <p>The sample covariates have information about the sex and DO
-generation, indicated as <code>DOwave</code>, of each mouse.</p>
+generation, indicated as <code>DOwave</code>, of each mouse. These are
+<em>metadata</em>, or data about the data.</p>
 <p>In order to make reasonable gene comparisons between samples, the
 count data needs to be normalized. In the quantile-quantile (Q-Q) plot
 below, count data for the first gene are plotted over a diagonal line

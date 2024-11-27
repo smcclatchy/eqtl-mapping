@@ -467,101 +467,25 @@ as the gene that drops the LOD score from greater than 70 to less than
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># expression data</span></span>
-<span><span class="fu">load</span><span class="op">(</span><span class="st">"../data/attie_DO500_expr.datasets.RData"</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="warning" tabindex="0"><code>Warning in readChar(con, 5L, useBytes = TRUE): cannot open compressed file
-'../data/attie_DO500_expr.datasets.RData', probable reason 'No such file or
-directory'</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in readChar(con, 5L, useBytes = TRUE): cannot open the connection</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb6">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># data from paper</span></span>
-<span><span class="fu">load</span><span class="op">(</span><span class="st">"../data/dataset.islet.rnaseq.RData"</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="warning" tabindex="0"><code>Warning in readChar(con, 5L, useBytes = TRUE): cannot open compressed file
-'../data/dataset.islet.rnaseq.RData', probable reason 'No such file or
-directory'</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in readChar(con, 5L, useBytes = TRUE): cannot open the connection</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb9">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># phenotypes</span></span>
-<span><span class="fu">load</span><span class="op">(</span><span class="st">"../data/attie_DO500_clinical.phenotypes.RData"</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="warning" tabindex="0"><code>Warning in readChar(con, 5L, useBytes = TRUE): cannot open compressed file
-'../data/attie_DO500_clinical.phenotypes.RData', probable reason 'No such file
-or directory'</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in readChar(con, 5L, useBytes = TRUE): cannot open the connection</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb12">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># mapping data</span></span>
-<span><span class="fu">load</span><span class="op">(</span><span class="st">"../data/attie_DO500_mapping.data.RData"</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="warning" tabindex="0"><code>Warning in readChar(con, 5L, useBytes = TRUE): cannot open compressed file
-'../data/attie_DO500_mapping.data.RData', probable reason 'No such file or
-directory'</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in readChar(con, 5L, useBytes = TRUE): cannot open the connection</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb15">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># genotype probabilities</span></span>
+<span><span class="fu">load</span><span class="op">(</span><span class="st">"../data/attie_DO500_expr.datasets.RData"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># data from paper</span></span>
+<span><span class="fu">load</span><span class="op">(</span><span class="st">"../data/dataset.islet.rnaseq.RData"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># phenotypes</span></span>
+<span><span class="fu">load</span><span class="op">(</span><span class="st">"../data/attie_DO500_clinical.phenotypes.RData"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># mapping data</span></span>
+<span><span class="fu">load</span><span class="op">(</span><span class="st">"../data/attie_DO500_mapping.data.RData"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># genotype probabilities</span></span>
 <span><span class="va">probs</span> <span class="op">=</span> <span class="fu">readRDS</span><span class="op">(</span><span class="st">"../data/attie_DO500_genoprobs_v5.rds"</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="warning" tabindex="0"><code>Warning in gzfile(file, "rb"): cannot open compressed file
-'../data/attie_DO500_genoprobs_v5.rds', probable reason 'No such file or
-directory'</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in gzfile(file, "rb"): cannot open the connection</code></pre>
 </div>
 <blockquote>
 <p>Example from package. This will be removed, but I needed it for
 now.</p>
 </blockquote>
-<div class="codewrapper sourceCode" id="cb18">
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -589,108 +513,39 @@ on chromosome 11. First, we will <code>rankZ</code> transform the
 phenotypes because this helps to satisfy the model assumptions. We will
 map using sex, generation, and the number of days on the diet as
 additive covariates.</p>
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># NOTE: QTL is not nearly as large with untransformed phenotype.</span></span>
 <span><span class="va">pheno_rz</span> <span class="op">=</span> <span class="va">pheno_clin</span> <span class="op">%&gt;%</span> </span>
 <span>             <span class="fu">select</span><span class="op">(</span><span class="va">num_islets</span><span class="op">:</span><span class="va">weight_10wk</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>             <span class="fu">as.matrix</span><span class="op">(</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'pheno_clin' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb21">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pheno_rz</span> <span class="op">=</span> <span class="fu">apply</span><span class="op">(</span><span class="va">pheno_rz</span>, <span class="fl">2</span>, <span class="va">rankZ</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'pheno_rz' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb23">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">covar</span><span class="op">$</span><span class="va">DOwave</span> <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">covar</span><span class="op">$</span><span class="va">DOwave</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'covar' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb25">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">addcovar</span> <span class="op">=</span> <span class="fu">model.matrix</span><span class="op">(</span><span class="op">~</span><span class="va">sex</span> <span class="op">+</span> <span class="va">DOwave</span> <span class="op">+</span> <span class="va">diet_days</span>, data <span class="op">=</span> <span class="va">covar</span><span class="op">)</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'covar' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb27">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ins_qtl</span> <span class="op">=</span> <span class="fu">scan1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>, </span>
+<span>             <span class="fu">as.matrix</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">pheno_rz</span> <span class="op">=</span> <span class="fu">apply</span><span class="op">(</span><span class="va">pheno_rz</span>, <span class="fl">2</span>, <span class="va">rankZ</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">covar</span><span class="op">$</span><span class="va">DOwave</span> <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">covar</span><span class="op">$</span><span class="va">DOwave</span><span class="op">)</span></span>
+<span><span class="va">addcovar</span> <span class="op">=</span> <span class="fu">model.matrix</span><span class="op">(</span><span class="op">~</span><span class="va">sex</span> <span class="op">+</span> <span class="va">DOwave</span> <span class="op">+</span> <span class="va">diet_days</span>, data <span class="op">=</span> <span class="va">covar</span><span class="op">)</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span></span>
+<span><span class="va">ins_qtl</span> <span class="op">=</span> <span class="fu">scan1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>, </span>
 <span>                pheno     <span class="op">=</span> <span class="va">pheno_rz</span><span class="op">[</span>,<span class="st">'Ins_tAUC'</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, </span>
 <span>                kinship   <span class="op">=</span> <span class="va">K</span>, </span>
-<span>                addcovar  <span class="op">=</span> <span class="va">addcovar</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'probs' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb29">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot_scan1</span><span class="op">(</span><span class="va">ins_qtl</span>, <span class="va">map</span>, main <span class="op">=</span> <span class="st">'Insulin tAUC'</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'ins_qtl' not found</code></pre>
+<span>                addcovar  <span class="op">=</span> <span class="va">addcovar</span><span class="op">)</span></span>
+<span><span class="fu">plot_scan1</span><span class="op">(</span><span class="va">ins_qtl</span>, <span class="va">map</span>, main <span class="op">=</span> <span class="st">'Insulin tAUC'</span><span class="op">)</span></span></code></pre>
 </div>
 <p>There is a large peak on chromosome 11. Let’s look at the LOD score
 and the location.</p>
-<div class="codewrapper sourceCode" id="cb31">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">peaks</span> <span class="op">=</span> <span class="fu">find_peaks</span><span class="op">(</span><span class="va">ins_qtl</span>, <span class="va">map</span>, threshold <span class="op">=</span> <span class="fl">10</span>, prob <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'ins_qtl' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb33">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">peaks</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'peaks' not found</code></pre>
+<code class="sourceCode R"><span><span class="va">peaks</span> <span class="op">=</span> <span class="fu">find_peaks</span><span class="op">(</span><span class="va">ins_qtl</span>, <span class="va">map</span>, threshold <span class="op">=</span> <span class="fl">10</span>, prob <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span>
+<span><span class="va">peaks</span></span></code></pre>
 </div>
 <p>Let’s also estimate the founder allele effects for
 <code>insulin tAUC</code>.</p>
 <blockquote>
 <p>TBD: This is slow. Precalculate and just show the plot?</p>
 </blockquote>
-<div class="codewrapper sourceCode" id="cb35">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -698,23 +553,8 @@ and the location.</p>
 <span><span class="va">feff</span> <span class="op">=</span> <span class="fu">scan1blup</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span><span class="op">[</span>,<span class="va">chr</span><span class="op">]</span>, </span>
 <span>                 pheno     <span class="op">=</span> <span class="va">pheno_rz</span><span class="op">[</span>,<span class="st">'Ins_tAUC'</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, </span>
 <span>                 kinship   <span class="op">=</span> <span class="va">K</span><span class="op">[[</span><span class="va">chr</span><span class="op">]</span><span class="op">]</span>, </span>
-<span>                 addcovar  <span class="op">=</span> <span class="va">addcovar</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'probs' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb37">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot_coefCC</span><span class="op">(</span><span class="va">feff</span>, <span class="va">map</span>, scan1_output <span class="op">=</span> <span class="va">qtl</span>, legend <span class="op">=</span> <span class="st">'bottomleft'</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'feff' not found</code></pre>
+<span>                 addcovar  <span class="op">=</span> <span class="va">addcovar</span><span class="op">)</span></span>
+<span><span class="fu">plot_coefCC</span><span class="op">(</span><span class="va">feff</span>, <span class="va">map</span>, scan1_output <span class="op">=</span> <span class="va">qtl</span>, legend <span class="op">=</span> <span class="st">'bottomleft'</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Looking at the founder allele effects above, we can see that A/J,
 BL6, 129, and NOD alleles contribute to higher insulin tAUC values.
@@ -755,20 +595,15 @@ interval.</p>
 </blockquote>
 <p>First, we need to get the support interval and add 2 MB to each
 side.</p>
-<div class="codewrapper sourceCode" id="cb39">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ci</span> <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="va">peaks</span><span class="op">$</span><span class="va">ci_lo</span> <span class="op">-</span> <span class="fl">2</span>, <span class="va">peaks</span><span class="op">$</span><span class="va">ci_hi</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'peaks' not found</code></pre>
-</div>
 <p>Next, we filter the eQTL results to retain genes in this
 interval.</p>
-<div class="codewrapper sourceCode" id="cb41">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -776,11 +611,6 @@ interval.</p>
 <span>             <span class="fu">filter</span><span class="op">(</span><span class="va">chrom</span> <span class="op">==</span> <span class="st">'11'</span>  <span class="op">&amp;</span> </span>
 <span>                      <span class="va">pos</span> <span class="op">&gt;=</span> <span class="va">ci</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">&amp;</span> </span>
 <span>                      <span class="va">pos</span> <span class="op">&lt;=</span> <span class="va">ci</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'dataset.islet.rnaseq' not found</code></pre>
 </div>
 <p>There are r nrow(cis_eqtl) genes with cis-eQTL in this interval. That
 is a lot of genes! We could estimate the founder allele effects for each
@@ -801,66 +631,27 @@ we will add the expression of this gene to the model as an additive
 covariate. If <em>Slfn3</em> explains some of the variance in Insulin
 tAUC, then the LOD should decrease. If it does not, then the LOD will
 not change much.</p>
-<div class="codewrapper sourceCode" id="cb43">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">covar_gene</span> <span class="op">=</span> <span class="fu">cbind</span><span class="op">(</span><span class="va">norm</span><span class="op">[</span><span class="fu">rownames</span><span class="op">(</span><span class="va">addcovar</span><span class="op">)</span>, <span class="st">'ENSMUSG00000018986'</span><span class="op">]</span>, <span class="va">addcovar</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'addcovar' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb45">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">slfn3_qtl</span> <span class="op">=</span> <span class="fu">scan1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>, </span>
+<code class="sourceCode R"><span><span class="va">covar_gene</span> <span class="op">=</span> <span class="fu">cbind</span><span class="op">(</span><span class="va">norm</span><span class="op">[</span><span class="fu">rownames</span><span class="op">(</span><span class="va">addcovar</span><span class="op">)</span>, <span class="st">'ENSMUSG00000018986'</span><span class="op">]</span>, <span class="va">addcovar</span><span class="op">)</span></span>
+<span><span class="va">slfn3_qtl</span> <span class="op">=</span> <span class="fu">scan1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>, </span>
 <span>                  pheno     <span class="op">=</span> <span class="va">pheno_rz</span><span class="op">[</span>,<span class="st">'Ins_tAUC'</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, </span>
 <span>                  kinship   <span class="op">=</span> <span class="va">K</span>, </span>
-<span>                  addcovar  <span class="op">=</span> <span class="va">covar_gene</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'probs' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb47">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot_scan1</span><span class="op">(</span><span class="va">ins_qtl</span>,   <span class="va">map</span>, chr <span class="op">=</span> <span class="va">chr</span>, main <span class="op">=</span> <span class="st">'Insulin tAUC with Slfn3'</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'ins_qtl' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb49">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot_scan1</span><span class="op">(</span><span class="va">slfn3_qtl</span>, <span class="va">map</span>, chr <span class="op">=</span> <span class="va">chr</span>, color <span class="op">=</span> <span class="st">'blue'</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'slfn3_qtl' not found</code></pre>
+<span>                  addcovar  <span class="op">=</span> <span class="va">covar_gene</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">plot_scan1</span><span class="op">(</span><span class="va">ins_qtl</span>,   <span class="va">map</span>, chr <span class="op">=</span> <span class="va">chr</span>, main <span class="op">=</span> <span class="st">'Insulin tAUC with Slfn3'</span><span class="op">)</span></span>
+<span><span class="fu">plot_scan1</span><span class="op">(</span><span class="va">slfn3_qtl</span>, <span class="va">map</span>, chr <span class="op">=</span> <span class="va">chr</span>, color <span class="op">=</span> <span class="st">'blue'</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
 <p>As you can see, the LOD decreased when we added the expression of
 <em>Slfn3</em> into the model. Let’s see what the new LOD is on
 chromosome 11.</p>
-<div class="codewrapper sourceCode" id="cb51">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">find_peaks</span><span class="op">(</span><span class="va">qtl</span>, <span class="va">map</span>, threshold <span class="op">=</span> <span class="fl">6.5</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'qtl' not found</code></pre>
 </div>
 <p>The LOd decreased from 10.3 to 7.2.</p>
 <blockquote>

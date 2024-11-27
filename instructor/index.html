@@ -477,17 +477,7 @@ R, we use RStudio.</p>
 Choose the free RStudio Desktop version for Windows, Mac, or
 Linux.</p></li>
 <li><p>Start RStudio.</p></li>
-<li>
-<p>Install packages.</p>
-<ol style="list-style-type: lower-alpha"><li>The <a href="https://github.com/rqtl/qtl2" class="external-link">qtl2</a> package contains
-code for haplotype reconstruction, QTL mapping and plotting.</li>
-<li>The <a href="https://github.com/rqtl/qtl2convert" class="external-link">qtl2convert</a>
-package contains code for converting data objects from one format to
-another.</li>
-<li>Bioconductor packages and BiocManager if not already installed.</li>
-<li>Install all by copying and pasting the following code in the R
-console.</li>
-</ol></li>
+<li><p>Install R and Bioconductor packages.</p></li>
 </ol><div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -556,19 +546,24 @@ your downloads go (<em>e.g.</em> <code>Downloads</code>) to the
 <code>data</code> directory in the <code>eqtl_mapping</code> project.
 You can use a graphical user interface (<em>e.g.</em> Windows File
 Explorer, Mac Finder) to move the files.</p>
-<p><a href="https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_pheno.rds" class="external-link">physiological
-phenotypes</a> <a href="https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_pheno_dict.rds" class="external-link">phenotype
-dictionary</a> <a href="https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_covar.rds" class="external-link">covariates</a>
-<a href="https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_expr_annot.rds" class="external-link">gene
-annotations</a> <a href="https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_expr_raw.rds" class="external-link">raw
-gene expression</a> <a href="https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_map.rds" class="external-link">map</a>
-<a href="https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_kinship.rds" class="external-link">kinship</a>
-<a href="https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/ins_tauc_blup_chr11.rds" class="external-link">chromosome
-11 insulin blups</a> <a href="https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/hnf1b_blup_chr11.rds" class="external-link">chromosome
-11 Hnf1b blups</a></p>
-<ol start="2" style="list-style-type: decimal"><li>Copy, paste, and run the following code in the RStudio console to
+<ol style="list-style-type: decimal"><li><p><a href="https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_pheno.rds" class="external-link">physiological
+phenotypes</a></p></li>
+<li><p><a href="https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_pheno_dict.rds" class="external-link">phenotype
+dictionary</a></p></li>
+<li><p><a href="https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_covar.rds" class="external-link">covariates</a></p></li>
+<li><p><a href="https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_expr_annot.rds" class="external-link">gene
+annotations</a></p></li>
+<li><p><a href="https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_expr_raw.rds" class="external-link">raw
+gene expression</a></p></li>
+<li><p><a href="https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_map.rds" class="external-link">map</a></p></li>
+<li><p><a href="https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_kinship.rds" class="external-link">kinship</a></p></li>
+<li><p><a href="https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/ins_tauc_blup_chr11.rds" class="external-link">chromosome
+11 insulin blups</a></p></li>
+<li><p><a href="https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/hnf1b_blup_chr11.rds" class="external-link">chromosome
+11 Hnf1b blups</a></p></li>
+<li><p>Copy, paste, and run the following code in the RStudio console to
 download the genotype probabilities for the gene expression study we
-will explore in this lesson.</li>
+will explore in this lesson.</p></li>
 </ol><div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>

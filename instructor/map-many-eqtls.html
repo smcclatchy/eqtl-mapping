@@ -392,16 +392,8 @@
 11.4 G output file. 69005 rows x 21771 columns. -->
 <div class="section level3">
 <h3 id="load-libraries">Load Libraries<a class="anchor" aria-label="anchor" href="#load-libraries"></a></h3>
-<p>For this lesson, we need to install two more libraries and load them.
-You can do this by typing the following code:</p>
+<p>Load the libraries and source two other R scripts.</p>
 <div class="codewrapper sourceCode" id="cb1">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu">install</span><span class="op">(</span><span class="fu">c</span><span class="op">(</span><span class="st">"AnnotationHub"</span>,<span class="st">"rtracklayer"</span><span class="op">)</span><span class="op">)</span></span></code></pre>
-</div>
-<p>Let’s install our libraries, and source two other R scripts.</p>
-<div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -411,18 +403,15 @@ You can do this by typing the following code:</p>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">qtl2</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">qtl2ggplot</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">RColorBrewer</span><span class="op">)</span></span>
-<span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">AnnotationHub</span><span class="op">)</span></span>
+<span><span class="kw">library</span><span class="op">(</span><span class="va">rtracklayer</span><span class="op">)</span></span>
 <span><span class="co">#source("../code/gg_transcriptome_map.R")</span></span>
 <span><span class="co">#source("../code/qtl_heatmap.R")</span></span></code></pre>
 </div>
-<p>Before we begin this lesson, we need to create another directory
-called <code>results</code> in our main directory. You can do this by
-clicking on the “Files” tab and navigate into the main directory. Then
-select “New Folder” and name it “results”.</p>
 </div>
 <div class="section level3">
 <h3 id="load-data">Load Data<a class="anchor" aria-label="anchor" href="#load-data"></a></h3>
-<div class="codewrapper sourceCode" id="cb3">
+<div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -446,62 +435,18 @@ select “New Folder” and name it “results”.</p>
 <h3 id="data-selection">Data Selection<a class="anchor" aria-label="anchor" href="#data-selection"></a></h3>
 <p>For this lesson, lets choose a random set of 50 gene expression
 phenotypes.</p>
-<div class="codewrapper sourceCode" id="cb4">
+<div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">genes</span> <span class="op">=</span> <span class="fu">colnames</span><span class="op">(</span><span class="va">norm</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">sams</span> <span class="op">&lt;-</span> <span class="fu">sample</span><span class="op">(</span><span class="fu">length</span><span class="op">(</span><span class="va">genes</span><span class="op">)</span>, <span class="fl">50</span>, replace <span class="op">=</span> <span class="cn">FALSE</span>, prob <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in sample.int(length(x), size, replace, prob): cannot take a sample larger than the population when 'replace = FALSE'</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb6">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">genes</span> <span class="op">&lt;-</span> <span class="va">genes</span><span class="op">[</span><span class="va">sams</span><span class="op">]</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'sams' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb8">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">gene.info</span> <span class="op">&lt;-</span> <span class="va">dataset.islet.rnaseq</span><span class="op">$</span><span class="va">annots</span><span class="op">[</span><span class="va">genes</span>,<span class="op">]</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'dataset.islet.rnaseq' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb10">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">rownames</span><span class="op">(</span><span class="va">gene.info</span><span class="op">)</span> <span class="op">=</span> <span class="cn">NULL</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'gene.info' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb12">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">kable</span><span class="op">(</span><span class="va">gene.info</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="op">]</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'gene.info' not found</code></pre>
+<span><span class="va">sams</span> <span class="op">&lt;-</span> <span class="fu">sample</span><span class="op">(</span><span class="fu">length</span><span class="op">(</span><span class="va">genes</span><span class="op">)</span>, <span class="fl">50</span>, replace <span class="op">=</span> <span class="cn">FALSE</span>, prob <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="va">genes</span> <span class="op">&lt;-</span> <span class="va">genes</span><span class="op">[</span><span class="va">sams</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">gene.info</span> <span class="op">&lt;-</span> <span class="va">dataset.islet.rnaseq</span><span class="op">$</span><span class="va">annots</span><span class="op">[</span><span class="va">genes</span>,<span class="op">]</span></span>
+<span><span class="fu">rownames</span><span class="op">(</span><span class="va">gene.info</span><span class="op">)</span> <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="fu">kable</span><span class="op">(</span><span class="va">gene.info</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,<span class="op">]</span><span class="op">)</span></span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -510,7 +455,7 @@ phenotypes.</p>
 phenotypes. If you would like to check the distribution of all 50 genes,
 change <code>for(gene in genes[1:20])</code> in the code below to
 <code>for(gene in genes)</code>.</p>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -520,115 +465,47 @@ change <code>for(gene in genes[1:20])</code> in the code below to
 <span>  <span class="op">}</span></span></code></pre>
 </div>
 <p>Check the distributions. Do they all have a normal distribution?</p>
-<p>You will notice that the distribtion of some genes are skewed to the
+<p>You will notice that the distribution of some genes are skewed to the
 left. This means that that only a small amount of samples have data and
 therefore, will need to be removed. A suitable qc would be keeping
 expression data that have at least 5% of the samples with more than 10
 reads.</p>
-<div class="codewrapper sourceCode" id="cb15">
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">genes_qc</span> <span class="op">&lt;-</span> <span class="fu">which</span><span class="op">(</span><span class="fu">as.numeric</span><span class="op">(</span><span class="fu">colSums</span><span class="op">(</span><span class="va">counts</span><span class="op">[</span> , <span class="va">genes</span><span class="op">]</span> <span class="op">&gt;</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">0.05</span> <span class="op">*</span> <span class="fu">nrow</span><span class="op">(</span><span class="va">counts</span><span class="op">[</span>,<span class="va">genes</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">genes_qc</span> <span class="op">&lt;-</span> <span class="fu">which</span><span class="op">(</span><span class="fu">as.numeric</span><span class="op">(</span><span class="fu">colSums</span><span class="op">(</span><span class="va">counts</span><span class="op">[</span> , <span class="va">genes</span><span class="op">]</span> <span class="op">&gt;</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">0.05</span> <span class="op">*</span> <span class="fu">nrow</span><span class="op">(</span><span class="va">counts</span><span class="op">[</span>,<span class="va">genes</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">genes</span> <span class="op">&lt;-</span> <span class="va">genes</span><span class="op">[</span><span class="va">genes_qc</span><span class="op">]</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'counts' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb17">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">genes</span> <span class="op">&lt;-</span> <span class="va">genes</span><span class="op">[</span><span class="va">genes_qc</span><span class="op">]</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'genes_qc' not found</code></pre>
-</div>
-</div>
-<div class="section level3">
-<h3 id="the-marker-map">The Marker Map<a class="anchor" aria-label="anchor" href="#the-marker-map"></a></h3>
-<p>We are using the same marker map as in the previous <a href="https://smcclatchy.github.io/eqtl-mapping/review-mapping-steps/index.html#the-marker-map" class="external-link">lesson</a></p>
 </div>
 <div class="section level3">
 <h3 id="genotype-probabilities">Genotype probabilities<a class="anchor" aria-label="anchor" href="#genotype-probabilities"></a></h3>
 <p>We have explored this earlier in th previous <a href="https://smcclatchy.github.io/eqtl-mapping/review-mapping-steps/index.html#genotype-probabilities" class="external-link">lesson</a>.
 But, as a reminder, we have already calculated genotype probabilities
 which we loaded above called <code>probs</code>. This contains the 8
-state g enotype probabilities using the 69k grid map of the same 500 DO
+state genotype probabilities using the 69k grid map of the same 500 DO
 mice that also have clinical phenotypes.</p>
-</div>
-<div class="section level3">
-<h3 id="kinship-matrix"><a href="https://smcclatchy.github.io/mapping/04-calc-kinship/" class="external-link">Kinship
-Matrix</a><a class="anchor" aria-label="anchor" href="#kinship-matrix"></a></h3>
-<p>We have explored the kinship matrix in the previous <a href="https://smcclatchy.github.io/eqtl-mapping/review-mapping-steps/index.html#kinship-matrix" class="external-link">lesson</a>.
-It has already been calculated and loaded in above.</p>
 </div>
 <div class="section level3">
 <h3 id="covariates">Covariates<a class="anchor" aria-label="anchor" href="#covariates"></a></h3>
 <p>Now let’s add the necessary covariates. For these 50 gene expression
 data, we will correct for <code>DOwave</code>,<code>sex</code> and
 <code>diet_days</code>.</p>
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># convert sex and DO wave (batch) to factors</span></span>
-<span><span class="va">pheno_clin</span><span class="op">$</span><span class="va">sex</span> <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">pheno_clin</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span></span></code></pre>
+<span><span class="va">pheno_clin</span><span class="op">$</span><span class="va">sex</span> <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">pheno_clin</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span></span>
+<span><span class="va">pheno_clin</span><span class="op">$</span><span class="va">DOwave</span> <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">pheno_clin</span><span class="op">$</span><span class="va">DOwave</span><span class="op">)</span></span>
+<span><span class="va">pheno_clin</span><span class="op">$</span><span class="va">diet_days</span> <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">pheno_clin</span><span class="op">$</span><span class="va">DOwave</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">covar</span> <span class="op">=</span> <span class="fu">model.matrix</span><span class="op">(</span><span class="op">~</span><span class="va">sex</span> <span class="op">+</span> <span class="va">DOwave</span> <span class="op">+</span> <span class="va">diet_days</span>, data <span class="op">=</span> <span class="va">pheno_clin</span><span class="op">)</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'pheno_clin' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb21">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pheno_clin</span><span class="op">$</span><span class="va">DOwave</span> <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">pheno_clin</span><span class="op">$</span><span class="va">DOwave</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'pheno_clin' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb23">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pheno_clin</span><span class="op">$</span><span class="va">diet_days</span> <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">pheno_clin</span><span class="op">$</span><span class="va">DOwave</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'pheno_clin' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb25">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">covar</span> <span class="op">=</span> <span class="fu">model.matrix</span><span class="op">(</span><span class="op">~</span><span class="va">sex</span> <span class="op">+</span> <span class="va">DOwave</span> <span class="op">+</span> <span class="va">diet_days</span>, data <span class="op">=</span> <span class="va">pheno_clin</span><span class="op">)</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'pheno_clin' not found</code></pre>
-</div>
-</div>
-<div class="section level3">
-<h3 id="performing-a-genome-scan"><a href="https://smcclatchy.github.io/mapping/06-perform-genome-scan/" class="external-link">Performing
-a genome scan</a><a class="anchor" aria-label="anchor" href="#performing-a-genome-scan"></a></h3>
-<p>Now lets perform the genome scan! We are also going to save our qtl
-results in an <code>Rdata</code> file to be used in further lessons. We
-will not perform permutations in this lesson as it will take too long.
-Instead we will use 6, which is the LOD score used in the paper to
-determine significance.</p>
 </div>
 <div class="section level3">
 <h3 id="qtl-scans">QTL Scans<a class="anchor" aria-label="anchor" href="#qtl-scans"></a></h3>
-<div class="codewrapper sourceCode" id="cb27">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -651,7 +528,7 @@ determine significance.</p>
 <p>Let’s plot the first 20 gene expression phenotypes. If you would like
 to plot all 50, change <code>for(i in 1:20)</code> in the code below to
 <code>for(i in 1:ncol(qtl))</code>.</p>
-<div class="codewrapper sourceCode" id="cb28">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -664,18 +541,13 @@ to plot all 50, change <code>for(i in 1:20)</code> in the code below to
 <span>  <span class="fu">abline</span><span class="op">(</span>h <span class="op">=</span> <span class="fl">6</span>, col <span class="op">=</span> <span class="fl">2</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'qtl' not found</code></pre>
-</div>
 </div>
 <div class="section level3">
 <h3 id="qtl-peaks">QTL Peaks<a class="anchor" aria-label="anchor" href="#qtl-peaks"></a></h3>
 <p>We are also going to save our peak results so we can use these again
 else where.<br>
 First, lets get out peaks with a LOD score greater than 6.</p>
-<div class="codewrapper sourceCode" id="cb30">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -686,13 +558,8 @@ First, lets get out peaks with a LOD score greater than 6.</p>
 <span>                   peakdrop <span class="op">=</span> <span class="fl">4</span>, </span>
 <span>                   prob <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'qtl' not found</code></pre>
-</div>
 <p>We will save these peaks into a csv file.</p>
-<div class="codewrapper sourceCode" id="cb32">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -702,24 +569,14 @@ First, lets get out peaks with a LOD score greater than 6.</p>
 <span></span>
 <span><span class="co"># write_csv(peaks, "../results/gene.norm_qtl_peaks_cis.trans.csv")</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error: object 'peaks' not found</code></pre>
-</div>
 </div>
 <div class="section level3">
 <h3 id="qtl-peaks-figure">QTL Peaks Figure<a class="anchor" aria-label="anchor" href="#qtl-peaks-figure"></a></h3>
-<div class="codewrapper sourceCode" id="cb34">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">qtl_heatmap</span><span class="op">(</span>qtl <span class="op">=</span> <span class="va">qtl</span>, map <span class="op">=</span> <span class="va">map</span>, low.thr <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in qtl_heatmap(qtl = qtl, map = map, low.thr = 3.5): could not find function "qtl_heatmap"</code></pre>
 </div>
 <div id="challenge-1" class="callout challenge">
 <div class="callout-square">
@@ -741,9 +598,9 @@ traits.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb36">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -771,15 +628,8 @@ traits.</p>
 <div class="callout-inner">
 <h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
-<ul><li>Use <code>.md</code> files for episodes when you want static
-content</li>
-<li>Use <code>.Rmd</code> files for episodes when you need to generate
-output</li>
-<li>Run <code>sandpaper::check_lesson()</code> to identify any issues
-with your lesson</li>
-<li>Run <code>sandpaper::build_lesson()</code> to preview your lesson
-locally</li>
-</ul></div>
+<ul><li>
+</li></ul></div>
 </div>
 </div>
 <!--
