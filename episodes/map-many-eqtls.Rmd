@@ -21,14 +21,7 @@ exercises: 30
 
 ### Load Libraries  
 
-For this lesson, we need to install two more libraries and load them.  You can 
-do this by typing the following code:
-
-```{r installing_packages, eval=F}
-BiocManager::install(c("AnnotationHub","rtracklayer"))
-```
-
-Let's install our libraries, and source two other R scripts.
+Load the libraries and source two other R scripts.
 
 ```{r load_libraries, message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -37,15 +30,11 @@ library(broom)
 library(qtl2)
 library(qtl2ggplot)
 library(RColorBrewer)
-
+library(AnnotationHub)
+library(rtracklayer)
 #source("../code/gg_transcriptome_map.R")
 #source("../code/qtl_heatmap.R")
 ```
-
-Before we begin this lesson, we need to create another directory called 
-`results` in our main directory.  You can do this by clicking on the "Files" tab 
-and navigate into the main directory.  Then select "New Folder" and name it 
-"results".
 
 ### Load Data
 
@@ -102,12 +91,11 @@ par(mfrow=c(3,4))
 for(gene in genes[1:20]){
   hist(norm[,gene], main = gene)
   }
-
 ```
 
 Check the distributions.  Do they all have a normal distribution?
 
-You will notice that the distribtion of some genes are skewed to the left. This 
+You will notice that the distribution of some genes are skewed to the left. This 
 means that that only a small amount of samples have data and therefore, will 
 need to be removed.  A suitable qc would be keeping expression data that have at 
 least 5% of the samples with more than 10 reads.
@@ -119,23 +107,12 @@ genes <- genes[genes_qc]
 
 ```
 
-### The Marker Map  
-
-We are using the same marker map as in the previous [lesson](https://smcclatchy.github.io/eqtl-mapping/review-mapping-steps/index.html#the-marker-map)
-
-
 ### Genotype probabilities  
 
 We have explored this earlier in th previous [lesson](https://smcclatchy.github.io/eqtl-mapping/review-mapping-steps/index.html#genotype-probabilities).  But, as a reminder, we have already calculated genotype 
-probabilities which we loaded above called `probs`.  This contains the 8 state g
-enotype probabilities using the 69k grid  map of the same 500 DO mice that also 
+probabilities which we loaded above called `probs`.  This contains the 8 state 
+genotype probabilities using the 69k grid  map of the same 500 DO mice that also 
 have clinical phenotypes. 
-
-
-### [Kinship Matrix](https://smcclatchy.github.io/mapping/04-calc-kinship/)
-
-We have explored the kinship matrix in the previous [lesson](https://smcclatchy.github.io/eqtl-mapping/review-mapping-steps/index.html#kinship-matrix). It has already been calculated and loaded in above. 
-
 
 ### Covariates    
 
@@ -191,13 +168,6 @@ pheno_clin$diet_days = factor(pheno_clin$DOwave)
 covar = model.matrix(~sex + DOwave + diet_days, data = pheno_clin)[,-1]
 
 ```
-
-### [Performing a genome scan](https://smcclatchy.github.io/mapping/06-perform-genome-scan/) 
-
-Now lets perform the genome scan!  We are also going to save our qtl results in 
-an `Rdata` file to be used in further lessons.  We will not perform permutations 
-in this lesson as it will take too long.  Instead we will use 6, which is the 
-LOD score used in the paper to determine significance.
 
 ### QTL Scans
 
@@ -323,9 +293,6 @@ qtl_heatmap(qtl = qtl, map = map, low.thr = 3.5)
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+- 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::

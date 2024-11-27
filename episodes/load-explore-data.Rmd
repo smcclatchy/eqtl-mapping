@@ -250,7 +250,7 @@ There are no data points outside of the four standard deviation limits.
 
 ## Gene Expression Data
 
-Let's read in the gene expression data. This has been compiled in
+Let's read in the gene expression data.
 
 ```{r load_expression_data}
 annot <- readRDS(file = 'data/attie_do_expr_annot.rds')
@@ -303,7 +303,8 @@ head(covar)
 ```
 
 The sample covariates have information about the sex and DO generation, 
-indicated as `DOwave`, of each mouse.
+indicated as `DOwave`, of each mouse. These are *metadata*, or data about the 
+data.
 
 In order to make reasonable gene comparisons between samples, the count data 
 needs to be normalized. In the quantile-quantile (Q-Q) plot below, count data 
@@ -317,7 +318,7 @@ raw |>
   ggplot(aes(sample = ENSMUSG00000000001)) +
     stat_qq() +
     geom_qq_line() +
-    labs(title = 'Count distribution for gene ENSMUSG00000000001',
+    labs(title = 'Count distribution for ENSMUSG00000000001',
          xlab = 'Normal percentiles', y = 'Count percentiles') +
     theme(text = element_text(size = 20))
 ```

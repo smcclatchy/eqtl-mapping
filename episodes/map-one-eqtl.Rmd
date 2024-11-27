@@ -36,70 +36,13 @@ probs      <- readRDS(file = url('https://thejacksonlaboratory.box.com/shared/st
 K          <- readRDS(file = 'data/attie_do_kinship.rds')
 ```
 
-## Physiological Phenotypes
-
-In this data set, we have 20 phenotypes for 500 Diversity Outbred mice. `pheno` 
-is a data frame containing the phenotype data as well as covariates. Click on 
-the triangle to the left of `pheno` in the Environment pane to view its 
-contents. Run `names(pheno)` to list the variables. 
-
-`pheno_dict` is the phenotype dictionary.  This data frame contains information 
-on each variable in `pheno`, including `name`,`short name`, `pheno_type`, 
-`formula` (if used) and `description`.
-
-Since the paper is interested in type 2 diabetes and insulin secretion, we will 
-choose `insulin tAUC` (area  under the curve which was calculated without any
-correction for baseline differences) for this review.
-
-Many statistical models, including the QTL mapping model in `qtl2`, expect that 
-the incoming data will be normally distributed. You may use transformations such 
-as log or square root to make your data more normally distributed. Here, we will 
-log transform the data. 
-
-Let's make a variable for insulin tAUC so that we don't have to type as much.
-
-```{r make_itauc}
-ins_tauc <- pheno[, 'Ins_tAUC', drop = FALSE]
-```
-
-
-Next, let's look at the distribution of insulin tAUC using a histogram.
-
-```{r hist_untransformed, fig.width=8, fig.height=6}
-hist(ins_tauc[,1], 
-     breaks = 20,
-     main   = "Insulin Area Under the Curve")
-```
-
-This is clearly **not** Normally distributed. In fact, this type of distribution
-is often log normal. 
-
-Now, let's apply the `log()` function to this data in an effort to make the
-distribution more normal.
-
-```{r log_transform}
-ins_tauc$Ins_tAUC_log <- log(ins_tauc$Ins_tAUC)
-```
-
-Let's make a histogram of the log-transformed data.
-
-```{r hist_log_transform, fig.width=8, fig.height=6}
-hist(ins_tauc$Ins_tAUC_log, 
-     breaks = 20,
-     main   = "Insulin tAUC (log-transformed)")
-```
-
-This looks much better! The data has a somewhat Gaussian shape. Technically, the
-assumptions of a linear model require that the **residuals** be normally
-distributed. In practice, transforming the input data to be normally distributed
-helps to make the residuals normally distributed.
 
 ## Expression Data
 
 In a previous lesson, we loaded in the raw transcript expression data and 
 noticed that the distribution of each gene was non-Gaussian and different.
 
-There is another issue that we must also be addressed. Each sample has a 
+There is another issue that we must also address. Each sample has a 
 different total number of counts. This affects our ability to compare values 
 between samples. For example, say that we look at the expression of Gene1 in 
 two samples and find that both samples have 500 counts for Gene1. It appears 
