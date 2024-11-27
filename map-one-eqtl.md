@@ -166,47 +166,6 @@ Next, we will run DESeq2 and let it adjust the expression data for differing
 library sizes.
 
 
-``` r
-dds  = DESeq(dds)
-```
-
-``` output
-estimating size factors
-```
-
-``` output
-estimating dispersions
-```
-
-``` output
-gene-wise dispersion estimates
-```
-
-``` output
-mean-dispersion relationship
-```
-
-``` output
-final dispersion estimates
-```
-
-``` output
-fitting model and testing
-```
-
-``` output
--- replacing outliers and refitting for 155 genes
--- DESeq argument 'minReplicatesForReplace' = 7 
--- original counts are preserved in counts(dds)
-```
-
-``` output
-estimating dispersions
-```
-
-``` output
-fitting model and testing
-```
 
 Once this is done, we will get the expression data after it has been transformed
 using the

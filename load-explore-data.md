@@ -43,10 +43,17 @@ pheno_dict  <- readRDS(file = 'data/attie_do_pheno_dict.rds')
 covar       <- readRDS(file = 'data/attie_do_covar.rds')
 ```
 
-See the
-[data dictionary](https://github.com/smcclatchy/gene-expression-qtl/blob/gh-pages/data/Attie-232_Attie_DO_Islets-dictionary.csv) 
-to see a description of each of these phenotypes. You can also view a table of
-the data dictionary.
+## Physiological Phenotypes
+
+In this data set, we have 20 phenotypes for 500 Diversity Outbred mice. `pheno` 
+is a data frame containing the phenotype data as well as covariates. Click on 
+the triangle to the left of `pheno` in the Environment pane to view its 
+contents. Run `names(pheno)` to list the variables. 
+
+`pheno_dict` is the phenotype dictionary.  This data frame contains information 
+on each variable in `pheno`, including `name`,`short name`, `pheno_type`, 
+`formula` (if used) and `description`.  You can view a table of the data 
+dictionary.
 
 
 ``` r
@@ -92,13 +99,66 @@ pheno_dict |>
 |weight_10wk        |Body weight at indicated date; units are gm.                                                                                                                                                                                                            |NA                               |
 |DOwave             |Wave (i.e., batch) of DO mice                                                                                                                                                                                                                           |NA                               |
 
+Since the paper is interested in type 2 diabetes and insulin secretion, we will 
+choose `insulin tAUC` (area  under the curve which was calculated without any
+correction for baseline differences) for this review.
+
 ### Phenotype Distributions
 
-Boxplots are a great way to view the distribution of the data and to identify 
-any outliers. We will be using the total area under the curve of insulin from 
-the glucose tolerance test (Ins_tAUC). 
+Many statistical models, including the QTL mapping model in `qtl2`, expect that 
+the incoming data will be normally distributed. You may use transformations such 
+as log or square root to make your data more normally distributed. Here, we will 
+log transform the data. 
 
-We will log-transform the data using the 
+Let's make a variable for insulin tAUC so that we don't have to type as much.
+
+
+``` r
+ins_tauc <- pheno[, 'Ins_tAUC', drop = FALSE]
+```
+
+Next, let's look at the distribution of insulin tAUC using a histogram.
+
+
+``` r
+hist(ins_tauc[,1], 
+     breaks = 20,
+     main   = "Insulin Area Under the Curve")
+```
+
+<img src="fig/load-explore-data-rendered-hist_untransformed-1.png" style="display: block; margin: auto;" />
+
+This is clearly **not** normally distributed. In fact, this type of distribution
+is often log normal. 
+
+Now, let's apply the `log()` function to this data in an effort to make the
+distribution more normal.
+
+
+``` r
+ins_tauc$Ins_tAUC_log <- log(ins_tauc$Ins_tAUC)
+```
+
+Let's make a histogram of the log-transformed data.
+
+
+``` r
+hist(ins_tauc$Ins_tAUC_log, 
+     breaks = 20,
+     main   = "Insulin tAUC (log-transformed)")
+```
+
+<img src="fig/load-explore-data-rendered-hist_log_transform-1.png" style="display: block; margin: auto;" />
+
+This looks much better! The data has a somewhat Gaussian shape. Technically, the
+assumptions of a linear model require that the **residuals** be normally
+distributed. In practice, transforming the input data to be normally distributed
+helps to make the residuals normally distributed.
+
+Boxplots are another great way to view the distribution of the data and to 
+identify any outliers. We will be using the total area under the curve of 
+insulin from the glucose tolerance test (Ins_tAUC). We will log-transform this
+variable using the 
 [scale_y_log10()](https://ggplot2.tidyverse.org/reference/scale_continuous.html)
 function. We have also overlaid the data points using ggbeeswarm's
 [geom_beeswarm](https://www.rdocumentation.org/packages/ggbeeswarm/versions/0.7.2/topics/geom_beeswarm).
@@ -170,10 +230,10 @@ pheno |>
 
 <img src="fig/load-explore-data-rendered-qqplot-1.png" style="display: block; margin: auto;" />
 
-In these plots, the "quantiles" (e.g. percentiles) of the normal distribution 
-are plotted on the X-axis and the data are plotted on the Y-axis. The line 
-indicates the quantiles that would be followed by a normal distribution. The untransformed data do **not** follow a normal distribution because the points 
-are far from the line.  
+In these plots, the "quantiles" of the normal distribution are plotted on the 
+X-axis and the data are plotted on the Y-axis. The line indicates the quantiles 
+that would be followed by a normal distribution. The untransformed data do 
+**not** follow a normal distribution because the points are far from the line.  
 
 Next, we will log-transform the data and then create a quantile-quantile plot.
 
