@@ -68,7 +68,7 @@ sams <- sample(length(genes), 50, replace = FALSE, prob = NULL)
 genes <- genes[c(chr11, sams)]
 ```
 
-```{r choosing_data_shown, echo=T}
+```{r choosing_data_shown, eval=F}
 genes = colnames(norm)
 
 sams <- sample(length(genes), 50, replace = FALSE, prob = NULL)
@@ -86,7 +86,7 @@ Lets check the distribution for the first 20 gene expression phenotypes. If you
 would like to check the distribution of all 50 genes, change 
 `for(gene in genes[1:20])` in the code below to `for(gene in genes)`.
 
-```{r hist_untransformed}
+```{r hist_untransformed, eval=F}
 par(mfrow=c(3,4))
 for(gene in genes[1:20]){
   hist(norm[,gene], main = gene)
@@ -100,7 +100,7 @@ means that that only a small amount of samples have data and therefore, will
 need to be removed.  A suitable qc would be keeping expression data that have at 
 least 5% of the samples with more than 10 reads.
 
-```{r qc_genes}
+```{r qc_genes, eval=F}
 
 genes_qc <- which(as.numeric(colSums(counts[ , genes] > 10)) >= 0.05 * nrow(counts[,genes]))
 genes <- genes[genes_qc]
@@ -158,7 +158,7 @@ We can see that `DOwave` is the most significant.  However, given that a few are
 ```
 
 
-```{r covariates}
+```{r covariates, eval=F}
 
 # convert sex and DO wave (batch) to factors
 pheno_clin$sex = factor(pheno_clin$sex)
@@ -193,7 +193,7 @@ if(file.exists(qtl.file)) {
 Let's plot the first 20 gene expression phenotypes.  If you would like to plot 
 all 50, change `for(i in 1:20)` in the code below to `for(i in 1:ncol(qtl))`.
 
-```{r set_plot_rows_columns, echo=FALSE}
+```{r set_plot_rows_columns, echo=FALSE, eval=F}
 par(mfrow=c(17, 3))
 
 #for(i in 1:ncol(qtl)) {
@@ -205,7 +205,7 @@ par(mfrow=c(17, 3))
 #  }
 ```
 
-```{r qtl_plots}
+```{r qtl_plots, eval=F}
 par(mfrow=c(3,4))
 for(i in 1:20) {
   plot_scan1(x = qtl, 
@@ -221,7 +221,7 @@ for(i in 1:20) {
 We are also going to save our peak results so we can use these again else where.  
 First, lets get out peaks with a LOD score greater than 6. 
 
-```{r qtl_peaks}
+```{r qtl_peaks, eval=F}
 lod_threshold = 6
 peaks = find_peaks(scan1_output = qtl, 
                    map = map, 
@@ -240,7 +240,7 @@ kable(peaks[1:10,] %>%
 # write_csv(peaks, "../results/gene.norm_qtl_peaks_cis.trans.csv")
 ```
 
-```{r short_qtl_peaks_table, echo=FALSE}
+```{r short_qtl_peaks_table, echo=FALSE, eval=F}
 kable(peaks[1:10,] %>% 
         dplyr::select(-lodindex) %>% 
         arrange(chr, pos), caption = "Phenotype QTL Peaks with LOD >= 6" %>%
@@ -251,7 +251,7 @@ kable(peaks[1:10,] %>%
 
 ### QTL Peaks Figure
 
-```{r qtl_heatmap}
+```{r qtl_heatmap, eval=F}
 
 qtl_heatmap(qtl = qtl, map = map, low.thr = 3.5)
 
