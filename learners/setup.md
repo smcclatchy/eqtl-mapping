@@ -14,13 +14,7 @@ Choose the free RStudio Desktop version for Windows, Mac, or Linux.
 
 3. Start RStudio. 
 
-4. Install packages. 
-    a. The [qtl2](https://github.com/rqtl/qtl2) package contains code for
-    haplotype reconstruction, QTL mapping and plotting. 
-    b. The [qtl2convert](https://github.com/rqtl/qtl2convert) package contains
-    code for converting data objects from one format to another.
-    c. Bioconductor packages and BiocManager if not already installed.
-    c. Install all by copying and pasting the following code in the R console.
+4. Install R and Bioconductor packages. 
 
 ```r
 install.packages(c("tidyverse", "ggbeeswarm", "knitr", "qtl2", "qtl2convert"))
@@ -97,11 +91,8 @@ Mac Finder) to move the files.
 1. [chromosome 11 insulin blups](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/ins_tauc_blup_chr11.rds)
 1. [chromosome 11 Hnf1b blups](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/hnf1b_blup_chr11.rds)
 
-
-
-
-2. Copy, paste, and run the following code in the RStudio console to download the
-genotype probabilities for the gene expression study we will explore in this
+2. Copy, paste, and run the following code in the RStudio console to download
+the genotype probabilities for the gene expression study we will explore in this
 lesson.
 
 ```r
