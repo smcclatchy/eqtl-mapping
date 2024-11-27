@@ -87,7 +87,7 @@ First, we must create a DESeq object. We need the raw counts, rounded so that
 all values are integers, and the sample covariate data. We will have to subset
 the sample covariates to include only the expression samples.
 
-```{r create_deseq_obj}
+```{r subset_data}
 expr_covar = subset(covar, mouse %in% rownames(raw))
 expr_covar = expr_covar[match(rownames(raw), expr_covar$mouse),]
 ```
@@ -640,7 +640,7 @@ peaks_ins |>
 ```
 
 We can see that we have a peak for insulin tAUC on chromosome 
-r peaks_ins$chr[1] at r peaks_ins$pos[1] Mb.
+r peaks_ins chr[1] at r peaks_ins pos[1] Mb.
 
 :::::::::::::::::::::::::::::::::::::::::::::: challenge
 
