@@ -87,15 +87,15 @@ downloads go (*e.g.* `Downloads`) to the `data` directory in the `eqtl_mapping`
 project. You can use a graphical user interface (*e.g.* Windows File Explorer, 
 Mac Finder) to move the files.
 
-[physiological phenotypes](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_pheno.rds)
-[phenotype dictionary](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_pheno_dict.rds)
-[covariates](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_covar.rds)
-[gene annotations](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_expr_annot.rds)
-[raw gene expression](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_expr_raw.rds)
-[map](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_map.rds)
-[kinship](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_kinship.rds)
-[chromosome 11 insulin blups](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/ins_tauc_blup_chr11.rds)
-[chromosome 11 Hnf1b blups](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/hnf1b_blup_chr11.rds)
+1. [physiological phenotypes](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_pheno.rds)
+1. [phenotype dictionary](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_pheno_dict.rds)
+1. [covariates](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_covar.rds)
+1. [gene annotations](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_expr_annot.rds)
+1. [raw gene expression](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_expr_raw.rds)
+1. [map](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_map.rds)
+1. [kinship](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_kinship.rds)
+1. [chromosome 11 insulin blups](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/ins_tauc_blup_chr11.rds)
+1. [chromosome 11 Hnf1b blups](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/hnf1b_blup_chr11.rds)
 
 
 
