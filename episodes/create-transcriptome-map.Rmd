@@ -56,7 +56,7 @@ of this workshop. The required column names are:
     * `gene_end`:  (optional) character string containing transcript end 
     position in Mb.
 
-```{r lod_summary, warning=FALSE, message=FALSE}
+```{r lod_summary, warning=FALSE, message=FALSE, eval=FALSE}
 
 # Get gene positions.
 ensembl <- get_ensembl_genes()
@@ -108,7 +108,7 @@ gene position. But what if it is 2 Mb away? Or 10 Mb? It's possible that a gene
 may have a trans eQTL on the same chromosome if the QTL is "far enough" from the 
 gene. We have selected 4 Mb as a good rule of thumb.
 
-```{r cis_summary,warning=FALSE,message=FALSE}
+```{r cis_summary, warning=FALSE, message=FALSE, eval=FALSE}
 lod_summary <- lod_summary %>% 
                      mutate(cis = if_else(qtl_chr == gene_chr & 
                                   abs(gene_start - qtl_pos) < 4, 
@@ -118,7 +118,7 @@ count(lod_summary, cis)
 
 ### Plot Transcriptome Map
 
-```{r fig.width=6, fig.height=6, warning=FALSE, message=FALSE}
+```{r fig.width=6, fig.height=6, warning=FALSE, message=FALSE, eval=FALSE}
 ggtmap(data = lod_summary %>% 
        filter(qtl_lod >= 7.18), 
               cis.points = TRUE, 

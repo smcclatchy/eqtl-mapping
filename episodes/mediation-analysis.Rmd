@@ -62,7 +62,7 @@ gene Hnf4a as the chromosome 2 gene that impacts Myo15b expression.
 
 ### Load Libraries  
 
-```{r load_libraries, message=FALSE, warning=FALSE}
+```{r load_libraries, message=FALSE, warning=FALSE, eval=FALSE}
 library(knitr)
 library(tidyverse)
 library(qtl2)
@@ -81,7 +81,7 @@ rankZ = function(x) {
 
 ## Load Data
 
-```{r load_dependencies}
+```{r load_dependencies, eval=FALSE}
 # expression data
 load("../data/attie_DO500_expr.datasets.RData")
 
@@ -127,7 +127,7 @@ First, we will `rankZ` transform the phenotypes because this helps to satisfy
 the model assumptions. We will map using sex, generation, and the number of days 
 on the diet as additive covariates.
 
-```{r map_insulin}
+```{r map_insulin, eval=FALSE}
 # NOTE: QTL is not nearly as large with untransformed phenotype.
 pheno_rz = pheno_clin %>% 
              select(num_islets:weight_10wk) %>% 
@@ -146,7 +146,7 @@ plot_scan1(ins_qtl, map, main = 'Insulin tAUC')
 There is a large peak on chromosome 11. Let's look at the LOD score and the 
 location. 
 
-```{r find_peaks}
+```{r find_peaks, eval=FALSE}
 peaks = find_peaks(ins_qtl, map, threshold = 10, prob = 0.95)
 peaks
 ```
@@ -155,7 +155,7 @@ Let's also estimate the founder allele effects for `insulin tAUC`.
 
 > TBD: This is slow. Precalculate and just show the plot?
 
-```{r insulin_coef}
+```{r insulin_coef, eval=FALSE}
 chr = '11'
 feff = scan1blup(genoprobs = probs[,chr], 
                  pheno     = pheno_rz[,'Ins_tAUC', drop = FALSE], 
@@ -199,13 +199,13 @@ Mb of the edges of the support interval.
 
 First, we need to get the support interval and add 2 MB to each side.
 
-```{r get_ci}
+```{r get_ci, eval=FALSE}
 ci = c(peaks$ci_lo - 2, peaks$ci_hi + 2)
 ```
 
 Next, we filter the eQTL results to retain genes in this interval.
 
-```{r get_cis_eqtl}
+```{r get_cis_eqtl, eval=FALSE}
 cis_eqtl = dataset.islet.rnaseq$lod.peaks %>% 
              filter(chrom == '11'  & 
                       pos >= ci[1] & 
@@ -232,7 +232,7 @@ gene to the model as an additive covariate. If *Slfn3* explains some of the
 variance in Insulin tAUC, then the LOD should decrease. If it does not, then the 
 LOD will not change much.
 
-```{r}
+```{r, eval=FALSE}
 covar_gene = cbind(norm[rownames(addcovar), 'ENSMUSG00000018986'], addcovar)
 slfn3_qtl = scan1(genoprobs = probs, 
                   pheno     = pheno_rz[,'Ins_tAUC', drop = FALSE], 
@@ -246,7 +246,7 @@ plot_scan1(slfn3_qtl, map, chr = chr, color = 'blue', add = TRUE)
 As you can see, the LOD decreased when we added the expression of *Slfn3* into 
 the model. Let's see what the new LOD is on chromosome 11.
 
-```{r}
+```{r, eval=FALSE}
 find_peaks(qtl, map, threshold = 6.5)
 ```
 
