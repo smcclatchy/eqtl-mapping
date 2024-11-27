@@ -486,15 +486,13 @@ This takes about 15 to 30 seconds.
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
+
+
 ``` r
 lod_ins <- scan1(genoprobs = probs,
                  pheno     = ins_tauc,
                  kinship   = K,
                  addcovar  = addcovar)
-```
-
-``` error
-Error: object 'ins_tauc' not found
 ```
 
 After the genome scan, `lod_ins` contains the LOD scores for both the 
@@ -505,8 +503,14 @@ untransformed and log-transformed insulin values.
 head(lod_ins)
 ```
 
-``` error
-Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'head': object 'lod_ins' not found
+``` output
+          Ins_tAUC
+1_3000000 5.162655
+1_3041392 5.163071
+1_3346528 5.207254
+1_3651663 5.011606
+1_3657931 5.047916
+1_3664199 5.093272
 ```
 
 Let's plot both LOD curves.
@@ -528,7 +532,7 @@ plot_scan1(x         = lod_ins,
 ```
 
 ``` error
-Error: object 'lod_ins' not found
+Error in plot_scan1(x = lod_ins, map = map, lodcolumn = "Ins_tAUC_log", : lodcolumn "Ins_tAUC_log" not found
 ```
 
 ``` r
@@ -541,7 +545,7 @@ plot_scan1(x         = lod_ins,
 ```
 
 ``` error
-Error: object 'lod_ins' not found
+Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet
 ```
 
 ``` r
@@ -737,22 +741,19 @@ peaks_ins <- find_peaks(scan1_output = lod_ins,
                         map          = map, 
                         threshold    = thr_ins[2], 
                         prob         = 0.95)
-```
-
-``` error
-Error: object 'lod_ins' not found
-```
-
-``` r
 peaks_ins |> 
   dplyr::select(-lodindex) |>
   arrange(chr, pos) |>
   kable(caption = "Insulin tAUC QTL Peaks")
 ```
 
-``` error
-Error: object 'peaks_ins' not found
-```
+
+
+Table: Insulin tAUC QTL Peaks
+
+|lodcolumn |chr |      pos|      lod|    ci_lo|    ci_hi|
+|:---------|:---|--------:|--------:|--------:|--------:|
+|Ins_tAUC  |17  | 31.69319| 7.445012| 25.57974| 73.89085|
 
 We can see that we have a peak for insulin tAUC on chromosome 
 r peaks_ins chr[1] at r peaks_ins pos[1] Mb.
@@ -870,7 +871,7 @@ plot_coefCC(x      = blup_ins,
 ```
 
 ``` error
-Error: object 'lod_ins' not found
+Error in lod_ins[, 2, drop = FALSE]: subscript out of bounds
 ```
 
 Next we will estimate the founder allele effects for Hnf1b.
