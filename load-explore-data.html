@@ -234,6 +234,7 @@
     <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
         <ul><li><a href="#physiological-phenotypes">Physiological Phenotypes</a></li>
+<li><a href="#physiological-phenotypes-1">Physiological Phenotypes</a></li>
 <li><a href="#gene-expression-data">Gene Expression Data</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
@@ -362,7 +363,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Load and Explore Data</h1>
-        <p>Last updated on 2024-11-26 |
+        <p>Last updated on 2024-11-27 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/load-explore-data.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -421,9 +422,17 @@ files we will use are in a simpler format than those on Data Dryad.</p>
 <span><span class="va">pheno_dict</span>  <span class="op">&lt;-</span> <span class="fu">readRDS</span><span class="op">(</span>file <span class="op">=</span> <span class="st">'data/attie_do_pheno_dict.rds'</span><span class="op">)</span></span>
 <span><span class="va">covar</span>       <span class="op">&lt;-</span> <span class="fu">readRDS</span><span class="op">(</span>file <span class="op">=</span> <span class="st">'data/attie_do_covar.rds'</span><span class="op">)</span></span></code></pre>
 </div>
-<p>See the <a href="https://github.com/smcclatchy/gene-expression-qtl/blob/gh-pages/data/Attie-232_Attie_DO_Islets-dictionary.csv" class="external-link">data
-dictionary</a> to see a description of each of these phenotypes. You can
-also view a table of the data dictionary.</p>
+</section><section><h2 class="section-heading" id="physiological-phenotypes-1">Physiological Phenotypes<a class="anchor" aria-label="anchor" href="#physiological-phenotypes-1"></a></h2>
+<hr class="half-width"><p>In this data set, we have 20 phenotypes for 500 Diversity Outbred
+mice. <code>pheno</code> is a data frame containing the phenotype data
+as well as covariates. Click on the triangle to the left of
+<code>pheno</code> in the Environment pane to view its contents. Run
+<code>names(pheno)</code> to list the variables.</p>
+<p><code>pheno_dict</code> is the phenotype dictionary. This data frame
+contains information on each variable in <code>pheno</code>, including
+<code>name</code>,<code>short name</code>, <code>pheno_type</code>,
+<code>formula</code> (if used) and <code>description</code>. You can
+view a table of the data dictionary.</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -549,18 +558,69 @@ each mouse.</td>
 </tr><tr class="even"><td align="left">DOwave</td>
 <td align="left">Wave (i.e., batch) of DO mice</td>
 <td align="left">NA</td>
-</tr></tbody></table><div class="section level3">
+</tr></tbody></table><p>Since the paper is interested in type 2 diabetes and insulin
+secretion, we will choose <code>insulin tAUC</code> (area under the
+curve which was calculated without any correction for baseline
+differences) for this review.</p>
+<div class="section level3">
 <h3 id="phenotype-distributions">Phenotype Distributions<a class="anchor" aria-label="anchor" href="#phenotype-distributions"></a></h3>
-<p>Boxplots are a great way to view the distribution of the data and to
-identify any outliers. We will be using the total area under the curve
-of insulin from the glucose tolerance test (Ins_tAUC).</p>
-<p>We will log-transform the data using the <a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10()</a>
+<p>Many statistical models, including the QTL mapping model in
+<code>qtl2</code>, expect that the incoming data will be normally
+distributed. You may use transformations such as log or square root to
+make your data more normally distributed. Here, we will log transform
+the data.</p>
+<p>Let’s make a variable for insulin tAUC so that we don’t have to type
+as much.</p>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ins_tauc</span> <span class="op">&lt;-</span> <span class="va">pheno</span><span class="op">[</span>, <span class="st">'Ins_tAUC'</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span></span></code></pre>
+</div>
+<p>Next, let’s look at the distribution of insulin tAUC using a
+histogram.</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">hist</span><span class="op">(</span><span class="va">ins_tauc</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, </span>
+<span>     breaks <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>     main   <span class="op">=</span> <span class="st">"Insulin Area Under the Curve"</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="fig/load-explore-data-rendered-hist_untransformed-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>This is clearly <strong>not</strong> normally distributed. In fact,
+this type of distribution is often log normal.</p>
+<p>Now, let’s apply the <code>log()</code> function to this data in an
+effort to make the distribution more normal.</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ins_tauc</span><span class="op">$</span><span class="va">Ins_tAUC_log</span> <span class="op">&lt;-</span> <span class="fu">log</span><span class="op">(</span><span class="va">ins_tauc</span><span class="op">$</span><span class="va">Ins_tAUC</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Let’s make a histogram of the log-transformed data.</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">hist</span><span class="op">(</span><span class="va">ins_tauc</span><span class="op">$</span><span class="va">Ins_tAUC_log</span>, </span>
+<span>     breaks <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>     main   <span class="op">=</span> <span class="st">"Insulin tAUC (log-transformed)"</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="fig/load-explore-data-rendered-hist_log_transform-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>This looks much better! The data has a somewhat Gaussian shape.
+Technically, the assumptions of a linear model require that the
+<strong>residuals</strong> be normally distributed. In practice,
+transforming the input data to be normally distributed helps to make the
+residuals normally distributed.</p>
+<p>Boxplots are another great way to view the distribution of the data
+and to identify any outliers. We will be using the total area under the
+curve of insulin from the glucose tolerance test (Ins_tAUC). We will
+log-transform this variable using the <a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10()</a>
 function. We have also overlaid the data points using ggbeeswarm’s <a href="https://www.rdocumentation.org/packages/ggbeeswarm/versions/0.7.2/topics/geom_beeswarm" class="external-link">geom_beeswarm</a>.
 We have told <code>geom_beeswarm()</code> to plot the points with some
 transparency using the argument <code>alpha = 0.2</code>. The
 <code>alpha</code> argument ranges between 0 (completely transparent) to
 1 (completely opaque). A value of 0.1 means mostly transparent.</p>
-<div class="codewrapper sourceCode" id="cb4">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -631,7 +691,7 @@ distribution and must be transformed before analysis. This is why we
 log-transformed the data in the plots above.</p>
 <p>While we can “eyeball” the distributions in the boxplot, it would be
 better to use a “quantile-quantile” plot.</p>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -645,15 +705,14 @@ better to use a “quantile-quantile” plot.</p>
 <span>         y     <span class="op">=</span> <span class="st">"Ins_tAUC"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">theme</span><span class="op">(</span>text <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/load-explore-data-rendered-qqplot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>In these plots, the “quantiles” (e.g. percentiles) of the normal
-distribution are plotted on the X-axis and the data are plotted on the
-Y-axis. The line indicates the quantiles that would be followed by a
-normal distribution. The untransformed data do <strong>not</strong>
-follow a normal distribution because the points are far from the
-line.</p>
+<figure><img src="fig/load-explore-data-rendered-qqplot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>In these plots, the “quantiles” of the normal distribution are
+plotted on the X-axis and the data are plotted on the Y-axis. The line
+indicates the quantiles that would be followed by a normal distribution.
+The untransformed data do <strong>not</strong> follow a normal
+distribution because the points are far from the line.</p>
 <p>Next, we will log-transform the data and then create a
 quantile-quantile plot.</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -723,7 +782,7 @@ may be real, but there may also have been mishap in the assay.</p>
 for data points that are more than four standard deviations from the
 mean.</p>
 <p>To do this, we will log transform and standardize Insulin tAUC.</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -747,7 +806,7 @@ limits.</p>
 </div>
 </section><section><h2 class="section-heading" id="gene-expression-data">Gene Expression Data<a class="anchor" aria-label="anchor" href="#gene-expression-data"></a></h2>
 <hr class="half-width"><p>Let’s read in the gene expression data. This has been compiled in</p>
-<div class="codewrapper sourceCode" id="cb8">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -781,7 +840,7 @@ expression counts.</li>
 <div class="accordion-body">
 <p>Use the <code>dim</code> command or the Environment tab to determine
 the number of samples and genes in <code>raw</code>.</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -803,7 +862,7 @@ below may help you to visualize the relationship between the expression,
 annotation, and covariates.</p>
 <figure><img src="fig/expr_sample_annot.png" alt="Figure showing relationship between samples, expression, and transcripts." class="figure mx-auto d-block"><div class="figcaption">Data Diagram</div>
 </figure><p>Let’s look at the rows in the gene annotation object.</p>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -837,7 +896,7 @@ ENSMUSG00000000058    &lt;NA&gt;</code></pre>
 <p>There are many columns in the gene annotation file, including the
 Ensembl ID, gene symbol, chromosome, start and end of the gene.</p>
 <p>Next, let’s look at the sample covariates.</p>
-<div class="codewrapper sourceCode" id="cb13">
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -866,7 +925,7 @@ counts are not normally distributed.</p>
 genes are not normally distributed. They are also not on the same scale.
 The y-axis values for each subplot range to 20,000 counts in the first
 subplot, 250 in the second, 90 in the third, and so on.</p>
-<div class="codewrapper sourceCode" id="cb15">
+<div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -959,8 +1018,8 @@ any links that you are not going to use.
   "url": "https://carpentries.github.io/workbench-template-rmd/load-explore-data.html",
   "identifier": "https://carpentries.github.io/workbench-template-rmd/load-explore-data.html",
   "dateCreated": "2024-11-07",
-  "dateModified": "2024-11-26",
-  "datePublished": "2024-11-26"
+  "dateModified": "2024-11-27",
+  "datePublished": "2024-11-27"
 }
 
   </script><script>
