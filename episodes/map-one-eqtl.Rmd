@@ -164,7 +164,7 @@ dds  = DESeqDataSetFromMatrix(countData = t(round(raw)),
 Next, we will run DESeq2 and let it adjust the expression data for differing
 library sizes.
 
-```{r run_deseq, warning=FALSE, results='hide'}
+```{r run_deseq, warning=FALSE, include=FALSE}
 dds  = DESeq(dds)
 ```
 
