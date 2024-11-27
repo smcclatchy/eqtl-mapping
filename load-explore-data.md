@@ -310,7 +310,7 @@ There are no data points outside of the four standard deviation limits.
 
 ## Gene Expression Data
 
-Let's read in the gene expression data. This has been compiled in
+Let's read in the gene expression data.
 
 
 ``` r
@@ -405,7 +405,8 @@ DO026 DO026   F      1       114
 ```
 
 The sample covariates have information about the sex and DO generation, 
-indicated as `DOwave`, of each mouse.
+indicated as `DOwave`, of each mouse. These are *metadata*, or data about the 
+data.
 
 In order to make reasonable gene comparisons between samples, the count data 
 needs to be normalized. In the quantile-quantile (Q-Q) plot below, count data 

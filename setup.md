@@ -14,13 +14,7 @@ Choose the free RStudio Desktop version for Windows, Mac, or Linux.
 
 3. Start RStudio. 
 
-4. Install packages. 
-    a. The [qtl2](https://github.com/rqtl/qtl2) package contains code for
-    haplotype reconstruction, QTL mapping and plotting. 
-    b. The [qtl2convert](https://github.com/rqtl/qtl2convert) package contains
-    code for converting data objects from one format to another.
-    c. Bioconductor packages and BiocManager if not already installed.
-    c. Install all by copying and pasting the following code in the R console.
+4. Install R and Bioconductor packages. 
 
 ```r
 install.packages(c("tidyverse", "ggbeeswarm", "knitr", "qtl2", "qtl2convert"))
@@ -87,21 +81,18 @@ downloads go (*e.g.* `Downloads`) to the `data` directory in the `eqtl_mapping`
 project. You can use a graphical user interface (*e.g.* Windows File Explorer, 
 Mac Finder) to move the files.
 
-[physiological phenotypes](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_pheno.rds)
-[phenotype dictionary](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_pheno_dict.rds)
-[covariates](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_covar.rds)
-[gene annotations](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_expr_annot.rds)
-[raw gene expression](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_expr_raw.rds)
-[map](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_map.rds)
-[kinship](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_kinship.rds)
-[chromosome 11 insulin blups](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/ins_tauc_blup_chr11.rds)
-[chromosome 11 Hnf1b blups](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/hnf1b_blup_chr11.rds)
+1. [physiological phenotypes](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_pheno.rds)
+1. [phenotype dictionary](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_pheno_dict.rds)
+1. [covariates](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_covar.rds)
+1. [gene annotations](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_expr_annot.rds)
+1. [raw gene expression](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_expr_raw.rds)
+1. [map](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_map.rds)
+1. [kinship](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_kinship.rds)
+1. [chromosome 11 insulin blups](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/ins_tauc_blup_chr11.rds)
+1. [chromosome 11 Hnf1b blups](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/hnf1b_blup_chr11.rds)
 
-
-
-
-2. Copy, paste, and run the following code in the RStudio console to download the
-genotype probabilities for the gene expression study we will explore in this
+2. Copy, paste, and run the following code in the RStudio console to download
+the genotype probabilities for the gene expression study we will explore in this
 lesson.
 
 ```r

@@ -87,76 +87,18 @@ rankZ = function(x) {
 ``` r
 # expression data
 load("../data/attie_DO500_expr.datasets.RData")
-```
 
-``` warning
-Warning in readChar(con, 5L, useBytes = TRUE): cannot open compressed file
-'../data/attie_DO500_expr.datasets.RData', probable reason 'No such file or
-directory'
-```
-
-``` error
-Error in readChar(con, 5L, useBytes = TRUE): cannot open the connection
-```
-
-``` r
 # data from paper
 load("../data/dataset.islet.rnaseq.RData")
-```
 
-``` warning
-Warning in readChar(con, 5L, useBytes = TRUE): cannot open compressed file
-'../data/dataset.islet.rnaseq.RData', probable reason 'No such file or
-directory'
-```
-
-``` error
-Error in readChar(con, 5L, useBytes = TRUE): cannot open the connection
-```
-
-``` r
 # phenotypes
 load("../data/attie_DO500_clinical.phenotypes.RData")
-```
 
-``` warning
-Warning in readChar(con, 5L, useBytes = TRUE): cannot open compressed file
-'../data/attie_DO500_clinical.phenotypes.RData', probable reason 'No such file
-or directory'
-```
-
-``` error
-Error in readChar(con, 5L, useBytes = TRUE): cannot open the connection
-```
-
-``` r
 # mapping data
 load("../data/attie_DO500_mapping.data.RData")
-```
 
-``` warning
-Warning in readChar(con, 5L, useBytes = TRUE): cannot open compressed file
-'../data/attie_DO500_mapping.data.RData', probable reason 'No such file or
-directory'
-```
-
-``` error
-Error in readChar(con, 5L, useBytes = TRUE): cannot open the connection
-```
-
-``` r
 # genotype probabilities
 probs = readRDS("../data/attie_DO500_genoprobs_v5.rds")
-```
-
-``` warning
-Warning in gzfile(file, "rb"): cannot open compressed file
-'../data/attie_DO500_genoprobs_v5.rds', probable reason 'No such file or
-directory'
-```
-
-``` error
-Error in gzfile(file, "rb"): cannot open the connection
 ```
 
 > Example from package. This will be removed, but I needed it for now.
@@ -195,53 +137,15 @@ on the diet as additive covariates.
 pheno_rz = pheno_clin %>% 
              select(num_islets:weight_10wk) %>% 
              as.matrix()
-```
-
-``` error
-Error: object 'pheno_clin' not found
-```
-
-``` r
 pheno_rz = apply(pheno_rz, 2, rankZ)
-```
 
-``` error
-Error: object 'pheno_rz' not found
-```
-
-``` r
 covar$DOwave = factor(covar$DOwave)
-```
-
-``` error
-Error: object 'covar' not found
-```
-
-``` r
 addcovar = model.matrix(~sex + DOwave + diet_days, data = covar)[,-1]
-```
-
-``` error
-Error: object 'covar' not found
-```
-
-``` r
 ins_qtl = scan1(genoprobs = probs, 
                 pheno     = pheno_rz[,'Ins_tAUC', drop = FALSE], 
                 kinship   = K, 
                 addcovar  = addcovar)
-```
-
-``` error
-Error: object 'probs' not found
-```
-
-``` r
 plot_scan1(ins_qtl, map, main = 'Insulin tAUC')
-```
-
-``` error
-Error: object 'ins_qtl' not found
 ```
 
 There is a large peak on chromosome 11. Let's look at the LOD score and the 
@@ -250,18 +154,7 @@ location.
 
 ``` r
 peaks = find_peaks(ins_qtl, map, threshold = 10, prob = 0.95)
-```
-
-``` error
-Error: object 'ins_qtl' not found
-```
-
-``` r
 peaks
-```
-
-``` error
-Error: object 'peaks' not found
 ```
 
 Let's also estimate the founder allele effects for `insulin tAUC`.
@@ -275,18 +168,7 @@ feff = scan1blup(genoprobs = probs[,chr],
                  pheno     = pheno_rz[,'Ins_tAUC', drop = FALSE], 
                  kinship   = K[[chr]], 
                  addcovar  = addcovar)
-```
-
-``` error
-Error: object 'probs' not found
-```
-
-``` r
 plot_coefCC(feff, map, scan1_output = qtl, legend = 'bottomleft')
-```
-
-``` error
-Error: object 'feff' not found
 ```
 
 Looking at the founder allele effects above, we can see that A/J, BL6, 129, and 
@@ -329,10 +211,6 @@ First, we need to get the support interval and add 2 MB to each side.
 ci = c(peaks$ci_lo - 2, peaks$ci_hi + 2)
 ```
 
-``` error
-Error: object 'peaks' not found
-```
-
 Next, we filter the eQTL results to retain genes in this interval.
 
 
@@ -341,10 +219,6 @@ cis_eqtl = dataset.islet.rnaseq$lod.peaks %>%
              filter(chrom == '11'  & 
                       pos >= ci[1] & 
                       pos <= ci[2])
-```
-
-``` error
-Error: object 'dataset.islet.rnaseq' not found
 ```
 
 There are r nrow(cis_eqtl) genes with cis-eQTL in this interval. That is a 
@@ -370,37 +244,13 @@ LOD will not change much.
 
 ``` r
 covar_gene = cbind(norm[rownames(addcovar), 'ENSMUSG00000018986'], addcovar)
-```
-
-``` error
-Error: object 'addcovar' not found
-```
-
-``` r
 slfn3_qtl = scan1(genoprobs = probs, 
                   pheno     = pheno_rz[,'Ins_tAUC', drop = FALSE], 
                   kinship   = K, 
                   addcovar  = covar_gene)
-```
 
-``` error
-Error: object 'probs' not found
-```
-
-``` r
 plot_scan1(ins_qtl,   map, chr = chr, main = 'Insulin tAUC with Slfn3')
-```
-
-``` error
-Error: object 'ins_qtl' not found
-```
-
-``` r
 plot_scan1(slfn3_qtl, map, chr = chr, color = 'blue', add = TRUE)
-```
-
-``` error
-Error: object 'slfn3_qtl' not found
 ```
 
 As you can see, the LOD decreased when we added the expression of *Slfn3* into 
@@ -409,10 +259,6 @@ the model. Let's see what the new LOD is on chromosome 11.
 
 ``` r
 find_peaks(qtl, map, threshold = 6.5)
-```
-
-``` error
-Error: object 'qtl' not found
 ```
 
 The LOd decreased from 10.3 to 7.2. 

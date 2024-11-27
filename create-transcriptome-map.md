@@ -62,25 +62,12 @@ of this workshop. The required column names are:
 ``` r
 # Get gene positions.
 ensembl <- get_ensembl_genes()
-```
-
-``` error
-Error in get_ensembl_genes(): could not find function "get_ensembl_genes"
-```
-
-``` r
 df <- data.frame(ensembl    = ensembl$gene_id, 
                  gene_chr   = seqnames(ensembl), 
                  gene_start = start(ensembl) * 1e-6, 
                  gene_end   = end(ensembl)   * 1e-6,
                  stringsAsFactors = F)
-```
 
-``` error
-Error: object 'ensembl' not found
-```
-
-``` r
 lod_summary <- lod_summary %>% 
                  rename(lodcolumn = "ensembl",
                         chr       = "qtl_chr",
@@ -90,13 +77,7 @@ lod_summary <- lod_summary %>%
                  mutate(marker.id = str_c(qtl_chr, qtl_pos * 1e6, sep = "_"),
                         gene_chr  = factor(gene_chr, levels = c(1:19, "X")),
                         qtl_chr   = factor(qtl_chr, levels = c(1:19, "X")))
-```
 
-``` error
-Error: object 'lod_summary' not found
-```
-
-``` r
 rm(df)
 ```
 
@@ -135,18 +116,7 @@ lod_summary <- lod_summary %>%
                      mutate(cis = if_else(qtl_chr == gene_chr & 
                                   abs(gene_start - qtl_pos) < 4, 
                                   "cis", "trans"))
-```
-
-``` error
-Error: object 'lod_summary' not found
-```
-
-``` r
 count(lod_summary, cis)
-```
-
-``` error
-Error: object 'lod_summary' not found
 ```
 
 ### Plot Transcriptome Map
@@ -157,10 +127,6 @@ ggtmap(data = lod_summary %>%
        filter(qtl_lod >= 7.18), 
               cis.points = TRUE, 
               cis.radius = 4)
-```
-
-``` error
-Error in ggtmap(data = lod_summary %>% filter(qtl_lod >= 7.18), cis.points = TRUE, : could not find function "ggtmap"
 ```
 
 The plot above is called a "Transcriptome Map" because it shows the positions of 

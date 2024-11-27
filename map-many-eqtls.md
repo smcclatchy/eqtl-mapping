@@ -21,15 +21,7 @@ exercises: 30
 
 ### Load Libraries  
 
-For this lesson, we need to install two more libraries and load them.  You can 
-do this by typing the following code:
-
-
-``` r
-BiocManager::install(c("AnnotationHub","rtracklayer"))
-```
-
-Let's install our libraries, and source two other R scripts.
+Load the libraries and source two other R scripts.
 
 
 ``` r
@@ -39,15 +31,11 @@ library(broom)
 library(qtl2)
 library(qtl2ggplot)
 library(RColorBrewer)
-
+library(AnnotationHub)
+library(rtracklayer)
 #source("../code/gg_transcriptome_map.R")
 #source("../code/qtl_heatmap.R")
 ```
-
-Before we begin this lesson, we need to create another directory called 
-`results` in our main directory.  You can do this by clicking on the "Files" tab 
-and navigate into the main directory.  Then select "New Folder" and name it 
-"results".
 
 ### Load Data
 
@@ -80,42 +68,11 @@ For this lesson, lets choose a random set of 50 gene expression phenotypes.
 genes = colnames(norm)
 
 sams <- sample(length(genes), 50, replace = FALSE, prob = NULL)
-```
-
-``` error
-Error in sample.int(length(x), size, replace, prob): cannot take a sample larger than the population when 'replace = FALSE'
-```
-
-``` r
 genes <- genes[sams]
-```
 
-``` error
-Error: object 'sams' not found
-```
-
-``` r
 gene.info <- dataset.islet.rnaseq$annots[genes,]
-```
-
-``` error
-Error: object 'dataset.islet.rnaseq' not found
-```
-
-``` r
 rownames(gene.info) = NULL
-```
-
-``` error
-Error: object 'gene.info' not found
-```
-
-``` r
 kable(gene.info[1:10,])
-```
-
-``` error
-Error: object 'gene.info' not found
 ```
 
 ### Expression Data
@@ -134,7 +91,7 @@ for(gene in genes[1:20]){
 
 Check the distributions.  Do they all have a normal distribution?
 
-You will notice that the distribtion of some genes are skewed to the left. This 
+You will notice that the distribution of some genes are skewed to the left. This 
 means that that only a small amount of samples have data and therefore, will 
 need to be removed.  A suitable qc would be keeping expression data that have at 
 least 5% of the samples with more than 10 reads.
@@ -142,37 +99,15 @@ least 5% of the samples with more than 10 reads.
 
 ``` r
 genes_qc <- which(as.numeric(colSums(counts[ , genes] > 10)) >= 0.05 * nrow(counts[,genes]))
-```
-
-``` error
-Error: object 'counts' not found
-```
-
-``` r
 genes <- genes[genes_qc]
 ```
-
-``` error
-Error: object 'genes_qc' not found
-```
-
-### The Marker Map  
-
-We are using the same marker map as in the previous [lesson](https://smcclatchy.github.io/eqtl-mapping/review-mapping-steps/index.html#the-marker-map)
-
 
 ### Genotype probabilities  
 
 We have explored this earlier in th previous [lesson](https://smcclatchy.github.io/eqtl-mapping/review-mapping-steps/index.html#genotype-probabilities).  But, as a reminder, we have already calculated genotype 
-probabilities which we loaded above called `probs`.  This contains the 8 state g
-enotype probabilities using the 69k grid  map of the same 500 DO mice that also 
+probabilities which we loaded above called `probs`.  This contains the 8 state 
+genotype probabilities using the 69k grid  map of the same 500 DO mice that also 
 have clinical phenotypes. 
-
-
-### [Kinship Matrix](https://smcclatchy.github.io/mapping/04-calc-kinship/)
-
-We have explored the kinship matrix in the previous [lesson](https://smcclatchy.github.io/eqtl-mapping/review-mapping-steps/index.html#kinship-matrix). It has already been calculated and loaded in above. 
-
 
 ### Covariates    
 
@@ -186,42 +121,11 @@ will correct for `DOwave`,`sex` and `diet_days`.
 ``` r
 # convert sex and DO wave (batch) to factors
 pheno_clin$sex = factor(pheno_clin$sex)
-```
-
-``` error
-Error: object 'pheno_clin' not found
-```
-
-``` r
 pheno_clin$DOwave = factor(pheno_clin$DOwave)
-```
-
-``` error
-Error: object 'pheno_clin' not found
-```
-
-``` r
 pheno_clin$diet_days = factor(pheno_clin$DOwave)
-```
 
-``` error
-Error: object 'pheno_clin' not found
-```
-
-``` r
 covar = model.matrix(~sex + DOwave + diet_days, data = pheno_clin)[,-1]
 ```
-
-``` error
-Error: object 'pheno_clin' not found
-```
-
-### [Performing a genome scan](https://smcclatchy.github.io/mapping/06-perform-genome-scan/) 
-
-Now lets perform the genome scan!  We are also going to save our qtl results in 
-an `Rdata` file to be used in further lessons.  We will not perform permutations 
-in this lesson as it will take too long.  Instead we will use 6, which is the 
-LOD score used in the paper to determine significance.
 
 ### QTL Scans
 
@@ -260,10 +164,6 @@ for(i in 1:20) {
   }
 ```
 
-``` error
-Error: object 'qtl' not found
-```
-
 ### QTL Peaks
 
 We are also going to save our peak results so we can use these again else where.  
@@ -279,10 +179,6 @@ peaks = find_peaks(scan1_output = qtl,
                    prob = 0.95)
 ```
 
-``` error
-Error: object 'qtl' not found
-```
-
 We will save these peaks into a csv file. 
 
 
@@ -295,19 +191,12 @@ kable(peaks[1:10,] %>%
 ```
 
 
-``` error
-Error: object 'peaks' not found
-```
 
 ### QTL Peaks Figure
 
 
 ``` r
 qtl_heatmap(qtl = qtl, map = map, low.thr = 3.5)
-```
-
-``` error
-Error in qtl_heatmap(qtl = qtl, map = map, low.thr = 3.5): could not find function "qtl_heatmap"
 ```
 
 ::::::::::::::::::::::::::::::::::::: challenge 
@@ -346,9 +235,6 @@ qtl_heatmap(qtl = qtl, map = map, low.thr = 3.5)
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+- 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::

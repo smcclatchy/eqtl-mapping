@@ -20,78 +20,13 @@ exercises: 30
 
 
 
-## Physiological Phenotypes
-
-In this data set, we have 20 phenotypes for 500 Diversity Outbred mice. `pheno` 
-is a data frame containing the phenotype data as well as covariates. Click on 
-the triangle to the left of `pheno` in the Environment pane to view its 
-contents. Run `names(pheno)` to list the variables. 
-
-`pheno_dict` is the phenotype dictionary.  This data frame contains information 
-on each variable in `pheno`, including `name`,`short name`, `pheno_type`, 
-`formula` (if used) and `description`.
-
-Since the paper is interested in type 2 diabetes and insulin secretion, we will 
-choose `insulin tAUC` (area  under the curve which was calculated without any
-correction for baseline differences) for this review.
-
-Many statistical models, including the QTL mapping model in `qtl2`, expect that 
-the incoming data will be normally distributed. You may use transformations such 
-as log or square root to make your data more normally distributed. Here, we will 
-log transform the data. 
-
-Let's make a variable for insulin tAUC so that we don't have to type as much.
-
-
-``` r
-ins_tauc <- pheno[, 'Ins_tAUC', drop = FALSE]
-```
-
-
-Next, let's look at the distribution of insulin tAUC using a histogram.
-
-
-``` r
-hist(ins_tauc[,1], 
-     breaks = 20,
-     main   = "Insulin Area Under the Curve")
-```
-
-<img src="fig/map-one-eqtl-rendered-hist_untransformed-1.png" style="display: block; margin: auto;" />
-
-This is clearly **not** Normally distributed. In fact, this type of distribution
-is often log normal. 
-
-Now, let's apply the `log()` function to this data in an effort to make the
-distribution more normal.
-
-
-``` r
-ins_tauc$Ins_tAUC_log <- log(ins_tauc$Ins_tAUC)
-```
-
-Let's make a histogram of the log-transformed data.
-
-
-``` r
-hist(ins_tauc$Ins_tAUC_log, 
-     breaks = 20,
-     main   = "Insulin tAUC (log-transformed)")
-```
-
-<img src="fig/map-one-eqtl-rendered-hist_log_transform-1.png" style="display: block; margin: auto;" />
-
-This looks much better! The data has a somewhat Gaussian shape. Technically, the
-assumptions of a linear model require that the **residuals** be normally
-distributed. In practice, transforming the input data to be normally distributed
-helps to make the residuals normally distributed.
 
 ## Expression Data
 
 In a previous lesson, we loaded in the raw transcript expression data and 
 noticed that the distribution of each gene was non-Gaussian and different.
 
-There is another issue that we must also be addressed. Each sample has a 
+There is another issue that we must also address. Each sample has a 
 different total number of counts. This affects our ability to compare values 
 between samples. For example, say that we look at the expression of Gene1 in 
 two samples and find that both samples have 500 counts for Gene1. It appears 
@@ -558,6 +493,10 @@ lod_ins <- scan1(genoprobs = probs,
                  addcovar  = addcovar)
 ```
 
+``` error
+Error: object 'ins_tauc' not found
+```
+
 After the genome scan, `lod_ins` contains the LOD scores for both the 
 untransformed and log-transformed insulin values. 
 
@@ -566,14 +505,8 @@ untransformed and log-transformed insulin values.
 head(lod_ins)
 ```
 
-``` output
-          Ins_tAUC Ins_tAUC_log
-1_3000000 5.162655     4.333006
-1_3041392 5.163071     4.333039
-1_3346528 5.207254     4.396324
-1_3651663 5.011606     4.261237
-1_3657931 5.047916     4.286642
-1_3664199 5.093272     4.314025
+``` error
+Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'head': object 'lod_ins' not found
 ```
 
 Let's plot both LOD curves.
@@ -592,19 +525,35 @@ plot_scan1(x         = lod_ins,
            map       = map,
            lodcolumn = "Ins_tAUC_log",
            main      = "Insulin tAUC")
+```
+
+``` error
+Error: object 'lod_ins' not found
+```
+
+``` r
 plot_scan1(x         = lod_ins, 
            map       = map,
            lodcolumn = "Ins_tAUC",
            col       = rgb(0.8, 0, 0, 0.5),
            lty       = "dashed",
            add       = TRUE)
+```
+
+``` error
+Error: object 'lod_ins' not found
+```
+
+``` r
 legend("topleft", 
        legend = c("log-transformed", "untransformed"), 
        col    = c("black",           "red3"), 
        lwd    = 2)
 ```
 
-<img src="fig/map-one-eqtl-rendered-plot_ins_tauc-1.png" style="display: block; margin: auto;" />
+``` error
+Error in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL, : plot.new has not been called yet
+```
 
 :::::::::::::::::::::::::::::::::::::::::::::::: challenge
 
@@ -788,23 +737,25 @@ peaks_ins <- find_peaks(scan1_output = lod_ins,
                         map          = map, 
                         threshold    = thr_ins[2], 
                         prob         = 0.95)
+```
+
+``` error
+Error: object 'lod_ins' not found
+```
+
+``` r
 peaks_ins |> 
   dplyr::select(-lodindex) |>
   arrange(chr, pos) |>
   kable(caption = "Insulin tAUC QTL Peaks")
 ```
 
-
-
-Table: Insulin tAUC QTL Peaks
-
-|lodcolumn    |chr |      pos|       lod|    ci_lo|    ci_hi|
-|:------------|:---|--------:|---------:|--------:|--------:|
-|Ins_tAUC_log |11  | 83.59467| 11.258841| 83.58553| 84.95444|
-|Ins_tAUC     |17  | 31.69319|  7.445012| 25.57974| 73.89085|
+``` error
+Error: object 'peaks_ins' not found
+```
 
 We can see that we have a peak for insulin tAUC on chromosome 
-17 at 31.693192 Mb.
+r peaks_ins chr[1] at r peaks_ins pos[1] Mb.
 
 :::::::::::::::::::::::::::::::::::::::::::::: challenge
 
@@ -864,8 +815,8 @@ ENSMUSG00000020679 83.87799       11_84097611 protein_coding midnightblue
 ENSMUSG00000020679    <NA>
 ```
 
-The support interval ranges from 83.647144 to 84.401384
-Mb. Hnf1b is located on chromosome 11 at 83.850063` Mb,
+The support interval ranges from r peaks_hnf1b$ci_lo to r peaks_hnf1b$ci_hi
+Mb. Hnf1b is located on chromosome r pos_hnf1b$chr at r pos_hnf1b$start Mb,
 which is within the support interval.
 
 ::::::::::::::::::::::::::::::::::::::
@@ -918,7 +869,9 @@ plot_coefCC(x      = blup_ins,
             main   = "Insulin tAUC")
 ```
 
-<img src="fig/map-one-eqtl-rendered-plot_ins_blup-1.png" style="display: block; margin: auto;" />
+``` error
+Error: object 'lod_ins' not found
+```
 
 Next we will estimate the founder allele effects for Hnf1b.
 
