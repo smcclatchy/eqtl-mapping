@@ -443,6 +443,10 @@ This takes about 15 to 30 seconds.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+```{r create_ins_tauc, echo=FALSE}
+ins_tauc <- pheno[, 'Ins_tAUC', drop = FALSE]
+```
+
 ```{r map_ins_tauc, warning=FALSE}
 lod_ins <- scan1(genoprobs = probs,
                  pheno     = ins_tauc,
