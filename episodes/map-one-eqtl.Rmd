@@ -34,6 +34,8 @@ raw        <- readRDS(file = 'data/attie_do_expr_raw.rds')
 map        <- readRDS(file = 'data/attie_do_map.rds')
 probs      <- readRDS(file = url('https://thejacksonlaboratory.box.com/shared/static/4hy4hbjyrxjbrzh570i4g02r62bx3lgk.rds'))
 K          <- readRDS(file = 'data/attie_do_kinship.rds')
+ins_tauc <- pheno[, 'Ins_tAUC', drop = FALSE]
+ins_tauc$Ins_tAUC_log <- log(ins_tauc$Ins_tAUC)
 ```
 
 
@@ -107,7 +109,7 @@ dds  = DESeqDataSetFromMatrix(countData = t(round(raw)),
 Next, we will run DESeq2 and let it adjust the expression data for differing
 library sizes.
 
-```{r run_deseq, warning=FALSE, include=FALSE}
+```{r run_deseq, warning=FALSE, results='hide'}
 dds  = DESeq(dds)
 ```
 
@@ -375,7 +377,7 @@ K <- calc_kinship(probs = probs,
 
 And let's save the kinship matrices so that we don't have to build them again.
 
-```{r save_kinsihp,eval=FALSE}
+```{r save_kinship, eval=FALSE}
 saveRDS(K, file = "data/attie_do_kinship.rds")
 ```
 
@@ -443,10 +445,6 @@ This takes about 15 to 30 seconds.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-```{r create_ins_tauc, echo=FALSE}
-ins_tauc <- pheno[, 'Ins_tAUC', drop = FALSE]
-```
-
 ```{r map_ins_tauc, warning=FALSE}
 lod_ins <- scan1(genoprobs = probs,
                  pheno     = ins_tauc,
@@ -471,7 +469,7 @@ use "red3" instead of "rgb(0.8, 0, 0, 0.5)".
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-```{r plot_ins_tauc,fig.width=8,fig.height=6}
+```{r plot_ins_tauc, fig.width=8, fig.height=6}
 plot_scan1(x         = lod_ins, 
            map       = map,
            lodcolumn = "Ins_tAUC_log",
@@ -522,7 +520,7 @@ Next, we will create a variable which contains the rankZ Hnf1b expression
 values to reduce our typing.
 
 ```{r make_hnf1b}
-hnf1b = expr_rz[,ensid, drop = FALSE]
+hnf1b = expr_rz[, ensid, drop = FALSE]
 ```
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::: callout
@@ -532,7 +530,7 @@ expression data from a matrix to a vector.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-```{r hnf1s_scan,warning=FALSE}
+```{r hnf1s_scan, warning=FALSE}
 lod_hnf1b = scan1(genoprobs = probs,
                   pheno     = hnf1b,
                   kinship   = K,
@@ -732,7 +730,7 @@ Next, we will plot the founder allele effects.
 plot_coefCC(x      = blup_ins, 
             map    = map, 
             legend = "bottomleft",
-            scan1_output = lod_ins[,2, drop = FALSE],
+            scan1_output = lod_ins[, 2, drop = FALSE],
             main   = "Insulin tAUC")
 
 ```
