@@ -23,15 +23,17 @@ exercises: 30
 
 ## Expression Data
 
-In a previous lesson, we loaded in the raw transcript expression data and 
-noticed that the distribution of each gene was non-Gaussian and different.
+In this lesson we review mapping steps and apply those steps to a gene 
+expression trait. In a previous lesson, we loaded in the raw transcript
+expression data and noticed that the distribution of each gene was non-Gaussian
+and different.
 
 There is another issue that we must also address. Each sample has a 
 different total number of counts. This affects our ability to compare values 
 between samples. For example, say that we look at the expression of Gene1 in 
 two samples and find that both samples have 500 counts for Gene1. It appears 
 that Gene1 is equally expressed in both samples. However, suppose that the total
-counts (i.e. the sum of counts for all genes in each sample) is 10 million for
+counts (_i.e._ the sum of counts for all genes in each sample) is 10 million for
 sample 1 and 20 million for sample 2. The sum of all counts across all genes in 
 a sample is also called the *library size*. Then we need to scale the counts for Gene1 by the total counts. This is shown in the table below.
 
@@ -59,8 +61,10 @@ hist(rowSums(raw) * 1e-6,
 As you can see, total counts range from 15 to 50 million reads.
 
 To recap, before we perform any analysis using the transcript expression data,
-we need to normalize it by adjusting for library size and transforming the
-expression of each gene to be Gaussian.
+we need to:  
+
+1. normalize it by adjusting for library size and  
+2. transform the expression of each gene to be Gaussian.
 
 ### Normalizing Gene Expression
 
@@ -72,7 +76,54 @@ performs many types of analyses. Further details are in the
 
 First, we must create a DESeq object. We need the raw counts, rounded so that
 all values are integers, and the sample covariate data. We will have to subset
-the sample covariates to include only the expression samples.
+the sample covariates to include only the expression samples, since we don't
+have expression data for every mouse.
+
+Recall that there are 500 mice in the covariate data. The mouse IDs are in the
+rownames of the raw expression data, but not all 500 mice have expression data.
+
+
+``` r
+dim(covar)
+```
+
+``` output
+[1] 500   4
+```
+
+``` r
+head(covar$mouse)
+```
+
+``` output
+[1] "DO021" "DO022" "DO023" "DO024" "DO025" "DO026"
+```
+
+``` r
+head(rownames(raw))
+```
+
+``` output
+[1] "DO021" "DO022" "DO023" "DO024" "DO025" "DO026"
+```
+
+``` r
+length(rownames(raw))
+```
+
+``` output
+[1] 378
+```
+
+``` r
+sum(covar$mouse %in% rownames(raw))
+```
+
+``` output
+[1] 378
+```
+
+Here we subset the covariates to include only those with expression data. 
 
 
 ``` r
@@ -80,11 +131,9 @@ expr_covar = subset(covar, mouse %in% rownames(raw))
 expr_covar = expr_covar[match(rownames(raw), expr_covar$mouse),]
 ```
 
-In order to create the DESeq2 object, we will need to transpose the expression
-data. This is because DESeq2 requires that the samples be in columns and the 
-genes in rows. We will also tell DESeq2 what the design variables are for our
-data, although they are not used in this case. These would be used if we were
-searching for differentially expressed genes.
+In order to create the DESeq2 object, we will need to transpose (`t()`) the expression data so that the mouse IDs (samples) are moved to the columns. This 
+is because DESeq2 requires that the samples be in columns and the genes in rows. We will also tell DESeq2 what the design variables are for our data, although they are not used in this case. These would be used if we were searching for
+differentially expressed genes. We specify no design with `design = ~ 1`.
 
 
 ``` r
@@ -95,6 +144,61 @@ dds  = DESeqDataSetFromMatrix(countData = t(round(raw)),
 
 ``` output
 converting counts to integer mode
+```
+
+The object `dds` contains the counts for all mice with expression data. Genes
+are in rows and samples are in columns.
+
+
+``` r
+dds
+```
+
+``` output
+class: DESeqDataSet 
+dim: 21771 378 
+metadata(1): version
+assays(1): counts
+rownames(21771): ENSMUSG00000000001 ENSMUSG00000000028 ...
+  ENSMUSG00000099322 ENSMUSG00000099329
+rowData names(0):
+colnames(378): DO021 DO022 ... DO417 DO420
+colData names(4): mouse sex DOwave diet_days
+```
+
+``` r
+dim(dds)
+```
+
+``` output
+[1] 21771   378
+```
+
+This is a complex data object. Let's look at the counts for the first gene in 
+the first 5 samples.
+
+
+``` r
+dds@assays@data$counts[1, 1:5]
+```
+
+``` output
+DO021 DO022 DO023 DO024 DO025 
+10247 11838 12591 12424 10906 
+```
+
+Now look at the counts for the first five genes in sample 1.
+
+
+``` r
+dds@assays@data$counts[1:5, 1]
+```
+
+``` output
+ENSMUSG00000000001 ENSMUSG00000000028 ENSMUSG00000000037 ENSMUSG00000000049 
+             10247                108                 29                 15 
+ENSMUSG00000000056 
+               120 
 ```
 
 Next, we will run DESeq2 and let it adjust the expression data for differing
@@ -229,7 +333,9 @@ genes using an inverse-normal or rank-Z transformation.
 
 ``` r
 rankZ = function(x) {
-  x = rank(x, na.last = "keep", ties.method = "average") / (sum(!is.na(x)) + 1)
+  x = rank(x,
+           na.last     = "keep",
+           ties.method = "average") / (sum(!is.na(x)) + 1)
   return(qnorm(x))
 }
 
@@ -255,13 +361,17 @@ type it either.
 tmp = raw |> 
         as.data.frame() |> 
         select(ENSMUSG00000000001:ENSMUSG00000000058) |> 
-        pivot_longer(cols = everything(), names_to = 'gene', values_to = 'value') |> 
+        pivot_longer(cols      = everything(),
+                     names_to  = 'gene',
+                     values_to = 'value') |> 
         mutate(type = 'raw')
 
 norm = expr |> 
          as.data.frame() |> 
          select(ENSMUSG00000000001:ENSMUSG00000000058) |> 
-         pivot_longer(cols = everything(), names_to = 'gene', values_to = 'value') |> 
+         pivot_longer(cols      = everything(),
+                      names_to  = 'gene',
+                      values_to = 'value') |> 
          mutate(type = 'normalized')
 
 bind_rows(tmp, norm) |>
@@ -294,7 +404,9 @@ type it either.
 expr_rz |> 
   as.data.frame() |> 
   select(ENSMUSG00000000001:ENSMUSG00000000058) |> 
-  pivot_longer(cols = everything(), names_to = 'gene', values_to = 'value') |>
+  pivot_longer(cols      = everything(),
+               names_to  = 'gene',
+               values_to = 'value') |>
   ggplot(aes(gene, value)) +
     geom_boxplot() +
     labs(title = 'RankZ distributions for example genes') +
@@ -412,14 +524,14 @@ In the plot above, the founder contributions, which range between 0 and 1, are
 colored from white (= 0) to black (= 1.0). A value of ~0.5 is grey. The markers 
 are on the X-axis and the eight founders (denoted by the letters A through H) on 
 the Y-axis. Starting at the left, we see that this sample has genotype GH 
-because the rows for G & H are grey, indicating values of 0.5 for both alleles. 
-Moving along the genome to the right, the genotype becomes HH where where the 
+because the rows for G and H are grey, indicating values of 0.5 for both 
+alleles. Moving along the genome to the right, the genotype becomes HH where the 
 row is black indicating a value of 1.0.  This is followed by CD, DD, DG, AD, AH,
 CE, etc. The values at each marker sum to 1.0.  
 
 ### Kinship Matrix
 
-We also use a kinship matrix in the mapping model to adjust the relatedness
+We also use a kinship matrix in the mapping model to adjust for the relatedness
 between mice. We also use a different kinship matrix on each chromosome by 
 including all of the markers except the ones on the current chromosome. This 
 is called the "Leave-One-Chromosome-Out" (LOCO) method. We use the genoprobs 
@@ -467,7 +579,7 @@ along the diagonal may indicate close relatives (i.e. siblings or cousins).
 
 Next, we need to create additive covariates that will be used in the mapping 
 model.  First, we need to see which covariates are significant. In the data set, 
-we have `sex`, `DOwave` (wave (i.e., batch) of DO mice) and `diet_days` 
+we have `sex`, `DOwave` (_i.e._, batch) of DO mice) and `diet_days` 
 (number of days on diet) to test whether there are any sex, batch or diet 
 effects.
 
@@ -495,7 +607,7 @@ The sample IDs must be in the rownames of `pheno`, `addcovar`, `genoprobs` and
 
 <!-- DMG: Not sure about this yet. -->
 
-Considering the paper included the covariate, `diet_days`, we will include that 
+Considering the paper included the covariate `diet_days` we will include that 
 as well. 
 
 
@@ -617,8 +729,8 @@ ensid
 [1] "ENSMUSG00000020679"
 ```
 
-Next, we will create a variable which contains the rankZ Hnf1b expression
-values to reduce our typing.
+Next, we will create a variable which contains the rankZ-transformed Hnf1b 
+expression values to reduce our typing.
 
 
 ``` r
@@ -787,8 +899,8 @@ We can see that we have a peak for insulin tAUC on chromosome
 #### Challenge 3: Significant Peaks for Hnf1b
 
 Use the [find_peaks](https://github.com/kbroman/qtl2/blob/main/R/find_peaks.R) 
-function to find the significant peaks for Hnf1b at the alpha = 0.05 threshold. 
-Make a note of the QTL support interval.
+function to find the significant peaks for Hnf1b at the `alpha = 0.05` 
+threshold. Make a note of the QTL support interval.
 
 :::::::::::::::::::::::::::: solution
 
