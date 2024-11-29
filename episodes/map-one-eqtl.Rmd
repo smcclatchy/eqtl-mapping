@@ -133,7 +133,7 @@ dim(dds)
 This is a complex data object. Let's look at the counts for the first gene in 
 the first 5 samples.
 
-```{r first_gene_counts}
+```{r first_sample_counts}
 dds@assays@data$counts[1, 1:5]
 ```
 
