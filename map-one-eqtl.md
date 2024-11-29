@@ -604,7 +604,7 @@ hnf1b = expr_rz[,ensid, drop = FALSE]
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::: callout
 
-Remember to use the "drop = FALSE" argument so that R will not convert the
+Remember to use the `drop = FALSE` argument so that R will not convert the
 expression data from a matrix to a vector.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -700,7 +700,7 @@ pre-computed the permutations and have code for you to load them in below.
 
 ``` r
 eperm <- scan1perm(genoprobs = probs, 
-                   pheno     = expr_rz[,ensid, drop = FALSE], 
+                   pheno     = expr_rz[, ensid, drop = FALSE], 
                    addcovar  = addcovar,
                    n_perm    = 1000)
 ```
@@ -756,7 +756,7 @@ Table: Insulin tAUC QTL Peaks
 |Ins_tAUC  |17  | 31.69319| 7.445012| 25.57974| 73.89085|
 
 We can see that we have a peak for insulin tAUC on chromosome 
-r peaks_ins chr[1] at r peaks_ins pos[1] Mb.
+17 at 31.693192 Mb.
 
 :::::::::::::::::::::::::::::::::::::::::::::: challenge
 
@@ -816,8 +816,8 @@ ENSMUSG00000020679 83.87799       11_84097611 protein_coding midnightblue
 ENSMUSG00000020679    <NA>
 ```
 
-The support interval ranges from r peaks_hnf1b$ci_lo to r peaks_hnf1b$ci_hi
-Mb. Hnf1b is located on chromosome r pos_hnf1b$chr at r pos_hnf1b$start Mb,
+The support interval ranges from 83.647144 to 84.401384
+Mb. Hnf1b is located on chromosome 11 at 83.850063 Mb,
 which is within the support interval.
 
 ::::::::::::::::::::::::::::::::::::::
