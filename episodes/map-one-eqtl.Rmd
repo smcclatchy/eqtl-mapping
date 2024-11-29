@@ -644,7 +644,7 @@ peaks_ins |>
 ```
 
 We can see that we have a peak for insulin tAUC on chromosome 
-`r peaks_ins chr[1]` at `r peaks_ins pos[1]` Mb.
+`r peaks_ins$chr[1]` at `r peaks_ins$pos[1]` Mb.
 
 :::::::::::::::::::::::::::::::::::::::::::::: challenge
 
