@@ -23,22 +23,23 @@ regions. This fact leads to the idea that regulation of gene expression is an
 important mechanism enabling genetic variants to affect complex traits. 
 Mediation analysis can identify a causal chain from genetic variants to 
 molecular and clinical phenotypes. The graphic below shows complete mediation,
-in which a predictor variable does not directly impact the response variable,
-but does directly the mediator. The mediator has a direct impact on the 
-response variable. We would observe the relationship between predictor and 
-response, not knowing that a mediator intervenes in this relationship.
+in which a predictor variable does not directly impact the response variable.
+Rather, it directly influences the mediator (path a). The mediator has a direct 
+impact on the response variable (path b). We would see (path c) the relationship 
+between predictor and response, not knowing that a mediator intervenes in this
+relationship.
 
-![In complete mediation an independent (predictor) variable influences the dependent (response) variable indirectly through a mediator variable.](fig/complete-mediation.png)
-Mediation analysis is widely used in the social sciences 
-including psychology. In biomedicine, mediation analysis has been employed to
-investigate how gene expression mediates the effects of genetic variants on 
-complex phenotypes and disease.
+![In complete mediation an independent (predictor) variable influences the dependent (response) variable indirectly through a mediator variable.](fig/mediation-analysis.png)
+Mediation analysis is widely used in the social sciences including psychology. 
+In biomedicine, mediation analysis has been employed to investigate how gene 
+expression mediates the effects of genetic variants on complex phenotypes and 
+disease.
 
 For example, a genetic variant (non-coding SNP) indirectly regulates expression 
 of gene 2 through a mediator, gene 1. The SNP regulates expression of gene 1 in 
 cis, and expression of gene 1 influences expression of gene 2 in trans.  
 
-![A non-coding SNP affects expression of gene 1 in cis. Gene 1 mediates expression of gene 2.](fig/mediator-gene1.png)
+![A non-coding SNP affects expression of gene 1 in cis. Gene 1 mediates expression of gene 2.](fig/mediation-trans-noncoding-SNP.png)
 Instead of the expression of one gene impacting another, expression of gene 1 in
 the graphic above could impact a physiological phenotype like blood glucose. 
 Expression of gene 1 would mediate the relationship between the non-coding SNP

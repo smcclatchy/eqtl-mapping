@@ -14,7 +14,7 @@ exercises: 30
 ::::::::::::::::::::::::::::::::::::: objectives
 
 - Review the steps in QTL mapping.
-- To run a QTL analysis for expression data.
+- Run a QTL analysis for expression data.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
