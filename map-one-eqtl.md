@@ -101,6 +101,47 @@ Next, we will run DESeq2 and let it adjust the expression data for differing
 library sizes.
 
 
+``` r
+dds  = DESeq(dds)
+```
+
+``` output
+estimating size factors
+```
+
+``` output
+estimating dispersions
+```
+
+``` output
+gene-wise dispersion estimates
+```
+
+``` output
+mean-dispersion relationship
+```
+
+``` output
+final dispersion estimates
+```
+
+``` output
+fitting model and testing
+```
+
+``` output
+-- replacing outliers and refitting for 155 genes
+-- DESeq argument 'minReplicatesForReplace' = 7 
+-- original counts are preserved in counts(dds)
+```
+
+``` output
+estimating dispersions
+```
+
+``` output
+fitting model and testing
+```
 
 Once this is done, we will get the expression data after it has been transformed
 using the
@@ -486,8 +527,6 @@ This takes about 15 to 30 seconds.
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-
-
 ``` r
 lod_ins <- scan1(genoprobs = probs,
                  pheno     = ins_tauc,
@@ -504,13 +543,13 @@ head(lod_ins)
 ```
 
 ``` output
-          Ins_tAUC
-1_3000000 5.162655
-1_3041392 5.163071
-1_3346528 5.207254
-1_3651663 5.011606
-1_3657931 5.047916
-1_3664199 5.093272
+          Ins_tAUC Ins_tAUC_log
+1_3000000 5.162655     4.333006
+1_3041392 5.163071     4.333039
+1_3346528 5.207254     4.396324
+1_3651663 5.011606     4.261237
+1_3657931 5.047916     4.286642
+1_3664199 5.093272     4.314025
 ```
 
 Let's plot both LOD curves.
@@ -529,35 +568,19 @@ plot_scan1(x         = lod_ins,
            map       = map,
            lodcolumn = "Ins_tAUC_log",
            main      = "Insulin tAUC")
-```
-
-``` error
-Error in plot_scan1(x = lod_ins, map = map, lodcolumn = "Ins_tAUC_log", : lodcolumn "Ins_tAUC_log" not found
-```
-
-``` r
 plot_scan1(x         = lod_ins, 
            map       = map,
            lodcolumn = "Ins_tAUC",
            col       = rgb(0.8, 0, 0, 0.5),
            lty       = "dashed",
            add       = TRUE)
-```
-
-``` error
-Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet
-```
-
-``` r
 legend("topleft", 
        legend = c("log-transformed", "untransformed"), 
        col    = c("black",           "red3"), 
        lwd    = 2)
 ```
 
-``` error
-Error in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL, : plot.new has not been called yet
-```
+<img src="fig/map-one-eqtl-rendered-plot_ins_tauc-1.png" style="display: block; margin: auto;" />
 
 :::::::::::::::::::::::::::::::::::::::::::::::: challenge
 
@@ -599,7 +622,7 @@ values to reduce our typing.
 
 
 ``` r
-hnf1b = expr_rz[,ensid, drop = FALSE]
+hnf1b = expr_rz[, ensid, drop = FALSE]
 ```
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::: callout
@@ -751,9 +774,10 @@ peaks_ins |>
 
 Table: Insulin tAUC QTL Peaks
 
-|lodcolumn |chr |      pos|      lod|    ci_lo|    ci_hi|
-|:---------|:---|--------:|--------:|--------:|--------:|
-|Ins_tAUC  |17  | 31.69319| 7.445012| 25.57974| 73.89085|
+|lodcolumn    |chr |      pos|       lod|    ci_lo|    ci_hi|
+|:------------|:---|--------:|---------:|--------:|--------:|
+|Ins_tAUC_log |11  | 83.59467| 11.258841| 83.58553| 84.95444|
+|Ins_tAUC     |17  | 31.69319|  7.445012| 25.57974| 73.89085|
 
 We can see that we have a peak for insulin tAUC on chromosome 
 17 at 31.693192 Mb.
@@ -866,13 +890,11 @@ Next, we will plot the founder allele effects.
 plot_coefCC(x      = blup_ins, 
             map    = map, 
             legend = "bottomleft",
-            scan1_output = lod_ins[,2, drop = FALSE],
+            scan1_output = lod_ins[, 2, drop = FALSE],
             main   = "Insulin tAUC")
 ```
 
-``` error
-Error in lod_ins[, 2, drop = FALSE]: subscript out of bounds
-```
+<img src="fig/map-one-eqtl-rendered-plot_ins_blup-1.png" style="display: block; margin: auto;" />
 
 Next we will estimate the founder allele effects for Hnf1b.
 
