@@ -361,7 +361,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Mapping A Single Gene Expression Trait</h1>
-        <p>Last updated on 2024-11-27 |
+        <p>Last updated on 2024-11-29 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/map-one-eqtl.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -1045,8 +1045,8 @@ expression values to reduce our typing.</p>
 <div class="callout-inner">
 <h3 class="callout-title">Callout</h3>
 <div class="callout-content">
-<p>Remember to use the “drop = FALSE” argument so that R will not
-convert the expression data from a matrix to a vector.</p>
+<p>Remember to use the <code>drop = FALSE</code> argument so that R will
+not convert the expression data from a matrix to a vector.</p>
 </div>
 </div>
 </div>
@@ -1164,7 +1164,7 @@ load them in below.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">eperm</span> <span class="op">&lt;-</span> <span class="fu">scan1perm</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>, </span>
-<span>                   pheno     <span class="op">=</span> <span class="va">expr_rz</span><span class="op">[</span>,<span class="va">ensid</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, </span>
+<span>                   pheno     <span class="op">=</span> <span class="va">expr_rz</span><span class="op">[</span>, <span class="va">ensid</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, </span>
 <span>                   addcovar  <span class="op">=</span> <span class="va">addcovar</span>,</span>
 <span>                   n_perm    <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span></code></pre>
 </div>
@@ -1227,8 +1227,8 @@ threshold.</p>
 <td align="right">7.445012</td>
 <td align="right">25.57974</td>
 <td align="right">73.89085</td>
-</tr></tbody></table><p>We can see that we have a peak for insulin tAUC on chromosome r
-peaks_ins chr[1] at r peaks_ins pos[1] Mb.</p>
+</tr></tbody></table><p>We can see that we have a peak for insulin tAUC on chromosome 17 at
+31.693192 Mb.</p>
 <div id="challenge-3-significant-peaks-for-hnf1b" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
@@ -1318,9 +1318,9 @@ ENSMUSG00000020679 83.87799       11_84097611 protein_coding midnightblue
                    hotspot
 ENSMUSG00000020679    &lt;NA&gt;</code></pre>
 </div>
-<p>The support interval ranges from r peaks_hnf1b<span class="math inline">\(ci_lo to r peaks_hnf1b\)</span>ci_hi Mb. Hnf1b is
-located on chromosome r pos_hnf1b<span class="math inline">\(chr at r
-pos_hnf1b\)</span>start Mb, which is within the support interval.</p>
+<p>The support interval ranges from 83.647144 to 84.401384 Mb. Hnf1b is
+located on chromosome 11 at 83.850063 Mb, which is within the support
+interval.</p>
 </div>
 </div>
 </div>
@@ -1531,8 +1531,8 @@ any links that you are not going to use.
   "url": "https://carpentries.github.io/workbench-template-rmd/instructor/map-one-eqtl.html",
   "identifier": "https://carpentries.github.io/workbench-template-rmd/instructor/map-one-eqtl.html",
   "dateCreated": "2024-11-07",
-  "dateModified": "2024-11-27",
-  "datePublished": "2024-11-27"
+  "dateModified": "2024-11-29",
+  "datePublished": "2024-11-29"
 }
 
   </script><script>
