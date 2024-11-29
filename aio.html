@@ -1366,7 +1366,7 @@ any links that you are not going to use.
 <h3 class="card-title">Objectives</h3>
 <ul>
 <li>Review the steps in QTL mapping.</li>
-<li>To run a QTL analysis for expression data.</li>
+<li>Run a QTL analysis for expression data.</li>
 </ul>
 </div>
 </div>
@@ -2086,7 +2086,7 @@ for both the untransformed and log-transformed insulin values.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>The log-transformed data has a higher LOD score on chromosome 11.
 However, the untransformed data has a higher LOD on chromosome 17.</p>
@@ -2164,7 +2164,7 @@ function to plot the Hnf1b genome scan.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb63">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2355,7 +2355,7 @@ interval.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb73">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2413,7 +2413,7 @@ the <code>annot</code> object.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb74">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2532,7 +2532,7 @@ for insulin tAUC and Hnf1b.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
   <h4 class="accordion-header" id="headingSolution5"> Show me the solution </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
 <div class="accordion-body">
 <p>In the Insulin tAUC allele effects, the A/J, C57BL/6J, 129S1/SvmJ,
 and NOD/ShiLtJ alleles contribute to higher insulin tAUC.</p>
@@ -3530,7 +3530,7 @@ challenge blocks</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Output </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3557,7 +3557,7 @@ challenge blocks</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>You can add a line with at least three colons and a
 <code>solution</code> tag.</p>
@@ -3710,11 +3710,12 @@ expression is an important mechanism enabling genetic variants to affect
 complex traits. Mediation analysis can identify a causal chain from
 genetic variants to molecular and clinical phenotypes. The graphic below
 shows complete mediation, in which a predictor variable does not
-directly impact the response variable, but does directly the mediator.
-The mediator has a direct impact on the response variable. We would
-observe the relationship between predictor and response, not knowing
-that a mediator intervenes in this relationship.</p>
-<p><img src="fig/complete-mediation.png" alt="In complete mediation an independent (predictor) variable influences the dependent (response) variable indirectly through a mediator variable." class="figure">
+directly impact the response variable. Rather, it directly influences
+the mediator (path a). The mediator has a direct impact on the response
+variable (path b). We would see (path c) the relationship between
+predictor and response, not knowing that a mediator intervenes in this
+relationship.</p>
+<p><img src="fig/mediation-analysis.png" alt="In complete mediation an independent (predictor) variable influences the dependent (response) variable indirectly through a mediator variable." class="figure">
 Mediation analysis is widely used in the social sciences including
 psychology. In biomedicine, mediation analysis has been employed to
 investigate how gene expression mediates the effects of genetic variants
@@ -3723,7 +3724,7 @@ on complex phenotypes and disease.</p>
 expression of gene 2 through a mediator, gene 1. The SNP regulates
 expression of gene 1 in cis, and expression of gene 1 influences
 expression of gene 2 in trans.</p>
-<p><img src="fig/mediator-gene1.png" alt="A non-coding SNP affects expression of gene 1 in cis. Gene 1 mediates expression of gene 2." class="figure">
+<p><img src="fig/mediation-trans-noncoding-SNP.png" alt="A non-coding SNP affects expression of gene 1 in cis. Gene 1 mediates expression of gene 2." class="figure">
 Instead of the expression of one gene impacting another, expression of
 gene 1 in the graphic above could impact a physiological phenotype like
 blood glucose. Expression of gene 1 would mediate the relationship
