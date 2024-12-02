@@ -131,9 +131,13 @@ expr_covar = subset(covar, mouse %in% rownames(raw))
 expr_covar = expr_covar[match(rownames(raw), expr_covar$mouse),]
 ```
 
-In order to create the DESeq2 object, we will need to transpose (`t()`) the expression data so that the mouse IDs (samples) are moved to the columns. This 
-is because DESeq2 requires that the samples be in columns and the genes in rows. We will also tell DESeq2 what the design variables are for our data, although they are not used in this case. These would be used if we were searching for
-differentially expressed genes. We specify no design with `design = ~ 1`.
+In order to create the DESeq2 object, we will need to transpose (using `t()`) 
+the expression data so that the mouse IDs (samples) are moved to the columns.
+This is because DESeq2 requires that the samples be in columns and the genes in 
+rows. We will also tell DESeq2 what the design variables are for our data, 
+although they are not used in this case. These would be used if we were 
+searching for differentially expressed genes. We specify no design with 
+`design = ~ 1`.
 
 
 ``` r
@@ -146,8 +150,8 @@ dds  = DESeqDataSetFromMatrix(countData = t(round(raw)),
 converting counts to integer mode
 ```
 
-The object `dds` contains the counts for all mice with expression data. Genes
-are in rows and samples are in columns.
+The object `dds` contains the counts for all mice that have expression data. 
+Genes are in rows and samples are in columns.
 
 
 ``` r
