@@ -362,7 +362,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Mapping A Single Gene Expression Trait</h1>
-        <p>Last updated on 2024-11-29 |
+        <p>Last updated on 2024-12-02 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/map-one-eqtl.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -521,11 +521,11 @@ data.</p>
 <span><span class="va">expr_covar</span> <span class="op">=</span> <span class="va">expr_covar</span><span class="op">[</span><span class="fu">match</span><span class="op">(</span><span class="fu">rownames</span><span class="op">(</span><span class="va">raw</span><span class="op">)</span>, <span class="va">expr_covar</span><span class="op">$</span><span class="va">mouse</span><span class="op">)</span>,<span class="op">]</span></span></code></pre>
 </div>
 <p>In order to create the DESeq2 object, we will need to transpose
-(<code>t()</code>) the expression data so that the mouse IDs (samples)
-are moved to the columns. This is because DESeq2 requires that the
-samples be in columns and the genes in rows. We will also tell DESeq2
-what the design variables are for our data, although they are not used
-in this case. These would be used if we were searching for
+(using <code>t()</code>) the expression data so that the mouse IDs
+(samples) are moved to the columns. This is because DESeq2 requires that
+the samples be in columns and the genes in rows. We will also tell
+DESeq2 what the design variables are for our data, although they are not
+used in this case. These would be used if we were searching for
 differentially expressed genes. We specify no design with
 <code>design = ~ 1</code>.</p>
 <div class="codewrapper sourceCode" id="cb13">
@@ -541,8 +541,8 @@ differentially expressed genes. We specify no design with
 </h3>
 <pre class="output" tabindex="0"><code>converting counts to integer mode</code></pre>
 </div>
-<p>The object <code>dds</code> contains the counts for all mice with
-expression data. Genes are in rows and samples are in columns.</p>
+<p>The object <code>dds</code> contains the counts for all mice that
+have expression data. Genes are in rows and samples are in columns.</p>
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1599,8 +1599,8 @@ any links that you are not going to use.
   "url": "https://carpentries.github.io/workbench-template-rmd/map-one-eqtl.html",
   "identifier": "https://carpentries.github.io/workbench-template-rmd/map-one-eqtl.html",
   "dateCreated": "2024-11-07",
-  "dateModified": "2024-11-29",
-  "datePublished": "2024-11-29"
+  "dateModified": "2024-12-02",
+  "datePublished": "2024-12-02"
 }
 
   </script><script>
