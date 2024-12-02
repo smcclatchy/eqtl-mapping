@@ -1,0 +1,274 @@
+---
+title: "plot-phys-phenotypes"
+output: html_document
+date: '2022-09-09'
+---
+```{r load_libraries}
+library(tidyverse)
+```
+
+## Physiological Phenotypes
+
+The complete data used in these analyses are available from 
+[Data Dryad](https://doi.org/10.5061/dryad.pj105). 
+
+Load in the clinical phenotypes.
+
+```{r load_phenos}
+# load the data
+load("../data/attie_DO500_clinical.phenotypes.RData")
+```
+
+See the [data dictionary](../data/Attie-232_Attie_DO_Islets-dictionary.csv) to 
+see a description of each of these phenotypes.  
+
+#### Phenotype Ranges
+
+```{r pheno_ranges, warning=FALSE}
+tmp = pheno_clin %>%
+  select(num_islets:weight_10wk) %>%
+  summarize_all(funs(min, max), na.rm = TRUE) %>%
+  gather(phenotype, value) %>%
+  mutate(phenotype = str_replace(phenotype, "_min", ".min")) %>%
+  mutate(phenotype = str_replace(phenotype, "_max", ".max")) %>%
+  separate(phenotype, c("phenotype", "stat"), sep = "\\.") %>%
+  mutate(stat = factor(stat, levels = c("min", "max"))) %>%
+  spread(key = stat, value = value)
+kable(tmp, caption = "Phenotype Ranges")
+```
+
+```{r pheno_boxplot, warning=FALSE}
+pheno_clin %>%
+  select(num_islets:weight_10wk) %>%
+  gather(phenotype, value) %>%
+  ggplot(aes(x = phenotype, y = value)) +
+    geom_boxplot() +
+    scale_y_log10() +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
+    labs(title = "Distribution of Log Transformed Phenotypes")
+```
+
+Subset the phenotypes to include only those analyzed in the paper.
+
+```{r convert_factors}
+# convert sex and DO wave (batch) to factors
+pheno_clin$sex = factor(pheno_clin$sex)
+pheno_clin$DOwave = factor(pheno_clin$DOwave)
+```
+
+### Figure 1 Boxplots
+
+```{r bw_boxplot, warning=FALSE}
+pheno_clin %>%
+  select(mouse, sex, starts_with("weight")) %>%
+  gather(week, value, -mouse, -sex) %>%
+  separate(week, c("tmp", "week")) %>%
+  mutate(week = factor(week, levels = c("2wk", "6wk", "10wk"))) %>%
+  ggplot(aes(week, value, fill = sex)) +
+    geom_boxplot() +
+    scale_y_log10() +
+    labs(title = "Body Weight", y = "Weight")
+```
+
+```{r glucose_boxplot, warning=FALSE}
+pheno_clin %>%
+  select(mouse, sex, starts_with("Glu")) %>%
+  select(mouse, sex, ends_with("wk")) %>%
+  gather(week, value, -mouse, -sex) %>%
+  separate(week, c("tmp", "week")) %>%
+  mutate(week = factor(week, levels = c("6wk", "10wk", "14wk"))) %>%
+  ggplot(aes(week, value, fill = sex)) +
+    geom_boxplot() +
+    scale_y_log10() +
+    labs(title = "Glucose", y = "Glucose")
+```
+```{r insulin_boxplot, warning=FALSE}
+pheno_clin %>%
+  select(mouse, sex, starts_with("Ins")) %>%
+  select(mouse, sex, ends_with("wk")) %>%
+  gather(week, value, -mouse, -sex) %>%
+  separate(week, c("tmp", "week")) %>%
+  mutate(week = factor(week, levels = c("6wk", "10wk", "14wk"))) %>%
+  ggplot(aes(week, value, fill = sex)) +
+    geom_boxplot() +
+    scale_y_log10() +
+    labs(title = "Insulin", y = "Insulin")
+```
+
+```{r trig_boxplot, warning=FALSE}
+pheno_clin %>%
+  select(mouse, sex, starts_with("TG")) %>%
+  select(mouse, sex, ends_with("wk")) %>%
+  gather(week, value, -mouse, -sex) %>%
+  separate(week, c("tmp", "week")) %>%
+  mutate(week = factor(week, levels = c("6wk", "10wk", "14wk"))) %>%
+  ggplot(aes(week, value, fill = sex)) +
+    geom_boxplot() +
+    scale_y_log10() +
+    labs(title = "TG", y = "TG")
+```
+
+```{r fig1_boxplots, warning=FALSE}
+pheno_clin %>%
+  select(mouse, sex, num_islets:Ins_tAUC, food_ave) %>%
+  gather(phenotype, value, -mouse, -sex) %>%
+  ggplot(aes(sex, value, fill = sex)) +
+    geom_boxplot() +
+    scale_y_log10() +
+    facet_wrap(~phenotype, scales = "free_y")
+```
+
+### QA/QC
+
+#### Proportion Missing Data
+
+```{r pheno_missing_data, warning=FALSE}
+tmp = pheno_clin %>% 
+  mutate_all(is.na) %>% 
+  summarize_all(mean) %>%
+  gather(phenotype, value)
+kable(tmp, caption = "Proportion of Missing Data")
+```
+
+The phenotypes that we're mapping (on the right) are mostly free of missing 
+values. The highest are `Ins_per_islet` and WPIC at 3.6%.
+
+
+Log transform and standardize each phenotype. Consider setting points that are 
+more than 5 std. dev. from the mean to NA. Only do this if the final 
+distribution doesn't look skewed.
+
+```{r pheno_std, warning=FALSE}
+pheno_clin_log = pheno_clin %>%
+                   mutate_if(is.numeric, log)
+pheno_clin_std = pheno_clin_log %>%
+                   select(mouse, num_islets:weight_10wk) %>%
+                   mutate_if(is.numeric, scale)
+pheno_clin_std %>%
+  select(num_islets:weight_10wk) %>%
+  gather(phenotype, value) %>%
+  ggplot(aes(x = phenotype, y = value)) +
+    geom_boxplot() +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
+    labs(title = "Distribution of Standardized Phenotypes")
+```
+
+```{r outliers, warning=FALSE}
+outliers = pheno_clin_std %>% 
+              gather(pheno, value, -mouse) %>%
+              filter(abs(value) > 5)
+kable(outliers, caption = "Potential Outliers")
+```
+
+### All Pairs
+
+```{r pheno_all_pairs_include, warning=FALSE, out.width= "100%"}
+knitr::include_graphics("../fig/rmd-02-pheno_all_pairs-1.png")
+```
+```{r pheno_all_pairs, warning=FALSE, fig.width=15, fig.height=15}
+ggpairs(select(pheno_clin_log, num_islets:weight_10wk)) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+```
+
+The HOMA phenotypes have odd distributions.
+
+```{r homair_vs_homab, warning=FALSE}
+saveRDS(pheno_clin_log, 
+        file = "../data/pheno_clin_log_outliers_removed.rds")
+ggplot(pheno_clin_log, aes(HOMA_IR_0min, HOMA_B_0min, color = DOwave, shape = sex)) +
+  geom_point()
+```
+
+There doesn't appear to be a batch effect, but there are a large number of low 
+values. Is there some lower bound to the HOMA measurements?
+
+
+### Tests for sex, wave and diet_days.
+
+```{r sex_diet_wave_anova}
+tmp = pheno_clin_log %>%
+        select(mouse, sex, DOwave, diet_days, num_islets:weight_10wk) %>%
+        gather(phenotype, value, -mouse, -sex, -DOwave, -diet_days) %>%
+        group_by(phenotype) %>%
+        nest()
+mod_fxn = function(df) {
+  lm(value ~ sex + DOwave + diet_days, data = df)
+}
+tmp = tmp %>%
+  mutate(model = map(data, mod_fxn)) %>%
+  mutate(summ = map(model, tidy)) %>%
+  unnest(summ)
+# kable(tmp, caption = "Effects of Sex, Wave & Diet Days on Phenotypes")
+```
+
+```{r sex_diet_wave_effects}
+tmp %>%
+  filter(term != "(Intercept)") %>%
+  mutate(neg.log.p = -log10(p.value)) %>%
+  ggplot(aes(term, neg.log.p)) +
+    geom_point() +
+    facet_wrap(~phenotype) +
+    labs(title = "Significance of Sex, Wave & Diet Days on Phenotypes") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+rm(tmp)
+```
+
+### Weight vs. Food Intake
+
+```{r bw_vs_food, warning=FALSE}
+pheno_clin_log %>%
+  select(mouse, sex, food_ave:weight_10wk) %>%
+  gather(phenotype, value, -mouse, -sex, -food_ave) %>%
+  separate(phenotype, c("phenotype", "week")) %>%
+  mutate(week = factor(week, levels = c("2wk", "6wk", "10wk"))) %>%
+  ggplot(aes(food_ave, value, color = sex)) +
+    geom_point() +
+    geom_smooth(method = "lm") +
+    labs(title = "Food Intake vs. Body Weight", y = "log(Body Weight)") + 
+    facet_wrap(~week)
+```
+
+```{r bw_sex_food_model}
+model_fxn = function(df) { lm(value ~ sex*food_ave, data = df) }
+tmp = pheno_clin_log %>%
+  select(mouse, sex, food_ave:weight_10wk) %>%
+  gather(phenotype, value, -mouse, -sex, -food_ave) %>%
+  separate(phenotype, c("phenotype", "week")) %>%
+  mutate(week = factor(week, levels = c("2wk", "6wk", "10wk"))) %>%
+  group_by(week) %>%
+  nest() %>%
+  mutate(model = map(data, model_fxn)) %>%
+  mutate(summ = map(model, tidy)) %>%
+  unnest(summ) %>%
+  filter(term != "(Intercept)") %>%
+  mutate(p.adj = p.adjust(p.value))
+# kable(tmp, caption = "Effects of Sex and Food Intake on Body Weight")
+```
+
+### Correlation Plots
+
+Females
+
+```{r female_corr_plot, fig.width=15, fig.height=15, message=FALSE, warning=FALSE}
+tmp = pheno_clin_log %>% 
+        filter(sex == "F") %>%
+        select(num_islets:weight_10wk)
+tmp = cor(tmp, use = "pairwise")
+corrplot.mixed(tmp, upper = "ellipse", lower = "number", 
+               main = "Female Clinical Phenotype Correlation")
+corrplot.mixed(tmp, upper = "ellipse", lower = "number", 
+               main = "Female Clinical Phenotype Correlation")
+```
+
+Males
+
+```{r male_corr_plot, fig.width=15, fig.height=15, warning=FALSE, message=FALSE}
+tmp = pheno_clin_log %>% 
+        filter(sex == "M") %>%
+        select(num_islets:weight_10wk)
+tmp = cor(tmp, use = "pairwise")
+corrplot.mixed(tmp, upper = "ellipse", lower = "number", 
+               main = "Male Clinical Phenotype Correlation")
+corrplot.mixed(tmp, upper = "ellipse", lower = "number", 
+               main = "Male Clinical Phenotype Correlation")
+```

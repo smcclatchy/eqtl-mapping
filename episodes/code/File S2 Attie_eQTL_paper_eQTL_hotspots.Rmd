@@ -1,0 +1,829 @@
+---
+title: "Attie eQTL Paper: eQTL Hotspots"
+author: "Daniel Gatti"
+output:
+  html_document:
+    code_folding: hide
+    collapsed: no
+    toc: yes
+    toc_float: yes
+---
+
+## Setup
+
+Load in libraries and set working directories.
+
+```{r setup,warning=FALSE,results='hide'}
+library(tidyverse)
+library(qtl2)
+library(qtl2convert)
+library(qtl2db)
+library(GGally)
+library(broom)
+library(knitr)
+library(corrplot)
+library(RColorBrewer)
+
+data.dir   = "D:/Attie_DO_Islet_RNASeq/data/"
+result.dir = "D:/Attie_DO_Islet_RNASeq/results/"
+fig.dir    = "D:/Attie_DO_Islet_RNASeq/figures/"
+script.dir = "D:/Attie_DO_Islet_RNASeq/scripts/"
+
+source(paste0(script.dir, "gg_transcriptome_map.R"))
+```
+
+### Load eQTL Data
+
+The data used in these analyses are available from Data Dryad at https://doi.org/10.5061/dryad.pj105.
+
+Load in the clinical phenotypes.
+
+```{r read_pheno,warning=FALSE,results='hide'}
+load(paste0(data.dir, "clinical/pheno_clin_v6.RData"))
+pheno2keep = read_csv(paste0(data.dir, "clinical/clinical phenotypes for eQTL paper.csv"))
+pheno_clin = pheno_clin[,c(1:11, 166, which(colnames(pheno_clin) %in% pheno2keep$short_name))]
+pheno_clin_dict = pheno_clin_dict[pheno_clin_dict$short_name %in% colnames(pheno_clin),]
+pheno_clin_dict$pheno_type[pheno_clin_dict$name == "diet_days"] = "demographic"
+is.pheno = pheno_clin_dict$pheno_type == "clinical" | pheno_clin_dict$pheno_type == "body weight"
+pheno_clin$sex = factor(pheno_clin$sex)
+pheno_clin$DOwave = factor(pheno_clin$DOwave)
+stopifnot(colnames(pheno_clin) %in% pheno_clin_dict$short_name)
+```
+
+Load in the genoprobs and markers.
+
+```{r load_genoprobs,warning=FALSE,message=FALSE}
+genoprobs = readRDS(paste0(data.dir, "genoprobs/attie_DO500_genoprobs_v5.rds"))
+markers = readRDS(paste0(data.dir, "genoprobs/marker_grid_0.02cM_plus.rds"))
+kinship.file = paste0(data.dir, "kinship.rds")
+K = NULL
+if(file.exists(kinship.file)) {
+  K = readRDS(file = kinship.file)
+} else {
+  K = calc_kinship(probs = genoprobs, type = "loco", cores = 4)
+  saveRDS(K, file = kinship.file)
+}
+map = map_df_to_list(map = markers, pos_column = "pos")
+```
+
+eQTL mapping was run on the cluster. Load in the LOD peaks over 6.
+
+```{r lod_summary,warning=FALSE,message=FALSE}
+load(paste0(data.dir, "DO378_islet_v4.RData"))
+annot.samples$Mouse.ID = gsub("[^[:alnum:]]", "", annot.samples$Mouse.ID)
+annot.mrna = annot.mrna %>% dplyr::rename(ensembl = id)
+lod_summary = read.csv(paste0(result.dir, "attie_DO378_additive_qtl_summary_thresh_6.csv"))
+ensembl = get_ensembl_genes()
+id    = ensembl$gene_id
+chr   = seqnames(ensembl)
+start = start(ensembl) * 1e-6
+end   = end(ensembl)   * 1e-6
+df = data.frame(ensembl = id, gene_chr = chr, gene_start = start, gene_end = end,
+     stringsAsFactors = F)
+colnames(lod_summary)[colnames(lod_summary) == "annot.id"] = "ensembl"
+colnames(lod_summary)[colnames(lod_summary) == "chrom"] = "qtl_chr"
+colnames(lod_summary)[colnames(lod_summary) == "pos"] = "qtl_pos"
+colnames(lod_summary)[colnames(lod_summary) == "lod"] = "qtl_lod"
+lod_summary = left_join(lod_summary, df, by = "ensembl")
+lod_summary = mutate(lod_summary, gene_chr = factor(gene_chr, levels = c(1:19, "X")),
+                     qtl_chr = factor(qtl_chr, levels = c(1:19, "X")))
+rm(df)
+```
+
+### Plot Transcriptome Map
+
+```{r fig.width=10,fig.height=10,warning=FALSE,message=FALSE}
+lod_summary = mutate(lod_summary, cis = (gene_chr == qtl_chr) & (abs(gene_start - qtl_pos) < 4))
+out.plot = ggtmap(data = lod_summary %>% filter(qtl_lod >= 7.18), cis.points = TRUE, cis.radius = 4)
+pdf(paste0(fig.dir, "transcriptome_map.pdf"), width = 10, height = 10)
+out.plot
+dev.off()
+out.plot
+```
+
+### QTL Density Plot
+
+```{r trans_eqtl_sliding_window,warning=FALSE,message=FALSE}
+breaks = matrix(c(seq(0, 200, 4), seq(1, 201, 4), seq(2, 202, 4), seq(3, 203, 4)), ncol = 4)
+tmp = as.list(1:ncol(breaks)) 
+for(i in 1:ncol(breaks)) {
+tmp[[i]] = lod_summary %>%
+             filter(qtl_lod >= 7.18 & cis == FALSE) %>%
+             arrange(qtl_chr, qtl_pos) %>%
+             group_by(qtl_chr) %>%
+             mutate(win = cut(qtl_pos, breaks = breaks[,i])) %>%
+             group_by(qtl_chr, win) %>% 
+             summarize(cnt = n()) %>%
+             separate(win, into = c("other", "prox", "dist")) %>%
+             mutate(prox = as.numeric(prox), 
+                    dist = as.numeric(dist), 
+                    mid = 0.5 * (prox + dist)) %>%
+             select(qtl_chr, mid, cnt)
+}
+
+trans = bind_rows(tmp[[1]], tmp[[1]], tmp[[3]], tmp[[4]])
+rm(tmp)
+
+out.plot = ggplot(trans, aes(mid, cnt)) +
+             geom_line() +
+             geom_hline(aes(yintercept = 100), linetype = 2, color = "grey50") +
+             facet_grid(.~qtl_chr, scales = "free") +
+             theme(panel.background = element_blank(),
+             panel.border = element_rect(fill = 0, color = "grey70"),
+             panel.spacing = unit(0, "lines"),
+             axis.text.x = element_text(angle = 90)) +
+             labs(title = "trans-eQTL Histogram", x = "Mb", y = "Number of Transcripts")
+pdf(paste0(fig.dir, "trans_eqtl_density.pdf"), width = 10, height = 8)
+print(out.plot)
+dev.off()
+out.plot
+```
+
+```{r cis_eqtl_sliding_window,warning=FALSE,message=FALSE}
+breaks = matrix(c(seq(0, 200, 4), seq(1, 201, 4), seq(2, 202, 4), seq(3, 203, 4)), ncol = 4)
+tmp = as.list(1:ncol(breaks)) 
+for(i in 1:ncol(breaks)) {
+tmp[[i]] = lod_summary %>%
+             filter(qtl_lod >= 7.18 & cis == TRUE) %>%
+             arrange(qtl_chr, qtl_pos) %>%
+             group_by(qtl_chr) %>%
+             mutate(win = cut(qtl_pos, breaks = breaks[,i])) %>%
+             group_by(qtl_chr, win) %>% 
+             summarize(cnt = n()) %>%
+             separate(win, into = c("other", "prox", "dist")) %>%
+             mutate(prox = as.numeric(prox), 
+                    dist = as.numeric(dist), 
+                    mid = 0.5 * (prox + dist)) %>%
+             select(qtl_chr, mid, cnt)
+}
+
+cis = bind_rows(tmp[[1]], tmp[[2]], tmp[[3]], tmp[[4]])
+rm(tmp1, tmp2, tmp3, tmp4)
+
+out.plot = ggplot(cis, aes(mid, cnt)) +
+             geom_line(color = "#4286f4") +
+             geom_hline(aes(yintercept = 100), linetype = 2, color = "grey50") +
+             facet_grid(.~qtl_chr, scales = "free") +
+             theme(panel.background = element_blank(),
+                   panel.border = element_rect(fill = 0, color = "grey70"),
+                   panel.spacing = unit(0, "lines"),
+                   axis.text.x = element_text(angle = 90)) +
+           labs(title = "cis-eQTL Histogram", x = "Mb", y = "Number of Transcripts")
+pdf(paste0(fig.dir, "cis_eqtl_density.pdf"), width = 10, height = 8)
+print(out.plot)
+dev.off()
+out.plot
+```
+
+
+```{r num_cis_eqtl}
+tmp = lod_summary %>%
+        filter(qtl_lod >= 7.18) %>%
+        group_by(cis) %>%
+        count()
+kable(tmp, caption = "Number of cis- and trans-eQTL")
+rm(tmp)
+```
+
+## Islet RNASeq eQTL Hotspots
+
+### Select eQTL Hotspots
+
+Select trans-eQTL hotspots with more than 100 genes at the 7.18 LOD thresholds. Retain the maximum per chromosome.
+
+```{r select_eqtl_hotspots}
+hotspots = trans %>%
+             group_by(qtl_chr) %>%
+             filter(cnt >= 100) %>%
+             summarize(center = median(mid)) %>%
+             mutate(proximal = center - 2, distal = center + 2)
+kable(hotspots, caption = "Islet trans-eQTL hotspots")
+```
+
+
+```{r select_cis_eqtl_hotspots}
+cis.hotspots = cis %>%
+             group_by(qtl_chr) %>%
+             filter(cnt >= 100) %>%
+             summarize(center = median(mid)) %>%
+             mutate(proximal = center - 2, distal = center + 2)
+kable(cis.hotspots, caption = "Islet cis-eQTL hotspots")
+```
+
+Given the hotspot locations, retain all genes with LOD > 7.18 and trans-eQTL within +/- 4Mb of the mid-point of the hotspot.
+
+```{r select_eqtl_genes}
+hotspot.genes = as.list(hotspots$qtl_chr)
+names(hotspot.genes) = hotspots$qtl_chr
+for(i in 1:nrow(hotspots)) {
+  hotspot.genes[[i]] = lod_summary %>% 
+                         filter(qtl_lod >= 7.18) %>%
+                         filter(qtl_chr == hotspots$qtl_chr[i] & 
+                           qtl_pos >= hotspots$proximal[i] & 
+                           qtl_pos <= hotspots$distal[i] &
+                           (gene_chr != hotspots$qtl_chr[i] |
+                           (gene_chr == hotspots$qtl_chr[i] &
+                            gene_start > hotspots$distal[i] + 1 &
+                            gene_end < hotspots$proximal[i] - 1)))
+  write_csv(hotspot.genes[[i]], path = paste0(result.dir, "chr", names(hotspot.genes)[i], "_hotspot_genes.csv"))
+}
+```
+
+Number of genes in each hotspot.
+
+```{r num_hotspot_genes}
+hotspots = data.frame(hotspots, count = sapply(hotspot.genes, nrow))
+kable(hotspots, caption = "Number of genes per hotspot")
+```
+
+```{r select_cis_eqtl_genes}
+cis.hotspot.genes = as.list(cis.hotspots$qtl_chr)
+names(cis.hotspot.genes) = cis.hotspots$qtl_chr
+for(i in 1:nrow(cis.hotspots)) {
+  cis.hotspot.genes[[i]] = lod_summary %>% 
+                             select(ensembl, marker.id, qtl_chr, qtl_pos, qtl_lod) %>%
+                             filter(qtl_lod >= 7.18) %>%
+                             filter(qtl_chr == cis.hotspots$qtl_chr[i] & 
+                                    qtl_pos >= cis.hotspots$proximal[i] & 
+                                    qtl_pos <= cis.hotspots$distal[i])
+  write_csv(cis.hotspot.genes[[i]], path = paste0(result.dir, "chr", names(cis.hotspot.genes)[i], "_cis_hotspot_genes.csv"))
+}
+```
+
+Number of genes in each cis-hotspot.
+
+```{r num_cis_hotspot_genes}
+cis.hotspots = data.frame(cis.hotspots, count = sapply(cis.hotspot.genes, nrow))
+kable(cis.hotspots, caption = "Number of genes per cis-hotspot")
+```
+
+Get the expression of genes that map to each hotspot.
+
+```{r get_hotspot_genes, warning=FALSE}
+for(i in 1:length(hotspot.genes)) {
+  tmp = data.frame(ensembl = hotspot.genes[[i]]$ensembl, t(expr.mrna[,hotspot.genes[[i]]$ensembl]))
+  hotspot.genes[[i]] = left_join(hotspot.genes[[i]], tmp, by = "ensembl")
+  write_csv(hotspot.genes[[i]], path = paste0(result.dir, "chr", names(hotspot.genes)[i], "_hotspot_genes.csv"))
+}
+```
+
+### Hotspot Gene Correlation
+
+```{r hotspot_gene_corr,fig.width=10,fig.height=10}
+breaks = -100:100/100
+colors = colorRampPalette(rev(brewer.pal(11, "Spectral")))(length(breaks) - 1)
+for(i in 1:length(hotspot.genes)) {
+  chr = names(hotspot.genes)[i]
+  tmp = hotspot.genes[[i]] %>%
+    select(starts_with("DO")) %>%
+    t() %>%
+    as.matrix() %>%
+    cor()
+  dimnames(tmp) = list(hotspot.genes[[i]]$ensembl, hotspot.genes[[i]]$ensembl)
+  side.colors = cut(hotspot.genes[[i]]$qtl_lod, breaks = 100)
+  side.colors = colorRampPalette(rev(brewer.pal(9, "YlOrRd")))(length(levels(side.colors)))[as.numeric(side.colors)]
+  names(side.colors) = rownames(tmp)
+  pdf(paste0(fig.dir, "hotspot_gene_cor_chr", chr, ".pdf"), width = 10, height = 10)
+  heatmap(tmp, symm = TRUE, scale = "none", main = paste("Chr", chr, "Gene Correlation"), breaks = breaks, col = colors, RowSideColors = side.colors, ColSideColors = side.colors)
+  dev.off()
+  heatmap(tmp, symm = TRUE, scale = "none", main = paste("Chr", chr, "Gene Correlation"), breaks = breaks, col = colors, RowSideColors = side.colors, ColSideColors = side.colors)
+}
+```
+
+### Hotspot Principal Components
+
+```{r calc_hotspot_pcs,warning=FALSE}
+hotspot.pcs = as.list(names(hotspot.genes))
+names(hotspot.pcs) = names(hotspot.genes)
+do.wave = pheno_clin[rownames(expr.mrna),"DOwave",drop=F]
+wave.col = as.numeric(as.factor(do.wave[,1]))
+for(i in 1:length(hotspot.genes)) {
+  tmp = hotspot.genes[[i]] %>%
+          select(starts_with("DO")) %>%
+          as.matrix() %>%
+          t() %>%
+          prcomp()
+  hotspot.pcs[[i]] = tmp$x
+  tmp = gather(data.frame(mouse = rownames(hotspot.pcs[[i]]), hotspot.pcs[[i]]), pc, value, -mouse)
+  tmp = left_join(tmp, pheno_clin %>% select(mouse, sex, DOwave, diet_days), by = "mouse")
+  print(tmp %>%
+    filter(pc %in% paste0("PC", 1:4)) %>%
+    mutate(DOwave = factor(DOwave)) %>%
+    ggplot(aes(DOwave, value, fill = sex)) +
+    geom_boxplot() +
+    facet_grid(pc~.) +
+    labs(title = paste("Chr", names(hotspot.genes)[i], "Hotspot")))
+}
+```
+
+### Hotspot PC1 QTL Mapping
+
+```{r hotspot_qtl_mapping}
+hotspot.pc1 = sapply(hotspot.pcs, function(z) { z[,1] })
+rownames(hotspot.pc1) = rownames(hotspot.pcs[[1]])
+hotspot.pc2 = sapply(hotspot.pcs, function(z) { z[,2] })
+rownames(hotspot.pc2) = rownames(hotspot.pcs[[1]])
+saveRDS(hotspot.pc1, file = paste0(result.dir, "hotspot_pc1.rds"))
+saveRDS(hotspot.pc2, file = paste0(result.dir, "hotspot_pc2.rds"))
+covar = model.matrix(~sex + DOwave, data = pheno_clin)[,-1]
+rownames(covar) = pheno_clin$mouse
+qtl.file = paste0(result.dir, "hotspot_pc1_qtl.rds")
+qtl1 = NULL
+if(!file.exists(qtl.file)) {
+  qtl1 = scan1(genoprobs = genoprobs, pheno = hotspot.pc1, kinship = K, addcovar = covar, cores = 2)
+  saveRDS(qtl1, file = qtl.file)
+} else {
+  qtl1 = readRDS(qtl.file)
+}
+
+qtl.file = paste0(result.dir, "hotspot_pc2_qtl.rds")
+qtl2 = NULL
+if(!file.exists(qtl.file)) {
+  qtl2 = scan1(genoprobs = genoprobs, pheno = hotspot.pc2, kinship = K, addcovar = covar, cores = 2)
+  saveRDS(qtl2, file = paste0(result.dir, "hotspot_pc2_qtl.rds"))
+} else {
+  qtl2 = readRDS(qtl.file)
+}
+```
+
+
+### Hotspot PC1 QTL Plots
+
+```{r hotspot_pc1_qtl_plots}
+for(i in 1:ncol(qtl1)) {
+  chr = colnames(qtl1)[i]
+  pdf(paste0(fig.dir, "hotspot_pc1_qtl_chr", chr, ".pdf"), width = 10, height = 8)
+  plot_scan1(x = qtl1, map = map, lodcolumn = i, main = paste("Chr", chr, "Hotspot PC 1"))
+  abline(h = 7.2, col = 2, lwd = 2)
+  dev.off()
+  plot_scan1(x = qtl1, map = map, lodcolumn = i, main = paste("Chr", chr, "Hotspot PC 1"))
+  abline(h = 7.2, col = 2, lwd = 2)
+}
+```
+
+### Hotspot PC1 Effect Plots
+
+```{r hotspot_pc1_effect_plots}
+for(i in 1:ncol(qtl1)) {
+  chr = colnames(qtl1)[i]
+  blup.filename = paste0(result.dir, "hotspot_pc1_blup_chr", chr, ".rds")
+  blup = NULL
+  if(file.exists(blup.filename)) {
+    blup = readRDS(blup.filename)
+  } else {
+    blup = scan1blup(genoprobs = genoprobs[,chr], pheno = hotspot.pc1[,i,drop = FALSE], kinship = K[[chr]], addcovar = covar, cores = 4)
+    saveRDS(blup, file = blup.filename)
+  }
+  pdf(paste0(fig.dir, "hotspot_PC1_blup_chr", chr, ".pdf"), width = 10, height = 8)
+  plot_coefCC(blup, map = map, scan1_output = qtl1[,i,drop=FALSE], main = paste("Chr", chr, "Hotspot PC 1"))
+  dev.off()
+  plot_coefCC(blup, map = map, scan1_output = qtl1[,i,drop=FALSE], main = paste("Chr", chr, "Hotspot PC 1"))
+}
+```
+
+### Hotspot PC2 QTL Plots
+
+```{r hotspot_pc2_qtl_plots}
+for(i in 1:ncol(qtl2)) {
+  pdf(paste0(fig.dir, "hotspot_pc2_qtl_chr", chr, ".pdf"), width = 10, height = 8)
+  plot_scan1(x = qtl2, map = map, lodcolumn = i, main = paste("Chr", colnames(qtl2)[i], "Hotspot PC 2"))
+  abline(h = 7.2, col = 2, lwd = 2)
+  dev.off()
+  plot_scan1(x = qtl2, map = map, lodcolumn = i, main = paste("Chr", colnames(qtl2)[i], "Hotspot PC 2"))
+  abline(h = 7.2, col = 2, lwd = 2)
+}
+```
+
+### Hotspot PC2 Effect Plots
+
+```{r hotspot_pc2_effect_plots}
+for(i in 1:ncol(qtl2)) {
+  chr = colnames(qtl2)[i]
+  blup.filename = paste0(result.dir, "hotspot_pc2_blup_chr", chr, ".rds")
+  blup = NULL
+  if(file.exists(blup.filename)) {
+    blup = readRDS(blup.filename)
+  } else {
+    blup = scan1blup(genoprobs = genoprobs[,chr], pheno = hotspot.pc2[,i,drop = FALSE], kinship = K[[chr]], addcovar = covar, cores = 4)
+    saveRDS(blup, file = blup.filename)
+  }
+  pdf(paste0(fig.dir, "hotspot_pc2_blup_chr", chr, ".pdf"), width = 10, height = 8)
+  plot_coefCC(blup, map = map, scan1_output = qtl2[,i,drop=FALSE], main = paste("Chr", colnames(qtl2)[i], "Hotspot PC 2"))
+  dev.off()
+  plot_coefCC(blup, map = map, scan1_output = qtl2[,i,drop=FALSE], main = paste("Chr", colnames(qtl2)[i], "Hotspot PC 2"))
+}
+```
+
+### Hotspot PC1 Sex Effects.
+
+```{r hotspot_pc1_sex_effects,warning=FALSE,message=FALSE}
+if(all(substring(colnames(hotspot.pc1), 1, 1) != "c")) {
+  colnames(hotspot.pc1) = paste0("chr", colnames(hotspot.pc1))
+}
+sex_fxn = function(df) { lm(value ~ sex + DOwave, data = df)}
+tmp = data.frame(mouse = rownames(hotspot.pc1), hotspot.pc1) %>%
+        left_join(y = select(pheno_clin, mouse, sex, DOwave), by = "mouse") %>%
+        gather(chr, value, -mouse, -sex, -DOwave) %>%
+        group_by(chr) %>%
+        nest() %>%
+        mutate(mod = map(.$data, sex_fxn))
+kable(tmp %>% 
+        mutate(summary = mod %>% map(tidy)) %>%
+        unnest(summary) %>%
+        filter(term == "sexM"))
+```
+
+### Hotspot QTL Peaks for PC! & PC2
+
+```{r pc1_qtl_peaks}
+pc1_peaks = find_peaks(scan1_output = qtl1, map = map, threshold = 10, prob = 0.95)
+write_csv(pc1_peaks, path = paste0(result.dir, "eQTL_hotspot_PC1_QTL_peaks.csv"))
+kable(pc1_peaks)
+```
+
+```{r pc2_qtl_peaks}
+pc2_peaks = find_peaks(scan1_output = qtl2, map = map, threshold = 7.2, prob = 0.95)
+write_csv(pc2_peaks, path = paste0(result.dir, "eQTL_hotspot_PC2_QTL_peaks.csv"))
+kable(pc2_peaks)
+```
+
+### Hotspot Mediation with PC1
+
+```{r hotspot_mediation,warning=FALSE,message=FALSE}
+hotspot.peaks = find_peaks(scan1_output = qtl1, map = map, threshold = 10)
+expr.df = data.frame(mouse = rownames(expr.mrna), expr.mrna)
+
+# Full model with all covariates and genoprobs.
+full_mod_fxn = function(data) { as.numeric(logLik(lm(pc1 ~ ., data = select(data, -mouse)))) }
+# Reduced model with all covariates except genoprobs.
+expr_mod_fxn = function(data) { as.numeric(logLik(lm(pc1 ~ ., data = select(data, -mouse, -(B:H))))) }
+
+mediator.file = paste0(result.dir, "mediators.rds")
+mediators = as.list(hotspot.peaks$chr)
+names(mediators) = hotspot.peaks$chr
+
+  mediation.thr = -6
+  mediation.dist = 5
+
+  for(i in 1:nrow(hotspot.peaks)) {
+    
+    # Get current chromosome.
+    curr.chr = hotspot.peaks$chr[i]
+    curr.pos = hotspot.peaks$pos[i]
+    # Get marker with maximum LOD.
+    max.mkr = map[[curr.chr]][which.min(abs(map[[curr.chr]] - hotspot.peaks$pos[i]))]
+    # Get genoprobs at marker with maxiumum LOD. NOTE: Remove column 1 to prevent multi-colinearity.
+    gp = genoprobs[[curr.chr]][,,names(max.mkr)]
+    gp = data.frame(mouse = rownames(gp), gp[,-1])
+    hs.pc1 = data.frame(mouse = rownames(hotspot.pc1), pc1 = hotspot.pc1[,i])
+    
+    df = left_join(hs.pc1, gp, by = "mouse") %>%
+         left_join(y = pheno_clin %>% select(mouse, sex, DOwave), by = "mouse") %>%
+         select(mouse, sex, DOwave, pc1, B:H) %>%
+         left_join(y = expr.df, by = "mouse") %>%
+         gather(ensembl, expr, -mouse, -sex, -pc1, -DOwave, -(B:H)) %>%
+         select(mouse, pc1, sex, DOwave, expr, B:H, ensembl) %>%
+         group_by(ensembl) %>%
+         nest()
+    df = df %>% 
+           mutate(full_ll = map_dbl(data, full_mod_fxn),
+                  expr_ll = map_dbl(data, expr_mod_fxn)) %>%
+           select(ensembl, full_ll, expr_ll)
+    df  = df %>%
+            left_join(y = annot.mrna, by = "ensembl") %>% 
+            mutate(lod = (full_ll - expr_ll) / log(10), 
+                   middle_point = middle_point * 1e-6,
+                   lod.std = scale(lod)) %>%
+            dplyr::rename(pos = middle_point)
+    mediators[[i]] = df %>% 
+                       filter(chr == curr.chr & abs(pos - curr.pos) <= mediation.dist & lod.std < mediation.thr) %>%
+                       select(ensembl, symbol, chr, start, end, pos, lod, lod.std)
+    out.plot = df %>% filter(chr == curr.chr) %>%
+                   ggplot(aes(pos, lod)) + 
+                   geom_point(alpha = 0.5, size = 2) +
+                   geom_hline(aes(yintercept = hotspot.peaks$lod[i]), linetype = 2) +
+                   geom_vline(aes(xintercept = max.mkr), color = "red") +
+                   geom_label(aes(pos, lod, label = symbol), . %>% filter(lod.std < -6), position = "dodge") +
+                   labs(x = paste("Chr", curr.chr))
+    pdf(paste0(fig.dir, "mediation_chr", curr.chr, ".pdf"), width = 10, height = 8)
+    print(out.plot)
+    dev.off()
+    print(out.plot)
+    gc()
+  }
+  saveRDS(mediators, file = mediator.file)
+
+```
+
+### LOD Drop for each Trans-regulated Gene with and without mediator
+
+```{r hotspot_regulator,warning=FALSE,message=FALSE,fig.width=6,fig.height=6}
+# Regress mediator on covariates, genoprobs and PC1.
+# y ~ sex + wave + pc1 + A:H
+full_mod      = function(data) { as.numeric(logLik(lm(expr ~ ., data = select(data, -mouse)))) }
+# y ~ sex + wave + pc1
+full_mod_null = function(data) { as.numeric(logLik(lm(expr ~ ., data = select(data, -mouse, -(B:H))))) }
+# Regress mediator on covariatesand PC1.
+# y ~ sex + wave + A:H
+red_mod       = function(data) { as.numeric(logLik(lm(expr ~ ., data = select(data, -mouse, -med.expr)))) }
+# y ~ sex + wave
+red_mod_null  = function(data) { as.numeric(logLik(lm(expr ~ ., data = select(data, -mouse, -(B:H), -med.expr)))) }
+
+num.genes = data.frame(ensembl = unlist(sapply(mediators, function(z) { z$ensembl })),
+                       symbol = unlist(sapply(mediators, function(z) { z$symbol })),
+                       total_genes = 0, med_genes = 0, stringsAsFactors = FALSE)
+
+for(i in seq_along(mediators)) {
+
+  # Get current chromosome.
+  curr.chr = hotspot.peaks$chr[i]
+  curr.pos = hotspot.peaks$pos[i]
+  # Get marker with maximum LOD.
+  max.mkr = map[[curr.chr]][which.min(abs(map[[curr.chr]] - hotspot.peaks$pos[i]))]
+  # Get genoprobs at marker with maxiumum LOD. NOTE: Remove column 1 to prevent multi-colinearity.
+  gp = genoprobs[[curr.chr]][,,names(max.mkr)]
+  gp = data.frame(mouse = rownames(gp), gp[,-1])
+  hs.genes = expr.df %>%
+               select(mouse, one_of(hotspot.genes[[i]]$ensembl))
+  med.genes = expr.df %>% 
+               select(mouse, one_of(mediators[[i]]$ensembl))
+
+  for(j in 2:ncol(med.genes)) {
+
+    rename.list = as.list(paste0(colnames(med.genes)[j]))
+    names(rename.list) = "med.expr"
+    symbol = as.character(annot.mrna %>% filter(ensembl == colnames(med.genes)[j]) %>% select(symbol))
+    df = left_join(pheno_clin %>% select(mouse, sex, DOwave), gp,  by = "mouse") %>%
+         left_join(y = hs.genes %>% select(which(colnames(.) != colnames(med.genes)[j])),  by = "mouse") %>%
+         left_join(y = med.genes %>% select(mouse, one_of(colnames(med.genes)[j])), by = "mouse") %>% 
+         rename_(.dots = rename.list) %>%
+         gather(ensembl, expr, -mouse, -sex, -DOwave, -(B:H), -med.expr) %>%
+         group_by(ensembl) %>%
+         nest()
+
+    df = df %>% 
+           mutate(full_ll      = map_dbl(data, full_mod),
+                  full_null_ll = map_dbl(data, full_mod_null),
+                  red_ll       = map_dbl(data, red_mod),
+                  red_null_ll  = map_dbl(data, red_mod_null)) %>%
+           select(ensembl, full_ll, full_null_ll, red_ll, red_null_ll)
+
+    df  = df %>%
+            left_join(y = annot.mrna, by = "ensembl") %>% 
+            mutate(full_lod = (full_ll - full_null_ll) / log(10),
+                   red_lod =  (red_ll - red_null_ll) / log(10)) %>%
+            select(ensembl, symbol, chr, start, end, full_lod, red_lod)
+    
+    num.genes$total_genes[num.genes$symbol == symbol] = ncol(hs.genes)
+    num.genes$med_genes[num.genes$symbol == symbol] = sum(df$red_lod >= df$full_lod + 1.5)
+    
+    lim = range(c(df$red_lod, df$full_lod))
+    print(ggplot(df, aes(red_lod, full_lod)) +
+      geom_point() +
+      geom_abline(slope = 1, intercept = 0, colro = "red") +
+      geom_abline(slope = 1, intercept = -1.5, linetype = 2) +
+#      scale_x_log10() + 
+#      scale_y_log10() +
+      expand_limits(x = lim, y = lim) + 
+      labs(title = paste("Chr", chr, "Hotspot:", symbol)))
+
+  }
+}
+```
+
+### Table of Hotspots
+
+```{r hotspot_table}
+candidate.mediators = c("Hnf4a", "Pdx1", "Fam83e", "Sat2", "Il6st")
+hotspots = data.frame(hotspots, symbol = candidate.mediators, stringsAsFactors = FALSE)
+hotspots = left_join(hotspots, num.genes, by = "symbol")
+write_csv(hotspots, path = paste0(result.dir, "hotspot_genes.csv"))
+kable(hotspots)
+```
+
+
+### QTL Plots for Candidate Mediators
+
+```{r mediator_qtl,warning=FALSE,message=FALSE}
+covar = model.matrix(~sex + DOwave, data = pheno_clin)[,-1]
+covar = covar[rownames(expr.mrna),]
+for(i in seq_along(mediators)) {
+  for(j in 1:nrow(mediators[[i]])) {
+    ens.id = mediators[[i]]$ensembl[j]
+    symbol = mediators[[i]]$symbol[j]
+    chr = mediators[[i]]$chr[j]
+    expr = expr.mrna[,ens.id, drop = FALSE]
+    qtl.outfile  = paste0(result.dir, symbol, "_qtl.rds")
+    blup.outfile = paste0(result.dir, symbol, "_chr", chr, "_blup.rds")
+    qtl  = NULL
+    blup = NULL
+    if(file.exists(blup.outfile)) {
+      qtl  = readRDS(qtl.outfile)
+      blup = readRDS(blup.outfile)
+    } else {
+      qtl = scan1(genoprobs = genoprobs, pheno = expr, kinship = K, addcovar = covar, cores = 2)
+      saveRDS(qtl, file = qtl.outfile)
+      blup = scan1blup(genoprobs = genoprobs[,chr], pheno = expr, kinship = K[[chr]], addcovar = covar, cores = 4)
+      saveRDS(blup, file = blup.outfile)
+    }
+    pdf(paste0(fig.dir, symbol, "_chr", chr, "_qtl.pdf"), width = 10, height = 8)
+    plot_scan1(x = qtl, map = map, main = symbol)
+    dev.off()
+    pdf(paste0(fig.dir, symbol, "_chr", chr, "_blup.pdf"), width = 10, height = 8)
+    plot_coefCC(x = blup, map = map, scan1_output = qtl, main = paste(symbol, "Chr", chr))
+    dev.off()
+    plot_coefCC(x = blup, map = map, scan1_output = qtl, main = paste(symbol, "Chr", chr))
+  }
+}
+```
+
+### Scan Mediator with PC1 as Covariate
+
+```{r scan_med_wiht_pc1,warning=FALSE,message=FALSE}
+full_mod      = function(data) { as.numeric(logLik(lm(med.expr ~ ., data = select(data, -mouse, -A)))) }
+full_mod_null = function(data) { as.numeric(logLik(lm(med.expr ~ ., data = select(data, -mouse, -(A:H))))) }
+red_mod       = function(data) { as.numeric(logLik(lm(med.expr ~ ., data = select(data, -mouse, -A, -pc1)))) }
+red_mod_null  = function(data) { as.numeric(logLik(lm(med.expr ~ ., data = select(data, -mouse, -pc1, -(A:H))))) }
+result = NULL
+
+for(i in 1:nrow(hotspot.peaks)) {
+
+  # Get current chromosome.
+  curr.chr = hotspot.peaks$chr[i]
+  curr.pos = hotspot.peaks$pos[i]
+  # Get marker with maximum LOD.
+  max.mkr = map[[curr.chr]][which.min(abs(map[[curr.chr]] - hotspot.peaks$pos[i]))]
+  # Get genoprobs at marker with maxiumum LOD.
+  gp = genoprobs[[curr.chr]][,,names(max.mkr)]
+  gp = data.frame(mouse = rownames(gp), gp)
+  pc1 = data.frame(mouse = rownames(hotspot.pc1), pc1 = hotspot.pc1[,i])
+  med.genes = expr.df %>% 
+               select(mouse, one_of(mediators[[i]]$ensembl))
+
+  for(j in 2:ncol(med.genes)) {
+
+      rename.list = as.list(paste0(colnames(med.genes)[j]))
+      names(rename.list) = "med.expr"
+      symbol = annot.mrna %>% filter(ensembl == colnames(med.genes)[j]) %>% select(symbol)
+      df = left_join(pheno_clin %>% select(mouse, sex, DOwave), gp,  by = "mouse") %>%
+           left_join(y = pc1,  by = "mouse") %>%
+           left_join(y = med.genes %>% select(mouse, one_of(colnames(med.genes)[j])), by = "mouse") %>% 
+           rename_(.dots = rename.list) %>%
+           gather(ensembl, pc1, -mouse, -sex, -DOwave, -(A:H), -med.expr) %>%
+           select(ensembl, mouse, sex, DOwave, pc1, med.expr, A:H) %>%
+           group_by(ensembl) %>%
+           nest()
+      df = df %>% 
+             mutate(full_ll = map_dbl(data, full_mod),
+             full_null_ll = map_dbl(data, full_mod_null),
+             red_ll  = map_dbl(data, red_mod),
+             red_null_ll  = map_dbl(data, red_mod_null)) %>%
+             select(ensembl, full_ll, full_null_ll, red_ll, red_null_ll) %>%
+             mutate(full_lod = (full_ll - full_null_ll) / log(10),
+                    red_lod  = (red_ll - red_null_ll) / log(10),
+                    lod_drop = red_lod - full_lod)
+  
+      result = rbind(result, data.frame(hotspot = curr.chr, mediator = symbol, select(df, ensembl, full_lod, red_lod, lod_drop)))
+  }
+}
+kable(result)
+```
+
+
+### Test Candidate eQTL Hotspot Regulator with Genes in Hotspot
+
+```{r test_trans_genes_in_hotspot,warning=FALSE,message=FALSE,fig.width=6,fig.height=6}
+full_mod      = function(data) { as.numeric(logLik(lm(expr ~ ., data = select(data, -mouse)))) }
+full_mod_null = function(data) { as.numeric(logLik(lm(expr ~ ., data = select(data, -mouse, -(B:H))))) }
+red_mod       = function(data) { as.numeric(logLik(lm(expr ~ ., data = select(data, -mouse, -med.expr)))) }
+red_mod_null  = function(data) { as.numeric(logLik(lm(expr ~ ., data = select(data, -mouse, -med.expr, -(B:H))))) }
+
+num.genes = NULL
+
+for(i in 1:nrow(hotspot.peaks)) {
+
+  # Get current chromosome.
+  curr.chr = hotspot.peaks$chr[i]
+  curr.pos = hotspot.peaks$pos[i]
+  # Get marker with maximum LOD.
+  max.mkr = map[[curr.chr]][which.min(abs(map[[curr.chr]] - hotspot.peaks$pos[i]))]
+  # Get genoprobs at marker with maxiumum LOD.
+  gp = genoprobs[[curr.chr]][,,names(max.mkr)]
+  gp = data.frame(mouse = rownames(gp), gp[,-1])
+  hs.genes = expr.df %>%
+               select(mouse, one_of(hotspot.genes[[i]]$ensembl))
+  med.genes = expr.df %>% 
+               select(mouse, one_of(mediators[[i]]$ensembl))
+
+  for(j in 2:ncol(med.genes)) {
+
+      rename.list = as.list(paste0(colnames(med.genes)[j]))
+      names(rename.list) = "med.expr"
+      symbol = annot.mrna %>% filter(ensembl == colnames(med.genes)[j]) %>% select(symbol)
+      df = left_join(pheno_clin %>% select(mouse, sex, DOwave), gp,  by = "mouse") %>%
+           left_join(y = hs.genes %>% select(which(colnames(.) != colnames(med.genes)[j])),  by = "mouse") %>%
+           left_join(y = med.genes %>% select(mouse, one_of(colnames(med.genes)[j])), by = "mouse") %>% 
+           rename_(.dots = rename.list) %>%
+           gather(ensembl, expr, -mouse, -sex, -DOwave, -(B:H), -med.expr) %>%
+           group_by(ensembl) %>%
+           nest()
+      df = df %>% 
+             mutate(full_ll = map_dbl(data, full_mod),
+             full_null_ll = map_dbl(data, full_mod_null),
+             red_ll  = map_dbl(data, red_mod),
+             red_null_ll  = map_dbl(data, red_mod_null)) %>%
+             select(ensembl, full_ll, full_null_ll, red_ll, red_null_ll) %>%
+             mutate(full_lod = (full_ll - full_null_ll) / log(10),
+                    red_lod  = (red_ll - red_null_ll) / log(10))
+  
+    lim = range(c(df$red_lod, df$full_lod))
+    print(ggplot(df, aes(red_lod, full_lod)) +
+          geom_point() +
+          expand_limits(x = lim, y = lim) +
+          geom_abline(slope = 1, intercept = 0) + 
+          geom_abline(slope = 1, intercept = -log10(1.5), linetype = 2) + 
+          scale_x_log10() + 
+          scale_y_log10() +
+          labs(title = paste("Hotspot Genes: Chr", curr.chr, ":", symbol), x = "LOD", y = "Cond LOD"))
+    
+    num.genes = rbind(num.genes, c(colnames(med.genes)[j], curr.chr, symbol, sum(df$red_lod > df$full_lod + 1.5)))
+  }
+}
+colnames(num.genes) = c("ensembl", "symbol", "chr", "num_genes")
+```
+
+```{r num_mediated_genes}
+kable(num.genes, caption = "Number of Genes Mediated at 1.5 LOD difference")
+```
+
+
+### Test Mediation Condition 4 for Each Trans-gene
+
+```{r,warning=FALSE,message=FALSE,fig.height=6,fig.height=6}
+cond4_mod  = function(data) { as.numeric(logLik(lm(med.expr ~ ., data = select(data, -mouse)))) }
+cond4_null = function(data) { as.numeric(logLik(lm(med.expr ~ ., data = select(data, -mouse, -(B:H))))) }
+med_mod  = function(data) { as.numeric(logLik(lm(med.expr ~ ., data = select(data, -mouse, -expr)))) }
+med_null = function(data) { as.numeric(logLik(lm(med.expr ~ sex + DOwave, data = data))) }
+
+num.genes = data.frame(mediator = unlist(sapply(mediators, function(z) { z$symbol })), 
+                       num_cond4 = rep(0, sum(sapply(mediators, nrow))))
+rownames(num.genes) = num.genes[,1]
+
+# df should contain gene, mediator, B:H, sex & wave.
+for(i in 1:nrow(hotspot.peaks)) {
+
+  # Get current chromosome.
+  curr.chr = hotspot.peaks$chr[i]
+  curr.pos = hotspot.peaks$pos[i]
+  # Get marker with maximum LOD.
+  max.mkr = map[[curr.chr]][which.min(abs(map[[curr.chr]] - hotspot.peaks$pos[i]))]
+  # Get genoprobs at marker with maxiumum LOD.
+  gp = genoprobs[[curr.chr]][,,names(max.mkr)]
+  gp = data.frame(mouse = rownames(gp), gp[,-1])
+  hs.genes = expr.df %>%
+               select(mouse, one_of(hotspot.genes[[i]]$ensembl))
+  med.genes = expr.df %>% 
+               select(mouse, one_of(mediators[[i]]$ensembl))
+
+  for(j in 2:ncol(med.genes)) {
+
+      rename.list = as.list(paste0(colnames(med.genes)[j]))
+      names(rename.list) = "med.expr"
+      symbol = annot.mrna %>% filter(ensembl == colnames(med.genes)[j]) %>% select(symbol)
+      df = left_join(pheno_clin %>% select(mouse, sex, DOwave), gp,  by = "mouse") %>%
+           left_join(y = hs.genes %>% select(which(colnames(.) != colnames(med.genes)[j])),  by = "mouse") %>%
+           left_join(y = med.genes %>% select(mouse, one_of(colnames(med.genes)[j])), by = "mouse") %>% 
+           rename_(.dots = rename.list) %>%
+           gather(ensembl, expr, -mouse, -sex, -DOwave, -(B:H), -med.expr) %>%
+           group_by(ensembl) %>%
+           nest()
+      df = df %>% 
+             mutate(
+               cond4_ll      = map_dbl(data, cond4_mod),
+               cond4_null_ll = map_dbl(data, cond4_null),
+               med_ll        = map_dbl(data, med_mod),
+               med_null_ll   = map_dbl(data, med_null)) %>%
+             select(ensembl, cond4_ll:med_null_ll) %>%
+             mutate(cond4_lod  = (cond4_ll - med_ll) / log(10),
+                    med_lod    = (med_ll  - med_null_ll) / log(10),
+                    cond4 = med_lod - cond4_lod) %>%
+             left_join(y = select(annot.mrna, ensembl, chr, pos = middle_point, symbol), by = "ensembl") %>%
+             select(ensembl, symbol, chr, pos, cond4_lod:cond4)
+  
+    out.plot = ggplot(df, aes(x = cond4)) + 
+                 geom_histogram() +
+                 geom_vline(aes(xintercept = med_lod), color = "red") +
+                 labs(title = paste("Hotspot Genes: Chr", curr.chr, ":", symbol))
+    num.genes$num_cond4[rownames(num.genes) == symbol[1,1]] = sum(df$cond4_lod < 7)
+    pdf(paste0(fig.dir, "chr", curr.chr, "_", symbol, "_mediation_cond4.pdf"), width = 8, height = 8)
+    print(out.plot)
+    dev.off()
+    print(out.plot)
+  }
+}
+```
+
+```{r}
+write_csv(num.genes, path = paste0(result.dir, "mediation_cond4_num_genes.csv"))
+```
+

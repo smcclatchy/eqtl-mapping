@@ -1,0 +1,47 @@
+---
+title: "founder-allele-frequency"
+output: html_document
+date: '2022-09-09'
+---
+
+### Founder Allele Frequency
+
+Load in the genoprobs and markers.
+
+```{r load_genoprobs}
+genoprobs = readRDS("../data/genotypes/attie_DO500_genoprobs_v5.rds")
+markers = readRDS("../data/marker_grid_0.02cM_plus.rds")
+K = calc_kinship(probs = genoprobs, type = "loco", cores = 4)
+saveRDS(K, file = "../data/kinship")
+map = map_df_to_list(map = markers, pos_column = "pos")
+```
+
+
+```{r founder_allele_freq,fig.height=10,fig.width=12}
+map_fxn = function(g, m) {
+  retval = apply(g, 2:3, mean) %>%
+             t() %>%
+             data.frame() %>%
+             mutate(pos = m) %>%
+             gather(founder, prop, -pos)
+  return(retval)
+}
+allele.freq = map2(genoprobs, map, map_fxn)
+allele.freq = map2(allele.freq, 1:length(allele.freq), function(af, chr) { mutate(af, chr = chr) })
+tmp = allele.freq[[1]]
+for(i in 2:length(allele.freq)) {
+  tmp = rbind(tmp, allele.freq[[i]])
+}
+allele.freq = data.frame(tmp)
+rm(tmp)
+
+cc = CCcolors
+names(cc) = LETTERS[1:8]
+ggplot(allele.freq, aes(pos, prop, color = founder)) +
+  geom_line() +
+  scale_color_manual(values = cc) +
+  facet_grid(founder~chr, scales = "free") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),
+        panel.spacing = unit(0.1, "lines")) +
+  labs(title = "Attie Founder Allele Proportions")
+```

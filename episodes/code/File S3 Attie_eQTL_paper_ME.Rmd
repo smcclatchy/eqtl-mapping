@@ -1,0 +1,247 @@
+---
+title: "Attie eQTL Paper: WGCNA Modules"
+author: "Daniel Gatti"
+output:
+  html_document:
+    code_folding: hide
+    collapsed: no
+    toc: yes
+    toc_float: yes
+---
+
+# Islet RNASeq WGCNA Modules
+
+Read in WGCNA Modules.
+
+```{r read_wgcna_modules,warning=FALSE,message=FALSE}
+library(qtl2)
+library(qtl2convert)
+library(tidyverse)
+library(knitr)
+library(RColorBrewer)
+
+data.dir   = "D:/Attie_DO_Islet_RNASeq/data/"
+result.dir = "D:/Attie_DO_Islet_RNASeq/results/"
+fig.dir    = "D:/Attie_DO_Islet_RNASeq/figures/"
+script.dir = "D:/Attie_DO_Islet_RNASeq/scripts/"
+
+source(paste0(script.dir, "qtl_heatmap.R"))
+
+me = read_delim(paste0(data.dir, "WGCNA_modules/ME_for_mRNA_islet_modules.csv"), delim = ",", trim_ws = TRUE)
+me = me %>% mutate(mouse = gsub("[^[:alnum:]]", "", mouse))
+```
+The data used in these analyses are available from Data Dryad at https://doi.org/10.5061/dryad.pj105.
+
+Load in the clinical phenotypes.
+
+```{r read_pheno,warning=FALSE,message=FALSE,results='hide'}
+load(paste0(data.dir, "clinical/pheno_clin_v6.RData"))
+pheno2keep = read_csv(paste0(data.dir, "clinical/clinical phenotypes for eQTL paper.csv"))
+pheno_clin = pheno_clin[,c(1:11, 166, which(colnames(pheno_clin) %in% pheno2keep$short_name))]
+pheno_clin_dict = pheno_clin_dict[pheno_clin_dict$short_name %in% colnames(pheno_clin),]
+pheno_clin_dict$pheno_type[pheno_clin_dict$name == "diet_days"] = "demographic"
+is.pheno = pheno_clin_dict$pheno_type == "clinical" | pheno_clin_dict$pheno_type == "body weight"
+pheno_clin$sex = factor(pheno_clin$sex)
+pheno_clin$DOwave = factor(pheno_clin$DOwave)
+stopifnot(colnames(pheno_clin) %in% pheno_clin_dict$short_name)
+```
+
+Load in the genoprobs and markers.
+
+```{r load_genoprobs,warning=FALSE,message=FALSE}
+genoprobs = readRDS(paste0(data.dir, "genoprobs/attie_DO500_genoprobs_v5.rds"))
+markers = readRDS(paste0(data.dir, "genoprobs/marker_grid_0.02cM_plus.rds"))
+kinship.file = paste0(data.dir, "kinship.rds")
+K = NULL
+if(file.exists(kinship.file)) {
+  K = readRDS(kinship.file)
+} else {
+  K = calc_kinship(probs = genoprobs, type = "loco", cores = 4)
+  saveRDS(K, file = kinship.file)
+}
+map = map_df_to_list(map = markers, pos_column = "pos")
+```
+
+## Distribution of Module Eigengenes
+
+```{r me_boxplot}
+me %>% gather(module, value, -mouse) %>%
+  ggplot(aes(x = module, y = value)) +
+    geom_boxplot() +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
+    labs(title = "Distribution of Module Eigengenes")
+```
+
+## ME QTL Mapping
+
+```{r me_qtl_mapping}
+me.pheno = as.matrix(me[,-1])
+rownames(me.pheno) = me$mouse
+covar = model.matrix(~sex + DOwave, data = pheno_clin)[,-1]
+rownames(covar) = pheno_clin$mouse
+qtl = NULL
+qtl.file = paste0(result.dir, "me_qtl.rds")
+if(file.exists(qtl.file)) {
+  qtl = readRDS(file = qtl.file)
+} else {
+  qtl = scan1(genoprobs = genoprobs, pheno = me.pheno, kinship = K, addcovar = covar, cores = 2)
+  saveRDS(qtl, file = qtl.file)
+}
+```
+
+## ME QTL Plots
+
+```{r me_qtl_plots}
+for(i in 1:ncol(qtl)) {
+  plot_scan1(x = qtl, map = map, lodcolumn = i, main = colnames(qtl)[i])
+  abline(h = 6, col = 2, lwd = 2)
+}
+```
+
+
+## ME QTL Peaks
+
+```{r me_qtl_peaks}
+lod_threshold = 6
+peaks = find_peaks(scan1_output = qtl, map = map, threshold = lod_threshold, peakdrop = 4, prob = 0.95)
+write_csv(peaks, path = paste0(result.dir, "ME_QTL_peaks.csv"))
+kable(peaks %>% select (-lodindex) %>% arrange(chr, pos), caption = "ME QTL Peaks with LOD >= 6")
+```
+
+## ME QTL Overall Plot
+
+```{r me_all_qtl_plot,fig.width=8,fig.height=8}
+pdf(paste0(fig.dir, "ME_QTL_peaks.pdf"), width = 10, height = 8)
+plot_peaks(peaks, map, col = c("blue","red"), lwd = 3, tick.height = 0.8, gap = 0, main = "LOD > 6")
+dev.off()
+plot_peaks(peaks, map, col = c("blue","red"), lwd = 3, tick.height = 0.8, gap = 0, main = "LOD > 6")
+```
+
+## ME QTL Heatmap
+
+```{r me_qtl_heatmap,warning=FALSE,message=FALSE,fig.width=12,fig.height=8}
+qtl.tmp = qtl[,colnames(qtl) %in% peaks$lodcolumn]
+qtl.tmp = qtl.tmp[,colnames(qtl.tmp) != "MEgrey"]
+pdf(paste0(fig.dir, "ME_qtl_heatmap.pdf"), width = 12, height = 8)
+qtl_heatmap(qtl.tmp, map, low.thr = 3.5)
+dev.off()
+qtl_heatmap(qtl.tmp, map, low.thr = 3.5)
+rm(qtl.tmp)
+```
+
+
+## ME Sex Boxplots
+
+```{r me_sex_boxplots,warning=FALSE,message=FALSE,fig.width=8,fig.height=8}
+full_join(me, select(pheno_clin, mouse, sex), by = "mouse") %>%
+  gather(ME, value, -mouse, -sex) %>%
+  ggplot(aes(sex, value, fill = sex)) +
+    geom_boxplot() +
+    facet_wrap(~ME)
+
+```
+
+
+## ME / phenotype correlation
+
+```{r me_pheno_cor,warning=FALSE,message=FALSE}
+pheno_clin_log = pheno_clin %>%
+                   mutate_if(is.numeric, log)
+pheno_resid = pheno_clin_log %>%
+                gather(pheno, value, -(mouse:DOwave)) %>%
+                group_by(pheno) %>%
+                nest()
+sex_wave_mod = function(df) { lm(value ~ sex + DOwave, na.action = na.exclude, data = df) }
+pheno_resid = pheno_resid %>%
+                mutate(mod = map(data, sex_wave_mod)) %>%
+                mutate(res = map(mod, residuals)) %>%
+                select(pheno, data, res) %>%
+                unnest() %>%
+                select(pheno, res, mouse) %>%
+                spread(pheno, res)
+
+me_resid = me %>%
+             left_join(y = select(pheno_clin, mouse, sex, DOwave), by = "mouse") %>%
+             gather(module, value, -mouse, -sex, -DOwave) %>%
+             group_by(module) %>%
+             nest()
+me_resid = me_resid %>%
+             mutate(mod = map(data, sex_wave_mod)) %>%
+             mutate(res = map(mod, residuals)) %>%
+             select(module, data, res) %>%
+             unnest() %>%
+             select(module, res, mouse) %>%
+             spread(module, res)
+
+pheno_resid = pheno_resid[match(me_resid$mouse,pheno_resid$mouse),]
+
+rn = pheno_resid$mouse
+pheno_resid = as.matrix(pheno_resid[,-1])
+rownames(pheno_resid) = rn
+
+rn = me_resid$mouse
+me_resid = as.matrix(me_resid[,-1])
+rownames(me_resid) = rn
+
+me.pheno.cor = matrix(0, nrow = ncol(pheno_resid), ncol = ncol(me_resid), 
+                      dimnames = list(colnames(pheno_resid), colnames(me_resid)))
+me.pheno.p = me.pheno.cor
+for(i in 1:ncol(pheno_resid)) {
+  
+  tmp = apply(me_resid, 2, cor.test, y = pheno_resid[,i], method = "spearman", continuity = TRUE)
+  me.pheno.cor[i,] = sapply(tmp, function(z) {z$estimate})
+  me.pheno.p[i,]   = sapply(tmp, function(z) {z$p.value})
+
+}
+
+me.pheno.p.adj = p.adjust(me.pheno.p, method = "BY")
+
+```
+
+```{r me_pheno_cor_heatmap,fig.width=12,fig.height=8}
+cl = hclust(as.dist(1.0 - cor(me.pheno.cor)), method = "average")
+me.pheno.cor = me.pheno.cor[,cl$order]
+cl = hclust(as.dist(1.0 - cor(t(me.pheno.cor))), method = "average")
+me.pheno.cor = me.pheno.cor[cl$order,]
+colnames(me.pheno.cor) = gsub("^ME", "", colnames(me.pheno.cor))
+
+pdf(paste0(fig.dir, "phenotype_ME_correlation.pdf"), width = 12, height = 8)
+layout(matrix(1:2, 1, 2), widths = c(0.9, 0.1))
+par(plt = c(0.15, 0.99, 0.15, 0.99))
+breaks = -6:6/10
+col = colorRampPalette(rev(brewer.pal(11, "RdYlBu")))(length(breaks) - 1)
+image(1:ncol(me.pheno.cor), 1:nrow(me.pheno.cor), t(me.pheno.cor), breaks = breaks,
+        col = col, axes = F, ann = F)
+abline(v = 0:ncol(me.pheno.cor) + 0.5, col = "grey80")
+abline(h = 0:nrow(me.pheno.cor) + 0.5, col = "grey80")
+mtext(side = 1, line = 0.2, at = 1:ncol(me.pheno.cor), text = colnames(me.pheno.cor), las = 2)
+mtext(side = 2, line = 0.2, at = 1:nrow(me.pheno.cor), text = rownames(me.pheno.cor), las = 2)
+box()
+par(plt = c(0.15, 0.99, 0.15, 0.99))
+leg = matrix(breaks[-1], nrow = 1)
+par(plt = c(0.3, 0.7, 0.13, 0.99))
+image(1:nrow(leg), 1:ncol(leg), leg, breaks = breaks, col = col, ann = F, axes = F)
+mtext(side = 2, line = 0.25, at = 1:length(breaks) - 0.5, text = breaks, las = 2)
+box()
+dev.off()
+layout(matrix(1:2, 1, 2), widths = c(0.9, 0.1))
+par(plt = c(0.15, 0.99, 0.15, 0.99))
+breaks = -6:6/10
+col = colorRampPalette(rev(brewer.pal(11, "RdYlBu")))(length(breaks) - 1)
+image(1:ncol(me.pheno.cor), 1:nrow(me.pheno.cor), t(me.pheno.cor), breaks = breaks,
+        col = col, axes = F, ann = F)
+abline(v = 0:ncol(me.pheno.cor) + 0.5, col = "grey80")
+abline(h = 0:nrow(me.pheno.cor) + 0.5, col = "grey80")
+mtext(side = 1, line = 0.2, at = 1:ncol(me.pheno.cor), text = colnames(me.pheno.cor), las = 2)
+mtext(side = 2, line = 0.2, at = 1:nrow(me.pheno.cor), text = rownames(me.pheno.cor), las = 2)
+box()
+par(plt = c(0.15, 0.99, 0.15, 0.99))
+leg = matrix(breaks[-1], nrow = 1)
+par(plt = c(0.3, 0.7, 0.13, 0.99))
+image(1:nrow(leg), 1:ncol(leg), leg, breaks = breaks, col = col, ann = F, axes = F)
+mtext(side = 2, line = 0.25, at = 1:length(breaks) - 0.5, text = breaks, las = 2)
+box()
+```
+
+
+
