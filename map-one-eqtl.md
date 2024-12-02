@@ -420,6 +420,15 @@ expr_rz |>
 
 <img src="fig/map-one-eqtl-rendered-rankz_expr-1.png" style="display: block; margin: auto;" />
 
+Let's save the rankZ-transformed expression data so that we will have it when
+we need it again.
+
+
+``` r
+saveRDS(expr_rz, file = "data/attie_do_expr_rz.rds")
+```
+
+
 Before moving on, let's remove data objects that we won't be using again.
 
 
@@ -844,15 +853,16 @@ eperm <- scan1perm(genoprobs = probs,
                    n_perm    = 1000)
 ```
 
-*Note* DO NOT RUN THIS (it will take too long).  Instead, I have run it earlier 
-and will load it in here.  We will also perform a summary to find the summary 
-level for 0.1, 0.05 and 0.01 significance.
+
+We will read in the pre-computed permutations.
 
 
 ``` r
 eperm <- readRDS(file = str_c("data/", ensid, "_perm_1000.rds"))
 ```
 
+Next, we will get the significance thresholds at the alpha = 0.1, 0.05, and 0.01
+levels.
 
 
 ``` r
