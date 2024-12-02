@@ -337,8 +337,20 @@
       <hr></nav><main id="main-content" class="main-content"><h1 class="schedule-heading">Summary and Schedule</h1>
       
 
-<p>This is a new lesson built with <a href="https://carpentries.github.io/sandpaper-docs" class="external-link">The Carpentries
-Workbench</a>.</p>
+<p>Analyzing the association between gene expression and genetic
+variants is known as expression quantitative trait locus (eQTL) mapping.
+eQTL mapping searches for associations between the expression of one or
+more genes and a genetic locus. Specifically, genetic variants
+underlying eQTL peak explain some of the variation in gene expression
+levels. eQTL studies can reveal the architecture of quantitative traits,
+connect DNA sequence variation to phenotypic variation, and shed light
+on transcriptional regulation and regulatory variation. Traditional
+analytic techniques like linkage and association mapping can be applied
+to thousands of gene expression traits (transcripts) in eQTL analysis,
+such that gene expression can be mapped in much the same way as a
+physiological phenotype like blood pressure or heart rate. Joining gene
+expression and physiological phenotypes with genetic variation can
+identify genes with variants affecting disease phenotypes.</p>
 <!--
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
@@ -464,7 +476,7 @@ Linux.</p></li>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">install.packages</span><span class="op">(</span><span class="fu">c</span><span class="op">(</span><span class="st">"tidyverse"</span>, <span class="st">"ggbeeswarm"</span>, <span class="st">"knitr"</span>, <span class="st">"qtl2"</span>, <span class="st">"qtl2convert"</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu">install.packages</span><span class="op">(</span><span class="fu">c</span><span class="op">(</span><span class="st">"tidyverse"</span>, <span class="st">"ggbeeswarm"</span>, <span class="st">"knitr"</span>, <span class="st">"qtl2"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw">require</span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="fu">install.packages</span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
@@ -483,7 +495,6 @@ that they installed correctly.</p>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">ggbeeswarm</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">knitr</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">qtl2</span><span class="op">)</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">qtl2convert</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">AnnotationHub</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">DESeq2</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">rtracklayer</span><span class="op">)</span></span></code></pre>
