@@ -18,7 +18,7 @@ variation from qtl2 mapping results.
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-![Attie et al, 2018 Supplementary Figure S7](fig/SFig7_Keller_2018_chr11.png)
+![Attie et al, 2018 Supplementary Figure S7](fig/SFig7_Keller_2018_chr11.png){alt="Keller et al, figure S7"}
 ::::::::::::::::::::::::::::::::::::: challenge 
 
 ## Challenge: Interpreting qtl2 results
