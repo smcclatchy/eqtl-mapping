@@ -48,7 +48,6 @@ code:
 ```{r load_libraries, message=FALSE, warning=FALSE}
 suppressPackageStartupMessages(library(knitr))
 suppressPackageStartupMessages(library(tidyverse))
-suppressPackageStartupMessages(library(broom))
 suppressPackageStartupMessages(library(qtl2))
 ```
 

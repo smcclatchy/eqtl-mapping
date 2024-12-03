@@ -6,57 +6,257 @@ exercises: 20
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How do I display maximum eQTL peaks and nearby genes?
+- How do I select QTL peaks for each gene?
+- How do I find genes near QTL peaks?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how to use markdown with the new lesson template
-- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+- Learn how to filter LOD peaks to retain significant peaks.
+- Understand the two levels of multiple testing in eQTL mapping studies.
+- Find genes which are located under QTL peaks.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+```{r setup, echo=FALSE, warning=FALSE}
+# Load libraries & data for website build.
+suppressPackageStartupMessages(library(knitr))
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(qtl2))
 
-![LOD plot for gene Hnf1b.](fig/LOD-plot-Hnf1b.png)
-
-![SNP association plot for gene Hnf1b.](fig/SNP-association-Hnf1b.png)
-
-::::::::::::::::::::::::::::::::::::: challenge 
-
-## Challenge 1: Can you do it?
-
-What is the output of this command?
-
-```r
-paste("This", "new", "lesson", "looks", "good")
+annot      <- readRDS(file = 'data/attie_do_expr_annot.rds')
+ins_tauc   <- pheno[, 'Ins_tAUC', drop = FALSE]
+ins_tauc$Ins_tAUC_log <- log(ins_tauc$Ins_tAUC)
+lod_ins    <- readRDS(file = 'data/ins_tauc_lod.rds')
+lod_hnf1b  <- readRDS(file = 'data/hnf1b_lod.rds')
+eperm      <- readRDS(file = 'data/ENSMUSG00000020679_perm_1000.rds')
+peaks      <- readRDS(file = "data/attie_do_eqtl_peaks.rds")
+ethr       <- summary(object = eperm, alpha  = 0.05)
 ```
 
-:::::::::::::::::::::::: solution 
+### Multiple Testing in QTL Mapping
 
-## Output
- 
-```output
-[1] "This new lesson looks good"
+When we perform multiple hypothesis tests, as we do in QTL mapping, we must 
+adjust for the fact that our overall false-positive rate is higher than the
+nominal false-positive rate for a single test. There are also two levels of 
+multiple testing in expression QTL mapping, at the marker level and at the gene
+level.
+
+When we perform a single QTL scan, we are performing a hypothesis test at each
+marker. We could perform a traditional multiple-testing correction such as a
+Benjamini-Hochberg false discovery rate (FDR). However, by performing 
+permutations of the sample labels, scanning the genome, and retaining the 
+maximum LOD from each permutation, we are effectively adjusting for multiple
+testing across the genome because we have selecting only the maximum LOD 
+across all markers in each permutation.
+
+Multiple testing at the gene level comes from mapping multiple genes. If we use
+the 0.05 significance level for all genes, our overall false-positive rate will
+be greater than 0.05. We must also perform a multiple testing correction for
+each gene. However, we have more than one peak per gene, so how should we 
+proceed?
+
+While genes that have multiple peaks are important and may have interesting
+biology, we do not currently have a method of adjusting for multiple QTL peaks
+for each gene. Instead, we will select the peak with the highest LOD for each
+gene and will then perform a multiple-testing correction.
+
+First, we will filter the peaks to retain the peak with the highest LOD score
+for each gene.
+
+```{r filter_peaks}
+peaks_filt <- peaks |>
+                group_by(lodcolumn) |>
+                filter(lod == max(lod))
 ```
 
-:::::::::::::::::::::::::::::::::
+Let's make sure that we have only one peak per gene.
+
+```{r check_filter_peaks,message=FALSE}
+peaks_filt |>
+  ungroup() |>
+  dplyr::count(lodcolumn) |>
+  dplyr::count(n)
+```
+
+This looks good! All of the genes have only one peak.
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::: callout
+
+Note that only `r nrow(peaks_filt)` genes out of `r col(expr_rz)` have QTL peaks.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Most multiple-testing correction methods rely upon p-values as input. We 
+currently have LOD scores. We will need to convert them into genome-wide 
+p-values using the permutations that we performed in Mapping One eQTL. We have
+these in a variable called `eperm`. We will estimate the p-value for each gene
+by getting the proportion of permutations with a LOD greater than or equal to
+the LOD of each gene.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::: challenge
+
+#### Challenge 1: What is the minimum p-value that we can have?
+
+We performed 1,000 permutations. What does this tell you about the minimum
+possible p-value that we can get?
+
+::::::::::::::::::::::::::::::::::: solution
+
+Technically, we could get a p-value of 0 if the gene's LOD score is above the
+highest LOD score in the permutations. In practice, we recognize that the 
+p-value isn't zero, but some number less than one over the number of 
+permutations (1 / 1000) that we performed.
+
+::::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Let's estimate the p-values by calculating the proportion of permutations with
+LOD scores greater than or equal to each gene's LOD. We will also adjust 
+p-values which are zero to be 0.001 to be conservative.
+
+```{r peaks_get_pvalue}
+peaks_filt <- peaks_filt |>
+                group_by(lodcolumn) |>
+                mutate(pvalue = mean(lod <= eperm[,1]),
+                       pvalue = if_else(pvalue < 0.001, 0.001, pvalue))
+```
+
+Now we can apply a procedure called 
+[q-value](https://pmc.ncbi.nlm.nih.gov/articles/PMC170937/) to estimate the
+false discovery rate (FDR) for each gene. 
+
+```{r peaks_qvalue}
+peaks_filt <- peaks_filt |>
+                ungroup() |>
+                mutate(qvalue = qvalue(peaks_filt$pvalue)$qvalue)
+```
 
 
-## Challenge 2: how do you nest solutions within challenge blocks?
+Now we can plot the nominal p-values versus the q-values.
 
-:::::::::::::::::::::::: solution 
+```{r pv_vs_qv,fig.width=6,fig.height=6}
+peaks_filt |>
+  ggplot(aes(pvalue, qvalue)) +
+    geom_line(linewidth = 1.25) +
+    geom_abline(aes(intercept = 0, slope = 1), color = 'red', linewidth = 1.25) +
+    labs(title = "p-values versus q-values") +
+    theme(text = element_text(size = 20))
+```
 
-You can add a line with at least three colons and a `solution` tag.
+In the plot above, we can see that the q-values are lower than the p-values. The
+p-value versus q-value line is shown in black and the x = y line in red. The 
+q-values represent the FDR of each LOD peak and all of the genes with lower 
+q-values. A p-value of 0.25 has a q-value of ~0.06, meaning that the FDR of 
+LOD peaks with p-values of 0.25 or less have an FDR or 0.06.
 
-:::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::::::::::::
+We can filter the list of peaks to include ones with q-values less than or equal
+to 0.05.
+
+```{r peaks_filter_05}
+peaks_filt <- peaks_filt |>
+                filter(qvalue <= 0.05)
+```
+
+Let's see how many genes we have retained.
+
+```{r nrow_peaks_filt}
+nrow(peaks_filt)
+```
+
+We still have almost 17,000 genes wiht an FDR of 5% or less.
+
+Next, let's look at what the range of LOD scores is.
+
+```{r}
+range(peaks_filt$lod)
+```
+
+The lowest LOD score is `r min(peaks_filt$lod)`, which is lower than the 
+permutation threshold of `r ethr[1,1]`.
+
+### Finding Genes under QTL Peaks
+
+We can use the gene annotation data to find genes under QTL peaks. Let's get 
+the peak with the highest LOD score.
+
+```{r high_peak}
+high_peak <- slice_max(peaks_filt, order_by = lod, n = 1)
+high_peak
+```
+
+::::::::::::::::::::::::::::::::::::::: callout
+
+DMG: This is temporary. Remove later.
+
+```{r}
+high_peak$ci_lo = 106
+high_peak$ci_hi = 107
+```
+
+:::::::::::::::::::::::::::::::::::::::::::::::
+
+
+This peak has a LOD of `r high_peak$lod[1]`! Next, we will get the genes which
+lie within the confidence interval from the gene annotation.
+
+Let's remind ourselves what the gene annotation contains.
+
+```{r head_annot}
+head(annot)
+```
+
+We can use the start, middle, or end columns to get the gene positions. In this
+case, we will use the middle.
+
+
+```{r high_peak_annot}
+annot_filt <- annot |>
+               filter(middle >= high_peak$ci_lo & middle <= high_peak$ci_hi)
+```
+
+There are `r nrow(annot_filt)` genes within the QTL support interval. This is a
+large number and would require more research to find candidate genes.
+
+Let's see where the gene being mapped is located. Note that the Ensembl ID of
+the gene is in `high_peak`.
+
+```{r}
+filter(annot, gene_id == high_peak$lodcolumn)
+```
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::: challenge
+
+#### Challenge 2: Where is the gene?
+
+Look at the gene location above and compare it with its corresponding QTL
+peak in `high_peak`. Is there any relationship between the two genomic
+positions?
+
+::::::::::::::::::::::::::::::::::: solution
+
+Print out the QTL peak position.
+
+```{r challenge2a}
+high_peak
+```
+
+The QTL is located on chromosome `r high_peak$chr[1]` at `r high_peak$pos[1]` 
+Mb. The gene is located on chromosome 
+`r filter(annot, gene_id == high_peak$lodcolumn)$chr[1]` at
+`r filter(annot, gene_id == high_peak$lodcolumn)$pos[1]` Mb. These genomic
+positions are nearly identical.
+
+::::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+- There can be more than one significant QTL peak for each gene.
+- We sometimes focus on the largest peak for each gene.
+- A multiple-testing correction should be applied to all peaks.
+- Sometimes a gene s co-located with its QTL peak.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
