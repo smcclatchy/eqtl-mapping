@@ -623,8 +623,9 @@ method for kinship correction. Sex and experimental cohort (DO wave)
 were used as covariates. The results of one scan for insulin area under
 the curve (AUC) is shown below with a strong peak on chromosome 11. In
 this lesson, we will look into genes located under this peak.</p>
-<figure><img src="fig/insulin-auc-lod-plot.png" alt="LOD plot for insulin area under the curve" class="figure mx-auto d-block"><div class="figcaption">LOD plot for insulin area under the curve</div>
-</figure><div id="keypoints1" class="callout keypoints">
+<p><img src="fig/insulin-auc-lod-plot.png" alt="LOD plot for insulin area under the curve" class="figure">{alt=“Insulin AUC QTL
+plot}</p>
+<div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
 </div>
@@ -1720,7 +1721,7 @@ transformation.</p>
 <span>           na.last     <span class="op">=</span> <span class="st">"keep"</span>,</span>
 <span>           ties.method <span class="op">=</span> <span class="st">"average"</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fu">sum</span><span class="op">(</span><span class="op">!</span><span class="fu">is.na</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="kw">return</span><span class="op">(</span><span class="fu">qnorm</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
+<span><span class="op">}</span> <span class="co"># rankZ()</span></span>
 <span></span>
 <span><span class="va">expr_rz</span> <span class="op">=</span> <span class="fu">apply</span><span class="op">(</span><span class="va">expr</span>, <span class="fl">2</span>, <span class="va">rankZ</span><span class="op">)</span></span></code></pre>
 </div>
@@ -2482,14 +2483,11 @@ this class, so we will read the results in below.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">t1</span> <span class="op">=</span> <span class="fu">proc.time</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">chr</span>      <span class="op">&lt;-</span> <span class="va">peaks_hnf1b</span><span class="op">$</span><span class="va">chr</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
+<code class="sourceCode R"><span><span class="va">chr</span>      <span class="op">&lt;-</span> <span class="va">peaks_hnf1b</span><span class="op">$</span><span class="va">chr</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
 <span><span class="va">blup_hnf1b</span> <span class="op">&lt;-</span> <span class="fu">scan1blup</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span><span class="op">[</span>,<span class="va">chr</span><span class="op">]</span>,</span>
 <span>                      pheno     <span class="op">=</span> <span class="va">hnf1b</span>,</span>
 <span>                      kinship   <span class="op">=</span> <span class="va">K</span><span class="op">[[</span><span class="va">chr</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>                      addcovar  <span class="op">=</span> <span class="va">addcovar</span><span class="op">)</span></span>
-<span><span class="va">t2</span> <span class="op">=</span> <span class="fu">proc.time</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu">print</span><span class="op">(</span><span class="va">t2</span>  <span class="op">-</span> <span class="va">t1</span><span class="op">)</span></span>
 <span><span class="fu">saveRDS</span><span class="op">(</span><span class="va">blup_hnf1b</span>, file <span class="op">=</span> <span class="st">'data/hnf1b_blup_chr11.rds'</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Read in the Hnf1b founder allele effects.</p>
@@ -2812,7 +2810,7 @@ different.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1] 40850</code></pre>
+<pre class="output" tabindex="0"><code>[1] 42981</code></pre>
 </div>
 <p>There are more peaks than there are genes.</p>
 <p>There are several different possibilities when mapping a gene.</p>
@@ -2838,7 +2836,7 @@ and so will appear many times in the list of peaks.</li>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>  n   nn
-1 1 6992
+1 1 9123
 2 2 6814
 3 3 3827
 4 4 1441
@@ -2976,7 +2974,7 @@ website.</p>
 <span></span>
 <span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="va">lod_brks</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
-<span>  <span class="va">results</span><span class="op">$</span><span class="va">n</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">sum</span><span class="op">(</span><span class="va">peaks</span><span class="op">$</span><span class="va">lod</span> <span class="op">&lt;=</span> <span class="va">i</span><span class="op">)</span></span>
+<span>  <span class="va">results</span><span class="op">$</span><span class="va">n</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">sum</span><span class="op">(</span><span class="va">peaks</span><span class="op">$</span><span class="va">lod</span> <span class="op">&gt;=</span> <span class="va">i</span><span class="op">)</span></span>
 <span>  </span>
 <span><span class="op">}</span> <span class="co"># for(i)</span></span>
 <span></span>
@@ -2985,9 +2983,9 @@ website.</p>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">lod_brks</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">geom_line</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">1.25</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">scale_x_continuous</span><span class="op">(</span>breaks <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">10</span> <span class="op">*</span> <span class="fl">10</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Cummulative Distribution of LOD Scores"</span>,</span>
+<span>    <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Number of Peaks above LOD Score"</span>,</span>
 <span>         x     <span class="op">=</span> <span class="st">"LOD"</span>,</span>
-<span>         y     <span class="op">=</span> <span class="st">"Number of Peaks with LOD &lt;= x"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>         y     <span class="op">=</span> <span class="st">"Number of Peaks with LOD &gt;= x"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">theme</span><span class="op">(</span>text <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -3006,7 +3004,8 @@ generated.</code></pre>
 <code class="sourceCode R"><span><span class="fu">rm</span><span class="op">(</span><span class="va">lod_brks</span>, <span class="va">results</span><span class="op">)</span></span></code></pre>
 </div>
 <p>As you can see from the plot above, most peaks have LODs less than
-10. However, about 12,000 peaks have LODs over 10. Let’s look at how
+10. However, about 12,000 peaks have LODs over 10. As we increase the
+LOD score, we see that fewer genes have high LODs. Let’s look at how
 many peaks each gene has as we increase the LOD threshold.</p>
 <div id="callout2" class="callout">
 <div class="callout-square">
@@ -3102,7 +3101,8 @@ any links that you are not going to use.
 <div class="inner">
 <h3 class="card-title">Questions</h3>
 <ul>
-<li>How do I display maximum eQTL peaks and nearby genes?</li>
+<li>How do I select QTL peaks for each gene?</li>
+<li>How do I find genes near QTL peaks?</li>
 </ul>
 </div>
 </div>
@@ -3112,58 +3112,303 @@ any links that you are not going to use.
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <ul>
-<li>Explain how to use markdown with the new lesson template</li>
-<li>Demonstrate how to include pieces of code, figures, and nested
-challenge blocks</li>
+<li>Learn how to filter LOD peaks to retain significant peaks.</li>
+<li>Understand the two levels of multiple testing in eQTL mapping
+studies.</li>
+<li>Find genes which are located under QTL peaks.</li>
 </ul>
 </div>
 </div>
 </div>
 </div>
 </div>
-<figure><img src="fig/LOD-plot-Hnf1b.png" alt="LOD plot for gene Hnf1b." class="figure mx-auto d-block"><div class="figcaption">LOD plot for gene Hnf1b.</div>
-</figure><figure><img src="fig/SNP-association-Hnf1b.png" alt="SNP association plot for gene Hnf1b." class="figure mx-auto d-block"><div class="figcaption">SNP association plot for gene Hnf1b.</div>
-</figure><div id="challenge-1-can-you-do-it" class="callout challenge">
-<div class="callout-square">
-<i class="callout-icon" data-feather="zap"></i>
-</div>
-<div id="challenge-1-can-you-do-it" class="callout-inner">
-<h3 class="callout-title">Challenge 1: Can you do it?</h3>
-<div class="callout-content">
-<p>What is the output of this command?</p>
+<div class="section level3">
+<h3 id="multiple-testing-in-qtl-mapping">Multiple Testing in QTL Mapping<a class="anchor" aria-label="anchor" href="#multiple-testing-in-qtl-mapping"></a>
+</h3>
+<p>When we perform multiple hypothesis tests, as we do in QTL mapping,
+we must adjust for the fact that our overall false-positive rate is
+higher than the nominal false-positive rate for a single test. There are
+also two levels of multiple testing in expression QTL mapping, at the
+marker level and at the gene level.</p>
+<p>When we perform a single QTL scan, we are performing a hypothesis
+test at each marker. We could perform a traditional multiple-testing
+correction such as a Benjamini-Hochberg false discovery rate (FDR).
+However, by performing permutations of the sample labels, scanning the
+genome, and retaining the maximum LOD from each permutation, we are
+effectively adjusting for multiple testing across the genome because we
+have selecting only the maximum LOD across all markers in each
+permutation.</p>
+<p>Multiple testing at the gene level comes from mapping multiple genes.
+If we use the 0.05 significance level for all genes, our overall
+false-positive rate will be greater than 0.05. We must also perform a
+multiple testing correction for each gene. However, we have more than
+one peak per gene, so how should we proceed?</p>
+<p>While genes that have multiple peaks are important and may have
+interesting biology, we do not currently have a method of adjusting for
+multiple QTL peaks for each gene. Instead, we will select the peak with
+the highest LOD for each gene and will then perform a multiple-testing
+correction.</p>
+<p>First, we will filter the peaks to retain the peak with the highest
+LOD score for each gene.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">paste</span><span class="op">(</span><span class="st">"This"</span>, <span class="st">"new"</span>, <span class="st">"lesson"</span>, <span class="st">"looks"</span>, <span class="st">"good"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">peaks_filt</span> <span class="op">&lt;-</span> <span class="va">peaks</span> <span class="op">|&gt;</span></span>
+<span>                <span class="fu">group_by</span><span class="op">(</span><span class="va">lodcolumn</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>                <span class="fu">filter</span><span class="op">(</span><span class="va">lod</span> <span class="op">==</span> <span class="fu">max</span><span class="op">(</span><span class="va">lod</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
+<p>Let’s make sure that we have only one peak per gene.</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">peaks_filt</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ungroup</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu">count</span><span class="op">(</span><span class="va">lodcolumn</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu">count</span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code># A tibble: 1 × 2
+      n    nn
+  &lt;int&gt; &lt;int&gt;
+1     1 21771</code></pre>
+</div>
+<p>This looks good! All of the genes have only one peak.</p>
+<div id="callout1" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Callout</h3>
+<div class="callout-content">
+<p>Note that only 21771 genes out of 21771 have QTL peaks.</p>
+</div>
+</div>
+</div>
+<p>Most multiple-testing correction methods rely upon p-values as input.
+We currently have LOD scores. We will need to convert them into
+genome-wide p-values using the permutations that we performed in Mapping
+One eQTL. We have these in a variable called <code>eperm</code>. We will
+estimate the p-value for each gene by getting the proportion of
+permutations with a LOD greater than or equal to the LOD of each
+gene.</p>
+<div id="challenge-1-what-is-the-minimum-p-value-that-we-can-have" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="challenge-1-what-is-the-minimum-p-value-that-we-can-have" class="callout-inner">
+<h3 class="callout-title">Challenge 1: What is the minimum p-value that we can have?</h3>
+<div class="callout-content">
+<p>We performed 1,000 permutations. What does this tell you about the
+minimum possible p-value that we can get?</p>
 </div>
 </div>
 </div>
 <div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
-  <h4 class="accordion-header" id="headingSolution1"> Output </h4>
+  <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
+<p>Technically, we could get a p-value of 0 if the gene’s LOD score is
+above the highest LOD score in the permutations. In practice, we
+recognize that the p-value isn’t zero, but some number less than one
+over the number of permutations (1 / 1000) that we performed.</p>
+</div>
+</div>
+</div>
+</div>
+<p>Let’s estimate the p-values by calculating the proportion of
+permutations with LOD scores greater than or equal to each gene’s LOD.
+We will also adjust p-values which are zero to be 0.001 to be
+conservative.</p>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">peaks_filt</span> <span class="op">&lt;-</span> <span class="va">peaks_filt</span> <span class="op">|&gt;</span></span>
+<span>                <span class="fu">group_by</span><span class="op">(</span><span class="va">lodcolumn</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>                <span class="fu">mutate</span><span class="op">(</span>pvalue <span class="op">=</span> <span class="fu">mean</span><span class="op">(</span><span class="va">lod</span> <span class="op">&lt;=</span> <span class="va">eperm</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>                       pvalue <span class="op">=</span> <span class="fu">if_else</span><span class="op">(</span><span class="va">pvalue</span> <span class="op">&lt;</span> <span class="fl">0.001</span>, <span class="fl">0.001</span>, <span class="va">pvalue</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Now we can apply a procedure called <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC170937/" class="external-link">q-value</a> to
+estimate the false discovery rate (FDR) for each gene.</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">peaks_filt</span> <span class="op">&lt;-</span> <span class="va">peaks_filt</span> <span class="op">|&gt;</span></span>
+<span>                <span class="fu">ungroup</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>                <span class="fu">mutate</span><span class="op">(</span>qvalue <span class="op">=</span> <span class="fu">qvalue</span><span class="op">(</span><span class="va">peaks_filt</span><span class="op">$</span><span class="va">pvalue</span><span class="op">)</span><span class="op">$</span><span class="va">qvalue</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Now we can plot the nominal p-values versus the q-values.</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">peaks_filt</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">pvalue</span>, <span class="va">qvalue</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_line</span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">1.25</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_abline</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>intercept <span class="op">=</span> <span class="fl">0</span>, slope <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">'red'</span>, linewidth <span class="op">=</span> <span class="fl">1.25</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"p-values versus q-values"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">theme</span><span class="op">(</span>text <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="fig/maximum-peaks-genes-rendered-pv_vs_qv-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>In the plot above, we can see that the q-values are lower than the
+p-values. The p-value versus q-value line is shown in black and the x =
+y line in red. The q-values represent the FDR of each LOD peak and all
+of the genes with lower q-values. A p-value of 0.25 has a q-value of
+~0.06, meaning that the FDR of LOD peaks with p-values of 0.25 or less
+have an FDR or 0.06.</p>
+<p>We can filter the list of peaks to include ones with q-values less
+than or equal to 0.05.</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">peaks_filt</span> <span class="op">&lt;-</span> <span class="va">peaks_filt</span> <span class="op">|&gt;</span></span>
+<span>                <span class="fu">filter</span><span class="op">(</span><span class="va">qvalue</span> <span class="op">&lt;=</span> <span class="fl">0.05</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Let’s see how many genes we have retained.</p>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">nrow</span><span class="op">(</span><span class="va">peaks_filt</span><span class="op">)</span></span></code></pre>
+</div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1] "This new lesson looks good"</code></pre>
+<pre class="output" tabindex="0"><code>[1] 16781</code></pre>
+</div>
+<p>We still have almost 17,000 genes wiht an FDR of 5% or less.</p>
+<p>Next, let’s look at what the range of LOD scores is.</p>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">range</span><span class="op">(</span><span class="va">peaks_filt</span><span class="op">$</span><span class="va">lod</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>[1]   6.739219 194.063370</code></pre>
+</div>
+<p>The lowest LOD score is 6.7392192, which is lower than the
+permutation threshold of 7.4745761.</p>
+</div>
+<div class="section level3">
+<h3 id="finding-genes-under-qtl-peaks">Finding Genes under QTL Peaks<a class="anchor" aria-label="anchor" href="#finding-genes-under-qtl-peaks"></a>
+</h3>
+<p>We can use the gene annotation data to find genes under QTL peaks.
+Let’s get the peak with the highest LOD score.</p>
+<div class="codewrapper sourceCode" id="cb12">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">high_peak</span> <span class="op">&lt;-</span> <span class="fu">slice_max</span><span class="op">(</span><span class="va">peaks_filt</span>, order_by <span class="op">=</span> <span class="va">lod</span>, n <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">high_peak</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code># A tibble: 1 × 9
+  lodindex lodcolumn          chr     pos   lod ci_lo ci_hi pvalue   qvalue
+     &lt;int&gt; &lt;chr&gt;              &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
+1    12715 ENSMUSG00000048758 9      106.  194.  106.  106.  0.001 0.000369</code></pre>
+</div>
+<div id="callout2" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<div class="callout-inner">
+<h3 class="callout-title">Callout</h3>
+<div class="callout-content">
+<p>DMG: This is temporary. Remove later.</p>
+<div class="codewrapper sourceCode" id="cb14">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">high_peak</span><span class="op">$</span><span class="va">ci_lo</span> <span class="op">=</span> <span class="fl">106</span></span>
+<span><span class="va">high_peak</span><span class="op">$</span><span class="va">ci_hi</span> <span class="op">=</span> <span class="fl">107</span></span></code></pre>
 </div>
 </div>
 </div>
 </div>
+<p>This peak has a LOD of 194.0633696! Next, we will get the genes which
+lie within the confidence interval from the gene annotation.</p>
+<p>Let’s remind ourselves what the gene annotation contains.</p>
+<div class="codewrapper sourceCode" id="cb15">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">annot</span><span class="op">)</span></span></code></pre>
 </div>
-<div id="challenge-2-how-do-you-nest-solutions-within-challenge-blocks" class="callout challenge">
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>                              gene_id symbol chr     start       end strand
+ENSMUSG00000000001 ENSMUSG00000000001  Gnai3   3 108.10728 108.14615     -1
+ENSMUSG00000000028 ENSMUSG00000000028  Cdc45  16  18.78045  18.81199     -1
+ENSMUSG00000000037 ENSMUSG00000000037  Scml2   X 161.11719 161.25821      1
+ENSMUSG00000000049 ENSMUSG00000000049   Apoh  11 108.34335 108.41440      1
+ENSMUSG00000000056 ENSMUSG00000000056   Narf  11 121.23725 121.25586      1
+ENSMUSG00000000058 ENSMUSG00000000058   Cav2   6  17.28119  17.28911      1
+                      middle nearest.marker.id        biotype      module
+ENSMUSG00000000001 108.12671       3_108090236 protein_coding   darkgreen
+ENSMUSG00000000028  18.79622       16_18817262 protein_coding        grey
+ENSMUSG00000000037 161.18770       X_161182677 protein_coding        grey
+ENSMUSG00000000049 108.37887      11_108369225 protein_coding greenyellow
+ENSMUSG00000000056 121.24655      11_121200487 protein_coding       brown
+ENSMUSG00000000058  17.28515        6_17288298 protein_coding       brown
+                   hotspot
+ENSMUSG00000000001    &lt;NA&gt;
+ENSMUSG00000000028    &lt;NA&gt;
+ENSMUSG00000000037    &lt;NA&gt;
+ENSMUSG00000000049    &lt;NA&gt;
+ENSMUSG00000000056    &lt;NA&gt;
+ENSMUSG00000000058    &lt;NA&gt;</code></pre>
+</div>
+<p>We can use the start, middle, or end columns to get the gene
+positions. In this case, we will use the middle.</p>
+<div class="codewrapper sourceCode" id="cb17">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">annot_filt</span> <span class="op">&lt;-</span> <span class="va">annot</span> <span class="op">|&gt;</span></span>
+<span>               <span class="fu">filter</span><span class="op">(</span><span class="va">middle</span> <span class="op">&gt;=</span> <span class="va">high_peak</span><span class="op">$</span><span class="va">ci_lo</span> <span class="op">&amp;</span> <span class="va">middle</span> <span class="op">&lt;=</span> <span class="va">high_peak</span><span class="op">$</span><span class="va">ci_hi</span><span class="op">)</span></span></code></pre>
+</div>
+<p>There are 161 genes within the QTL support interval. This is a large
+number and would require more research to find candidate genes.</p>
+<p>Let’s see where the gene being mapped is located. Note that the
+Ensembl ID of the gene is in <code>high_peak</code>.</p>
+<div class="codewrapper sourceCode" id="cb18">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">filter</span><span class="op">(</span><span class="va">annot</span>, <span class="va">gene_id</span> <span class="op">==</span> <span class="va">high_peak</span><span class="op">$</span><span class="va">lodcolumn</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>                              gene_id symbol chr    start      end strand
+ENSMUSG00000048758 ENSMUSG00000048758  Rpl29   9 106.4295 106.4316      1
+                     middle nearest.marker.id        biotype module hotspot
+ENSMUSG00000048758 106.4305       9_106387870 protein_coding   grey    &lt;NA&gt;</code></pre>
+</div>
+<div id="challenge-2-where-is-the-gene" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="challenge-2-how-do-you-nest-solutions-within-challenge-blocks" class="callout-inner">
-<h3 class="callout-title">Challenge 2: how do you nest solutions within challenge blocks?</h3>
+<div id="challenge-2-where-is-the-gene" class="callout-inner">
+<h3 class="callout-title">Challenge 2: Where is the gene?</h3>
 <div class="callout-content">
-
+<p>Look at the gene location above and compare it with its corresponding
+QTL peak in <code>high_peak</code>. Is there any relationship between
+the two genomic positions?</p>
 </div>
 </div>
 </div>
@@ -3172,10 +3417,26 @@ challenge blocks</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
-<p>You can add a line with at least three colons and a
-<code>solution</code> tag.</p>
+<p>Print out the QTL peak position.</p>
+<div class="codewrapper sourceCode" id="cb20">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">high_peak</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code># A tibble: 1 × 9
+  lodindex lodcolumn          chr     pos   lod ci_lo ci_hi pvalue   qvalue
+     &lt;int&gt; &lt;chr&gt;              &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
+1    12715 ENSMUSG00000048758 9      106.  194.   106   107  0.001 0.000369</code></pre>
+</div>
+<p>The QTL is located on chromosome 9 at 106.38787 Mb. The gene is
+located on chromosome 9 at Mb. These genomic positions are nearly
+identical.</p>
 </div>
 </div>
 </div>
@@ -3188,17 +3449,18 @@ challenge blocks</li>
 <h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul>
-<li>Use <code>.md</code> files for episodes when you want static
-content</li>
-<li>Use <code>.Rmd</code> files for episodes when you need to generate
-output</li>
-<li>Run <code>sandpaper::check_lesson()</code> to identify any issues
-with your lesson</li>
-<li>Run <code>sandpaper::build_lesson()</code> to preview your lesson
-locally</li>
+<li>There can be more than one significant QTL peak for each gene.</li>
+<li>We sometimes focus on the largest peak for each gene.</li>
+<li>A multiple-testing correction should be applied to all peaks.</li>
+<li>Sometimes a gene s co-located with its QTL peak.</li>
 </ul>
 </div>
 </div>
+</div>
+<!--
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use.
+ -->
 </div></section><section id="aio-create-transcriptome-map"><p>Content from <a href="create-transcriptome-map.html">Creating A Transcriptome Map</a></p>
 <hr>
 <p>Last updated on 2024-12-03 |
@@ -3337,7 +3599,7 @@ call eQTL that are located on a different chromosome than the gene?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>A cis-eQTL is an eQTL that is co-colocated with the gene. A
 trans-eQTL is an eQTL that is located on a chromosome other than the
@@ -3433,8 +3695,8 @@ phenotype variation from qtl2 mapping results.</li>
 </div>
 </div>
 </div>
-<p><img src="fig/SFig7_Keller_2018_chr11.png" alt="Attie et al, 2018 Supplementary Figure S7" class="figure">
-::::::::::::::::::::::::::::::::::::: challenge</p>
+<p><img src="fig/SFig7_Keller_2018_chr11.png" alt="Keller et al, figure S7" class="figure"> :::::::::::::::::::::::::::::::::::::
+challenge</p>
 <section><h2 class="section-heading" id="challenge-interpreting-qtl2-results">Challenge: Interpreting qtl2 results<a class="anchor" aria-label="anchor" href="#challenge-interpreting-qtl2-results"></a>
 </h2>
 <hr class="half-width">
@@ -3530,8 +3792,7 @@ the mediator (path a). The mediator has a direct impact on the response
 variable (path b). We would see (path c) the relationship between
 predictor and response, not knowing that a mediator intervenes in this
 relationship.</p>
-<p><img src="fig/mediation-analysis.png" alt="In complete mediation an independent (predictor) variable influences the dependent (response) variable indirectly through a mediator variable." class="figure">
-Mediation analysis is widely used in the social sciences including
+<p>Mediation analysis is widely used in the social sciences including
 psychology. In biomedicine, mediation analysis has been employed to
 investigate how gene expression mediates the effects of genetic variants
 on complex phenotypes and disease.</p>
@@ -3539,29 +3800,29 @@ on complex phenotypes and disease.</p>
 expression of gene 2 through a mediator, gene 1. The SNP regulates
 expression of gene 1 in cis, and expression of gene 1 influences
 expression of gene 2 in trans.</p>
-<p><img src="fig/mediation-trans-noncoding-SNP.png" alt="A non-coding SNP affects expression of gene 1 in cis. Gene 1 mediates expression of gene 2." class="figure">
-Instead of the expression of one gene impacting another, expression of
-gene 1 in the graphic above could impact a physiological phenotype like
-blood glucose. Expression of gene 1 would mediate the relationship
+<figure><img src="fig/mediation-trans-noncoding-SNP.png" alt="mediation figure" class="figure mx-auto d-block"><div class="figcaption">A non-coding SNP affects expression of gene 1 in
+cis. Gene 1 mediates expression of gene 2.</div>
+</figure><p>Instead of the expression of one gene impacting another, expression
+of gene 1 in the graphic above could impact a physiological phenotype
+like blood glucose. Expression of gene 1 would mediate the relationship
 between the non-coding SNP and the glucose phenotype.</p>
 <p>Gene Akr1e1 is located on chromosome 13 in mouse. How would you
 interpret the LOD plot below? On which chromosome(s) would you expect to
 find the driver gene(s)? The SNP(s)?</p>
-<p><img src="fig/LOD-plot-Akr1e1.png" alt="Chromosome 13 gene Akr1e1 is affected by expression in both cis and trans by genes on chromosomes 13 and 4." class="figure">
-Myo15b is located on chromosome 11. How would you interpret the
-following LOD plot? On which chromosome(s) would you expect to find the
-driver gene(s)? The SNP(s)?</p>
-<p><img src="fig/LOD-plot-Myo15b.png" alt="Chromosome 11 gene Myo15b is affected by expression of a trans gene in the chromosome 2 hotspot." class="figure">
-The <a href="https://churchilllab.jax.org/qtlviewer/attie/islets#" class="external-link">QTL
-Viewer for the Attie islet data</a> integrates mediation into
-exploration of the data. Below, mediation analysis identifies gene Hnf4a
-as the chromosome 2 gene that impacts Myo15b expression.</p>
-<figure><img src="fig/mediation-Hnf4a-Myo15b.png" alt="Mediating expression of Myo15b identifies Hnf4a as the gene that drops the LOD score from greater than 70 to less than 50." class="figure mx-auto d-block"><div class="figcaption">Mediating expression of Myo15b identifies Hnf4a
+<p><img src="fig/LOD-plot-Akr1e1.png" alt="Akr1e1 QTL plot" class="figure"> Myo15b is
+located on chromosome 11. How would you interpret the following LOD
+plot? On which chromosome(s) would you expect to find the driver
+gene(s)? The SNP(s)?</p>
+<p><img src="fig/LOD-plot-Myo15b.png" alt="Myo15b QTL plot" class="figure"> The <a href="https://churchilllab.jax.org/qtlviewer/attie/islets#" class="external-link">QTL Viewer
+for the Attie islet data</a> integrates mediation into exploration of
+the data. Below, mediation analysis identifies gene Hnf4a as the
+chromosome 2 gene that impacts Myo15b expression.</p>
+<figure><img src="fig/mediation-Hnf4a-Myo15b.png" alt="Hnf4a mediation" class="figure mx-auto d-block"><div class="figcaption">Mediating expression of Myo15b identifies Hnf4a
 as the gene that drops the LOD score from greater than 70 to less than
 50.</div>
-</figure><div class="section level3">
-<h3 id="load-libraries">Load Libraries<a class="anchor" aria-label="anchor" href="#load-libraries"></a>
-</h3>
+</figure><section><h2 class="section-heading" id="load-libraries">Load Libraries<a class="anchor" aria-label="anchor" href="#load-libraries"></a>
+</h2>
+<hr class="half-width">
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -3571,8 +3832,7 @@ as the gene that drops the LOD score from greater than 70 to less than
 <span><span class="kw">library</span><span class="op">(</span><span class="va">qtl2</span><span class="op">)</span></span>
 <span><span class="co"># library(intermediate)</span></span></code></pre>
 </div>
-</div>
-<section><h2 class="section-heading" id="load-functions">Load Functions<a class="anchor" aria-label="anchor" href="#load-functions"></a>
+</section><section><h2 class="section-heading" id="load-functions">Load Functions<a class="anchor" aria-label="anchor" href="#load-functions"></a>
 </h2>
 <hr class="half-width">
 <div class="codewrapper sourceCode" id="cb2">
@@ -3591,20 +3851,20 @@ as the gene that drops the LOD score from greater than 70 to less than
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># expression data</span></span>
-<span><span class="fu">load</span><span class="op">(</span><span class="st">"../data/attie_DO500_expr.datasets.RData"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># data from paper</span></span>
-<span><span class="fu">load</span><span class="op">(</span><span class="st">"../data/dataset.islet.rnaseq.RData"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># phenotypes</span></span>
-<span><span class="fu">load</span><span class="op">(</span><span class="st">"../data/attie_DO500_clinical.phenotypes.RData"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># mapping data</span></span>
-<span><span class="fu">load</span><span class="op">(</span><span class="st">"../data/attie_DO500_mapping.data.RData"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># genotype probabilities</span></span>
-<span><span class="va">probs</span> <span class="op">=</span> <span class="fu">readRDS</span><span class="op">(</span><span class="st">"../data/attie_DO500_genoprobs_v5.rds"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># # expression data</span></span>
+<span><span class="co"># load("../data/attie_DO500_expr.datasets.RData")</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># # data from paper</span></span>
+<span><span class="co"># load("../data/dataset.islet.rnaseq.RData")</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># # phenotypes</span></span>
+<span><span class="co"># load("../data/attie_DO500_clinical.phenotypes.RData")</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># # mapping data</span></span>
+<span><span class="co"># load("../data/attie_DO500_mapping.data.RData")</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># # genotype probabilities</span></span>
+<span><span class="co"># probs = readRDS("../data/attie_DO500_genoprobs_v5.rds")</span></span></code></pre>
 </div>
 <blockquote>
 <p>Example from package. This will be removed, but I needed it for
@@ -3614,21 +3874,21 @@ now.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span>  <span class="co"># DOQTL liver protein expresion dataset</span></span>
-<span>  <span class="fu">data</span><span class="op">(</span><span class="va">Tmem68</span><span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="co"># Let us mediate Tmem68 to other proteins</span></span>
-<span>  <span class="va">trgt</span> <span class="op">=</span> <span class="fu">matrix</span><span class="op">(</span><span class="va">Tmem68</span><span class="op">$</span><span class="va">target</span>, ncol <span class="op">=</span> <span class="fl">1</span>, dimnames <span class="op">=</span> <span class="fu">list</span><span class="op">(</span><span class="fu">names</span><span class="op">(</span><span class="va">Tmem68</span><span class="op">$</span><span class="va">target</span><span class="op">)</span>, <span class="st">'Tmem68'</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="va">annot</span> <span class="op">=</span> <span class="va">Tmem68</span><span class="op">$</span><span class="va">annotation</span></span>
-<span>  <span class="fu">colnames</span><span class="op">(</span><span class="va">annot</span><span class="op">)</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span> <span class="op">=</span> <span class="st">'MIDDLE_POINT'</span></span>
-<span>  <span class="va">med</span> <span class="op">&lt;-</span> <span class="fu">mediation.scan</span><span class="op">(</span>target     <span class="op">=</span> <span class="va">trgt</span>,</span>
-<span>                        mediator   <span class="op">=</span> <span class="va">Tmem68</span><span class="op">$</span><span class="va">mediator</span>,</span>
-<span>                        annotation <span class="op">=</span> <span class="va">annot</span>,</span>
-<span>                        covar      <span class="op">=</span> <span class="va">Tmem68</span><span class="op">$</span><span class="va">covar</span>,</span>
-<span>                        qtl.geno   <span class="op">=</span> <span class="va">Tmem68</span><span class="op">$</span><span class="va">qtl.geno</span><span class="op">)</span></span>
-<span>  </span>
-<span>  <span class="co"># Interactive plot</span></span>
-<span>  <span class="fu">kplot</span><span class="op">(</span><span class="va">med</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span>  <span class="co"># # DOQTL liver protein expression dataset</span></span>
+<span>  <span class="co"># data(Tmem68)</span></span>
+<span>  <span class="co"># </span></span>
+<span>  <span class="co"># # Let us mediate Tmem68 to other proteins</span></span>
+<span>  <span class="co"># trgt = matrix(Tmem68$target, ncol = 1, dimnames = list(names(Tmem68$target), 'Tmem68'))</span></span>
+<span>  <span class="co"># annot = Tmem68$annotation</span></span>
+<span>  <span class="co"># colnames(annot)[5] = 'MIDDLE_POINT'</span></span>
+<span>  <span class="co"># med &lt;- mediation.scan(target     = trgt,</span></span>
+<span>  <span class="co">#                       mediator   = Tmem68$mediator,</span></span>
+<span>  <span class="co">#                       annotation = annot,</span></span>
+<span>  <span class="co">#                       covar      = Tmem68$covar,</span></span>
+<span>  <span class="co">#                       qtl.geno   = Tmem68$qtl.geno)</span></span>
+<span>  <span class="co"># </span></span>
+<span>  <span class="co"># # Interactive plot</span></span>
+<span>  <span class="co"># kplot(med)</span></span></code></pre>
 </div>
 </section><section><h2 class="section-heading" id="searching-for-candidate-genes">Searching for Candidate Genes<a class="anchor" aria-label="anchor" href="#searching-for-candidate-genes"></a>
 </h2>
@@ -3645,19 +3905,19 @@ additive covariates.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># NOTE: QTL is not nearly as large with untransformed phenotype.</span></span>
-<span><span class="va">pheno_rz</span> <span class="op">=</span> <span class="va">pheno_clin</span> <span class="op">%&gt;%</span> </span>
-<span>             <span class="fu">select</span><span class="op">(</span><span class="va">num_islets</span><span class="op">:</span><span class="va">weight_10wk</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>             <span class="fu">as.matrix</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">pheno_rz</span> <span class="op">=</span> <span class="fu">apply</span><span class="op">(</span><span class="va">pheno_rz</span>, <span class="fl">2</span>, <span class="va">rankZ</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">covar</span><span class="op">$</span><span class="va">DOwave</span> <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">covar</span><span class="op">$</span><span class="va">DOwave</span><span class="op">)</span></span>
-<span><span class="va">addcovar</span> <span class="op">=</span> <span class="fu">model.matrix</span><span class="op">(</span><span class="op">~</span><span class="va">sex</span> <span class="op">+</span> <span class="va">DOwave</span> <span class="op">+</span> <span class="va">diet_days</span>, data <span class="op">=</span> <span class="va">covar</span><span class="op">)</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span></span>
-<span><span class="va">ins_qtl</span> <span class="op">=</span> <span class="fu">scan1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>, </span>
-<span>                pheno     <span class="op">=</span> <span class="va">pheno_rz</span><span class="op">[</span>,<span class="st">'Ins_tAUC'</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, </span>
-<span>                kinship   <span class="op">=</span> <span class="va">K</span>, </span>
-<span>                addcovar  <span class="op">=</span> <span class="va">addcovar</span><span class="op">)</span></span>
-<span><span class="fu">plot_scan1</span><span class="op">(</span><span class="va">ins_qtl</span>, <span class="va">map</span>, main <span class="op">=</span> <span class="st">'Insulin tAUC'</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># # NOTE: QTL is not nearly as large with untransformed phenotype.</span></span>
+<span><span class="co"># pheno_rz = pheno_clin %&gt;% </span></span>
+<span><span class="co">#              select(num_islets:weight_10wk) %&gt;% </span></span>
+<span><span class="co">#              as.matrix()</span></span>
+<span><span class="co"># pheno_rz = apply(pheno_rz, 2, rankZ)</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># covar$DOwave = factor(covar$DOwave)</span></span>
+<span><span class="co"># addcovar = model.matrix(~sex + DOwave + diet_days, data = covar)[,-1]</span></span>
+<span><span class="co"># ins_qtl = scan1(genoprobs = probs, </span></span>
+<span><span class="co">#                 pheno     = pheno_rz[,'Ins_tAUC', drop = FALSE], </span></span>
+<span><span class="co">#                 kinship   = K, </span></span>
+<span><span class="co">#                 addcovar  = addcovar)</span></span>
+<span><span class="co"># plot_scan1(ins_qtl, map, main = 'Insulin tAUC')</span></span></code></pre>
 </div>
 <p>There is a large peak on chromosome 11. Let’s look at the LOD score
 and the location.</p>
@@ -3665,8 +3925,8 @@ and the location.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">peaks</span> <span class="op">=</span> <span class="fu">find_peaks</span><span class="op">(</span><span class="va">ins_qtl</span>, <span class="va">map</span>, threshold <span class="op">=</span> <span class="fl">10</span>, prob <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span>
-<span><span class="va">peaks</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># peaks = find_peaks(ins_qtl, map, threshold = 10, prob = 0.95)</span></span>
+<span><span class="co"># peaks</span></span></code></pre>
 </div>
 <p>Let’s also estimate the founder allele effects for
 <code>insulin tAUC</code>.</p>
@@ -3677,12 +3937,12 @@ and the location.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">chr</span> <span class="op">=</span> <span class="st">'11'</span></span>
-<span><span class="va">feff</span> <span class="op">=</span> <span class="fu">scan1blup</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span><span class="op">[</span>,<span class="va">chr</span><span class="op">]</span>, </span>
-<span>                 pheno     <span class="op">=</span> <span class="va">pheno_rz</span><span class="op">[</span>,<span class="st">'Ins_tAUC'</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, </span>
-<span>                 kinship   <span class="op">=</span> <span class="va">K</span><span class="op">[[</span><span class="va">chr</span><span class="op">]</span><span class="op">]</span>, </span>
-<span>                 addcovar  <span class="op">=</span> <span class="va">addcovar</span><span class="op">)</span></span>
-<span><span class="fu">plot_coefCC</span><span class="op">(</span><span class="va">feff</span>, <span class="va">map</span>, scan1_output <span class="op">=</span> <span class="va">qtl</span>, legend <span class="op">=</span> <span class="st">'bottomleft'</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># chr = '11'</span></span>
+<span><span class="co"># feff = scan1blup(genoprobs = probs[,chr], </span></span>
+<span><span class="co">#                  pheno     = pheno_rz[,'Ins_tAUC', drop = FALSE], </span></span>
+<span><span class="co">#                  kinship   = K[[chr]], </span></span>
+<span><span class="co">#                  addcovar  = addcovar)</span></span>
+<span><span class="co"># plot_coefCC(feff, map, scan1_output = qtl, legend = 'bottomleft')</span></span></code></pre>
 </div>
 <p>Looking at the founder allele effects above, we can see that A/J,
 BL6, 129, and NOD alleles contribute to higher insulin tAUC values.
@@ -3729,7 +3989,7 @@ side.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ci</span> <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="va">peaks</span><span class="op">$</span><span class="va">ci_lo</span> <span class="op">-</span> <span class="fl">2</span>, <span class="va">peaks</span><span class="op">$</span><span class="va">ci_hi</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># ci = c(peaks$ci_lo - 2, peaks$ci_hi + 2)</span></span></code></pre>
 </div>
 <p>Next, we filter the eQTL results to retain genes in this
 interval.</p>
@@ -3737,10 +3997,10 @@ interval.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cis_eqtl</span> <span class="op">=</span> <span class="va">dataset.islet.rnaseq</span><span class="op">$</span><span class="va">lod.peaks</span> <span class="op">%&gt;%</span> </span>
-<span>             <span class="fu">filter</span><span class="op">(</span><span class="va">chrom</span> <span class="op">==</span> <span class="st">'11'</span>  <span class="op">&amp;</span> </span>
-<span>                      <span class="va">pos</span> <span class="op">&gt;=</span> <span class="va">ci</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">&amp;</span> </span>
-<span>                      <span class="va">pos</span> <span class="op">&lt;=</span> <span class="va">ci</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># cis_eqtl = dataset.islet.rnaseq$lod.peaks %&gt;% </span></span>
+<span><span class="co">#              filter(chrom == '11'  &amp; </span></span>
+<span><span class="co">#                       pos &gt;= ci[1] &amp; </span></span>
+<span><span class="co">#                       pos &lt;= ci[2])</span></span></code></pre>
 </div>
 <p>There are r nrow(cis_eqtl) genes with cis-eQTL in this interval. That
 is a lot of genes! We could estimate the founder allele effects for each
@@ -3766,14 +4026,14 @@ not change much.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">covar_gene</span> <span class="op">=</span> <span class="fu">cbind</span><span class="op">(</span><span class="va">norm</span><span class="op">[</span><span class="fu">rownames</span><span class="op">(</span><span class="va">addcovar</span><span class="op">)</span>, <span class="st">'ENSMUSG00000018986'</span><span class="op">]</span>, <span class="va">addcovar</span><span class="op">)</span></span>
-<span><span class="va">slfn3_qtl</span> <span class="op">=</span> <span class="fu">scan1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>, </span>
-<span>                  pheno     <span class="op">=</span> <span class="va">pheno_rz</span><span class="op">[</span>,<span class="st">'Ins_tAUC'</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, </span>
-<span>                  kinship   <span class="op">=</span> <span class="va">K</span>, </span>
-<span>                  addcovar  <span class="op">=</span> <span class="va">covar_gene</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">plot_scan1</span><span class="op">(</span><span class="va">ins_qtl</span>,   <span class="va">map</span>, chr <span class="op">=</span> <span class="va">chr</span>, main <span class="op">=</span> <span class="st">'Insulin tAUC with Slfn3'</span><span class="op">)</span></span>
-<span><span class="fu">plot_scan1</span><span class="op">(</span><span class="va">slfn3_qtl</span>, <span class="va">map</span>, chr <span class="op">=</span> <span class="va">chr</span>, color <span class="op">=</span> <span class="st">'blue'</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># covar_gene = cbind(norm[rownames(addcovar), 'ENSMUSG00000018986'], addcovar)</span></span>
+<span><span class="co"># slfn3_qtl = scan1(genoprobs = probs, </span></span>
+<span><span class="co">#                   pheno     = pheno_rz[,'Ins_tAUC', drop = FALSE], </span></span>
+<span><span class="co">#                   kinship   = K, </span></span>
+<span><span class="co">#                   addcovar  = covar_gene)</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># plot_scan1(ins_qtl,   map, chr = chr, main = 'Insulin tAUC with Slfn3')</span></span>
+<span><span class="co"># plot_scan1(slfn3_qtl, map, chr = chr, color = 'blue', add = TRUE)</span></span></code></pre>
 </div>
 <p>As you can see, the LOD decreased when we added the expression of
 <em>Slfn3</em> into the model. Let’s see what the new LOD is on
@@ -3782,16 +4042,16 @@ chromosome 11.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">find_peaks</span><span class="op">(</span><span class="va">qtl</span>, <span class="va">map</span>, threshold <span class="op">=</span> <span class="fl">6.5</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co"># find_peaks(qtl, map, threshold = 6.5)</span></span></code></pre>
 </div>
-<p>The LOd decreased from 10.3 to 7.2.</p>
+<p>The LOD decreased from 10.3 to 7.2.</p>
 <blockquote>
 <p>DMG: STOPPED HERE</p>
 </blockquote>
 </div>
-</section><section><h2 class="section-heading" id="searching-for-causal-genes">Searching for Causal Genes<a class="anchor" aria-label="anchor" href="#searching-for-causal-genes"></a>
-</h2>
-<hr class="half-width">
+<div class="section level3">
+<h3 id="searching-for-causal-genes">Searching for Causal Genes<a class="anchor" aria-label="anchor" href="#searching-for-causal-genes"></a>
+</h3>
 <p>In mediation analysis, we don’t know the causal gene in advance. We
 must fit a model like the one above for each gene that was measured. But
 this would involve mapping the trait across the entire genome for each
@@ -3833,7 +4093,7 @@ raise or lower the peak.</p>
 </button>
 <div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
-
+<p>TBD</p>
 </div>
 </div>
 </div>
@@ -3860,6 +4120,7 @@ phenotypes or other outcomes of interest.</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
+</div>
 </section></section>
 </div>
     </main>
