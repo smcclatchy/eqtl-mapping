@@ -39,7 +39,7 @@ For example, a genetic variant (non-coding SNP) indirectly regulates expression
 of gene 2 through a mediator, gene 1. The SNP regulates expression of gene 1 in 
 cis, and expression of gene 1 influences expression of gene 2 in trans.  
 
-![A non-coding SNP affects expression of gene 1 in cis. Gene 1 mediates expression of gene 2.](fig/mediation-trans-noncoding-SNP.png)
+![A non-coding SNP affects expression of gene 1 in cis. Gene 1 mediates expression of gene 2.](fig/mediation-trans-noncoding-SNP.png){alt="mediation figure"}
 Instead of the expression of one gene impacting another, expression of gene 1 in
 the graphic above could impact a physiological phenotype like blood glucose. 
 Expression of gene 1 would mediate the relationship between the non-coding SNP
@@ -49,17 +49,17 @@ Gene Akr1e1 is located on chromosome 13 in mouse. How would you interpret the
 LOD plot below? On which chromosome(s) would you expect to find the driver 
 gene(s)? The SNP(s)?
 
-![Chromosome 13 gene Akr1e1 is affected by expression in both cis and trans by genes on chromosomes 13 and 4.](fig/LOD-plot-Akr1e1.png)
+![Chromosome 13 gene Akr1e1 is affected by expression in both cis and trans by genes on chromosomes 13 and 4.](fig/LOD-plot-Akr1e1.png){alt="Akr1e1 QTL plot"}
 Myo15b is located on chromosome 11. How would you interpret the following LOD
 plot? On which chromosome(s) would you expect to find the driver gene(s)? The 
 SNP(s)?
 
-![Chromosome 11 gene Myo15b is affected by expression of a trans gene in the chromosome 2 hotspot.](fig/LOD-plot-Myo15b.png)
+![Chromosome 11 gene Myo15b is affected by expression of a trans gene in the chromosome 2 hotspot.](fig/LOD-plot-Myo15b.png){alt="Myo15b QTL plot"}
 The [QTL Viewer for the Attie islet data](https://churchilllab.jax.org/qtlviewer/attie/islets#) integrates 
 mediation into exploration of the data. Below, mediation analysis identifies
 gene Hnf4a as the chromosome 2 gene that impacts Myo15b expression.
 
-![Mediating expression of Myo15b identifies Hnf4a as the gene that drops the LOD score from greater than 70 to less than 50.](fig/mediation-Hnf4a-Myo15b.png)
+![Mediating expression of Myo15b identifies Hnf4a as the gene that drops the LOD score from greater than 70 to less than 50.](fig/mediation-Hnf4a-Myo15b.png){alt="Hnf4a mediation"}
 
 ### Load Libraries  
 
