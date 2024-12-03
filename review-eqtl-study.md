@@ -94,7 +94,7 @@ covariates. The results of one scan for insulin area under the curve (AUC) is
 shown below with a strong peak on chromosome 11. In this lesson, we will look
 into genes located under this peak.
 
-![LOD plot for insulin area under the curve](fig/insulin-auc-lod-plot.png)  
+![LOD plot for insulin area under the curve](fig/insulin-auc-lod-plot.png){alt="Insulin AUC QTL plot}
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 

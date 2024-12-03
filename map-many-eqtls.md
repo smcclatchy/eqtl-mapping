@@ -230,7 +230,7 @@ nrow(peaks)
 ```
 
 ``` output
-[1] 40850
+[1] 42981
 ```
 
 There are more peaks than there are genes.
@@ -255,7 +255,7 @@ dplyr::count(peaks, lodcolumn) |>
 
 ``` output
   n   nn
-1 1 6992
+1 1 9123
 2 2 6814
 3 3 3827
 4 4 1441
