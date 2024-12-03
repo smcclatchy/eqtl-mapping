@@ -31,9 +31,7 @@ expr_rz    <- readRDS(file = 'data/attie_do_expr_rz.rds')
 lod_ins    <- readRDS(file = 'data/ins_tauc_lod.rds')
 lod_hnf1b  <- readRDS(file = 'data/hnf1b_lod.rds')
 eperm      <- readRDS(file = 'data/ENSMUSG00000020679_perm_1000.rds')
-# DMG: Temporary file while waiting for results.
-peaks      <- readRDS(file = "data/peaks_all.rds")
-#peaks      <- readRDS(file = "data/attie_do_eqtl_peaks.rds")
+peaks      <- readRDS(file = "data/attie_do_eqtl_peaks.rds")
 ethr       <- summary(object = eperm, alpha  = 0.05)
 ```
 

@@ -102,8 +102,8 @@ probs = readRDS("../data/attie_DO500_genoprobs_v5.rds")
 
 > Example from package. This will be removed, but I needed it for now.
 
-```{r, eval=FALSE}
-  # DOQTL liver protein expresion dataset
+```{r mediation,eval=FALSE}
+  # DOQTL liver protein expression dataset
   data(Tmem68)
   
   # Let us mediate Tmem68 to other proteins
