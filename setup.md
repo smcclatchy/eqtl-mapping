@@ -17,7 +17,7 @@ Choose the free RStudio Desktop version for Windows, Mac, or Linux.
 4. Install R and Bioconductor packages. 
 
 ```r
-install.packages(c("tidyverse", "ggbeeswarm", "knitr", "qtl2"))
+install.packages(c("tidyverse", "ggbeeswarm", "knitr", "qtl2", "remotes"))
 
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
@@ -25,6 +25,8 @@ if (!require("BiocManager", quietly = TRUE))
 BiocManager::install("AnnotationHub")
 BiocManager::install("DeSeq2")
 BiocManager::install("rtracklayer")
+
+remotes::install_github("StoreyLab/qvalue")
 ```
 
 Once the installation is complete, load the libraries to make sure that they 
@@ -34,6 +36,7 @@ installed correctly.
 library(tidyverse)
 library(ggbeeswarm)
 library(knitr)
+library(qvalue)
 library(qtl2)
 library(AnnotationHub)
 library(DESeq2)

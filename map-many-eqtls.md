@@ -356,7 +356,7 @@ results  <- data.frame(lod_brks, n = 0)
 
 for(i in lod_brks) {
   
-  results$n[i] <- sum(peaks$lod <= i)
+  results$n[i] <- sum(peaks$lod >= i)
   
 } # for(i)
 
@@ -365,9 +365,9 @@ results |>
   ggplot(aes(lod_brks, n)) +
     geom_line(size = 1.25) +
     scale_x_continuous(breaks = 0:10 * 10) +
-    labs(title = "Cummulative Distribution of LOD Scores",
+    labs(title = "Number of Peaks above LOD Score",
          x     = "LOD",
-         y     = "Number of Peaks with LOD <= x") +
+         y     = "Number of Peaks with LOD >= x") +
     theme(text = element_text(size = 20))
 ```
 
@@ -386,7 +386,8 @@ rm(lod_brks, results)
 ```
 
 As you can see from the plot above, most peaks have LODs less than 10. However,
-about 12,000 peaks have LODs over 10. Let's look at how many peaks each gene
+about 12,000 peaks have LODs over 10. As we increase the LOD score, we see that
+fewer genes have high LODs. Let's look at how many peaks each gene
 has as we increase the LOD threshold.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::: callout

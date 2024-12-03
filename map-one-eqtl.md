@@ -341,7 +341,7 @@ rankZ = function(x) {
            na.last     = "keep",
            ties.method = "average") / (sum(!is.na(x)) + 1)
   return(qnorm(x))
-}
+} # rankZ()
 
 expr_rz = apply(expr, 2, rankZ)
 ```
@@ -1036,14 +1036,11 @@ class, so we will read the results in below.
 
 
 ``` r
-t1 = proc.time()
 chr      <- peaks_hnf1b$chr[1]
 blup_hnf1b <- scan1blup(genoprobs = probs[,chr],
                       pheno     = hnf1b,
                       kinship   = K[[chr]],
                       addcovar  = addcovar)
-t2 = proc.time()
-print(t2  - t1)
 saveRDS(blup_hnf1b, file = 'data/hnf1b_blup_chr11.rds')
 ```
 
