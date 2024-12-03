@@ -243,7 +243,7 @@ will appear many times in the list of peaks.
 
 Let's count the number of peaks that each gene has.
 
-```{r count_peaks,warning=FALSE,message=FALSE}
+```{r count_peaks, warning=FALSE, message=FALSE}
 dplyr::count(peaks, lodcolumn) |>
   dplyr::count(n)
 ```
@@ -289,7 +289,7 @@ Use the code above to count the number of QTL peaks that each gene has.
 
 ::::::::::::::::::::::::::::::::::::::: solution
 
-```{r challenge_3,warning=FALSE,message=FALSE}
+```{r challenge_3, warning=FALSE, message=FALSE}
 dplyr::count(peaks_filt, lodcolumn) |>
   dplyr::count(n)
 ```
@@ -308,7 +308,7 @@ Do not try to type the next block. We will look at it on the workshop website.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-```{r lod_cum_dist,figure.width=8,fig.height=6}
+```{r lod_cum_dist, figure.width=8, fig.height=6}
 lod_brks <- 1:100
 results  <- data.frame(lod_brks, n = 0)
 
@@ -342,7 +342,7 @@ Do not try to type the next block. We will look at it on the workshop website.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-```{r eqtl_num_peaks_per_gene,figure.width=8,fig.height=6,warning=FALSE,message=FALSE}
+```{r eqtl_num_peaks_per_gene, figure.width=8, fig.height=6, warning=FALSE, message=FALSE}
 lod_brks <- 0:100
 result   <- data.frame(lod_brks = -1, n = 0, nn = 0)
 
