@@ -22,16 +22,18 @@ exercises: 20
 ```{r setup, echo=FALSE, warning=FALSE}
 # Load libraries & data for website build.
 suppressPackageStartupMessages(library(knitr))
+suppressPackageStartupMessages(library(qvalue))
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(qtl2))
 
 annot      <- readRDS(file = 'data/attie_do_expr_annot.rds')
-ins_tauc   <- pheno[, 'Ins_tAUC', drop = FALSE]
-ins_tauc$Ins_tAUC_log <- log(ins_tauc$Ins_tAUC)
+expr_rz    <- readRDS(file = 'data/attie_do_expr_rz.rds')
 lod_ins    <- readRDS(file = 'data/ins_tauc_lod.rds')
 lod_hnf1b  <- readRDS(file = 'data/hnf1b_lod.rds')
 eperm      <- readRDS(file = 'data/ENSMUSG00000020679_perm_1000.rds')
-peaks      <- readRDS(file = "data/attie_do_eqtl_peaks.rds")
+# DMG: Temporary file while waiting for results.
+peaks      <- readRDS(file = "data/peaks_all.rds")
+#peaks      <- readRDS(file = "data/attie_do_eqtl_peaks.rds")
 ethr       <- summary(object = eperm, alpha  = 0.05)
 ```
 
