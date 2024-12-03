@@ -86,7 +86,7 @@ This looks good! All of the genes have only one peak.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::: callout
 
-Note that only `r nrow(peaks_filt)` genes out of `r col(expr_rz)` have QTL peaks.
+Note that only `r nrow(peaks_filt)` genes out of r col(expr_rz) have QTL peaks.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
