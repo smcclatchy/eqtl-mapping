@@ -29,7 +29,7 @@ impact on the response variable (path b). We would see (path c) the relationship
 between predictor and response, not knowing that a mediator intervenes in this
 relationship.
 
-[In complete mediation an independent (predictor) variable influences the dependent (response) variable indirectly through a mediator variable.](fig/mediation-analysis.png){alt="Mediation Analysis"}
+![In complete mediation an independent (predictor) variable influences the dependent (response) variable indirectly through a mediator variable.](fig/mediation-analysis.png){alt="Mediation Analysis"}
 
 Mediation analysis is widely used in the social sciences including psychology. 
 In biomedicine, mediation analysis has been employed to investigate how gene 
