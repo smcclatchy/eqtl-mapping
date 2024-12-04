@@ -59,15 +59,15 @@ get_chr_length = function(ensembl) {
 #       gene_end:  (optional) character string containing transcript end
 #                position in Mb.
 # color.points: logical that is TRUE if the points should be colored by LOD.
-# cis.points: logical that is TRUE if the points should be colored if they
+# local.points: logical that is TRUE if the points should be colored if they
 #             are with in cis.
-# cis.radius: numeric value containing the radius in Mb between a gene and a cis-eQTL.
+# local.radius: numeric value containing the radius in Mb between a gene and a cis-eQTL.
 #             Optional.
-# cis.color: color for cis QTL. Optional.
+# local.color: color for cis QTL. Optional.
 # Returns:
 # a plot of the QTL and gene location for each gene.
-ggtmap = function(data, color.points = FALSE, cis.points = FALSE, cis.radius = 2,
-         cis.color = "#4286f4") {
+ggtmap = function(data, color.points = FALSE, local.points = FALSE, local.radius = 2,
+         local.color = "#4286f4") {
 
   # Check for required column names.
   required.colnames = c("gene_id", "qtl_chr", "qtl_pos")
@@ -128,16 +128,16 @@ ggtmap = function(data, color.points = FALSE, cis.points = FALSE, cis.radius = 2
   data$gene_chr = factor(data$gene_chr, levels = rev(all.chr[order(as.numeric(all.chr))]))
 
   # If we're plotting cis points, then add a cis-QTL column.
-  if(cis.points) {
+  if(local.points) {
 
-    data = data %>% mutate(cis = (gene_chr == qtl_chr) & (abs(gene_start - qtl_pos) <= cis.radius))
-	cis.colors = c("black", cis.color)
-	names(cis.colors) = c("FALSE", "TRUE")
+    data = data %>% mutate(cis = (gene_chr == qtl_chr) & (abs(gene_start - qtl_pos) <= local.radius))
+	local.colors = c("black", local.color)
+	names(local.colors) = c("FALSE", "TRUE")
     print(ggplot(data, aes(x = qtl_pos, y = gene_pos), alpha = 0.5) +
       geom_point(aes(color = cis), alpha = 0.5) +
-      scale_color_manual(values = cis.colors) +
+      scale_color_manual(values = local.colors) +
       facet_grid(gene_chr ~ qtl_chr, scales = "free", shrink = TRUE) +
-      labs(x = "QTL Position", y = "Gene Position") +
+      labs(x = "QTL Position", y = "Gene Position", color = "local") +
       theme(panel.background = element_blank(),
 	        panel.border = element_rect(fill = 0, color = "grey70"),
 	        panel.grid.minor = element_blank(),
@@ -151,7 +151,7 @@ ggtmap = function(data, color.points = FALSE, cis.points = FALSE, cis.radius = 2
         if(color.points) scale_color_continuous(low = "grey50", high = "red")
       } +
       facet_grid(gene_chr ~ qtl_chr, scales = "free", shrink = TRUE) +
-      labs(x = "QTL Position", y = "Gene Position") +
+      labs(x = "QTL Position", y = "Gene Position", color = "local") +
       theme(panel.background = element_blank(),
 	  	    panel.border = element_rect(fill = 0, color = "grey70"),
 	  	    panel.grid.minor = element_blank(),
