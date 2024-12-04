@@ -259,19 +259,12 @@
 <div class="accordion accordion-flush" id="accordionFlushcurrent">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-headingcurrent">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
         7. Creating A Transcriptome Map
         </span>
-      </button>
+      
     </div><!--/div.accordion-header-->
-
-    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
-      <div class="accordion-body">
-        <ul><li><a href="#load-data">Load Data</a></li>
-        </ul></div><!--/div.accordion-body-->
-    </div><!--/div.accordion-collapse-->
 
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
@@ -388,29 +381,39 @@
 </div>
 </div>
 <div class="section level3">
-<h3 id="load-libraries">Load Libraries<a class="anchor" aria-label="anchor" href="#load-libraries"></a></h3>
+<h3 id="local-and-distant-eqtl">Local and Distant eQTL<a class="anchor" aria-label="anchor" href="#local-and-distant-eqtl"></a></h3>
+<p>In the previous lesson, we saw that the QTL peak for a gene can lie
+directly over the gene that is being mapped. This is called a “local
+eQTL” because the QTL peak is located near the gene. When the QTL peak
+is located far from the gene being mapped, we call this a “distant
+eQTL”. When the QTL peak is located on the same chromosome as the gene,
+there are different heuristics regarding the distance between the gene
+and its QTL peak that we use to call an eQTL local or distant. This
+depends on the type of cross and the resolution of the recombination
+block structure.</p>
+<p>In this episode, we will create a table containing the QTL peaks for
+all genes and the gene positions. We will then classify QTL into local
+or distant and will make a plot of all off the eQTL in relation to the
+gene positions.</p>
+</div>
+<div class="section level3">
+<h3 id="transcriptome-map">Transcriptome Map<a class="anchor" aria-label="anchor" href="#transcriptome-map"></a></h3>
+<p>We have encapsulated the code to create a transcriptome map in a file
+in this lesson. You can copy this file from the Github repository to use
+in your eQTL mapping project. We will read this file in now.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">qtl2</span><span class="op">)</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">qtl2convert</span><span class="op">)</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">RColorBrewer</span><span class="op">)</span></span>
-<span><span class="kw">library</span><span class="op">(</span><span class="va">qtl2ggplot</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># source("../code/gg_transcriptome_map.R")</span></span></code></pre>
+<code class="sourceCode R"><span><span class="kw">source</span><span class="op">(</span><span class="st">"code/gg_transcriptome_map.R"</span><span class="op">)</span></span></code></pre>
 </div>
-</div>
-<section><h2 class="section-heading" id="load-data">Load Data<a class="anchor" aria-label="anchor" href="#load-data"></a></h2>
-<hr class="half-width"><p>Load in the LOD peaks over 6 from previous lesson.</p>
-<div class="codewrapper sourceCode" id="cb2">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># REad in the LOD peaks from the previous lesson.</span></span>
-<span><span class="va">lod_summary</span> <span class="op">&lt;-</span> <span class="fu">read.csv</span><span class="op">(</span><span class="st">"../results/gene.norm_qtl_peaks_cis.trans.csv"</span><span class="op">)</span></span></code></pre>
+<pre class="error" tabindex="0"><code>Error in file(filename, "r", encoding = encoding): cannot open the connection</code></pre>
 </div>
+<p>This file loads in a function called <code>ggtmap</code>, which
+requires the input data to be in a specific format.</p>
 <p>In order to use the <code>ggtmap</code> function, we need to provide
 specific column names. These are documented in the
 <code>gg_transcriptome_map.R</code> file in the code directory of this
@@ -419,11 +422,11 @@ workshop. The required column names are:</p>
 <code>data</code>: data.frame (or tibble) with the following
 columns:
 <ul><li>
-<code>ensembl</code>: (required) character string containing the
+<code>gene_id</code>: (required) character string containing the
 Ensembl gene ID.</li>
 <li>
 <code>qtl_chr</code>: (required) character string containing QTL
-chromsome.</li>
+chromosome.</li>
 <li>
 <code>qtl_pos</code>: (required) floating point number containing
 the QTL position in Mb.</li>
@@ -440,42 +443,49 @@ transcript start position in Mb.</li>
 <code>gene_end</code>: (optional) character string containing
 transcript end position in Mb.</li>
 </ul></li>
-</ul><div class="codewrapper sourceCode" id="cb3">
+</ul><p>First, we will get the gene positions from the annotation and rename
+the columns to match what <code>ggtmap</code> requires. We need to have
+columns named “gene_id”, “gene_chr”, and “gene_pos”. We must rename the
+columns because, when we are finished, we will have “chr” and “pos”
+columns for both the gene and its QTL. We will also add the “symbol”
+column since it is nice to have gene symbols in the data.</p>
+<div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Get gene positions.</span></span>
-<span><span class="va">ensembl</span> <span class="op">&lt;-</span> <span class="fu">get_ensembl_genes</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">data.frame</span><span class="op">(</span>ensembl    <span class="op">=</span> <span class="va">ensembl</span><span class="op">$</span><span class="va">gene_id</span>, </span>
-<span>                 gene_chr   <span class="op">=</span> <span class="fu">seqnames</span><span class="op">(</span><span class="va">ensembl</span><span class="op">)</span>, </span>
-<span>                 gene_start <span class="op">=</span> <span class="fu">start</span><span class="op">(</span><span class="va">ensembl</span><span class="op">)</span> <span class="op">*</span> <span class="fl">1e-6</span>, </span>
-<span>                 gene_end   <span class="op">=</span> <span class="fu">end</span><span class="op">(</span><span class="va">ensembl</span><span class="op">)</span>   <span class="op">*</span> <span class="fl">1e-6</span>,</span>
-<span>                 stringsAsFactors <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">lod_summary</span> <span class="op">&lt;-</span> <span class="va">lod_summary</span> <span class="op">%&gt;%</span> </span>
-<span>                 <span class="fu">rename</span><span class="op">(</span>lodcolumn <span class="op">=</span> <span class="st">"ensembl"</span>,</span>
-<span>                        chr       <span class="op">=</span> <span class="st">"qtl_chr"</span>,</span>
-<span>                        pos       <span class="op">=</span> <span class="st">"qtl_pos"</span>,</span>
-<span>                        lod       <span class="op">=</span> <span class="st">"qtl_lod"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>                 <span class="fu">left_join</span><span class="op">(</span><span class="va">df</span>, by <span class="op">=</span> <span class="st">"ensembl"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>                 <span class="fu">mutate</span><span class="op">(</span>marker.id <span class="op">=</span> <span class="fu">str_c</span><span class="op">(</span><span class="va">qtl_chr</span>, <span class="va">qtl_pos</span> <span class="op">*</span> <span class="fl">1e6</span>, sep <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span>,</span>
-<span>                        gene_chr  <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">gene_chr</span>, levels <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">19</span>, <span class="st">"X"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>                        qtl_chr   <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">qtl_chr</span>, levels <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">19</span>, <span class="st">"X"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">rm</span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">gene_pos</span> <span class="op">&lt;-</span> <span class="va">annot</span> <span class="op">|&gt;</span></span>
+<span>              <span class="fu">select</span><span class="op">(</span><span class="va">gene_id</span>, <span class="va">symbol</span>, </span>
+<span>                     gene_chr   <span class="op">=</span> <span class="va">chr</span>, </span>
+<span>                     gene_start <span class="op">=</span> <span class="va">start</span>,</span>
+<span>                     gene_end   <span class="op">=</span> <span class="va">end</span><span class="op">)</span></span></code></pre>
 </div>
-<p>Some of the genes will have a QTL in the same location as the gene
-and others will have a QTL on a chromosome where the gene is not
-located.</p>
-<div id="challenge-1" class="callout challenge">
+<p>Next, we will rename the columns in the filtered peaks and will join
+them with the gene positions from above.</p>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">eqtl</span> <span class="op">&lt;-</span> <span class="va">peaks_filt</span> <span class="op">|&gt;</span></span>
+<span>          <span class="fu">select</span><span class="op">(</span>gene_id <span class="op">=</span> <span class="va">lodcolumn</span>,</span>
+<span>                 qtl_chr <span class="op">=</span> <span class="va">chr</span>,</span>
+<span>                 qtl_pos <span class="op">=</span> <span class="va">pos</span>,</span>
+<span>                 qtl_lod <span class="op">=</span> <span class="va">lod</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>          <span class="fu">left_join</span><span class="op">(</span><span class="va">gene_pos</span>, by <span class="op">=</span> <span class="st">"gene_id"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>          <span class="fu">mutate</span><span class="op">(</span>marker.id <span class="op">=</span> <span class="fu">str_c</span><span class="op">(</span><span class="va">qtl_chr</span>,   <span class="va">qtl_pos</span> <span class="op">*</span> <span class="fl">1e6</span>, sep <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span>,</span>
+<span>                 gene_chr  <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">gene_chr</span>, levels <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">19</span>, <span class="st">"X"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                 qtl_chr   <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">qtl_chr</span>,  levels <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">19</span>, <span class="st">"X"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">rm</span><span class="op">(</span><span class="va">gene_pos</span><span class="op">)</span></span></code></pre>
+</div>
+<div id="challenge-1-how-many-genes-have-qtl-on-the-same-chromosome" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="challenge-1" class="callout-inner">
-<h3 class="callout-title">Challenge 1:</h3>
+<div id="challenge-1-how-many-genes-have-qtl-on-the-same-chromosome" class="callout-inner">
+<h3 class="callout-title">Challenge 1: How many genes have QTL on the same chromosome?</h3>
 <div class="callout-content">
-<p>What do we call eQTL that are co-colocated with the gene? What do we
-call eQTL that are located on a different chromosome than the gene?</p>
+<p>Write a command to count the number of genes which are located on the
+same chromosome as their corresponding QTL peak.</p>
 </div>
 </div>
 </div>
@@ -486,46 +496,177 @@ call eQTL that are located on a different chromosome than the gene?</p>
 </button>
 <div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
-<p>A cis-eQTL is an eQTL that is co-colocated with the gene. A
-trans-eQTL is an eQTL that is located on a chromosome other than the
-gene that was mapped.</p>
-</div>
-</div>
-</div>
-</div>
-<p>We can tabulate the number of cis- and trans-eQTL that we have and
-add this to our QTL summary table. A cis-eQTL occurs when the QTL peaks
-is directly over the gene position. But what if it is 2 Mb away? Or 10
-Mb? It’s possible that a gene may have a trans eQTL on the same
-chromosome if the QTL is “far enough” from the gene. We have selected 4
-Mb as a good rule of thumb.</p>
-<div class="codewrapper sourceCode" id="cb4">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">lod_summary</span> <span class="op">&lt;-</span> <span class="va">lod_summary</span> <span class="op">%&gt;%</span> </span>
-<span>                     <span class="fu">mutate</span><span class="op">(</span>cis <span class="op">=</span> <span class="fu">if_else</span><span class="op">(</span><span class="va">qtl_chr</span> <span class="op">==</span> <span class="va">gene_chr</span> <span class="op">&amp;</span> </span>
-<span>                                  <span class="fu">abs</span><span class="op">(</span><span class="va">gene_start</span> <span class="op">-</span> <span class="va">qtl_pos</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">4</span>, </span>
-<span>                                  <span class="st">"cis"</span>, <span class="st">"trans"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">count</span><span class="op">(</span><span class="va">lod_summary</span>, <span class="va">cis</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="section level3">
-<h3 id="plot-transcriptome-map">Plot Transcriptome Map<a class="anchor" aria-label="anchor" href="#plot-transcriptome-map"></a></h3>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggtmap</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lod_summary</span> <span class="op">%&gt;%</span> </span>
-<span>       <span class="fu">filter</span><span class="op">(</span><span class="va">qtl_lod</span> <span class="op">&gt;=</span> <span class="fl">7.18</span><span class="op">)</span>, </span>
-<span>              cis.points <span class="op">=</span> <span class="cn">TRUE</span>, </span>
-<span>              cis.radius <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">sum</span><span class="op">(</span><span class="va">eqtl</span><span class="op">$</span><span class="va">qtl_chr</span> <span class="op">==</span> <span class="va">eqtl</span><span class="op">$</span><span class="va">gene_chr</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>[1] 13424</code></pre>
+</div>
+<p>13424 genes have QTL on the same chromosome.</p>
+</div>
+</div>
+</div>
+</div>
+<p>We can tabulate the number of local and distant eQTL that we have and
+add this to our QTL summary table. A local eQTL occurs when the QTL
+peaks is directly over the gene position. But what if it is 2 Mb away?
+Or 10 Mb? It’s possible that a gene may have a trans eQTL on the same
+chromosome if the QTL is “far enough” from the gene. We have selected 4
+Mb as a good rule of thumb in the DO.</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">eqtl</span> <span class="op">&lt;-</span> <span class="va">eqtl</span> <span class="op">|&gt;</span> </span>
+<span>          <span class="fu">mutate</span><span class="op">(</span>local <span class="op">=</span> <span class="fu">if_else</span><span class="op">(</span><span class="va">qtl_chr</span> <span class="op">==</span> <span class="va">gene_chr</span> <span class="op">&amp;</span> </span>
+<span>                                 <span class="fu">abs</span><span class="op">(</span><span class="va">gene_start</span> <span class="op">-</span> <span class="va">qtl_pos</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">4</span>, </span>
+<span>                                     <span class="cn">TRUE</span>, </span>
+<span>                                     <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">count</span><span class="op">(</span><span class="va">eqtl</span>, <span class="va">local</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code># A tibble: 2 × 2
+  local     n
+  &lt;lgl&gt; &lt;int&gt;
+1 FALSE  3891
+2 TRUE  12965</code></pre>
+</div>
+</div>
+<div class="section level3">
+<h3 id="plot-transcriptome-map">Plot Transcriptome Map<a class="anchor" aria-label="anchor" href="#plot-transcriptome-map"></a></h3>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">ggtmap</span><span class="op">(</span>data <span class="op">=</span> <span class="va">eqtl</span> <span class="op">|&gt;</span> </span>
+<span>                <span class="fu">filter</span><span class="op">(</span><span class="va">qtl_lod</span>      <span class="op">&gt;=</span> <span class="fl">6</span><span class="op">)</span>, </span>
+<span>                       local.points <span class="op">=</span> <span class="cn">TRUE</span>, </span>
+<span>                       local.radius <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in ggtmap(data = filter(eqtl, qtl_lod &gt;= 6), local.points = TRUE, : could not find function "ggtmap"</code></pre>
 </div>
 <p>The plot above is called a “Transcriptome Map” because it shows the
 positions of the genes (or transcripts) and their corresponding QTL. The
 QTL position is shown on the X-axis and the gene position is shown on
 the Y-axis. The chromosomes are listed along the top and right of the
-plot. What type of QTL are the genes with QTL that are located along the
+plot.</p>
+<div id="challenge-2-what-are-the-blue-points-on-the-diagonal" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="challenge-2-what-are-the-blue-points-on-the-diagonal" class="callout-inner">
+<h3 class="callout-title">Challenge 2: What are the blue points on the diagonal?</h3>
+<div class="callout-content">
+<p>What type of QTL are the genes with QTL that are located along the
 diagonal?</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
+</button>
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div class="accordion-body">
+<p>Points on the diagonal have QTL that are located in the same position
+as the gene, and so are local eQTL.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="challenge-3-are-there-any-genome-locations-with-many-qtl" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="challenge-3-are-there-any-genome-locations-with-many-qtl" class="callout-inner">
+<h3 class="callout-title">Challenge 3: Are there any genome locations with many QTL?</h3>
+<div class="callout-content">
+<p>Look at the transcriptome map and see if you can find any vertical
+stripes? What do these vertical stripes mean and what might cause
+them?</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
+  <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
+</button>
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div class="accordion-body">
+<p>There are vertical stripes on chromosomes 2, 5, and 11. There may be
+more, depending on how you look at the plot. Since the QTL position is
+on the X-axis, these stripes represent genes which are located through
+out the genome, but all have a QTL in the same location.</p>
+<p>These stripes imply that there is some genomic feature at the QTL
+position which regulates the expression levels of many genes. This might
+be a transcription factor or some other molecule which can regulate
+transcription, possibly through multiple steps.</p>
+</div>
+</div>
+</div>
+</div>
+<p>If you look at the plot, there are vertical bands of points which
+stack over a single QTL location. These are called “eQTL hotspots”.
+Rather than look at the transcriptome map, it may be easier to look at
+the density of the eQTL along the genome. We have provided a function
+called “eqtl_density_plot” to do this.</p>
+<div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">eqtl_density_plot</span><span class="op">(</span><span class="va">eqtl</span>, lod_thr <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eqtl_density_plot(eqtl, lod_thr = 6): could not find function "eqtl_density_plot"</code></pre>
+</div>
+<p>The plot above shows the mouse genome on the X-axis and the number of
+transcripts in a 4 Mb window on the Y-axis. It is difficult to say how
+many genes must be involved to call something and eQTL hotspot. There
+are permutation-based methods which require a large amount of time and
+memory. In this case, we have called hotspots involving more than 100
+genes eQTL hotspots.</p>
+<p>Note that there appears to be an eQTL hotspot on chromosome 7 in the
+plot above, but this is not evident in the transcriptome map.</p>
+<div class="codewrapper sourceCode" id="cb13">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">eqtl_density_plot</span><span class="op">(</span><span class="fu">filter</span><span class="op">(</span><span class="va">eqtl</span>, <span class="va">local</span> <span class="op">==</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>                  lod_thr <span class="op">=</span> <span class="fl">6</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Distant eQTL Density"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eqtl_density_plot(filter(eqtl, local == FALSE), lod_thr = 6): could not find function "eqtl_density_plot"</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb15">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">eqtl_density_plot</span><span class="op">(</span><span class="fu">filter</span><span class="op">(</span><span class="va">eqtl</span>, <span class="va">local</span> <span class="op">==</span> <span class="cn">TRUE</span><span class="op">)</span>, </span>
+<span>                  lod_thr <span class="op">=</span> <span class="fl">6</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Local eQTL Density"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eqtl_density_plot(filter(eqtl, local == TRUE), lod_thr = 6): could not find function "eqtl_density_plot"</code></pre>
+</div>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -543,7 +684,10 @@ Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
 </div>
-</section></div> <!-- / div.lesson-content -->
+
+
+
+      </div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="../instructor/maximum-peaks-genes.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="../instructor/interpret-results.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
