@@ -19,36 +19,46 @@ exercises: 30
 
 
 
-### Load Libraries  
+### Local and Distant eQTL
+
+In the previous lesson, we saw that the QTL peak for a gene can lie directly
+over the gene that is being mapped. This is called a "local eQTL" because the
+QTL peak is located near the gene. When the QTL peak is located far from the
+gene being mapped, we call this a "distant eQTL". When the QTL peak is located
+on the same chromosome as the gene, there are different heuristics regarding the
+distance between the gene and its QTL peak that we use to call an eQTL local
+or distant. This depends on the type of cross and the resolution of the 
+recombination block structure.
+
+In this episode, we will create a table containing the QTL peaks for all genes
+and the gene positions. We will then classify QTL into local or distant and 
+will make a plot of all off the eQTL in relation to the gene positions.
+
+### Transcriptome Map
+
+We have encapsulated the code to create a transcriptome map in a file in this
+lesson. You can copy this file from the Github repository to use in your eQTL 
+mapping project. We will read this file in now.
 
 
 ``` r
-library(tidyverse)
-library(qtl2)
-library(qtl2convert)
-library(RColorBrewer)
-library(qtl2ggplot)
-
-# source("../code/gg_transcriptome_map.R")
+source("code/gg_transcriptome_map.R")
 ```
 
-## Load Data
-
-Load in the LOD peaks over 6 from previous lesson.
-
-
-``` r
-# REad in the LOD peaks from the previous lesson.
-lod_summary <- read.csv("../results/gene.norm_qtl_peaks_cis.trans.csv")
+``` error
+Error in file(filename, "r", encoding = encoding): cannot open the connection
 ```
+
+This file loads in a function called `ggtmap`, which requires the input data
+to be in a specific format. 
 
 In order to use the `ggtmap` function, we need to provide specific column names. 
 These are documented in the `gg_transcriptome_map.R` file in the code directory 
 of this workshop. The required column names are:
 
 * `data`: data.frame (or tibble) with the following columns:
-    * `ensembl`: (required) character string containing the Ensembl gene ID.
-    * `qtl_chr`: (required) character string containing QTL chromsome.
+    * `gene_id`: (required) character string containing the Ensembl gene ID.
+    * `qtl_chr`: (required) character string containing QTL chromosome.
     * `qtl_pos`: (required) floating point number containing the QTL position in 
     Mb.
     * `qtl_lod`: (optional) floating point number containing the LOD score.
@@ -58,82 +68,188 @@ of this workshop. The required column names are:
     * `gene_end`:  (optional) character string containing transcript end 
     position in Mb.
 
+First, we will get the gene positions from the annotation and rename the 
+columns to match what `ggtmap` requires. We need to have columns named "gene_id",
+"gene_chr", and "gene_pos". We must rename the columns because, when we are 
+finished, we will have "chr" and "pos" columns for both the gene and its QTL. We
+will also add the "symbol" column since it is nice to have gene symbols in the
+data. 
+
 
 ``` r
-# Get gene positions.
-ensembl <- get_ensembl_genes()
-df <- data.frame(ensembl    = ensembl$gene_id, 
-                 gene_chr   = seqnames(ensembl), 
-                 gene_start = start(ensembl) * 1e-6, 
-                 gene_end   = end(ensembl)   * 1e-6,
-                 stringsAsFactors = F)
-
-lod_summary <- lod_summary %>% 
-                 rename(lodcolumn = "ensembl",
-                        chr       = "qtl_chr",
-                        pos       = "qtl_pos",
-                        lod       = "qtl_lod") %>% 
-                 left_join(df, by = "ensembl") %>% 
-                 mutate(marker.id = str_c(qtl_chr, qtl_pos * 1e6, sep = "_"),
-                        gene_chr  = factor(gene_chr, levels = c(1:19, "X")),
-                        qtl_chr   = factor(qtl_chr, levels = c(1:19, "X")))
-
-rm(df)
+gene_pos <- annot |>
+              select(gene_id, symbol, 
+                     gene_chr   = chr, 
+                     gene_start = start,
+                     gene_end   = end)
 ```
 
-Some of the genes will have a QTL in the same location as the gene and others 
-will have a QTL on a chromosome where the gene is not located. 
+Next, we will rename the columns in the filtered peaks and will join them with
+the gene positions from above. 
+
+
+``` r
+eqtl <- peaks_filt |>
+          select(gene_id = lodcolumn,
+                 qtl_chr = chr,
+                 qtl_pos = pos,
+                 qtl_lod = lod) |> 
+          left_join(gene_pos, by = "gene_id") |> 
+          mutate(marker.id = str_c(qtl_chr,   qtl_pos * 1e6, sep = "_"),
+                 gene_chr  = factor(gene_chr, levels = c(1:19, "X")),
+                 qtl_chr   = factor(qtl_chr,  levels = c(1:19, "X")))
+
+rm(gene_pos)
+```
+
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Challenge 1: 
+#### Challenge 1: How many genes have QTL on the same chromosome?
 
- What do we call eQTL that are co-colocated with the gene?
-  What do we call eQTL that are located on a different chromosome than the gene?
-
+Write a command to count the number of genes which are located on the same
+chromosome as their corresponding QTL peak.
 
 :::::::::::::::::::::::: solution 
 
-A cis-eQTL is an eQTL that is co-colocated with the gene.
-A trans-eQTL is an eQTL that is located on a chromosome other than the gene that 
-was mapped.
+
+``` r
+sum(eqtl$qtl_chr == eqtl$gene_chr, na.rm = TRUE)
+```
+
+``` output
+[1] 13424
+```
+
+13424 genes have QTL on the same
+chromosome.
 
 :::::::::::::::::::::::::::::::::
-
-
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-
-We can tabulate the number of cis- and trans-eQTL that we have and add this to 
-our QTL summary table. A cis-eQTL occurs when the QTL peaks is directly over the 
+We can tabulate the number of local and distant eQTL that we have and add this to 
+our QTL summary table. A local eQTL occurs when the QTL peaks is directly over the 
 gene position. But what if it is 2 Mb away? Or 10 Mb? It's possible that a gene 
 may have a trans eQTL on the same chromosome if the QTL is "far enough" from the 
-gene. We have selected 4 Mb as a good rule of thumb.
+gene. We have selected 4 Mb as a good rule of thumb in the DO.
 
 
 ``` r
-lod_summary <- lod_summary %>% 
-                     mutate(cis = if_else(qtl_chr == gene_chr & 
-                                  abs(gene_start - qtl_pos) < 4, 
-                                  "cis", "trans"))
-count(lod_summary, cis)
+eqtl <- eqtl |> 
+          mutate(local = if_else(qtl_chr == gene_chr & 
+                                 abs(gene_start - qtl_pos) < 4, 
+                                     TRUE, 
+                                     FALSE))
+count(eqtl, local)
+```
+
+``` output
+# A tibble: 2 × 2
+  local     n
+  <lgl> <int>
+1 FALSE  3891
+2 TRUE  12965
 ```
 
 ### Plot Transcriptome Map
 
 
 ``` r
-ggtmap(data = lod_summary %>% 
-       filter(qtl_lod >= 7.18), 
-              cis.points = TRUE, 
-              cis.radius = 4)
+ggtmap(data = eqtl |> 
+                filter(qtl_lod      >= 6), 
+                       local.points = TRUE, 
+                       local.radius = 4)
+```
+
+``` error
+Error in ggtmap(data = filter(eqtl, qtl_lod >= 6), local.points = TRUE, : could not find function "ggtmap"
 ```
 
 The plot above is called a "Transcriptome Map" because it shows the positions of 
 the genes (or transcripts) and their corresponding QTL. The QTL position is 
 shown on the X-axis and the gene position is shown on the Y-axis. The 
-chromosomes are listed along the top and right of the plot. What type of QTL are 
-the genes with QTL that are located along the diagonal?
+chromosomes are listed along the top and right of the plot. 
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: challenge
+
+#### Challenge 2: What are the blue points on the diagonal?
+
+What type of QTL are the genes with QTL that are located along the diagonal?
+
+::::::::::::::::::::::::::::::::::::: solution
+
+Points on the diagonal have QTL that are located in the same position as the
+gene, and so are local eQTL.
+
+::::::::::::::::::::::::::::::::::::::::::::::
+
+#### Challenge 3: Are there any genome locations with many QTL?
+
+Look at the transcriptome map and see if you can find any vertical stripes?
+What do these vertical stripes mean and what might cause them?
+
+::::::::::::::::::::::::::::::::::::: solution
+
+There are vertical stripes on chromosomes 2, 5, and 11. There may be more, 
+depending on how you look at the plot. Since the QTL position is on the X-axis,
+these stripes represent genes which are located through out the genome, but all
+have a QTL in the same location.
+
+These stripes imply that there is some genomic feature at the QTL position
+which regulates the expression levels of many genes. This might be a 
+transcription factor or some other molecule which can regulate transcription,
+possibly through multiple steps.
+
+::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+If you look at the plot, there are vertical bands of points which stack over a
+single QTL location. These are called "eQTL hotspots". Rather than look at the
+transcriptome map, it may be easier to look at the density of the eQTL along
+the genome. We have provided a function called "eqtl_density_plot" to do this.
+
+
+
+``` r
+eqtl_density_plot(eqtl, lod_thr = 6)
+```
+
+``` error
+Error in eqtl_density_plot(eqtl, lod_thr = 6): could not find function "eqtl_density_plot"
+```
+
+The plot above shows the mouse genome on the X-axis and the number of transcripts
+in a 4 Mb window on the Y-axis. It is difficult to say
+how many genes must be involved to call something and eQTL hotspot. There are
+permutation-based methods which require a large amount of time and memory. In
+this case, we have called hotspots involving more than 100 genes eQTL hotspots.
+
+Note that there appears to be an eQTL hotspot on chromosome 7 in the plot above,
+but this is not evident in the transcriptome map.
+
+
+``` r
+eqtl_density_plot(filter(eqtl, local == FALSE),
+                  lod_thr = 6) +
+  labs(title = "Distant eQTL Density")
+```
+
+``` error
+Error in eqtl_density_plot(filter(eqtl, local == FALSE), lod_thr = 6): could not find function "eqtl_density_plot"
+```
+
+
+``` r
+eqtl_density_plot(filter(eqtl, local == TRUE), 
+                  lod_thr = 6) +
+  labs(title = "Local eQTL Density")
+```
+
+``` error
+Error in eqtl_density_plot(filter(eqtl, local == TRUE), lod_thr = 6): could not find function "eqtl_density_plot"
+```
+
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
