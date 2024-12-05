@@ -24,7 +24,7 @@ suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(qtl2))
 
 annot      <- readRDS(file = 'data/attie_do_expr_annot.rds')
-peaks      <- readRDS(file = "data/attie_do_eqtl_peaks.rds")
+peaks      <- readRDS(file = 'data/attie_do_eqtl_peaks.rds')
 peaks_filt <- readRDS(file = 'data/peaks_filtered.rds')
 eperm      <- readRDS(file = 'data/ENSMUSG00000020679_perm_1000.rds')
 ethr       <- summary(object = eperm, alpha  = 0.05)
@@ -55,8 +55,13 @@ mapping project. We will read this file in now.
 getwd()
 ```
 
+```{r}
+dir()
+```
+
+
 ```{r source_ggtmap,message=FALSE,warning=FALSE}
-source("code/gg_transcriptome_map.R")
+source("https://raw.githubusercontent.com/smcclatchy/eqtl-mapping/refs/heads/main/episodes/code/gg_transcriptome_map.R")
 ```
 
 This file loads in a function called `ggtmap`, which requires the input data
@@ -199,7 +204,7 @@ transcriptome map, it may be easier to look at the density of the eQTL along
 the genome. We have provided a function called "eqtl_density_plot" to do this.
 
 
-```{r eqtl_density,warning=FALSE,message=FALSE}
+```{r eqtl_density,fig.height=6,fig.width=8,warning=FALSE,message=FALSE}
 eqtl_density_plot(eqtl, lod_thr = 6)
 ```
 
@@ -212,13 +217,13 @@ this case, we have called hotspots involving more than 100 genes eQTL hotspots.
 Note that there appears to be an eQTL hotspot on chromosome 7 in the plot above,
 but this is not evident in the transcriptome map.
 
-```{r ldistant_eqtl_density,warning=FALSE,message=FALSE}
+```{r ldistant_eqtl_density,fig.height=6,fig.width=8,warning=FALSE,message=FALSE}
 eqtl_density_plot(filter(eqtl, local == FALSE),
                   lod_thr = 6) +
   labs(title = "Distant eQTL Density")
 ```
 
-```{r local_eqtl_density,warning=FALSE,message=FALSE}
+```{r local_eqtl_density,fig.height=6,fig.width=8,warning=FALSE,message=FALSE}
 eqtl_density_plot(filter(eqtl, local == TRUE), 
                   lod_thr = 6) +
   labs(title = "Local eQTL Density")
@@ -227,7 +232,38 @@ eqtl_density_plot(filter(eqtl, local == TRUE),
 From these two plots, it appears that the eQTL hotspots on most chromosomes 
 contain distant eQTL. 
 
-How can we find the location of the eQTL hotspots? 
+How can we find the location of the eQTL hotspots and the genes which lie
+within each eQTL? We have written a function called "get_eqtl_hotspots" to help 
+you and have provides it in "gg_transcriptome_map.R". It requires the eQTL data,
+a LOD threshold to filter the peaks, the number of genes required to call a
+locus a hotspot, and the radius in Mb around the hotspot to use when selecting
+genes which are part of the hotspot
+
+```{r get_hotspots,message=FALSE,warning=FALSE}
+hotspots <- get_eqtl_hotspots(data           = eqtl, 
+                              lod_thr        = 7, 
+                              hotspot_thr    = 200,
+                              hotspot_radius = 2)
+```
+
+Let's see how many hotspots we have and how many genes are in each hotspot.
+
+```{r num_hotspot}
+sapply(hotspots, nrow)
+```
+
+In the table above, the first row of values are the chromosomes on which 
+hotspots occur. The second row contains the number of genes in each hotspot.
+
+Where does each hotspot occur? We can get this information by taking the mean
+of the eQTL positions in each hotspot.
+
+```{r get_hotspot_pos}
+sapply(hotspots, function(z) { mean(z$qtl_pos) })
+```
+
+
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 

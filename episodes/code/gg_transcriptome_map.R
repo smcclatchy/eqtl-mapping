@@ -33,8 +33,8 @@ get_ensembl_genes = function() {
 get_chr_length = function(ensembl) {
 
   tmp = data.frame(chr = seqnames(ensembl), end = end(ensembl))
-  tmp = tmp %>% filter(!(substring(chr, 1, 1) %in% c("G", "J"))) %>%
-          group_by(chr) %>%
+  tmp = tmp |> filter(!(substring(chr, 1, 1) %in% c("G", "J"))) |>
+          group_by(chr) |>
           summarize(len = max(end))
   chrlen = tmp$len * 1e-6
   names(chrlen) = tmp$chr
@@ -43,7 +43,6 @@ get_chr_length = function(ensembl) {
 
 } # get_chr_length()
 
-# Get
 
 
 # Arguments:
@@ -106,13 +105,13 @@ ggtmap = function(data, color.points = FALSE, local.points = FALSE, local.radius
   data$gene_chr = as.character(data$gene_chr)
 
   # Get the gene mid-point.
-  data = data %>% mutate(gene_pos = (gene_end + gene_start) * 0.5)
+  data = data |> mutate(gene_pos = (gene_end + gene_start) * 0.5)
 
   # Fix the factor levels for the chr.
-  all.chr = data %>% select(qtl_chr, gene_chr) %>%
-            gather(k, v) %>%
-            select(v) %>%
-            distinct() %>%
+  all.chr = data |> select(qtl_chr, gene_chr) |>
+            gather(k, v) |>
+            select(v) |>
+            distinct() |>
             arrange(v)
   all.chr = all.chr$v[!is.na(all.chr$v)]
 
@@ -122,7 +121,7 @@ ggtmap = function(data, color.points = FALSE, local.points = FALSE, local.radius
   }
 
   # Remove any NAs.
-  data = data %>% na.omit
+  data = na.omit(data)
 
   data$qtl_chr  = factor(data$qtl_chr,  levels = all.chr[order(as.numeric(all.chr))])
   data$gene_chr = factor(data$gene_chr, levels = rev(all.chr[order(as.numeric(all.chr))]))
@@ -130,33 +129,37 @@ ggtmap = function(data, color.points = FALSE, local.points = FALSE, local.radius
   # If we're plotting cis points, then add a cis-QTL column.
   if(local.points) {
 
-    data = data %>% mutate(cis = (gene_chr == qtl_chr) & (abs(gene_start - qtl_pos) <= local.radius))
-	local.colors = c("black", local.color)
+    data = data |>
+             mutate(cis = (gene_chr == qtl_chr) &
+                    (abs(gene_start - qtl_pos) <= local.radius))
+
+    local.colors = c("black", local.color)
 	names(local.colors) = c("FALSE", "TRUE")
-    print(ggplot(data, aes(x = qtl_pos, y = gene_pos), alpha = 0.5) +
-      geom_point(aes(color = cis), alpha = 0.5) +
-      scale_color_manual(values = local.colors) +
-      facet_grid(gene_chr ~ qtl_chr, scales = "free", shrink = TRUE) +
-      labs(x = "QTL Position", y = "Gene Position", color = "local") +
-      theme(panel.background = element_blank(),
-	        panel.border = element_rect(fill = 0, color = "grey70"),
-	        panel.grid.minor = element_blank(),
-            panel.spacing = unit(0.05, "lines"),
-            axis.text.x = element_text(angle = 90, hjust = 1)))
+
+	print(ggplot(data, aes(x = qtl_pos, y = gene_pos), alpha = 0.5) +
+          geom_point(aes(color = cis), alpha = 0.5) +
+          scale_color_manual(values = local.colors) +
+          facet_grid(gene_chr ~ qtl_chr, scales = "free", shrink = TRUE) +
+          labs(x = "QTL Position", y = "Gene Position", color = "local") +
+          theme(panel.background = element_blank(),
+      	        panel.border     = element_rect(fill = 0, color = "grey70"),
+	              panel.grid.minor = element_blank(),
+                panel.spacing    = unit(0.05, "lines"),
+                axis.text.x      = element_text(angle = 90, hjust = 1)))
 
   } else {
 
     print(ggplot(data, aes(x = qtl_pos, y = gene_pos)) +
-      geom_point(aes(color = qtl_lod, alpha = 0.5)) + {
-        if(color.points) scale_color_continuous(low = "grey50", high = "red")
-      } +
-      facet_grid(gene_chr ~ qtl_chr, scales = "free", shrink = TRUE) +
-      labs(x = "QTL Position", y = "Gene Position", color = "local") +
-      theme(panel.background = element_blank(),
-	  	    panel.border = element_rect(fill = 0, color = "grey70"),
-	  	    panel.grid.minor = element_blank(),
-            panel.spacing = unit(0.05, "lines"),
-            axis.text.x = element_text(angle = 90, hjust = 1)))
+            geom_point(aes(color = qtl_lod, alpha = 0.5)) + {
+              if(color.points) scale_color_continuous(low = "grey50", high = "red")
+            } +
+            facet_grid(gene_chr ~ qtl_chr, scales = "free", shrink = TRUE) +
+            labs(x = "QTL Position", y = "Gene Position", color = "local") +
+            theme(panel.background = element_blank(),
+	  	            panel.border     = element_rect(fill = 0, color = "grey70"),
+	  	            panel.grid.minor = element_blank(),
+                  panel.spacing    = unit(0.05, "lines"),
+                  axis.text.x      = element_text(angle = 90, hjust = 1)))
 
    } # else
 
@@ -166,7 +169,7 @@ ggtmap = function(data, color.points = FALSE, local.points = FALSE, local.radius
 # Plot the density of eQTL along the chromosomes.
 # Arguments:
 # data: data.frame (or tibble) with the following columns:
-#       ensembl: (required) character string containing the Ensembl gene ID.
+#       gene_id: (required) character string containing the Ensembl gene ID.
 #       qtl_chr: (required) character string containing QTL chromsome.
 #       qtl_pos: (required) floating point number containing the QTL position
 #                in Mb.
@@ -183,20 +186,23 @@ eqtl_density_plot = function(data, lod_thr = 7) {
   # Create a set of rolling breakpoints, 4 Mb apart.
   breaks = matrix(c(seq(0, 200, 4), seq(1, 201, 4), seq(2, 202, 4), seq(3, 203, 4)), ncol = 4)
 
+  # Filter data by LOD threshold and sort by chromosome and position.
+  data = data |>
+    filter(qtl_lod >= lod_thr) |>
+    arrange(qtl_chr, qtl_pos)
+
   tmp = as.list(1:ncol(breaks))
 
   for(i in 1:ncol(breaks)) {
-    tmp[[i]] = data %>%
-                 filter(qtl_lod >= lod_thr) %>%
-                 arrange(qtl_chr, qtl_pos) %>%
-                 group_by(qtl_chr) %>%
-                 mutate(win = cut(qtl_pos, breaks = breaks[,i])) %>%
-                 group_by(qtl_chr, win) %>%
-                 summarize(cnt = n()) %>%
-                 separate(win, into = c("other", "prox", "dist")) %>%
+    tmp[[i]] = data |>
+                 group_by(qtl_chr) |>
+                 mutate(win = cut(qtl_pos, breaks = breaks[,i])) |>
+                 group_by(qtl_chr, win) |>
+                 summarize(cnt = n()) |>
+                 separate(win, into = c("junk1", "prox", "dist", "junk2")) |>
                  mutate(prox = as.numeric(prox),
                         dist = as.numeric(dist),
-                        mid  = 0.5 * (prox + dist)) %>%
+                        mid  = 0.5 * (prox + dist)) |>
                  dplyr::select(qtl_chr, mid, cnt)
   } # for(i)
 
@@ -214,3 +220,84 @@ eqtl_density_plot = function(data, lod_thr = 7) {
     labs(title = "eQTL Density Plot", x = "Mb", y = "Number of Transcripts")
 
 } # eqtl_density_plot()
+
+
+# Get the location and gene composition of eQTL hotspots.
+# Arguments:
+# data: data.frame (or tibble) with the following columns:
+#       gene_id: (required) character string containing the Ensembl gene ID.
+#       qtl_chr: (required) character string containing QTL chromsome.
+#       qtl_pos: (required) floating point number containing the QTL position
+#                in Mb.
+#       qtl_lod: (optional) floating point number containing the LOD score.
+#       gene_chr:  (optional) character string containing transcript chromosome.
+#       gene_start: (optional) character string containing transcript start
+#                 postion in Mb.
+#       gene_end:  (optional) character string containing transcript end
+#                position in Mb.
+# lod_thr: numeric value that is the LOD above which QTL will be retained.
+#          Default = 7.
+# hotspot_thr: numeric value this is the number of genes which must be in an
+#              eQTL hotspot.
+# hotspot_radius: numeric value which is the radius of the eQTL hotspot. This
+#                 is used to select genes in a hotspot once the peak has been
+#                 identified.
+# Returns: names list, one per hotspot, in which each element contains the genes
+#          in one eQTL hotspot.
+get_eqtl_hotspots = function(data, lod_thr = 7, hotspot_thr = 100,
+                             hotspot_radius = 2) {
+
+  # Create a set of rolling breakpoints, 4 Mb apart.
+  breaks = matrix(c(seq(0, 200, 4), seq(1, 201, 4), seq(2, 202, 4),
+                    seq(3, 203, 4)), ncol = 4)
+
+  # Filter data by LOD threshold and sort by chromosome and position.
+  data = data |>
+           filter(qtl_lod >= lod_thr) |>
+           arrange(qtl_chr, qtl_pos)
+
+  tmp = as.list(1:ncol(breaks))
+
+  for(i in 1:ncol(breaks)) {
+
+    tmp[[i]] = data |>
+                 group_by(qtl_chr) |>
+                 mutate(win = cut(qtl_pos, breaks = breaks[,i])) |>
+                 group_by(qtl_chr, win) |>
+                 summarize(cnt = n()) |>
+                 separate(win, into = c("junk1", "prox", "dist", "junk2")) |>
+                 mutate(prox = as.numeric(prox),
+                        dist = as.numeric(dist),
+                        mid  = 0.5 * (prox + dist)) |>
+                 dplyr::select(qtl_chr, mid, cnt)
+
+  } # for(i)
+
+  trans = bind_rows(tmp[[1]], tmp[[1]], tmp[[3]], tmp[[4]])
+  rm(tmp)
+
+  # Get the unique hotspots and keep the one with the largest number of genes
+  # on each chromosome.
+  hotspots = trans |>
+               distinct() |>
+               filter(cnt >= hotspot_thr) |>
+               group_by(qtl_chr) |>
+               slice_max(order = cnt, n = 1)
+
+  # Create the results list and add in the genes with eQTL within
+  # +/- hotspot_radius Mb of the peak of each hotspot.
+  results = setNames(vector('list', length = nrow(hotspots)), hotspots$qtl_chr)
+
+  for(i in seq_along(results)) {
+
+    # Get the genes within +/- hotspot_radius Mb of the hotspot peak.
+    results[[i]] = data |>
+                     filter(qtl_chr == names(results)[i] &
+                            qtl_pos >= hotspots$mid[i] - hotspot_radius &
+                            qtl_pos <= hotspots$mid[i] + hotspot_radius)
+
+  } # for(i)
+
+  return(results)
+
+} # get_eqtl_hotspots()
