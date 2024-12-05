@@ -48,13 +48,14 @@ genome. These variants are therefore likely to fall in regulatory sequences
 which are involved in gene regulation. 
 
 ![GWAS variants such as SNPs are often in non-coding regions of the genome, indicating that they regulate gene expression.](fig/gwas-catalog.png){alt="Figures showing the GWAS Catalog"}
-Created in [BioRender](https://BioRender.com)
+Excerpted from the [GWAS Catalog](https://www.ebi.ac.uk/gwas/)
 
 Gene regulation controls the quantity, timing and locale of gene expression. 
 Analyzing the association between gene expression and genetic variants is known 
 as expression quantitative trait locus (eQTL) mapping.
 
-![Here a non-coding SNP influences expression of a gene, which in turn affects a disease phenotype or other outcome of interest.](fig/noncoding-SNP.png){alt="Figure showing regulation of gene expression by a SNP"}
+![A non-coding SNP influences expression of a gene, which in turn affects a disease phenotype or other outcome of interest.](fig/noncoding-SNP.png){alt="Figure showing regulation of gene expression by a SNP"}
+Created in [BioRender](https://BioRender.com)
 
 eQTL mapping searches for associations between the expression of one or more 
 genes and a genetic locus. Specifically, genetic variants underlying eQTL peak 
@@ -69,15 +70,15 @@ Joining gene expression and physiological phenotypes with genetic variation can
 identify genes with variants affecting disease phenotypes.
 
 To the simple diagram above we'll add two more details. Non-coding SNPs can 
-regulate gene expression from nearby locations on the same chromosome (in cis):
+regulate gene expression from nearby locations on the same chromosome:
 
-![Genetic variants like SNPs often affect gene expression locally near the gene that they regulate (in cis).](fig/cis-noncoding-SNP.png){alt="Figure showing SNP regulating gene which affects disease"}
+![Genetic variants like SNPs often affect gene expression locally near the gene that they regulate.](fig/cis-noncoding-SNP.png){alt="Figure showing SNP regulating gene which affects disease"}
 Created in [BioRender](https://BioRender.com)
 
 SNPs that affect gene expression from afar, often from a different chromosome 
-from the gene that they regulate are called distal (trans) regulators.
+from the gene that they regulate are called distal regulators.
 
-![Alternatively, SNPs often affect gene expression distally from the gene that they regulate (in trans), often from a different chromosome altogether.](fig/trans-noncoding-SNP.png){alt="Figure showing trans regulation"}
+![Alternatively, SNPs often affect gene expression distally from the gene that they regulate, often from a different chromosome altogether.](fig/trans-noncoding-SNP.png){alt="Figure showing distal regulation"}
 
 Created in [BioRender](https://BioRender.com)
 
