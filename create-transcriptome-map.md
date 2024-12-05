@@ -51,11 +51,21 @@ getwd()
 
 
 ``` r
-source("code/gg_transcriptome_map.R")
+dir()
 ```
 
-``` error
-Error in file(filename, "r", encoding = encoding): cannot open the connection
+``` output
+ [1] "CODE_OF_CONDUCT.md"     "data"                   "fig"                   
+ [4] "files"                  "index.md"               "introduction.md"       
+ [7] "LICENSE.md"             "links.md"               "load-explore-data.md"  
+[10] "map-many-eqtls.md"      "map-one-eqtl.md"        "maximum-peaks-genes.md"
+[13] "md5sum.txt"             "review-eqtl-study.md"  
+```
+
+
+
+``` r
+source("https://raw.githubusercontent.com/smcclatchy/eqtl-mapping/refs/heads/main/episodes/code/gg_transcriptome_map.R")
 ```
 
 This file loads in a function called `ggtmap`, which requires the input data
@@ -168,9 +178,7 @@ ggtmap(data = eqtl |>
                        local.radius = 2)
 ```
 
-``` error
-Error in ggtmap(data = filter(eqtl, qtl_lod >= 7), local.points = TRUE, : could not find function "ggtmap"
-```
+<img src="fig/create-transcriptome-map-rendered-tmap-1.png" style="display: block; margin: auto;" />
 
 The plot above is called a "Transcriptome Map" because it shows the positions of 
 the genes (or transcripts) and their corresponding QTL. The QTL position is 
@@ -222,9 +230,7 @@ the genome. We have provided a function called "eqtl_density_plot" to do this.
 eqtl_density_plot(eqtl, lod_thr = 6)
 ```
 
-``` error
-Error in eqtl_density_plot(eqtl, lod_thr = 6): could not find function "eqtl_density_plot"
-```
+<img src="fig/create-transcriptome-map-rendered-eqtl_density-1.png" style="display: block; margin: auto;" />
 
 The plot above shows the mouse genome on the X-axis and the number of transcripts
 in a 4 Mb window on the Y-axis. It is difficult to say
@@ -242,9 +248,7 @@ eqtl_density_plot(filter(eqtl, local == FALSE),
   labs(title = "Distant eQTL Density")
 ```
 
-``` error
-Error in eqtl_density_plot(filter(eqtl, local == FALSE), lod_thr = 6): could not find function "eqtl_density_plot"
-```
+<img src="fig/create-transcriptome-map-rendered-ldistant_eqtl_density-1.png" style="display: block; margin: auto;" />
 
 
 ``` r
@@ -253,14 +257,56 @@ eqtl_density_plot(filter(eqtl, local == TRUE),
   labs(title = "Local eQTL Density")
 ```
 
-``` error
-Error in eqtl_density_plot(filter(eqtl, local == TRUE), lod_thr = 6): could not find function "eqtl_density_plot"
-```
+<img src="fig/create-transcriptome-map-rendered-local_eqtl_density-1.png" style="display: block; margin: auto;" />
 
 From these two plots, it appears that the eQTL hotspots on most chromosomes 
 contain distant eQTL. 
 
-How can we find the location of the eQTL hotspots? 
+How can we find the location of the eQTL hotspots and the genes which lie
+within each eQTL? We have written a function called "get_eqtl_hotspots" to help 
+you and have provides it in "gg_transcriptome_map.R". It requires the eQTL data,
+a LOD threshold to filter the peaks, the number of genes required to call a
+locus a hotspot, and the radius in Mb around the hotspot to use when selecting
+genes which are part of the hotspot
+
+
+``` r
+hotspots <- get_eqtl_hotspots(data           = eqtl, 
+                              lod_thr        = 7, 
+                              hotspot_thr    = 200,
+                              hotspot_radius = 2)
+```
+
+Let's see how many hotspots we have and how many genes are in each hotspot.
+
+
+``` r
+sapply(hotspots, nrow)
+```
+
+``` output
+  2   5   7  11 
+274 259 265 279 
+```
+
+In the table above, the first row of values are the chromosomes on which 
+hotspots occur. The second row contains the number of genes in each hotspot.
+
+Where does each hotspot occur? We can get this information by taking the mean
+of the eQTL positions in each hotspot.
+
+
+``` r
+sapply(hotspots, function(z) { mean(z$qtl_pos) })
+```
+
+``` output
+        2         5         7        11 
+164.01218 146.21618  45.45160  70.53259 
+```
+
+
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
