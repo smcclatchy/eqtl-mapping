@@ -27,6 +27,7 @@ BiocManager::install("DeSeq2")
 BiocManager::install("rtracklayer")
 
 remotes::install_github("StoreyLab/qvalue")
+remotes::install_github("churchill-lab/intermediate")
 ```
 
 Once the installation is complete, load the libraries to make sure that they 
@@ -36,6 +37,7 @@ installed correctly.
 library(tidyverse)
 library(ggbeeswarm)
 library(knitr)
+library(intermediate)
 library(qvalue)
 library(qtl2)
 library(AnnotationHub)

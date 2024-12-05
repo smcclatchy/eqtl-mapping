@@ -42,6 +42,15 @@ mapping project. We will read this file in now.
 
 
 ``` r
+getwd()
+```
+
+``` output
+[1] "/home/runner/work/eqtl-mapping/eqtl-mapping/site/built"
+```
+
+
+``` r
 source("code/gg_transcriptome_map.R")
 ```
 
@@ -89,7 +98,7 @@ the gene positions from above.
 
 
 ``` r
-eqtl <- peaks_filt |>
+eqtl <- peaks |>
           select(gene_id = lodcolumn,
                  qtl_chr = chr,
                  qtl_pos = pos,
@@ -118,10 +127,10 @@ sum(eqtl$qtl_chr == eqtl$gene_chr, na.rm = TRUE)
 ```
 
 ``` output
-[1] 13424
+[1] 15061
 ```
 
-13424 genes have QTL on the same
+15061 genes have QTL on the same
 chromosome.
 
 :::::::::::::::::::::::::::::::::
@@ -131,24 +140,22 @@ We can tabulate the number of local and distant eQTL that we have and add this t
 our QTL summary table. A local eQTL occurs when the QTL peaks is directly over the 
 gene position. But what if it is 2 Mb away? Or 10 Mb? It's possible that a gene 
 may have a trans eQTL on the same chromosome if the QTL is "far enough" from the 
-gene. We have selected 4 Mb as a good rule of thumb in the DO.
+gene. We have selected 2 Mb as a good rule of thumb in the DO.
 
 
 ``` r
 eqtl <- eqtl |> 
           mutate(local = if_else(qtl_chr == gene_chr & 
-                                 abs(gene_start - qtl_pos) < 4, 
+                                 abs(gene_start - qtl_pos) < 2, 
                                      TRUE, 
                                      FALSE))
 count(eqtl, local)
 ```
 
 ``` output
-# A tibble: 2 × 2
   local     n
-  <lgl> <int>
-1 FALSE  3891
-2 TRUE  12965
+1 FALSE 29584
+2  TRUE 13397
 ```
 
 ### Plot Transcriptome Map
@@ -156,13 +163,13 @@ count(eqtl, local)
 
 ``` r
 ggtmap(data = eqtl |> 
-                filter(qtl_lod      >= 6), 
+                filter(qtl_lod      >= 7), 
                        local.points = TRUE, 
-                       local.radius = 4)
+                       local.radius = 2)
 ```
 
 ``` error
-Error in ggtmap(data = filter(eqtl, qtl_lod >= 6), local.points = TRUE, : could not find function "ggtmap"
+Error in ggtmap(data = filter(eqtl, qtl_lod >= 7), local.points = TRUE, : could not find function "ggtmap"
 ```
 
 The plot above is called a "Transcriptome Map" because it shows the positions of 
@@ -250,10 +257,18 @@ eqtl_density_plot(filter(eqtl, local == TRUE),
 Error in eqtl_density_plot(filter(eqtl, local == TRUE), lod_thr = 6): could not find function "eqtl_density_plot"
 ```
 
+From these two plots, it appears that the eQTL hotspots on most chromosomes 
+contain distant eQTL. 
 
+How can we find the location of the eQTL hotspots? 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Transcriptome maps aid in understanding gene expression regulation.
+- Local eQTL occur more frequently than distant eQTL.
+- Local eQTL appear along the diagonal in a transcriptome map and distant eQTL
+appear on the off-diagonal.
+- Stacks of eQTL which appear over a single locus are called "eQTL hotspots" and
+represent sets of genes which are transcriptionally regulated by a single locus.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
