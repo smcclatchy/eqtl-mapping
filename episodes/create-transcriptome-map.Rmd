@@ -51,7 +51,7 @@ We have encapsulated the code to create a transcriptome map in a file in this
 lesson. You can copy this file from the Github repository to use in your eQTL 
 mapping project. We will read this file in now.
 
-```{r source_ggtmap,message=FALSE,warning=FALSE}
+```{r}
 getwd()
 ```
 
@@ -224,7 +224,10 @@ eqtl_density_plot(filter(eqtl, local == TRUE),
   labs(title = "Local eQTL Density")
 ```
 
+From these two plots, it appears that the eQTL hotspots on most chromosomes 
+contain distant eQTL. 
 
+How can we find the location of the eQTL hotspots? 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
