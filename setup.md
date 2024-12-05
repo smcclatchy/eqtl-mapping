@@ -23,7 +23,7 @@ if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
 BiocManager::install("AnnotationHub")
-BiocManager::install("DeSeq2")
+BiocManager::install("DESeq2")
 BiocManager::install("rtracklayer")
 
 remotes::install_github("StoreyLab/qvalue")
