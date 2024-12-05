@@ -466,15 +466,14 @@ variants for common diseases like diabetes are located in
 <strong>non-coding</strong> regions of the genome. These variants are
 therefore likely to fall in regulatory sequences which are involved in
 gene regulation.</p>
-<p><img src="fig/gwas-catalog.png" alt="Figures showing the GWAS Catalog" class="figure"> Created in <a href="https://BioRender.com" class="external-link">BioRender</a></p>
+<p><img src="fig/gwas-catalog.png" alt="Figures showing the GWAS Catalog" class="figure"> Excerpted from the <a href="https://www.ebi.ac.uk/gwas/" class="external-link">GWAS Catalog</a></p>
 <p>Gene regulation controls the quantity, timing and locale of gene
 expression. Analyzing the association between gene expression and
 genetic variants is known as expression quantitative trait locus (eQTL)
 mapping.</p>
-<figure><img src="fig/noncoding-SNP.png" alt="Figure showing regulation of gene expression by a SNP" class="figure mx-auto d-block"><div class="figcaption">Here a non-coding SNP influences expression of a
-gene, which in turn affects a disease phenotype or other outcome of
-interest.</div>
-</figure><p>eQTL mapping searches for associations between the expression of one
+<p><img src="fig/noncoding-SNP.png" alt="Figure showing regulation of gene expression by a SNP" class="figure"> Created
+in <a href="https://BioRender.com" class="external-link">BioRender</a></p>
+<p>eQTL mapping searches for associations between the expression of one
 or more genes and a genetic locus. Specifically, genetic variants
 underlying eQTL peak explain some of the variation in gene expression
 levels. eQTL studies can reveal the architecture of quantitative traits,
@@ -488,15 +487,15 @@ expression and physiological phenotypes with genetic variation can
 identify genes with variants affecting disease phenotypes.</p>
 <p>To the simple diagram above we’ll add two more details. Non-coding
 SNPs can regulate gene expression from nearby locations on the same
-chromosome (in cis):</p>
+chromosome:</p>
 <p><img src="fig/cis-noncoding-SNP.png" alt="Figure showing SNP regulating gene which affects disease" class="figure">
 Created in <a href="https://BioRender.com" class="external-link">BioRender</a></p>
 <p>SNPs that affect gene expression from afar, often from a different
-chromosome from the gene that they regulate are called distal (trans)
+chromosome from the gene that they regulate are called distal
 regulators.</p>
-<figure><img src="fig/trans-noncoding-SNP.png" alt="Figure showing trans regulation" class="figure mx-auto d-block"><div class="figcaption">Alternatively, SNPs often affect gene expression
-distally from the gene that they regulate (in trans), often from a
-different chromosome altogether.</div>
+<figure><img src="fig/trans-noncoding-SNP.png" alt="Figure showing distal regulation" class="figure mx-auto d-block"><div class="figcaption">Alternatively, SNPs often affect gene expression
+distally from the gene that they regulate, often from a different
+chromosome altogether.</div>
 </figure><p>Created in <a href="https://BioRender.com" class="external-link">BioRender</a></p>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
@@ -2801,7 +2800,7 @@ different.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Get the number of genes from <code>expr_rz</code>.</p>
 <div class="codewrapper sourceCode" id="cb6">
@@ -2905,7 +2904,7 @@ to 7.4745761.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2940,7 +2939,7 @@ has.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3227,7 +3226,7 @@ minimum possible p-value that we can get?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Technically, we could get a p-value of 0 if the gene’s LOD score is
 above the highest LOD score in the permutations. In practice, we
@@ -3432,7 +3431,7 @@ the two genomic positions?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>Print out the QTL peak position.</p>
 <div class="codewrapper sourceCode" id="cb20">
