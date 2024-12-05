@@ -416,12 +416,22 @@ in your eQTL mapping project. We will read this file in now.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">source</span><span class="op">(</span><span class="st">"code/gg_transcriptome_map.R"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">dir</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in file(filename, "r", encoding = encoding): cannot open the connection</code></pre>
+<pre class="output" tabindex="0"><code> [1] "CODE_OF_CONDUCT.md"     "data"                   "fig"
+ [4] "files"                  "index.md"               "introduction.md"
+ [7] "LICENSE.md"             "links.md"               "load-explore-data.md"
+[10] "map-many-eqtls.md"      "map-one-eqtl.md"        "maximum-peaks-genes.md"
+[13] "md5sum.txt"             "review-eqtl-study.md"  </code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">source</span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/smcclatchy/eqtl-mapping/refs/heads/main/episodes/code/gg_transcriptome_map.R"</span><span class="op">)</span></span></code></pre>
 </div>
 <p>This file loads in a function called <code>ggtmap</code>, which
 requires the input data to be in a specific format.</p>
@@ -460,7 +470,7 @@ columns named “gene_id”, “gene_chr”, and “gene_pos”. We must rename 
 columns because, when we are finished, we will have “chr” and “pos”
 columns for both the gene and its QTL. We will also add the “symbol”
 column since it is nice to have gene symbols in the data.</p>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -472,7 +482,7 @@ column since it is nice to have gene symbols in the data.</p>
 </div>
 <p>Next, we will rename the columns in the filtered peaks and will join
 them with the gene positions from above.</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -507,7 +517,7 @@ same chromosome as their corresponding QTL peak.</p>
 </button>
 <div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -529,7 +539,7 @@ peaks is directly over the gene position. But what if it is 2 Mb away?
 Or 10 Mb? It’s possible that a gene may have a trans eQTL on the same
 chromosome if the QTL is “far enough” from the gene. We have selected 2
 Mb as a good rule of thumb in the DO.</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -550,7 +560,7 @@ Mb as a good rule of thumb in the DO.</p>
 </div>
 <div class="section level3">
 <h3 id="plot-transcriptome-map">Plot Transcriptome Map<a class="anchor" aria-label="anchor" href="#plot-transcriptome-map"></a></h3>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -559,12 +569,7 @@ Mb as a good rule of thumb in the DO.</p>
 <span>                       local.points <span class="op">=</span> <span class="cn">TRUE</span>, </span>
 <span>                       local.radius <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in ggtmap(data = filter(eqtl, qtl_lod &gt;= 7), local.points = TRUE, : could not find function "ggtmap"</code></pre>
-</div>
-<p>The plot above is called a “Transcriptome Map” because it shows the
+<figure><img src="../fig/create-transcriptome-map-rendered-tmap-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The plot above is called a “Transcriptome Map” because it shows the
 positions of the genes (or transcripts) and their corresponding QTL. The
 QTL position is shown on the X-axis and the gene position is shown on
 the Y-axis. The chromosomes are listed along the top and right of the
@@ -637,12 +642,7 @@ called “eqtl_density_plot” to do this.</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">eqtl_density_plot</span><span class="op">(</span><span class="va">eqtl</span>, lod_thr <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eqtl_density_plot(eqtl, lod_thr = 6): could not find function "eqtl_density_plot"</code></pre>
-</div>
-<p>The plot above shows the mouse genome on the X-axis and the number of
+<figure><img src="../fig/create-transcriptome-map-rendered-eqtl_density-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The plot above shows the mouse genome on the X-axis and the number of
 transcripts in a 4 Mb window on the Y-axis. It is difficult to say how
 many genes must be involved to call something and eQTL hotspot. There
 are permutation-based methods which require a large amount of time and
@@ -650,7 +650,7 @@ memory. In this case, we have called hotspots involving more than 100
 genes eQTL hotspots.</p>
 <p>Note that there appears to be an eQTL hotspot on chromosome 7 in the
 plot above, but this is not evident in the transcriptome map.</p>
-<div class="codewrapper sourceCode" id="cb15">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -658,12 +658,7 @@ plot above, but this is not evident in the transcriptome map.</p>
 <span>                  lod_thr <span class="op">=</span> <span class="fl">6</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Distant eQTL Density"</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eqtl_density_plot(filter(eqtl, local == FALSE), lod_thr = 6): could not find function "eqtl_density_plot"</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb17">
+<figure><img src="../fig/create-transcriptome-map-rendered-ldistant_eqtl_density-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -671,14 +666,55 @@ plot above, but this is not evident in the transcriptome map.</p>
 <span>                  lod_thr <span class="op">=</span> <span class="fl">6</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Local eQTL Density"</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eqtl_density_plot(filter(eqtl, local == TRUE), lod_thr = 6): could not find function "eqtl_density_plot"</code></pre>
-</div>
-<p>From these two plots, it appears that the eQTL hotspots on most
+<figure><img src="../fig/create-transcriptome-map-rendered-local_eqtl_density-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>From these two plots, it appears that the eQTL hotspots on most
 chromosomes contain distant eQTL.</p>
-<p>How can we find the location of the eQTL hotspots?</p>
+<p>How can we find the location of the eQTL hotspots and the genes which
+lie within each eQTL? We have written a function called
+“get_eqtl_hotspots” to help you and have provides it in
+“gg_transcriptome_map.R”. It requires the eQTL data, a LOD threshold to
+filter the peaks, the number of genes required to call a locus a
+hotspot, and the radius in Mb around the hotspot to use when selecting
+genes which are part of the hotspot</p>
+<div class="codewrapper sourceCode" id="cb16">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hotspots</span> <span class="op">&lt;-</span> <span class="fu">get_eqtl_hotspots</span><span class="op">(</span>data           <span class="op">=</span> <span class="va">eqtl</span>, </span>
+<span>                              lod_thr        <span class="op">=</span> <span class="fl">7</span>, </span>
+<span>                              hotspot_thr    <span class="op">=</span> <span class="fl">200</span>,</span>
+<span>                              hotspot_radius <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Let’s see how many hotspots we have and how many genes are in each
+hotspot.</p>
+<div class="codewrapper sourceCode" id="cb17">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">sapply</span><span class="op">(</span><span class="va">hotspots</span>, <span class="va">nrow</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>  2   5   7  11
+274 259 265 279 </code></pre>
+</div>
+<p>In the table above, the first row of values are the chromosomes on
+which hotspots occur. The second row contains the number of genes in
+each hotspot.</p>
+<p>Where does each hotspot occur? We can get this information by taking
+the mean of the eQTL positions in each hotspot.</p>
+<div class="codewrapper sourceCode" id="cb19">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">sapply</span><span class="op">(</span><span class="va">hotspots</span>, <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="op">{</span> <span class="fu">mean</span><span class="op">(</span><span class="va">z</span><span class="op">$</span><span class="va">qtl_pos</span><span class="op">)</span> <span class="op">}</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>        2         5         7        11
+164.01218 146.21618  45.45160  70.53259 </code></pre>
+</div>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
