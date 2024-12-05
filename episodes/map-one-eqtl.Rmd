@@ -559,6 +559,15 @@ The challenge above shows the value of transforming data to make it more
 normally distributed. We do not have a peak for `log(ins_tauc)` on chromosome 11
 which we will work with for the rest of the lesson.
 
+Let's save this LOD profile in case we need it again. We will only save the
+results from the log-transformed data since that produces a higher LOD at a peak
+that we will use later.
+
+```{r save_ins_tauc_lod}
+saveRDS(ins_lod[,2, drop = FALSE], file = "data/ns_tauc_lod.rds")
+```
+
+
 Because we are working with the `insulin tAUC` phenotype, which has a QTL peak
 on chromosome 11, we will map a gene on chromosome 11 which may influence 
 insulin and glucose levels. This gene is called

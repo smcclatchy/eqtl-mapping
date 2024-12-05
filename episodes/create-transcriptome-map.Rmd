@@ -52,6 +52,10 @@ lesson. You can copy this file from the Github repository to use in your eQTL
 mapping project. We will read this file in now.
 
 ```{r source_ggtmap,message=FALSE,warning=FALSE}
+getwd()
+```
+
+```{r source_ggtmap,message=FALSE,warning=FALSE}
 source("code/gg_transcriptome_map.R")
 ```
 
@@ -93,7 +97,7 @@ Next, we will rename the columns in the filtered peaks and will join them with
 the gene positions from above. 
 
 ```{r lod_summary, warning=FALSE, message=FALSE}
-eqtl <- peaks_filt |>
+eqtl <- peaks |>
           select(gene_id = lodcolumn,
                  qtl_chr = chr,
                  qtl_pos = pos,
@@ -130,12 +134,12 @@ We can tabulate the number of local and distant eQTL that we have and add this t
 our QTL summary table. A local eQTL occurs when the QTL peaks is directly over the 
 gene position. But what if it is 2 Mb away? Or 10 Mb? It's possible that a gene 
 may have a trans eQTL on the same chromosome if the QTL is "far enough" from the 
-gene. We have selected 4 Mb as a good rule of thumb in the DO.
+gene. We have selected 2 Mb as a good rule of thumb in the DO.
 
 ```{r local_summary, warning=FALSE, message=FALSE}
 eqtl <- eqtl |> 
           mutate(local = if_else(qtl_chr == gene_chr & 
-                                 abs(gene_start - qtl_pos) < 4, 
+                                 abs(gene_start - qtl_pos) < 2, 
                                      TRUE, 
                                      FALSE))
 count(eqtl, local)
@@ -145,9 +149,9 @@ count(eqtl, local)
 
 ```{r tmap,fig.width=8,fig.height=8,warning=FALSE,message=FALSE}
 ggtmap(data = eqtl |> 
-                filter(qtl_lod      >= 6), 
+                filter(qtl_lod      >= 7), 
                        local.points = TRUE, 
-                       local.radius = 4)
+                       local.radius = 2)
 ```
 
 The plot above is called a "Transcriptome Map" because it shows the positions of 
@@ -225,5 +229,10 @@ eqtl_density_plot(filter(eqtl, local == TRUE),
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Transcriptome maps aid in understanding gene expression regulation.
+- Local eQTL occur more frequently than distant eQTL.
+- Local eQTL appear along the diagonal in a transcriptome map and distant eQTL
+appear on the off-diagonal.
+- Stacks of eQTL which appear over a single locus are called "eQTL hotspots" and
+represent sets of genes which are transcriptionally regulated by a single locus.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
