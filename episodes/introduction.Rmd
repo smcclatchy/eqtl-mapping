@@ -48,24 +48,25 @@ genome. These variants are therefore likely to fall in regulatory sequences
 which are involved in gene regulation. 
 
 ![GWAS variants such as SNPs are often in non-coding regions of the genome, indicating that they regulate gene expression.](fig/gwas-catalog.png){alt="Figures showing the GWAS Catalog"}
-
-![Here a non-coding SNP influences expression of a gene, which in turn affects a disease phenotype or other outcome of interest.](fig/noncoding-SNP.png){alt="Figure showing regulation of gene by a SNP"}
 Created in [BioRender](https://BioRender.com)
 
 Gene regulation controls the quantity, timing and locale of gene expression. 
 Analyzing the association between gene expression and genetic variants is known 
-as expression quantitative trait locus (eQTL) mapping. eQTL mapping searches for
-associations between the expression of one or more genes and a genetic locus.
-Specifically, genetic variants underlying eQTL peak explain some of the 
-variation in gene expression levels. eQTL studies can reveal the architecture 
-of quantitative traits, connect DNA sequence variation to phenotypic variation,
-and shed light on transcriptional regulation and regulatory variation.
-Traditional analytic techniques like linkage and association mapping can be 
-applied to thousands of gene expression traits (transcripts) in eQTL analysis,
-such that gene expression can be mapped in much the same way as a physiological
-phenotype like blood pressure or heart rate. Joining gene expression and 
-physiological phenotypes with genetic variation can identify genes with variants
-affecting disease phenotypes.
+as expression quantitative trait locus (eQTL) mapping.
+
+![Here a non-coding SNP influences expression of a gene, which in turn affects a disease phenotype or other outcome of interest.](fig/noncoding-SNP.png){alt="Figure showing regulation of gene expression by a SNP"}
+
+eQTL mapping searches for associations between the expression of one or more 
+genes and a genetic locus. Specifically, genetic variants underlying eQTL peak 
+explain some of the variation in gene expression levels. eQTL studies can reveal 
+the architecture of quantitative traits, connect DNA sequence variation to 
+phenotypic variation, and shed light on transcriptional regulation and 
+regulatory variation. Traditional analytic techniques like linkage and 
+association mapping can be applied to thousands of gene expression traits 
+(transcripts) in eQTL analysis, such that gene expression can be mapped in much 
+the same way as a physiological phenotype like blood pressure or heart rate. 
+Joining gene expression and physiological phenotypes with genetic variation can 
+identify genes with variants affecting disease phenotypes.
 
 To the simple diagram above we'll add two more details. Non-coding SNPs can 
 regulate gene expression from nearby locations on the same chromosome (in cis):
