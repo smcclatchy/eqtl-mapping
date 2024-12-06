@@ -301,3 +301,25 @@ get_eqtl_hotspots = function(data, lod_thr = 7, hotspot_thr = 100,
   return(results)
 
 } # get_eqtl_hotspots()
+
+# Plot the output of qtl2::fit1().
+plot_fit1 = function(mod) {
+
+  data.frame(founder = names(mod$coef)[1:8],
+             coef    = mod$coef[1:8],
+             se      = mod$SE[1:8]) |>
+    mutate(founder= fct_recode(founder,
+                               'AJ'    = 'A',
+                               'BL6'   = 'B',
+                               '129'   = 'C',
+                               'NOD'   = 'D',
+                               'NZO'   = 'E',
+                               'CAST'  = 'F',
+                               'PWK'   = 'G',
+                               'WSB'   = 'H')) |>
+    ggplot(aes(x = founder)) +
+      geom_pointrange(aes(y = coef, ymin = coef - se, ymax = coef + se))
+
+} # plot_fit1()
+
+
