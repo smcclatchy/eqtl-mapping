@@ -52,18 +52,43 @@ Let's plot a histogram of the total counts in each sample.
 ``` r
 hist(rowSums(raw) * 1e-6,
      breaks = 50, 
-     main   = "Histogram of Total Counts per Sample",
+     main   = "Histogram of Total Counts per Sample (raw counts)",
      xlab   = "Total Counts (Millions)")
 ```
 
 <img src="fig/map-one-eqtl-rendered-hist_total_counts-1.png" style="display: block; margin: auto;" />
 
-As you can see, total counts range from 15 to 50 million reads.
+As you can see, total counts range from 15 to 50 million reads. The distribution
+of counts seems to be bimodal as well, which is troubling.
+
+Perhaps we should plot total counts versus the batch information that we have
+in the covariates. Recall that there are 500 mice in the covariate data. The 
+mouse IDs are in the rownames of the raw expression data, but not all 500 mice 
+have expression data.
+
+
+``` r
+sum(covar$mouse %in% rownames(raw))
+```
+
+``` output
+[1] 378
+```
+
+Let's subset the covariates to include only those with expression data. 
+
+
+``` r
+expr_covar <- subset(covar, mouse %in% rownames(raw))
+expr_covar <- expr_covar[match(rownames(raw), expr_covar$mouse),]
+expr_covar$DOwave <- factor(expr_covar$DOwave)
+```
+
 
 To recap, before we perform any analysis using the transcript expression data,
 we need to:  
 
-1. normalize it by adjusting for library size and  
+1. normalize it by adjusting for library size and,  
 2. transform the expression of each gene to be Gaussian.
 
 ### Normalizing Gene Expression
@@ -78,58 +103,6 @@ First, we must create a DESeq object. We need the raw counts, rounded so that
 all values are integers, and the sample covariate data. We will have to subset
 the sample covariates to include only the expression samples, since we don't
 have expression data for every mouse.
-
-Recall that there are 500 mice in the covariate data. The mouse IDs are in the
-rownames of the raw expression data, but not all 500 mice have expression data.
-
-
-``` r
-dim(covar)
-```
-
-``` output
-[1] 500   4
-```
-
-``` r
-head(covar$mouse)
-```
-
-``` output
-[1] "DO021" "DO022" "DO023" "DO024" "DO025" "DO026"
-```
-
-``` r
-head(rownames(raw))
-```
-
-``` output
-[1] "DO021" "DO022" "DO023" "DO024" "DO025" "DO026"
-```
-
-``` r
-length(rownames(raw))
-```
-
-``` output
-[1] 378
-```
-
-``` r
-sum(covar$mouse %in% rownames(raw))
-```
-
-``` output
-[1] 378
-```
-
-Here we subset the covariates to include only those with expression data. 
-
-
-``` r
-expr_covar = subset(covar, mouse %in% rownames(raw))
-expr_covar = expr_covar[match(rownames(raw), expr_covar$mouse),]
-```
 
 In order to create the DESeq2 object, we will need to transpose (using `t()`) 
 the expression data so that the mouse IDs (samples) are moved to the columns.
@@ -264,9 +237,11 @@ lesson or type it to show the plot live.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+First, let's look at the mean expression of each gene versus its standard
+deviation.
+
 
 ``` r
-expr = assays(dds)[[1]]
 tibble(mean = rowMeans(expr),
        sd   = apply(expr, 1, sd)) |>
   ggplot(aes(mean, sd)) +
@@ -278,7 +253,9 @@ tibble(mean = rowMeans(expr),
     theme(text = element_text(size = 20))
 ```
 
-<img src="fig/map-one-eqtl-rendered-show_expr_mean_var-1.png" style="display: block; margin: auto;" />
+``` error
+Error in base::rowMeans(x, na.rm = na.rm, dims = dims, ...): 'x' must be an array of at least two dimensions
+```
 
 ``` r
 rm(expr)
@@ -318,6 +295,19 @@ tibble(mean = colMeans(expr),
 
 The standard deviation is now largely unrelated to the mean. At lower expression
 levels, the standard deviation is somewhat related to the mean.
+
+Let's look at a the distribution of total counts per sample after normalization.
+
+
+``` r
+hist(rowSums(expr) * 1e-6,
+      breaks = 50, 
+      main   = "Histogram of Total Expression per Sample (after Normalizaion)",
+      xlab   = "Total Counts (Millions)")
+```
+
+<img src="fig/map-one-eqtl-rendered-unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
+
 
 At this point, while each gene has been normalized, each gene has a different 
 distribution. In QTL mapping, we often use permutations to estimate significance
