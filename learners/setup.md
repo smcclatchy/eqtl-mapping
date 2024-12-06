@@ -22,11 +22,8 @@ install.packages(c("tidyverse", "ggbeeswarm", "knitr", "qtl2", "remotes"))
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
-BiocManager::install("AnnotationHub")
-BiocManager::install("DESeq2")
-BiocManager::install("rtracklayer")
+BiocManager::install(c("AnnotationHub", "DESeq2", "rtracklayer", "sva"))
 
-remotes::install_github("StoreyLab/qvalue")
 remotes::install_github("churchill-lab/intermediate")
 ```
 
@@ -38,11 +35,11 @@ library(tidyverse)
 library(ggbeeswarm)
 library(knitr)
 library(intermediate)
-library(qvalue)
 library(qtl2)
 library(AnnotationHub)
 library(DESeq2)
 library(rtracklayer)
+library(sva)
 ```
 
 If the libraries don't load and you received errors during the installation,

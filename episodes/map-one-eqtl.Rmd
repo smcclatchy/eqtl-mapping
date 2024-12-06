@@ -23,6 +23,7 @@ exercises: 30
 suppressPackageStartupMessages(library(knitr))
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(qtl2))
+suppressPackageStartupMessages(library(sva))
 suppressPackageStartupMessages(library(DESeq2))
 pheno      <- readRDS(file = 'data/attie_do_pheno.rds')
 pheno_dict <- readRDS(file = 'data/attie_do_pheno_dict.rds')
@@ -69,16 +70,35 @@ Let's plot a histogram of the total counts in each sample.
 ```{r hist_total_counts, fig.width=8, fig.height=6}
 hist(rowSums(raw) * 1e-6,
      breaks = 50, 
-     main   = "Histogram of Total Counts per Sample",
+     main   = "Histogram of Total Counts per Sample (raw counts)",
      xlab   = "Total Counts (Millions)")
 ```
 
-As you can see, total counts range from 15 to 50 million reads.
+As you can see, total counts range from 15 to 50 million reads. The distribution
+of counts seems to be bimodal as well, which is troubling.
+
+Perhaps we should plot total counts versus the batch information that we have
+in the covariates. Recall that there are 500 mice in the covariate data. The 
+mouse IDs are in the rownames of the raw expression data, but not all 500 mice 
+have expression data.
+
+```{r mouse_ids}
+sum(covar$mouse %in% rownames(raw))
+```
+
+Let's subset the covariates to include only those with expression data. 
+
+```{r subset_covar}
+expr_covar <- subset(covar, mouse %in% rownames(raw))
+expr_covar <- expr_covar[match(rownames(raw), expr_covar$mouse),]
+expr_covar$DOwave <- factor(expr_covar$DOwave)
+```
+
 
 To recap, before we perform any analysis using the transcript expression data,
 we need to:  
 
-1. normalize it by adjusting for library size and  
+1. normalize it by adjusting for library size and,  
 2. transform the expression of each gene to be Gaussian.
 
 ### Normalizing Gene Expression
@@ -93,24 +113,6 @@ First, we must create a DESeq object. We need the raw counts, rounded so that
 all values are integers, and the sample covariate data. We will have to subset
 the sample covariates to include only the expression samples, since we don't
 have expression data for every mouse.
-
-Recall that there are 500 mice in the covariate data. The mouse IDs are in the
-rownames of the raw expression data, but not all 500 mice have expression data.
-
-```{r mouse_ids}
-dim(covar)
-head(covar$mouse)
-head(rownames(raw))
-length(rownames(raw))
-sum(covar$mouse %in% rownames(raw))
-```
-
-Here we subset the covariates to include only those with expression data. 
-
-```{r subset_data}
-expr_covar = subset(covar, mouse %in% rownames(raw))
-expr_covar = expr_covar[match(rownames(raw), expr_covar$mouse),]
-```
 
 In order to create the DESeq2 object, we will need to transpose (using `t()`) 
 the expression data so that the mouse IDs (samples) are moved to the columns.
@@ -167,8 +169,10 @@ lesson or type it to show the plot live.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+First, let's look at the mean expression of each gene versus its standard
+deviation.
+
 ```{r show_expr_mean_var, fig.width=8, fig.height=6, warning=FALSE}
-expr = assays(dds)[[1]]
 tibble(mean = rowMeans(expr),
        sd   = apply(expr, 1, sd)) |>
   ggplot(aes(mean, sd)) +
@@ -212,6 +216,16 @@ tibble(mean = colMeans(expr),
 
 The standard deviation is now largely unrelated to the mean. At lower expression
 levels, the standard deviation is somewhat related to the mean.
+
+Let's look at a the distribution of total counts per sample after normalization.
+
+```{r}
+hist(rowSums(expr) * 1e-6,
+      breaks = 50, 
+      main   = "Histogram of Total Expression per Sample (after Normalizaion)",
+      xlab   = "Total Counts (Millions)")
+```
+
 
 At this point, while each gene has been normalized, each gene has a different 
 distribution. In QTL mapping, we often use permutations to estimate significance
