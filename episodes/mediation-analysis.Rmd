@@ -21,7 +21,7 @@ exercises: 20
 library(knitr)
 library(tidyverse)
 library(qtl2)
-library(intermediate)
+library(enrichR)
 
 pheno      <- readRDS(file = 'data/attie_do_pheno.rds')
 pheno_dict <- readRDS(file = 'data/attie_do_pheno_dict.rds')
@@ -340,6 +340,21 @@ meditation analysis can point to a candidate gene that is plausible. It is
 always important to remember that there may be more than one causal gene and
 that causal genes may contain missense or splice SNPs which affect gene
 expression levels.
+
+```{r}
+dbs <- c("GO_Biological_Process_2018", 
+         "GO_Cellular_Component_2018", 
+         "GO_Molecular_Function_2018")
+
+hot_2 <- hotspots[["2"]] |>
+           filter(abs(qtl_pos - 164) < 0.1)
+
+enr_res <- enrichr(hot_2$symbol, dbs)
+```
+
+```{r}
+head(enr_res$GO_Biological_Process_2018)
+```
 
 
 
