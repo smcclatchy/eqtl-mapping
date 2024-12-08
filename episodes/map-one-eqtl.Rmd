@@ -23,7 +23,6 @@ exercises: 30
 suppressPackageStartupMessages(library(knitr))
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(qtl2))
-suppressPackageStartupMessages(library(sva))
 suppressPackageStartupMessages(library(DESeq2))
 pheno      <- readRDS(file = 'data/attie_do_pheno.rds')
 pheno_dict <- readRDS(file = 'data/attie_do_pheno_dict.rds')
