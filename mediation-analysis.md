@@ -22,7 +22,6 @@ exercises: 20
 library(knitr)
 library(tidyverse)
 library(qtl2)
-#library(enrichR)
 
 pheno      <- readRDS(file = 'data/attie_do_pheno.rds')
 pheno_dict <- readRDS(file = 'data/attie_do_pheno_dict.rds')
@@ -245,43 +244,43 @@ med_2 <- mediation(qtl_chr  = "2",
 ```
 
 ``` output
-[1] "50 of 1892 : 3.401 seconds elapsed."
-[1] "100 of 1892 : 6.768 seconds elapsed."
-[1] "150 of 1892 : 10.143 seconds elapsed."
-[1] "200 of 1892 : 13.656 seconds elapsed."
-[1] "250 of 1892 : 17.038 seconds elapsed."
-[1] "300 of 1892 : 20.52 seconds elapsed."
-[1] "350 of 1892 : 23.906 seconds elapsed."
-[1] "400 of 1892 : 27.241 seconds elapsed."
-[1] "450 of 1892 : 30.65 seconds elapsed."
-[1] "500 of 1892 : 33.985 seconds elapsed."
-[1] "550 of 1892 : 37.315 seconds elapsed."
-[1] "600 of 1892 : 40.679 seconds elapsed."
-[1] "650 of 1892 : 44.02 seconds elapsed."
-[1] "700 of 1892 : 47.343 seconds elapsed."
-[1] "750 of 1892 : 50.672 seconds elapsed."
-[1] "800 of 1892 : 53.989 seconds elapsed."
-[1] "850 of 1892 : 57.32 seconds elapsed."
-[1] "900 of 1892 : 60.657 seconds elapsed."
-[1] "950 of 1892 : 63.977 seconds elapsed."
-[1] "1000 of 1892 : 67.303 seconds elapsed."
-[1] "1050 of 1892 : 70.621 seconds elapsed."
-[1] "1100 of 1892 : 73.94 seconds elapsed."
-[1] "1150 of 1892 : 77.27 seconds elapsed."
-[1] "1200 of 1892 : 80.612 seconds elapsed."
-[1] "1250 of 1892 : 83.948 seconds elapsed."
-[1] "1300 of 1892 : 87.283 seconds elapsed."
-[1] "1350 of 1892 : 90.627 seconds elapsed."
-[1] "1400 of 1892 : 93.984 seconds elapsed."
-[1] "1450 of 1892 : 97.311 seconds elapsed."
-[1] "1500 of 1892 : 100.639 seconds elapsed."
-[1] "1550 of 1892 : 103.972 seconds elapsed."
-[1] "1600 of 1892 : 107.31 seconds elapsed."
-[1] "1650 of 1892 : 110.654 seconds elapsed."
-[1] "1700 of 1892 : 113.977 seconds elapsed."
-[1] "1750 of 1892 : 117.326 seconds elapsed."
-[1] "1800 of 1892 : 120.808 seconds elapsed."
-[1] "1850 of 1892 : 124.168 seconds elapsed."
+[1] "50 of 1892 : 3.398 seconds elapsed."
+[1] "100 of 1892 : 6.775 seconds elapsed."
+[1] "150 of 1892 : 10.17 seconds elapsed."
+[1] "200 of 1892 : 13.651 seconds elapsed."
+[1] "250 of 1892 : 17.023 seconds elapsed."
+[1] "300 of 1892 : 20.503 seconds elapsed."
+[1] "350 of 1892 : 23.869 seconds elapsed."
+[1] "400 of 1892 : 27.206 seconds elapsed."
+[1] "450 of 1892 : 30.625 seconds elapsed."
+[1] "500 of 1892 : 33.947 seconds elapsed."
+[1] "550 of 1892 : 37.279 seconds elapsed."
+[1] "600 of 1892 : 40.614 seconds elapsed."
+[1] "650 of 1892 : 43.953 seconds elapsed."
+[1] "700 of 1892 : 47.276 seconds elapsed."
+[1] "750 of 1892 : 50.604 seconds elapsed."
+[1] "800 of 1892 : 53.959 seconds elapsed."
+[1] "850 of 1892 : 57.299 seconds elapsed."
+[1] "900 of 1892 : 60.652 seconds elapsed."
+[1] "950 of 1892 : 63.998 seconds elapsed."
+[1] "1000 of 1892 : 67.354 seconds elapsed."
+[1] "1050 of 1892 : 70.68 seconds elapsed."
+[1] "1100 of 1892 : 74.01 seconds elapsed."
+[1] "1150 of 1892 : 77.353 seconds elapsed."
+[1] "1200 of 1892 : 80.678 seconds elapsed."
+[1] "1250 of 1892 : 84.015 seconds elapsed."
+[1] "1300 of 1892 : 87.346 seconds elapsed."
+[1] "1350 of 1892 : 90.684 seconds elapsed."
+[1] "1400 of 1892 : 94.014 seconds elapsed."
+[1] "1450 of 1892 : 97.344 seconds elapsed."
+[1] "1500 of 1892 : 100.7 seconds elapsed."
+[1] "1550 of 1892 : 104.064 seconds elapsed."
+[1] "1600 of 1892 : 107.403 seconds elapsed."
+[1] "1650 of 1892 : 110.749 seconds elapsed."
+[1] "1700 of 1892 : 114.084 seconds elapsed."
+[1] "1750 of 1892 : 117.408 seconds elapsed."
+[1] "1800 of 1892 : 120.758 seconds elapsed."
+[1] "1850 of 1892 : 124.1 seconds elapsed."
 ```
 
 Now that we have the change in LOD scores associated with using each gene as a
@@ -452,21 +451,6 @@ that causal genes may contain missense or splice SNPs which affect gene
 expression levels.
 
 
-``` r
-# dbs <- c("GO_Biological_Process_2018", 
-#          "GO_Cellular_Component_2018", 
-#          "GO_Molecular_Function_2018")
-# 
-# hot_2 <- hotspots[["2"]] |>
-#            filter(abs(qtl_pos - 164) < 0.1)
-# 
-# enr_res <- enrichr(hot_2$symbol, dbs)
-```
-
-
-``` r
-#head(enr_res$GO_Biological_Process_2018)
-```
 
 
 
