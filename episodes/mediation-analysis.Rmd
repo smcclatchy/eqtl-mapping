@@ -269,7 +269,7 @@ med_2 |>
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-#### Challenge 1: Keller et al chromosome 2 hotspot candidate gene?
+#### Challenge 3: Keller et al chromosome 2 hotspot candidate gene?
 
 Look at Figure 4C in 
 [Keller et al](https://pmc.ncbi.nlm.nih.gov/articles/PMC5937189/) and see 
@@ -281,7 +281,7 @@ The authors found that *Hnf4a* reduces the LOD more than any other gene.
 
 :::::::::::::::::::::::::::::::::
 
-#### Challenge 2: Look up *Dpp4* in [Pubmed](https://pubmed.ncbi.nlm.nih.gov/) 
+#### Challenge 4: Look up *Dpp4* in [Pubmed](https://pubmed.ncbi.nlm.nih.gov/) 
 or 
 [Alliance Genome](https://www.alliancegenome.org/) and see if it has any
 known association with type 2 diabetes or insulin metabolism.
@@ -309,7 +309,7 @@ In the plot above, we can see that *Hnf4a* has a QTL peak on chromosome 2.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: challenge
 
-#### Challenge 3: Find the *Hnf4a* QTL peak location.
+#### Challenge 5: Find the *Hnf4a* QTL peak location.
 
 Use find_peaks() to find the position of the *Hnf4a* QTL peak. What kind of eQTL
 would you call this peak? Local or distant? How does this peak location compare
@@ -340,12 +340,6 @@ always important to remember that there may be more than one causal gene and
 that causal genes may contain missense or splice SNPs which affect gene
 expression levels.
 
-
-
-
-
-
-
 ### Interactive QTL Viewer
 
 The [QTL Viewer](https://churchilllab.jax.org/qtlviewer/attie/islets#) 
@@ -354,6 +348,103 @@ Below, mediation analysis identifies gene Hnf4a as the chromosome 2 gene that
 impacts Myo15b expression.
 
 ![Mediating expression of Myo15b identifies Hnf4a as the gene that drops the LOD score from greater than 70 to less than 50.](fig/mediation-Hnf4a-Myo15b.png){alt="Hnf4a mediation"}
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::: challenge
+
+#### Challenge 6: Perform mediation at another eQTL hotspot.
+
+Select another eQTL hotspot and perform mediation analysis. 
+
+::::::::::::::::::::::::::::::::::::: solution
+
+Set "hot_chr" to one of the other eQTL hotspot locations: 5, 7, or 11
+
+First, we look at the positions of the eQTL in this region.
+
+```{r challenge6a}
+hot_chr <- "11"
+hot     <- hotspots[[hot_chr]]
+plot(table(hot$qtl_pos), las = 2)
+```
+
+Next, we subset the genes to select ones which have eQTL at the same location.
+Some of the eQTL hotspots have large numbers of of genes at more than one 
+marker. Feel free to explore different markers. Below, we sort the markers by
+the number of genes with eQTL at each marker so that we can select ones to
+pursue.
+
+```{r}
+sort(table(hot$qtl_pos))
+```
+
+Set the thresholds below to match the markers which you would like to include.
+
+```{r challenge6b}
+hot <- hot[hot$qtl_pos >= 71.3 & hot$qtl_pos <= 71.7,]
+nrow(hot)
+```
+
+Next, we get the expression of the genes at the marker(s) we are pursuing and
+calculate the first pricipal component.
+
+```{r challenge6c}
+expr_hot <- expr_rz[,hot$gene_id]
+hot_pca  <- princomp(expr_hot)
+pc1_hot  <- hot_pca$scores[,1,drop = FALSE]
+```
+
+Plot the genome scan of PC1.
+
+```{r challenge6d}
+pc1_lod <- scan1(genoprobs = probs,
+                 pheno     = pc1_hot,
+                 kinship   = K,
+                 addcovar  = addcovar)
+plot_scan1(pc1_lod, map, main = paste("Chr", hot_chr))
+```
+
+At this point, we have everything that we need to perform mediation analysis.
+
+```{r challeng6e}
+qtl_pos <- median(hot$qtl_pos)
+
+med_hot <- mediation(qtl_chr  = hot_chr, 
+                     qtl_pos  = qtl_pos,
+                     qtl_lod  = max(pc1_lod), 
+                     genoprobs = probs, 
+                     pheno    = pc1_hot, 
+                     K        = K, 
+                     addcovar = addcovar, 
+                     map      = map, 
+                     expr     = expr_rz, 
+                     annot    = annot)
+```
+
+Now that we have completed the mediation analysis, we plot the results.
+
+```{r challeng6f,fig.width=8,fig.height=6}
+end  <- ceiling(max(med_hot$middle / 10))
+
+med_hot |>
+  ggplot(aes(middle, lod_drop)) +
+    geom_point() +
+    scale_x_continuous(breaks = 0:end * 10) +
+    labs(title = str_c("Mediation Analysis for Chr ", hot_chr, " PC1"),
+         x     = "Position (Mb)",
+         y     = "LOD Drop") +
+    theme(size = element_text(size = 20))
+```
+
+```{r challeng6g}
+filter(med_hot, lod_drop < -8)
+```
+
+
+::::::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
