@@ -93,7 +93,8 @@ of this workshop. The required column names are:
 First, we will get the gene positions from the annotation and rename the 
 columns to match what `ggtmap` requires. We need to have columns named 
 `gene_id`, `gene_chr`, and `gene_pos`. We must rename the columns because, when 
-we are finished, we will have `chr` and `pos` columns for both the gene and its QTL. We will also add the `symbol` column since it is nice to have gene symbols 
+we are finished, we will have `chr` and `pos` columns for both the gene and its 
+QTL. We will also add the `symbol` column since it is nice to have gene symbols 
 in the data. 
 
 ```{r get_gene_pos}
