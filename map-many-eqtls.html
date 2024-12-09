@@ -435,7 +435,7 @@ use. <code>qtl2</code> can perform the QTL mapping in parallel on one
 node, so you will typically request only one node. In this case, we
 requested 22 cores on one node. <em>sumner2</em> has nodes with up to 70
 cores, but there is a point of diminishing returns when parallelizing
-too much. We performed a short test run and found that we used abouty
+too much. We performed a short test run and found that we used about
 100GB of memory, so we requested twice that amount in case there were
 memory surges during computation. And we requested one day (24 hours) of
 compute time.</p>
@@ -445,10 +445,10 @@ starting many separate mapping jobs and combining the results. We have
 chosen to show you one simple way in this course. If you have
 <code>slurm</code> expertise, you can try other methods of breaking up
 the work.</p>
-<p>Next, we call the R script using “singularity exec” to execute the
-command which follows the container name. We call “Rscript” to run the
-eQTL mapping script, which we placed in the same directory as the bash
-script.</p>
+<p>Next, we call the R script using <code>singularity exec</code> to
+execute the command which follows the container name. We call
+<code>Rscript</code> to run the eQTL mapping script, which we placed in
+the same directory as the bash script.</p>
 <p>The inputs to the script are the genoprobs, expression data,
 covariates, kinship matrix, and the marker map. You should have all of
 these pre-computed and saved on the cluster in the same directory.</p>
@@ -489,7 +489,7 @@ these pre-computed and saved on the cluster in the same directory.</p>
 <span><span class="va">covar</span><span class="op">$</span><span class="va">sex</span>    <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">covar</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span></span>
 <span><span class="va">covar</span><span class="op">$</span><span class="va">DOwave</span> <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">covar</span><span class="op">$</span><span class="va">DOwave</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Craete a matrix of additive covariates.</span></span>
+<span><span class="co"># Create a matrix of additive covariates.</span></span>
 <span><span class="va">addcovar</span>     <span class="op">=</span> <span class="fu">model.matrix</span><span class="op">(</span><span class="op">~</span><span class="va">sex</span> <span class="op">+</span> <span class="va">DOwave</span>, data <span class="op">=</span> <span class="va">covar</span><span class="op">)</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span></span>
 <span></span>
 <span><span class="co"># Map all genes.</span></span>
@@ -511,13 +511,16 @@ these pre-computed and saved on the cluster in the same directory.</p>
 <span><span class="co"># Save the harvested LOD peaks.</span></span>
 <span><span class="fu">saveRDS</span><span class="op">(</span><span class="va">peaks</span>, file <span class="op">=</span> <span class="fu">file.path</span><span class="op">(</span><span class="va">base_dir</span>, <span class="st">'attie_do_eqtl_peaks.rds'</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 <p>The output of this script is two files.</p>
-<ol style="list-style-type: decimal"><li>attie_do_eqtl_lod.rds: This is numeric matrix containing LOD scores
-for all genes at all markers. We save it as a compressed R data file
-(*.rds). In this case, the file is 11 GB.</li>
-<li>attie_do_eqtl_peaks.rds: This is a data.frame containing the peaks
-with LOD over 6. We save it as a compressed R data file (*.rds). In this
-case, the file is 674 KB. You should have downloaded this file into your
-“data” directory.</li>
+<ol style="list-style-type: decimal"><li>
+<code>attie_do_eqtl_lod.rds</code>: This is numeric matrix
+containing LOD scores for all genes at all markers. We save it as a
+compressed R data file (<code>*.rds</code>). In this case, the file is
+11 GB.</li>
+<li>
+<code>attie_do_eqtl_peaks.rds</code>: This is a data.frame
+containing the peaks with LOD over 6. We save it as a compressed R data
+file (<code>*.rds</code>). In this case, the file is 674 KB. You should
+have downloaded this file into your <code>data</code> directory.</li>
 </ol></div>
 </div>
 <div class="section level3">
@@ -529,7 +532,7 @@ case, the file is 674 KB. You should have downloaded this file into your
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">peaks</span> <span class="op">&lt;-</span> <span class="fu">readRDS</span><span class="op">(</span>file <span class="op">=</span> <span class="st">"data/attie_do_eqtl_peaks.rds"</span><span class="op">)</span></span></code></pre>
 </div>
-<p><code>peaks</code> is a data.frame which contains all of the peaks in
+<p><code>peaks</code> is a data frame which contains all of the peaks in
 the same format as we saw in the previous lesson. Let’s remind ourselves
 what the peaks table looks like.</p>
 <div class="codewrapper sourceCode" id="cb4">
@@ -571,7 +574,7 @@ different.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>Get the number of genes from <code>expr_rz</code>.</p>
 <div class="codewrapper sourceCode" id="cb6">
@@ -673,7 +676,7 @@ to 7.4745761.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -708,7 +711,7 @@ has.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -764,23 +767,14 @@ website.</p>
 <span><span class="va">results</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">filter</span><span class="op">(</span><span class="va">lod_brks</span> <span class="op">&gt;=</span> <span class="fl">6</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">lod_brks</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu">geom_line</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">1.25</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_line</span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">1.25</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">scale_x_continuous</span><span class="op">(</span>breaks <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">10</span> <span class="op">*</span> <span class="fl">10</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Number of Peaks above LOD Score"</span>,</span>
 <span>         x     <span class="op">=</span> <span class="st">"LOD"</span>,</span>
 <span>         y     <span class="op">=</span> <span class="st">"Number of Peaks with LOD &gt;= x"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">theme</span><span class="op">(</span>text <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">WARNING<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="warning" tabindex="0"><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-ℹ Please use `linewidth` instead.
-This warning is displayed once every 8 hours.
-Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-generated.</code></pre>
-</div>
-<figure><img src="fig/map-many-eqtls-rendered-lod_cum_dist-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb21">
+<figure><img src="fig/map-many-eqtls-rendered-lod_cum_dist-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -802,7 +796,7 @@ website.</p>
 </div>
 </div>
 </div>
-<div class="codewrapper sourceCode" id="cb22">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -832,7 +826,7 @@ website.</p>
 <span>         color <span class="op">=</span> <span class="st">"Number of Peaks"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">theme</span><span class="op">(</span>text <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/map-many-eqtls-rendered-eqtl_num_peaks_per_gene-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb23">
+<figure><img src="fig/map-many-eqtls-rendered-eqtl_num_peaks_per_gene-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">

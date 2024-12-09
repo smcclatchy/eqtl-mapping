@@ -395,7 +395,7 @@ correction such as a Benjamini-Hochberg false discovery rate (FDR).
 However, by performing permutations of the sample labels, scanning the
 genome, and retaining the maximum LOD from each permutation, we are
 effectively adjusting for multiple testing across the genome because we
-have selecting only the maximum LOD across all markers in each
+are selecting only the maximum LOD across all markers in each
 permutation.</p>
 <p>Multiple testing at the gene level comes from mapping multiple genes.
 If we use the 0.05 significance level for all genes, our overall
@@ -471,7 +471,7 @@ minimum possible p-value that we can get?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>Technically, we could get a p-value of 0 if the gene’s LOD score is
 above the highest LOD score in the permutations. In practice, we
@@ -543,7 +543,7 @@ than or equal to 0.05.</p>
 </h3>
 <pre class="output" tabindex="0"><code>[1] 16781</code></pre>
 </div>
-<p>We still have almost 17,000 genes wiht an FDR of 5% or less.</p>
+<p>We still have almost 17,000 genes with an FDR of 5% or less.</p>
 <p>Next, let’s look at what the range of LOD scores is.</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -675,7 +675,7 @@ the two genomic positions?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>Print out the QTL peak position.</p>
 <div class="codewrapper sourceCode" id="cb20">

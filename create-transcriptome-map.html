@@ -382,17 +382,17 @@
 <div class="section level3">
 <h3 id="local-and-distant-eqtl">Local and Distant eQTL<a class="anchor" aria-label="anchor" href="#local-and-distant-eqtl"></a></h3>
 <p>In the previous lesson, we saw that the QTL peak for a gene can lie
-directly over the gene that is being mapped. This is called a “local
-eQTL” because the QTL peak is located near the gene. When the QTL peak
-is located far from the gene being mapped, we call this a “distant
-eQTL”. When the QTL peak is located on the same chromosome as the gene,
-there are different heuristics regarding the distance between the gene
-and its QTL peak that we use to call an eQTL local or distant. This
-depends on the type of cross and the resolution of the recombination
-block structure.</p>
+directly over the gene that is being mapped. This is called a <em>local
+eQTL</em> because the QTL peak is located near the gene. When the QTL
+peak is located far from the gene being mapped, we call this a
+<em>distal eQTL</em>. When the QTL peak is located on the same
+chromosome as the gene, there are different heuristics regarding the
+distance between the gene and its QTL peak that we use to call an eQTL
+local or distal. This depends on the type of cross and the resolution of
+the recombination block structure.</p>
 <p>In this episode, we will create a table containing the QTL peaks for
 all genes and the gene positions. We will then classify QTL into local
-or distant and will make a plot of all off the eQTL in relation to the
+or distal and will make a plot of all off the eQTL in relation to the
 gene positions.</p>
 </div>
 <div class="section level3">
@@ -406,27 +406,13 @@ in your eQTL mapping project. We will read this file in now.</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">getwd</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>[1] "/home/runner/work/eqtl-mapping/eqtl-mapping/site/built"</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb3">
+<div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dir</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code> [1] "CODE_OF_CONDUCT.md"     "data"                   "fig"
- [4] "files"                  "index.md"               "introduction.md"
- [7] "LICENSE.md"             "links.md"               "load-explore-data.md"
-[10] "map-many-eqtls.md"      "map-one-eqtl.md"        "maximum-peaks-genes.md"
-[13] "md5sum.txt"             "review-eqtl-study.md"  </code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -465,11 +451,12 @@ transcript end position in Mb.</li>
 </ul></li>
 </ul><p>First, we will get the gene positions from the annotation and rename
 the columns to match what <code>ggtmap</code> requires. We need to have
-columns named “gene_id”, “gene_chr”, and “gene_pos”. We must rename the
-columns because, when we are finished, we will have “chr” and “pos”
-columns for both the gene and its QTL. We will also add the “symbol”
+columns named <code>gene_id</code>, <code>gene_chr</code>, and
+<code>gene_pos</code>. We must rename the columns because, when we are
+finished, we will have <code>chr</code> and <code>pos</code> columns for
+both the gene and its QTL. We will also add the <code>symbol</code>
 column since it is nice to have gene symbols in the data.</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -481,7 +468,7 @@ column since it is nice to have gene symbols in the data.</p>
 </div>
 <p>Next, we will rename the columns in the filtered peaks and will join
 them with the gene positions from above.</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -514,9 +501,9 @@ same chromosome as their corresponding QTL peak.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb8">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -532,14 +519,14 @@ same chromosome as their corresponding QTL peak.</p>
 </div>
 </div>
 </div>
-<p>We can tabulate the number of local and distant eQTL that we have and
+<p>We can tabulate the number of local and distal eQTL that we have and
 add this to our QTL summary table. A local eQTL occurs when the QTL
 peaks is directly over the gene position. But what if it is 2 Mb away?
-Or 10 Mb? It’s possible that a gene may have a trans eQTL on the same
+Or 10 Mb? It’s possible that a gene may have a distal eQTL on the same
 chromosome if the QTL is “far enough” from the gene. In <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5937189/" class="external-link">Keller et
-al</a>, the authors selected a 4 Mb of the corresponding gene and we
-will use this threshold.</p>
-<div class="codewrapper sourceCode" id="cb10">
+al</a>, the authors selected a 4 Mb distance from the corresponding gene
+and we will use this threshold.</p>
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -561,10 +548,10 @@ will use this threshold.</p>
 <div class="section level3">
 <h3 id="plot-transcriptome-map">Plot Transcriptome Map<a class="anchor" aria-label="anchor" href="#plot-transcriptome-map"></a></h3>
 <p>In <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5937189/" class="external-link">Keller
-et al</a>, the authors used a LOD threshold of 7.2 to select genes
-tovuse in their transcriptome map. We will use this threshold to
-reproduce their results as closely as possible.</p>
-<div class="codewrapper sourceCode" id="cb12">
+et al</a>, the authors used a LOD threshold of 7.2 to select genes to
+use in their transcriptome map. We will use this threshold to reproduce
+their results as closely as possible.</p>
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -575,11 +562,11 @@ reproduce their results as closely as possible.</p>
 <span>                       local.points <span class="op">=</span> <span class="cn">TRUE</span>, </span>
 <span>                       local.radius <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/create-transcriptome-map-rendered-tmap-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The plot above is called a “Transcriptome Map” because it shows the
-positions of the genes (or transcripts) and their corresponding QTL. The
-QTL position is shown on the X-axis and the gene position is shown on
-the Y-axis. The chromosomes are listed along the top and right of the
-plot.</p>
+<figure><img src="fig/create-transcriptome-map-rendered-tmap-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The plot above is called a <em>transcriptome map</em> because it
+shows the positions of the genes (or transcripts) and their
+corresponding QTL. The QTL position is shown on the X-axis and the gene
+position is shown on the Y-axis. The chromosomes are listed along the
+top and right of the plot.</p>
 <div id="challenge-2-what-are-the-blue-points-on-the-diagonal" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
@@ -597,7 +584,7 @@ diagonal?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>Points on the diagonal have QTL that are located in the same position
 as the gene, and so are local eQTL.</p>
@@ -623,7 +610,7 @@ them?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>There are vertical stripes on chromosomes 2, 5, and 11. There may be
 more, depending on how you look at the plot. Since the QTL position is
@@ -638,11 +625,12 @@ transcription, possibly through multiple steps.</p>
 </div>
 </div>
 <p>If you look at the plot, there are vertical bands of points which
-stack over a single QTL location. These are called “eQTL hotspots”.
-Rather than look at the transcriptome map, it may be easier to look at
-the density of the eQTL along the genome. We have provided a function
-called “eqtl_density_plot” to do this.</p>
-<div class="codewrapper sourceCode" id="cb13">
+stack over a single QTL location. These are called <em>eQTL
+hotspots</em>. Rather than look at the transcriptome map, it may be
+easier to look at the density of the eQTL along the genome. We have
+provided a function called <code>eqtl_density_plot</code> to do
+this.</p>
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -656,7 +644,7 @@ memory. In this case, we have called hotspots involving more than 100
 genes eQTL hotspots.</p>
 <p>Note that there appears to be an eQTL hotspot on chromosome 7 in the
 plot above, but this is not evident in the transcriptome map.</p>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -664,7 +652,7 @@ plot above, but this is not evident in the transcriptome map.</p>
 <span>                  lod_thr <span class="op">=</span> <span class="va">eqtl_thr</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Distant eQTL Density"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/create-transcriptome-map-rendered-ldistant_eqtl_density-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb15">
+<figure><img src="fig/create-transcriptome-map-rendered-ldistant_eqtl_density-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -691,7 +679,7 @@ al</a>. How do the eQTL density plots compare to their results?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>The eQTL density plots are largely similar. The hotspot on chromosome
 11 contains more genes in our analysis than in the paper.</p>
@@ -701,13 +689,13 @@ al</a>. How do the eQTL density plots compare to their results?</p>
 </div>
 <p>How can we find the location of the eQTL hotspots and the genes which
 lie within each eQTL? We have written a function called
-“get_eqtl_hotspots” to help you and have provides it in
-“gg_transcriptome_map.R”. It requires the eQTL data, a LOD threshold to
-filter the peaks, the number of genes required to call a locus a
-hotspot, and the radius in Mb around the hotspot to use when selecting
-genes which are part of the hotspot. We will use a 2 MB radius around
-the hotspot, but may refine that later.</p>
-<div class="codewrapper sourceCode" id="cb16">
+<code>get_eqtl_hotspots</code> to help you and have provides it in
+<code>gg_transcriptome_map.R</code>. It requires the eQTL data, a LOD
+threshold to filter the peaks, the number of genes required to call a
+locus a hotspot, and the radius in Mb around the hotspot to use when
+selecting genes which are part of the hotspot. We will use a 2 MB radius
+around the hotspot, but may refine that later.</p>
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -718,7 +706,7 @@ the hotspot, but may refine that later.</p>
 </div>
 <p>Let’s see how many hotspots we have and how many genes are in each
 hotspot.</p>
-<div class="codewrapper sourceCode" id="cb17">
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -735,7 +723,7 @@ which hotspots occur. The second row contains the number of genes in
 each hotspot.</p>
 <p>Where does each hotspot occur? We can get this information by taking
 the mean of the eQTL positions in each hotspot.</p>
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -748,7 +736,7 @@ the mean of the eQTL positions in each hotspot.</p>
 164.01218 146.21618  45.45160  70.53259 </code></pre>
 </div>
 <p>Let’s look at some of the genes in the chromosome 2 hotspot.</p>
-<div class="codewrapper sourceCode" id="cb21">
+<div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -774,7 +762,7 @@ the mean of the eQTL positions in each hotspot.</p>
 </div>
 <p>Let’s also look at the positions of the eQTL for these genes by
 making a histogram of the positions.</p>
-<div class="codewrapper sourceCode" id="cb23">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -788,7 +776,7 @@ making a histogram of the positions.</p>
 up around 164 Mb. Are the other genes part of the same regulatory
 network? In this case, we will filter the chromosome 2 hotspot to only
 include the genes with an eQTL near 164 Mb.</p>
-<div class="codewrapper sourceCode" id="cb24">
+<div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -796,7 +784,7 @@ include the genes with an eQTL near 164 Mb.</p>
 <span>           <span class="fu">filter</span><span class="op">(</span><span class="fu">abs</span><span class="op">(</span><span class="va">qtl_pos</span> <span class="op">-</span> <span class="fl">164</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">0.1</span><span class="op">)</span></span></code></pre>
 </div>
 <p>How many genes are there in the chromosome 2 hotspot now?</p>
-<div class="codewrapper sourceCode" id="cb25">
+<div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -814,7 +802,7 @@ include the genes with an eQTL near 164 Mb.</p>
 take the first principal component (PC1) of all of the genes in the
 hotspot. PC1 should capture the largest amount of variance in the eQTL
 hotspot and we can use this as a phenotype to map the hotspot.</p>
-<div class="codewrapper sourceCode" id="cb27">
+<div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -822,9 +810,9 @@ hotspot and we can use this as a phenotype to map the hotspot.</p>
 <span><span class="va">pca_2</span>  <span class="op">&lt;-</span> <span class="fu">princomp</span><span class="op">(</span><span class="va">expr_2</span><span class="op">)</span></span>
 <span><span class="va">pc1_2</span>  <span class="op">&lt;-</span> <span class="va">pca_2</span><span class="op">$</span><span class="va">scores</span><span class="op">[</span>,<span class="fl">1</span>,drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span></span></code></pre>
 </div>
-<p>We can then map PC1 as a phenotype and we should be a large QTL peak
-in the same location as the hotspot.</p>
-<div class="codewrapper sourceCode" id="cb28">
+<p>We can then map PC1 as a phenotype and we should have a large QTL
+peak in the same location as the hotspot.</p>
+<div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -836,8 +824,9 @@ in the same location as the hotspot.</p>
 <span><span class="fu">plot_scan1</span><span class="op">(</span><span class="va">pc1_lod</span>, <span class="va">map</span>, main <span class="op">=</span> <span class="st">"PC1 of Chr 2 Hotspot"</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/create-transcriptome-map-rendered-map_pc1_2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>We can also look at the founder allele effects at the peak. We will
-use a function in gg_transcriptome_map.R called “plot_fit1()”.</p>
-<div class="codewrapper sourceCode" id="cb29">
+use a function in <code>gg_transcriptome_map.R</code> called
+<code>plot_fit1()</code>.</p>
+<div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -873,8 +862,8 @@ regulation.</li>
 <li>Local eQTL occur more frequently than distant eQTL.</li>
 <li>Local eQTL appear along the diagonal in a transcriptome map and
 distant eQTL appear on the off-diagonal.</li>
-<li>Stacks of eQTL which appear over a single locus are called “eQTL
-hotspots” and represent sets of genes which are transcriptionally
+<li>Stacks of eQTL which appear over a single locus are called <em>eQTL
+hotspots</em> and represent sets of genes which are transcriptionally
 regulated by a single locus.</li>
 <li>The first principal component of genes in and eQTL hotspot can be
 used to summarize the genes in the hotspot.</li>
