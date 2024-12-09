@@ -1017,7 +1017,7 @@ span?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>insulin AUC spans three orders of magnitude, from near 10 to over
 1000.</p>
@@ -1041,7 +1041,7 @@ span?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>Males have higher insulin AUC than females.</p>
 </div>
@@ -1068,7 +1068,7 @@ What do the black dots extending from the whiskers indicate?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>The heavy line bisecting the boxes shows the median value (not the
 mean!). Half of the data points are above and half are below this
@@ -1160,7 +1160,7 @@ Explain your answer.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <p>Yes. The log transformation makes the data more normally distributed
 because the data points follow the normality line more closely.</p>
@@ -1184,7 +1184,7 @@ because the data points follow the normality line more closely.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
   <h4 class="accordion-header" id="headingSolution5"> Show me the solution </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
 <div class="accordion-body">
 <p>The data points that deviate from the normality line would be worth
 investigating. All data deviates somewhat from normality, but the three
@@ -1256,7 +1256,7 @@ expression counts.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution6" aria-expanded="false" aria-controls="collapseSolution6">
   <h4 class="accordion-header" id="headingSolution6"> Show me the solution </h4>
 </button>
-<div id="collapseSolution6" class="accordion-collapse collapse" aria-labelledby="headingSolution6" data-bs-parent="#accordionSolution6">
+<div id="collapseSolution6" class="accordion-collapse collapse" data-bs-parent="#accordionSolution6" aria-labelledby="headingSolution6">
 <div class="accordion-body">
 <p>Use the <code>dim</code> command or the Environment tab to determine
 the number of samples and genes in <code>raw</code>.</p>
@@ -1666,8 +1666,8 @@ standard deviation.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">tibble</span><span class="op">(</span>mean <span class="op">=</span> <span class="fu">rowMeans</span><span class="op">(</span><span class="va">raw</span><span class="op">)</span>,</span>
-<span>       sd   <span class="op">=</span> <span class="fu">apply</span><span class="op">(</span><span class="va">raw</span>, <span class="fl">1</span>, <span class="va">sd</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<code class="sourceCode R"><span><span class="fu">tibble</span><span class="op">(</span>mean <span class="op">=</span> <span class="fu">colMeans</span><span class="op">(</span><span class="va">raw</span><span class="op">)</span>,</span>
+<span>       sd   <span class="op">=</span> <span class="fu">apply</span><span class="op">(</span><span class="va">raw</span>, <span class="fl">2</span>, <span class="va">sd</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">mean</span>, <span class="va">sd</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">scale_x_log10</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -2105,7 +2105,7 @@ for both the untransformed and log-transformed insulin values.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>The log-transformed data has a higher LOD score on chromosome 11.
 However, the untransformed data has a higher LOD on chromosome 17.</p>
@@ -2197,7 +2197,7 @@ function to plot the Hnf1b genome scan.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb58">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2387,7 +2387,7 @@ interval.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb68">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2445,7 +2445,7 @@ the <code>annot</code> object.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb69">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2561,7 +2561,7 @@ for insulin tAUC and Hnf1b.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
   <h4 class="accordion-header" id="headingSolution5"> Show me the solution </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
 <div class="accordion-body">
 <p>In the Insulin tAUC allele effects, the A/J, C57BL/6J, 129S1/SvmJ,
 and NOD/ShiLtJ alleles contribute to higher insulin tAUC.</p>
@@ -2822,7 +2822,7 @@ different.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Get the number of genes from <code>expr_rz</code>.</p>
 <div class="codewrapper sourceCode" id="cb6">
@@ -2926,7 +2926,7 @@ to 7.4745761.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2961,7 +2961,7 @@ has.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3248,7 +3248,7 @@ minimum possible p-value that we can get?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>Technically, we could get a p-value of 0 if the gene’s LOD score is
 above the highest LOD score in the permutations. In practice, we
@@ -3453,7 +3453,7 @@ the two genomic positions?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>Print out the QTL peak position.</p>
 <div class="codewrapper sourceCode" id="cb20">
@@ -3672,7 +3672,7 @@ same chromosome as their corresponding QTL peak.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3756,7 +3756,7 @@ diagonal?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>Points on the diagonal have QTL that are located in the same position
 as the gene, and so are local eQTL.</p>
@@ -3782,7 +3782,7 @@ them?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>There are vertical stripes on chromosomes 2, 5, and 11. There may be
 more, depending on how you look at the plot. Since the QTL position is
@@ -3850,7 +3850,7 @@ al</a>. How do the eQTL density plots compare to their results?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <p>The eQTL density plots are largely similar. The hotspot on chromosome
 11 contains more genes in our analysis than in the paper.</p>
@@ -4100,7 +4100,7 @@ they tell together?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 
 </div>
@@ -4247,7 +4247,7 @@ SNP(s)?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p><em>Ark1e1</em> expression is regulated by some variants on
 chromosome 13 and other variants on chromosome 4. The largest driver
@@ -4280,7 +4280,7 @@ SNP(s)?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p><em>Myo15b</em> is regulated by variants on chromosome 2 because the
 largest LOD peak is located there.</p>
@@ -4421,43 +4421,43 @@ below.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1] "50 of 1892 : 3.423 seconds elapsed."
-[1] "100 of 1892 : 6.81 seconds elapsed."
-[1] "150 of 1892 : 10.224 seconds elapsed."
-[1] "200 of 1892 : 13.71 seconds elapsed."
-[1] "250 of 1892 : 17.111 seconds elapsed."
-[1] "300 of 1892 : 20.618 seconds elapsed."
-[1] "350 of 1892 : 24.068 seconds elapsed."
-[1] "400 of 1892 : 27.433 seconds elapsed."
-[1] "450 of 1892 : 30.908 seconds elapsed."
-[1] "500 of 1892 : 34.312 seconds elapsed."
-[1] "550 of 1892 : 37.712 seconds elapsed."
-[1] "600 of 1892 : 41.095 seconds elapsed."
-[1] "650 of 1892 : 44.455 seconds elapsed."
-[1] "700 of 1892 : 47.816 seconds elapsed."
-[1] "750 of 1892 : 51.213 seconds elapsed."
-[1] "800 of 1892 : 54.573 seconds elapsed."
-[1] "850 of 1892 : 57.942 seconds elapsed."
-[1] "900 of 1892 : 61.296 seconds elapsed."
-[1] "950 of 1892 : 64.647 seconds elapsed."
-[1] "1000 of 1892 : 68.026 seconds elapsed."
-[1] "1050 of 1892 : 71.424 seconds elapsed."
-[1] "1100 of 1892 : 74.795 seconds elapsed."
-[1] "1150 of 1892 : 78.174 seconds elapsed."
-[1] "1200 of 1892 : 81.528 seconds elapsed."
-[1] "1250 of 1892 : 84.91 seconds elapsed."
-[1] "1300 of 1892 : 88.285 seconds elapsed."
-[1] "1350 of 1892 : 91.64 seconds elapsed."
-[1] "1400 of 1892 : 95.011 seconds elapsed."
-[1] "1450 of 1892 : 98.377 seconds elapsed."
-[1] "1500 of 1892 : 101.711 seconds elapsed."
-[1] "1550 of 1892 : 105.052 seconds elapsed."
-[1] "1600 of 1892 : 108.395 seconds elapsed."
-[1] "1650 of 1892 : 111.794 seconds elapsed."
-[1] "1700 of 1892 : 115.124 seconds elapsed."
-[1] "1750 of 1892 : 118.464 seconds elapsed."
-[1] "1800 of 1892 : 121.804 seconds elapsed."
-[1] "1850 of 1892 : 125.134 seconds elapsed."</code></pre>
+<pre class="output" tabindex="0"><code>[1] "50 of 1892 : 3.401 seconds elapsed."
+[1] "100 of 1892 : 6.792 seconds elapsed."
+[1] "150 of 1892 : 10.185 seconds elapsed."
+[1] "200 of 1892 : 13.653 seconds elapsed."
+[1] "250 of 1892 : 17.05 seconds elapsed."
+[1] "300 of 1892 : 20.527 seconds elapsed."
+[1] "350 of 1892 : 23.954 seconds elapsed."
+[1] "400 of 1892 : 27.288 seconds elapsed."
+[1] "450 of 1892 : 30.735 seconds elapsed."
+[1] "500 of 1892 : 34.075 seconds elapsed."
+[1] "550 of 1892 : 37.43 seconds elapsed."
+[1] "600 of 1892 : 40.789 seconds elapsed."
+[1] "650 of 1892 : 44.136 seconds elapsed."
+[1] "700 of 1892 : 47.481 seconds elapsed."
+[1] "750 of 1892 : 50.828 seconds elapsed."
+[1] "800 of 1892 : 54.159 seconds elapsed."
+[1] "850 of 1892 : 57.498 seconds elapsed."
+[1] "900 of 1892 : 60.826 seconds elapsed."
+[1] "950 of 1892 : 64.157 seconds elapsed."
+[1] "1000 of 1892 : 67.515 seconds elapsed."
+[1] "1050 of 1892 : 70.85 seconds elapsed."
+[1] "1100 of 1892 : 74.183 seconds elapsed."
+[1] "1150 of 1892 : 77.523 seconds elapsed."
+[1] "1200 of 1892 : 80.846 seconds elapsed."
+[1] "1250 of 1892 : 84.18 seconds elapsed."
+[1] "1300 of 1892 : 87.508 seconds elapsed."
+[1] "1350 of 1892 : 90.842 seconds elapsed."
+[1] "1400 of 1892 : 94.194 seconds elapsed."
+[1] "1450 of 1892 : 97.54 seconds elapsed."
+[1] "1500 of 1892 : 100.886 seconds elapsed."
+[1] "1550 of 1892 : 104.291 seconds elapsed."
+[1] "1600 of 1892 : 107.64 seconds elapsed."
+[1] "1650 of 1892 : 111.008 seconds elapsed."
+[1] "1700 of 1892 : 114.354 seconds elapsed."
+[1] "1750 of 1892 : 117.684 seconds elapsed."
+[1] "1800 of 1892 : 121.019 seconds elapsed."
+[1] "1850 of 1892 : 124.348 seconds elapsed."</code></pre>
 </div>
 <p>Now that we have the change in LOD scores associated with using each
 gene as a covariate, we can plot the LOD change along chromosome 11.</p>
@@ -4519,7 +4519,7 @@ al</a> and see which gene the selected in their mediaiton analysis.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>The authors found that <em>Hnf4a</em> reduces the LOD more than any
 other gene.</p>
@@ -4546,7 +4546,7 @@ metabolism.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <p><a href="https://www.alliancegenome.org/gene/MGI:94919" class="external-link">Alliance
 Genome</a> says that “Human ortholog(s) of this gene implicated in …
@@ -4634,7 +4634,7 @@ hotspot?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
   <h4 class="accordion-header" id="headingSolution5"> Show me the solution </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -4687,7 +4687,7 @@ as the gene that drops the LOD score from greater than 70 to less than
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution6" aria-expanded="false" aria-controls="collapseSolution6">
   <h4 class="accordion-header" id="headingSolution6"> Show me the solution </h4>
 </button>
-<div id="collapseSolution6" class="accordion-collapse collapse" aria-labelledby="headingSolution6" data-bs-parent="#accordionSolution6">
+<div id="collapseSolution6" class="accordion-collapse collapse" data-bs-parent="#accordionSolution6" aria-labelledby="headingSolution6">
 <div class="accordion-body">
 <p>Set “hot_chr” to one of the other eQTL hotspot locations: 5, 7, or
 11</p>
@@ -4802,42 +4802,42 @@ names were found from a short variable and have been discarded</code></pre>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1] "50 of 1810 : 3.29400000000001 seconds elapsed."
-[1] "100 of 1810 : 6.654 seconds elapsed."
-[1] "150 of 1810 : 10.109 seconds elapsed."
-[1] "200 of 1810 : 13.444 seconds elapsed."
-[1] "250 of 1810 : 16.77 seconds elapsed."
-[1] "300 of 1810 : 20.103 seconds elapsed."
-[1] "350 of 1810 : 23.437 seconds elapsed."
-[1] "400 of 1810 : 26.766 seconds elapsed."
-[1] "450 of 1810 : 30.113 seconds elapsed."
-[1] "500 of 1810 : 33.462 seconds elapsed."
-[1] "550 of 1810 : 36.807 seconds elapsed."
-[1] "600 of 1810 : 40.207 seconds elapsed."
-[1] "650 of 1810 : 43.564 seconds elapsed."
-[1] "700 of 1810 : 46.933 seconds elapsed."
-[1] "750 of 1810 : 50.276 seconds elapsed."
-[1] "800 of 1810 : 53.642 seconds elapsed."
-[1] "850 of 1810 : 57.043 seconds elapsed."
-[1] "900 of 1810 : 60.412 seconds elapsed."
-[1] "950 of 1810 : 63.756 seconds elapsed."
-[1] "1000 of 1810 : 67.117 seconds elapsed."
-[1] "1050 of 1810 : 70.464 seconds elapsed."
-[1] "1100 of 1810 : 73.841 seconds elapsed."
-[1] "1150 of 1810 : 77.371 seconds elapsed."
-[1] "1200 of 1810 : 80.786 seconds elapsed."
-[1] "1250 of 1810 : 84.139 seconds elapsed."
-[1] "1300 of 1810 : 87.489 seconds elapsed."
-[1] "1350 of 1810 : 90.874 seconds elapsed."
-[1] "1400 of 1810 : 94.267 seconds elapsed."
-[1] "1450 of 1810 : 97.611 seconds elapsed."
-[1] "1500 of 1810 : 100.963 seconds elapsed."
-[1] "1550 of 1810 : 104.353 seconds elapsed."
-[1] "1600 of 1810 : 107.695 seconds elapsed."
-[1] "1650 of 1810 : 111.039 seconds elapsed."
-[1] "1700 of 1810 : 114.379 seconds elapsed."
-[1] "1750 of 1810 : 117.755 seconds elapsed."
-[1] "1800 of 1810 : 121.109 seconds elapsed."</code></pre>
+<pre class="output" tabindex="0"><code>[1] "50 of 1810 : 3.30599999999998 seconds elapsed."
+[1] "100 of 1810 : 6.655 seconds elapsed."
+[1] "150 of 1810 : 10.09 seconds elapsed."
+[1] "200 of 1810 : 13.419 seconds elapsed."
+[1] "250 of 1810 : 16.766 seconds elapsed."
+[1] "300 of 1810 : 20.115 seconds elapsed."
+[1] "350 of 1810 : 23.455 seconds elapsed."
+[1] "400 of 1810 : 26.815 seconds elapsed."
+[1] "450 of 1810 : 30.177 seconds elapsed."
+[1] "500 of 1810 : 33.514 seconds elapsed."
+[1] "550 of 1810 : 36.872 seconds elapsed."
+[1] "600 of 1810 : 40.225 seconds elapsed."
+[1] "650 of 1810 : 43.552 seconds elapsed."
+[1] "700 of 1810 : 46.906 seconds elapsed."
+[1] "750 of 1810 : 50.245 seconds elapsed."
+[1] "800 of 1810 : 53.581 seconds elapsed."
+[1] "850 of 1810 : 56.929 seconds elapsed."
+[1] "900 of 1810 : 60.272 seconds elapsed."
+[1] "950 of 1810 : 63.629 seconds elapsed."
+[1] "1000 of 1810 : 66.982 seconds elapsed."
+[1] "1050 of 1810 : 70.313 seconds elapsed."
+[1] "1100 of 1810 : 73.646 seconds elapsed."
+[1] "1150 of 1810 : 77.109 seconds elapsed."
+[1] "1200 of 1810 : 80.481 seconds elapsed."
+[1] "1250 of 1810 : 83.831 seconds elapsed."
+[1] "1300 of 1810 : 87.179 seconds elapsed."
+[1] "1350 of 1810 : 90.525 seconds elapsed."
+[1] "1400 of 1810 : 93.869 seconds elapsed."
+[1] "1450 of 1810 : 97.225 seconds elapsed."
+[1] "1500 of 1810 : 100.599 seconds elapsed."
+[1] "1550 of 1810 : 103.932 seconds elapsed."
+[1] "1600 of 1810 : 107.341 seconds elapsed."
+[1] "1650 of 1810 : 110.722 seconds elapsed."
+[1] "1700 of 1810 : 114.082 seconds elapsed."
+[1] "1750 of 1810 : 117.423 seconds elapsed."
+[1] "1800 of 1810 : 120.749 seconds elapsed."</code></pre>
 </div>
 <p>Now that we have completed the mediation analysis, we plot the
 results.</p>
