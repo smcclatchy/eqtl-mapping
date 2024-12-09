@@ -80,7 +80,7 @@ can perform the QTL mapping in parallel on one node, so you will typically
 request only one node. In this case, we requested 22 cores on one node. 
 *sumner2* has nodes with up to 70 cores, but there is a point of diminishing 
 returns when parallelizing too much. We performed a short test run and found
-that we used abouty 100GB of memory, so we requested twice that amount in case
+that we used about 100GB of memory, so we requested twice that amount in case
 there were memory surges during computation. And we requested one day (24 hours)
 of compute time. 
 
@@ -91,8 +91,8 @@ many separate mapping jobs and combining the results. We have chosen to show
 you one simple way in this course. If you have `slurm` expertise, you can try
 other methods of breaking up the work.
 
-Next, we call the R script using "singularity exec" to execute the command
-which follows the container name. We call "Rscript" to run the eQTL mapping
+Next, we call the R script using `singularity exec` to execute the command
+which follows the container name. We call `Rscript` to run the eQTL mapping
 script, which we placed in the same directory as the bash script.
 
 The inputs to the script are the genoprobs, expression data, covariates, 
@@ -136,7 +136,7 @@ map   = readRDS(file.path(base_dir, 'attie_do_map.rds'))
 covar$sex    = factor(covar$sex)
 covar$DOwave = factor(covar$DOwave)
 
-# Craete a matrix of additive covariates.
+# Create a matrix of additive covariates.
 addcovar     = model.matrix(~sex + DOwave, data = covar)[,-1]
 
 # Map all genes.
@@ -161,12 +161,12 @@ saveRDS(peaks, file = file.path(base_dir, 'attie_do_eqtl_peaks.rds'))
 
 The output of this script is two files.
 
-1. attie_do_eqtl_lod.rds: This is numeric matrix containing LOD scores for all
-genes at all markers. We save it as a compressed R data file (*.rds). In this 
+1. `attie_do_eqtl_lod.rds`: This is numeric matrix containing LOD scores for all
+genes at all markers. We save it as a compressed R data file (`*.rds`). In this 
 case, the file is 11 GB.
-2. attie_do_eqtl_peaks.rds: This is a data.frame containing the peaks with LOD
-over 6. We save it as a compressed R data file (*.rds). In this case, the file
-is 674 KB. You should have downloaded this file into your "data" directory.
+2. `attie_do_eqtl_peaks.rds`: This is a data.frame containing the peaks with LOD
+over 6. We save it as a compressed R data file (`*.rds`). In this case, the file
+is 674 KB. You should have downloaded this file into your `data` directory.
 
 ### Finding QTL Peaks
 
@@ -177,7 +177,7 @@ Let's load in the QTL peaks that we pre-computed.
 peaks <- readRDS(file = "data/attie_do_eqtl_peaks.rds")
 ```
 
-`peaks` is a data.frame which contains all of the peaks in the same format as
+`peaks` is a data frame which contains all of the peaks in the same format as
 we saw in the previous lesson. Let's remind ourselves what the peaks table 
 looks like.
 
@@ -363,20 +363,12 @@ for(i in lod_brks) {
 results |>
   filter(lod_brks >= 6) |>
   ggplot(aes(lod_brks, n)) +
-    geom_line(size = 1.25) +
+    geom_line(linewidth = 1.25) +
     scale_x_continuous(breaks = 0:10 * 10) +
     labs(title = "Number of Peaks above LOD Score",
          x     = "LOD",
          y     = "Number of Peaks with LOD >= x") +
     theme(text = element_text(size = 20))
-```
-
-``` warning
-Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-ℹ Please use `linewidth` instead.
-This warning is displayed once every 8 hours.
-Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-generated.
 ```
 
 <img src="fig/map-many-eqtls-rendered-lod_cum_dist-1.png" style="display: block; margin: auto;" />

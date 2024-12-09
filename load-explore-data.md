@@ -212,7 +212,7 @@ Males have higher insulin AUC than females.
 
 What does the heavy line bisecting the boxes indicate?  
 What do the lines at the top and bottom of the boxes indicate?  
-What does the "whisker" extending from the top and bottom of the boxes indicate?    
+What does the *whisker* extending from the top and bottom of the boxes indicate?    
 What do the black dots extending from the whiskers indicate? 
 
 :::::::::::::::::::::::: solution 

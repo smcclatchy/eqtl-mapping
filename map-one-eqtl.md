@@ -248,7 +248,7 @@ tibble(mean = colMeans(raw),
     geom_point() +
     scale_x_log10() +
     scale_y_log10() +
-    labs(title = "Mean vs. Std. Dev. of Before VST",
+    labs(title = "Mean vs SD of expression values",
          x     = "log(Mean)", y = "log(Std. Dev.)") +
     theme(text = element_text(size = 20))
 ```
@@ -624,10 +624,10 @@ DO026    0       0       0       0       0
 
 ## Performing a Genome Scan
 
-We will perform a genome scan for insulin tAUC, comparing the results of the
+We will perform a genome scan for insulin AUC, comparing the results of the
 untransformed and log-transformed results. Use the
 [scan1](https://github.com/kbroman/qtl2/blob/main/R/scan1.R) function to map 
-insulin tAUC.
+insulin AUC.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
@@ -676,7 +676,7 @@ use "red3" instead of "rgb(0.8, 0, 0, 0.5)".
 plot_scan1(x         = lod_ins, 
            map       = map,
            lodcolumn = "Ins_tAUC_log",
-           main      = "Insulin tAUC")
+           main      = "insulin AUC")
 plot_scan1(x         = lod_ins, 
            map       = map,
            lodcolumn = "Ins_tAUC",
@@ -713,15 +713,11 @@ that we will use later.
 
 
 ``` r
-saveRDS(ins_lod[,2, drop = FALSE], file = "data/ns_tauc_lod.rds")
-```
-
-``` error
-Error in h(simpleError(msg, call)): error in evaluating the argument 'object' in selecting a method for function 'saveRDS': object 'ins_lod' not found
+saveRDS(lod_ins[, 2, drop = FALSE], file = "data/ns_tauc_lod.rds")
 ```
 
 
-Because we are working with the `insulin tAUC` phenotype, which has a QTL peak
+Because we are working with the insulin AUC phenotype, which has a QTL peak
 on chromosome 11, we will map a gene on chromosome 11 which may influence 
 insulin and glucose levels. This gene is called
 [Hnf1b](https://www.alliancegenome.org/gene/MGI:98505). Since the expression
@@ -786,7 +782,7 @@ plot_scan1(x    = lod_hnf1b,
 
 ### Permutations
 
-We now have a peaks on chromosome 11 for both insulin tAUC and Hnf1b, but we do
+We now have a peaks on chromosome 11 for both insulin AUC and Hnf1b, but we do
 not know if the LODs are significant. In order to assess significance, we will
 use permutations.
 
@@ -834,7 +830,7 @@ LOD thresholds (1000 permutations)
 ```
 
 We also need to perform permutations of the Hnf1b values since they have a 
-different distribution than insulin tAUC.
+different distribution than insulin AUC.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::: callout
 
@@ -879,7 +875,7 @@ LOD thresholds (1000 permutations)
 
 ### Finding Significant Peaks
 
-Let's use `find_peaks` to identify the significant peaks in the insulin tAUC
+Let's use `find_peaks` to identify the significant peaks in the insulin AUC
 genome scan. We will use the 0.05 significance threshold.
 
 
@@ -891,19 +887,19 @@ peaks_ins <- find_peaks(scan1_output = lod_ins,
 peaks_ins |> 
   dplyr::select(-lodindex) |>
   arrange(chr, pos) |>
-  kable(caption = "Insulin tAUC QTL Peaks")
+  kable(caption = "insulin AUC QTL Peaks")
 ```
 
 
 
-Table: Insulin tAUC QTL Peaks
+Table: insulin AUC QTL Peaks
 
 |lodcolumn    |chr |      pos|       lod|    ci_lo|    ci_hi|
 |:------------|:---|--------:|---------:|--------:|--------:|
 |Ins_tAUC_log |11  | 83.59467| 11.258841| 83.58553| 84.95444|
 |Ins_tAUC     |17  | 31.69319|  7.445012| 25.57974| 73.89085|
 
-We can see that we have a peak for insulin tAUC on chromosome 
+We can see that we have a peak for insulin AUC on chromosome 
 17 at 31.693192 Mb.
 
 :::::::::::::::::::::::::::::::::::::::::::::: challenge
@@ -979,7 +975,7 @@ later episodes.
 
 ### Estimating Founder Allele Effects
 
-Let's look at the QTL effects for insulin tAUC on chromosome 11.
+Let's look at the QTL effects for insulin AUC on chromosome 11.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
@@ -1000,7 +996,7 @@ blup_ins <- scan1blup(genoprobs = probs[,chr],
                       addcovar  = addcovar)
 ```
 
-Read in the insulin tAUC founder allele effects.
+Read in the insulin AUC founder allele effects.
 
 
 ``` r
@@ -1015,7 +1011,7 @@ plot_coefCC(x      = blup_ins,
             map    = map, 
             legend = "bottomleft",
             scan1_output = lod_ins[, 2, drop = FALSE],
-            main   = "Insulin tAUC")
+            main   = "insulin AUC")
 ```
 
 <img src="fig/map-one-eqtl-rendered-plot_ins_blup-1.png" style="display: block; margin: auto;" />
@@ -1071,8 +1067,8 @@ tAUC and Hnf1b.
 
 :::::::::::::::::::::::: solution 
 
-In the Insulin tAUC allele effects, the A/J, C57BL/6J, 129S1/SvmJ, and 
-NOD/ShiLtJ alleles contribute to higher insulin tAUC.
+In the insulin AUC allele effects, the A/J, C57BL/6J, 129S1/SvmJ, and 
+NOD/ShiLtJ alleles contribute to higher insulin AUC.
 
 :::::::::::::::::::::::::::::::::
 

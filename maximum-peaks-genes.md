@@ -34,7 +34,7 @@ marker. We could perform a traditional multiple-testing correction such as a
 Benjamini-Hochberg false discovery rate (FDR). However, by performing 
 permutations of the sample labels, scanning the genome, and retaining the 
 maximum LOD from each permutation, we are effectively adjusting for multiple
-testing across the genome because we have selecting only the maximum LOD 
+testing across the genome because we are selecting only the maximum LOD 
 across all markers in each permutation.
 
 Multiple testing at the gene level comes from mapping multiple genes. If we use
@@ -171,7 +171,7 @@ nrow(peaks_filt)
 [1] 16781
 ```
 
-We still have almost 17,000 genes wiht an FDR of 5% or less.
+We still have almost 17,000 genes with an FDR of 5% or less.
 
 Next, let's look at what the range of LOD scores is.
 

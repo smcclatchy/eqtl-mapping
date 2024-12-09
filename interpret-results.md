@@ -19,9 +19,11 @@ variation from qtl2 mapping results.
 
 
 ![Attie et al, 2018 Supplementary Figure S7](fig/SFig7_Keller_2018_chr11.png){alt="Keller et al, figure S7"}
+
+
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Challenge: Interpreting qtl2 results
+#### Challenge: Interpreting qtl2 results
 
 Refer to the figure above.
 
@@ -45,8 +47,5 @@ together?
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
