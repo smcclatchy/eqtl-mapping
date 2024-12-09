@@ -244,43 +244,43 @@ med_2 <- mediation(qtl_chr  = "2",
 ```
 
 ``` output
-[1] "50 of 1892 : 3.398 seconds elapsed."
-[1] "100 of 1892 : 6.775 seconds elapsed."
-[1] "150 of 1892 : 10.17 seconds elapsed."
-[1] "200 of 1892 : 13.651 seconds elapsed."
-[1] "250 of 1892 : 17.023 seconds elapsed."
-[1] "300 of 1892 : 20.503 seconds elapsed."
-[1] "350 of 1892 : 23.869 seconds elapsed."
-[1] "400 of 1892 : 27.206 seconds elapsed."
-[1] "450 of 1892 : 30.625 seconds elapsed."
-[1] "500 of 1892 : 33.947 seconds elapsed."
-[1] "550 of 1892 : 37.279 seconds elapsed."
-[1] "600 of 1892 : 40.614 seconds elapsed."
-[1] "650 of 1892 : 43.953 seconds elapsed."
-[1] "700 of 1892 : 47.276 seconds elapsed."
-[1] "750 of 1892 : 50.604 seconds elapsed."
-[1] "800 of 1892 : 53.959 seconds elapsed."
-[1] "850 of 1892 : 57.299 seconds elapsed."
-[1] "900 of 1892 : 60.652 seconds elapsed."
-[1] "950 of 1892 : 63.998 seconds elapsed."
-[1] "1000 of 1892 : 67.354 seconds elapsed."
-[1] "1050 of 1892 : 70.68 seconds elapsed."
-[1] "1100 of 1892 : 74.01 seconds elapsed."
-[1] "1150 of 1892 : 77.353 seconds elapsed."
-[1] "1200 of 1892 : 80.678 seconds elapsed."
-[1] "1250 of 1892 : 84.015 seconds elapsed."
-[1] "1300 of 1892 : 87.346 seconds elapsed."
-[1] "1350 of 1892 : 90.684 seconds elapsed."
-[1] "1400 of 1892 : 94.014 seconds elapsed."
-[1] "1450 of 1892 : 97.344 seconds elapsed."
-[1] "1500 of 1892 : 100.7 seconds elapsed."
-[1] "1550 of 1892 : 104.064 seconds elapsed."
-[1] "1600 of 1892 : 107.403 seconds elapsed."
-[1] "1650 of 1892 : 110.749 seconds elapsed."
-[1] "1700 of 1892 : 114.084 seconds elapsed."
-[1] "1750 of 1892 : 117.408 seconds elapsed."
-[1] "1800 of 1892 : 120.758 seconds elapsed."
-[1] "1850 of 1892 : 124.1 seconds elapsed."
+[1] "50 of 1892 : 3.396 seconds elapsed."
+[1] "100 of 1892 : 6.752 seconds elapsed."
+[1] "150 of 1892 : 10.136 seconds elapsed."
+[1] "200 of 1892 : 13.59 seconds elapsed."
+[1] "250 of 1892 : 16.967 seconds elapsed."
+[1] "300 of 1892 : 20.435 seconds elapsed."
+[1] "350 of 1892 : 23.827 seconds elapsed."
+[1] "400 of 1892 : 27.186 seconds elapsed."
+[1] "450 of 1892 : 30.646 seconds elapsed."
+[1] "500 of 1892 : 33.972 seconds elapsed."
+[1] "550 of 1892 : 37.306 seconds elapsed."
+[1] "600 of 1892 : 40.662 seconds elapsed."
+[1] "650 of 1892 : 43.995 seconds elapsed."
+[1] "700 of 1892 : 47.334 seconds elapsed."
+[1] "750 of 1892 : 50.697 seconds elapsed."
+[1] "800 of 1892 : 54.037 seconds elapsed."
+[1] "850 of 1892 : 57.389 seconds elapsed."
+[1] "900 of 1892 : 60.748 seconds elapsed."
+[1] "950 of 1892 : 64.13 seconds elapsed."
+[1] "1000 of 1892 : 67.504 seconds elapsed."
+[1] "1050 of 1892 : 70.857 seconds elapsed."
+[1] "1100 of 1892 : 74.217 seconds elapsed."
+[1] "1150 of 1892 : 77.562 seconds elapsed."
+[1] "1200 of 1892 : 80.892 seconds elapsed."
+[1] "1250 of 1892 : 84.238 seconds elapsed."
+[1] "1300 of 1892 : 87.575 seconds elapsed."
+[1] "1350 of 1892 : 90.904 seconds elapsed."
+[1] "1400 of 1892 : 94.242 seconds elapsed."
+[1] "1450 of 1892 : 97.582 seconds elapsed."
+[1] "1500 of 1892 : 100.934 seconds elapsed."
+[1] "1550 of 1892 : 104.268 seconds elapsed."
+[1] "1600 of 1892 : 107.622 seconds elapsed."
+[1] "1650 of 1892 : 110.959 seconds elapsed."
+[1] "1700 of 1892 : 114.292 seconds elapsed."
+[1] "1750 of 1892 : 117.643 seconds elapsed."
+[1] "1800 of 1892 : 120.994 seconds elapsed."
+[1] "1850 of 1892 : 124.334 seconds elapsed."
 ```
 
 Now that we have the change in LOD scores associated with using each gene as a
@@ -327,7 +327,7 @@ med_2 |>
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-#### Challenge 1: Keller et al chromosome 2 hotspot candidate gene?
+#### Challenge 3: Keller et al chromosome 2 hotspot candidate gene?
 
 Look at Figure 4C in 
 [Keller et al](https://pmc.ncbi.nlm.nih.gov/articles/PMC5937189/) and see 
@@ -339,7 +339,7 @@ The authors found that *Hnf4a* reduces the LOD more than any other gene.
 
 :::::::::::::::::::::::::::::::::
 
-#### Challenge 2: Look up *Dpp4* in [Pubmed](https://pubmed.ncbi.nlm.nih.gov/) 
+#### Challenge 4: Look up *Dpp4* in [Pubmed](https://pubmed.ncbi.nlm.nih.gov/) 
 or 
 [Alliance Genome](https://www.alliancegenome.org/) and see if it has any
 known association with type 2 diabetes or insulin metabolism.
@@ -413,7 +413,7 @@ In the plot above, we can see that *Hnf4a* has a QTL peak on chromosome 2.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::: challenge
 
-#### Challenge 3: Find the *Hnf4a* QTL peak location.
+#### Challenge 5: Find the *Hnf4a* QTL peak location.
 
 Use find_peaks() to find the position of the *Hnf4a* QTL peak. What kind of eQTL
 would you call this peak? Local or distant? How does this peak location compare
@@ -450,12 +450,6 @@ always important to remember that there may be more than one causal gene and
 that causal genes may contain missense or splice SNPs which affect gene
 expression levels.
 
-
-
-
-
-
-
 ### Interactive QTL Viewer
 
 The [QTL Viewer](https://churchilllab.jax.org/qtlviewer/attie/islets#) 
@@ -464,6 +458,211 @@ Below, mediation analysis identifies gene Hnf4a as the chromosome 2 gene that
 impacts Myo15b expression.
 
 ![Mediating expression of Myo15b identifies Hnf4a as the gene that drops the LOD score from greater than 70 to less than 50.](fig/mediation-Hnf4a-Myo15b.png){alt="Hnf4a mediation"}
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::: challenge
+
+#### Challenge 6: Perform mediation at another eQTL hotspot.
+
+Select another eQTL hotspot and perform mediation analysis. 
+
+::::::::::::::::::::::::::::::::::::: solution
+
+Set "hot_chr" to one of the other eQTL hotspot locations: 5, 7, or 11
+
+First, we look at the positions of the eQTL in this region.
+
+
+``` r
+hot_chr <- "11"
+hot     <- hotspots[[hot_chr]]
+plot(table(hot$qtl_pos), las = 2)
+```
+
+<img src="fig/mediation-analysis-rendered-challenge6a-1.png" style="display: block; margin: auto;" />
+
+Next, we subset the genes to select ones which have eQTL at the same location.
+Some of the eQTL hotspots have large numbers of of genes at more than one 
+marker. Feel free to explore different markers. Below, we sort the markers by
+the number of genes with eQTL at each marker so that we can select ones to
+pursue.
+
+
+``` r
+sort(table(hot$qtl_pos))
+```
+
+``` output
+
+68.122257  68.42035 68.640199 68.660126 68.825289 68.888033 68.889671  68.89049 
+        1         1         1         1         1         1         1         1 
+ 69.21825 69.224642 69.231034 69.244859 69.505599  69.66328 69.768364 69.869428 
+        1         1         1         1         1         1         1         1 
+70.196497  70.60917 70.616235 70.782062 71.198629 71.422464 71.425934 71.432875 
+        1         1         1         1         1         1         1         1 
+71.510771 71.793079 71.952385 68.656091 69.198036 69.733033 69.844926 69.876397 
+        1         1         1         2         2         2         2         2 
+69.924127 70.772323 71.449172 71.675712  71.83438 69.131341  69.23423 69.592546 
+        2         2         2         2         2         3         3         3 
+69.876917 69.978753 71.276599 71.418821 71.429405 71.937774 68.892129 69.416362 
+        3         3         3         3         3         3         4         4 
+71.658293 71.803404 71.859513 68.987403 69.542556 69.796313 69.064645 69.227838 
+        4         4         4         5         5         5         6         6 
+70.661194 70.750402 70.785072  71.12066 69.484146 69.837051 71.782692 69.810287 
+        6         6         6         6         8         9        10        14 
+71.813729 69.829176 71.693132 71.354568 
+       14        22        26        31 
+```
+
+Set the thresholds below to match the markers which you would like to include.
+
+
+``` r
+hot <- hot[hot$qtl_pos >= 71.3 & hot$qtl_pos <= 71.7,]
+nrow(hot)
+```
+
+``` output
+[1] 75
+```
+
+Next, we get the expression of the genes at the marker(s) we are pursuing and
+calculate the first pricipal component.
+
+
+``` r
+expr_hot <- expr_rz[,hot$gene_id]
+hot_pca  <- princomp(expr_hot)
+pc1_hot  <- hot_pca$scores[,1,drop = FALSE]
+```
+
+Plot the genome scan of PC1.
+
+
+``` r
+pc1_lod <- scan1(genoprobs = probs,
+                 pheno     = pc1_hot,
+                 kinship   = K,
+                 addcovar  = addcovar)
+plot_scan1(pc1_lod, map, main = paste("Chr", hot_chr))
+```
+
+<img src="fig/mediation-analysis-rendered-challenge6d-1.png" style="display: block; margin: auto;" />
+
+At this point, we have everything that we need to perform mediation analysis.
+
+
+``` r
+qtl_pos <- median(hot$qtl_pos)
+
+med_hot <- mediation(qtl_chr  = hot_chr, 
+                     qtl_pos  = qtl_pos,
+                     qtl_lod  = max(pc1_lod), 
+                     genoprobs = probs, 
+                     pheno    = pc1_hot, 
+                     K        = K, 
+                     addcovar = addcovar, 
+                     map      = map, 
+                     expr     = expr_rz, 
+                     annot    = annot)
+```
+
+``` warning
+Warning in data.frame(gene_id = colnames(expr_chr), base_lod = qtl_lod, : row
+names were found from a short variable and have been discarded
+```
+
+``` output
+Joining with `by = join_by(gene_id)`
+```
+
+``` output
+[1] "50 of 1810 : 3.27199999999999 seconds elapsed."
+[1] "100 of 1810 : 6.62899999999999 seconds elapsed."
+[1] "150 of 1810 : 10.087 seconds elapsed."
+[1] "200 of 1810 : 13.423 seconds elapsed."
+[1] "250 of 1810 : 16.783 seconds elapsed."
+[1] "300 of 1810 : 20.151 seconds elapsed."
+[1] "350 of 1810 : 23.508 seconds elapsed."
+[1] "400 of 1810 : 26.869 seconds elapsed."
+[1] "450 of 1810 : 30.226 seconds elapsed."
+[1] "500 of 1810 : 33.574 seconds elapsed."
+[1] "550 of 1810 : 36.941 seconds elapsed."
+[1] "600 of 1810 : 40.316 seconds elapsed."
+[1] "650 of 1810 : 43.679 seconds elapsed."
+[1] "700 of 1810 : 47.051 seconds elapsed."
+[1] "750 of 1810 : 50.409 seconds elapsed."
+[1] "800 of 1810 : 53.775 seconds elapsed."
+[1] "850 of 1810 : 57.143 seconds elapsed."
+[1] "900 of 1810 : 60.531 seconds elapsed."
+[1] "950 of 1810 : 63.893 seconds elapsed."
+[1] "1000 of 1810 : 67.267 seconds elapsed."
+[1] "1050 of 1810 : 70.617 seconds elapsed."
+[1] "1100 of 1810 : 73.953 seconds elapsed."
+[1] "1150 of 1810 : 77.414 seconds elapsed."
+[1] "1200 of 1810 : 80.78 seconds elapsed."
+[1] "1250 of 1810 : 84.109 seconds elapsed."
+[1] "1300 of 1810 : 87.449 seconds elapsed."
+[1] "1350 of 1810 : 90.812 seconds elapsed."
+[1] "1400 of 1810 : 94.163 seconds elapsed."
+[1] "1450 of 1810 : 97.516 seconds elapsed."
+[1] "1500 of 1810 : 100.86 seconds elapsed."
+[1] "1550 of 1810 : 104.192 seconds elapsed."
+[1] "1600 of 1810 : 107.552 seconds elapsed."
+[1] "1650 of 1810 : 110.902 seconds elapsed."
+[1] "1700 of 1810 : 114.238 seconds elapsed."
+[1] "1750 of 1810 : 117.584 seconds elapsed."
+[1] "1800 of 1810 : 120.936 seconds elapsed."
+```
+
+Now that we have completed the mediation analysis, we plot the results.
+
+
+``` r
+end  <- ceiling(max(med_hot$middle / 10))
+
+med_hot |>
+  ggplot(aes(middle, lod_drop)) +
+    geom_point() +
+    scale_x_continuous(breaks = 0:end * 10) +
+    labs(title = str_c("Mediation Analysis for Chr ", hot_chr, " PC1"),
+         x     = "Position (Mb)",
+         y     = "LOD Drop") +
+    theme(size = element_text(size = 20))
+```
+
+``` warning
+Warning in plot_theme(plot): The `size` theme element is not defined in the
+element hierarchy.
+```
+
+<img src="fig/mediation-analysis-rendered-challeng6f-1.png" style="display: block; margin: auto;" />
+
+
+``` r
+filter(med_hot, lod_drop < -8)
+```
+
+``` output
+              gene_id base_lod   med_lod  symbol   middle   lod_drop
+1  ENSMUSG00000000320 18.59729  9.647200  Alox12 70.24840  -8.950087
+2  ENSMUSG00000013646 18.59729 10.443783 Sh3bp5l 58.33923  -8.153505
+3  ENSMUSG00000017615 18.59729 10.461773 Tnfaip1 78.52959  -8.135515
+4  ENSMUSG00000020844 18.59729 10.115976     Nxn 76.32817  -8.481312
+5  ENSMUSG00000020846 18.59729  6.641443 Fam101b 76.02349 -11.955845
+6  ENSMUSG00000038335 18.59729  9.005932    Tsr1 74.90371  -9.591355
+7  ENSMUSG00000041346 18.59729 10.105527  Wrap53 69.57101  -8.491760
+8  ENSMUSG00000060216 18.59729  9.208589   Arrb2 70.43673  -9.388699
+9  ENSMUSG00000069835 18.59729  5.301991    Sat2 69.62295 -13.295296
+10 ENSMUSG00000072640 18.59729  6.594574   Lyrm9 78.83673 -12.002713
+11 ENSMUSG00000093989 18.59729 10.352067  Rnasek 70.23898  -8.245221
+```
+
+
+::::::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
