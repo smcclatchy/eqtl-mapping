@@ -242,8 +242,8 @@ deviation.
 
 
 ``` r
-tibble(mean = rowMeans(expr),
-       sd   = apply(expr, 1, sd)) |>
+tibble(mean = colMeans(raw),
+       sd   = apply(raw, 2, sd)) |>
   ggplot(aes(mean, sd)) +
     geom_point() +
     scale_x_log10() +
@@ -253,13 +253,7 @@ tibble(mean = rowMeans(expr),
     theme(text = element_text(size = 20))
 ```
 
-``` error
-Error in base::rowMeans(x, na.rm = na.rm, dims = dims, ...): 'x' must be an array of at least two dimensions
-```
-
-``` r
-rm(expr)
-```
+<img src="fig/map-one-eqtl-rendered-show_expr_mean_var-1.png" style="display: block; margin: auto;" />
 
 The plot above shows the mean expression value for each gene versus the standard
 deviation of each gene. Both axes are log-transformed. As you can see, there is 

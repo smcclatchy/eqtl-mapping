@@ -62,7 +62,7 @@ insulin changes at 5, 15, 30, 60 and 120 minutes after glucose administration.
 Area under the curve (AUC) was determined from these time points for both plasma 
 glucose and insulin levels. 
 
-![Glucose and Insulin glucose tolerance test Plots](fig/gtt_auc_example.png){alt="Figure showing glucose and insulin changes over time."}
+![Glucose and Insulin glucose tolerance test plots](fig/gtt_auc_example.png){alt="Figure showing glucose and insulin changes over time."}
 
 In the figure above, time is plotted on the X-axis and glucose or insulin levels
 are plotted on the Y-axis. Blood is taken at the beginning of the test and at
@@ -94,7 +94,7 @@ covariates. The results of one scan for insulin area under the curve (AUC) is
 shown below with a strong peak on chromosome 11. In this lesson, we will look
 into genes located under this peak.
 
-![LOD plot for insulin area under the curve](fig/insulin-auc-lod-plot.png){alt="Insulin AUC QTL plot}
+![LOD plot for insulin area under the curve](fig/insulin-auc-lod-plot.png){alt="Insulin AUC QTL plot"}
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 

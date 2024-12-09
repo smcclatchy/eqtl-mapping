@@ -244,43 +244,43 @@ med_2 <- mediation(qtl_chr  = "2",
 ```
 
 ``` output
-[1] "50 of 1892 : 3.396 seconds elapsed."
-[1] "100 of 1892 : 6.752 seconds elapsed."
-[1] "150 of 1892 : 10.136 seconds elapsed."
-[1] "200 of 1892 : 13.59 seconds elapsed."
-[1] "250 of 1892 : 16.967 seconds elapsed."
-[1] "300 of 1892 : 20.435 seconds elapsed."
-[1] "350 of 1892 : 23.827 seconds elapsed."
-[1] "400 of 1892 : 27.186 seconds elapsed."
-[1] "450 of 1892 : 30.646 seconds elapsed."
-[1] "500 of 1892 : 33.972 seconds elapsed."
-[1] "550 of 1892 : 37.306 seconds elapsed."
-[1] "600 of 1892 : 40.662 seconds elapsed."
-[1] "650 of 1892 : 43.995 seconds elapsed."
-[1] "700 of 1892 : 47.334 seconds elapsed."
-[1] "750 of 1892 : 50.697 seconds elapsed."
-[1] "800 of 1892 : 54.037 seconds elapsed."
-[1] "850 of 1892 : 57.389 seconds elapsed."
-[1] "900 of 1892 : 60.748 seconds elapsed."
-[1] "950 of 1892 : 64.13 seconds elapsed."
-[1] "1000 of 1892 : 67.504 seconds elapsed."
-[1] "1050 of 1892 : 70.857 seconds elapsed."
-[1] "1100 of 1892 : 74.217 seconds elapsed."
-[1] "1150 of 1892 : 77.562 seconds elapsed."
-[1] "1200 of 1892 : 80.892 seconds elapsed."
-[1] "1250 of 1892 : 84.238 seconds elapsed."
-[1] "1300 of 1892 : 87.575 seconds elapsed."
-[1] "1350 of 1892 : 90.904 seconds elapsed."
-[1] "1400 of 1892 : 94.242 seconds elapsed."
-[1] "1450 of 1892 : 97.582 seconds elapsed."
-[1] "1500 of 1892 : 100.934 seconds elapsed."
-[1] "1550 of 1892 : 104.268 seconds elapsed."
-[1] "1600 of 1892 : 107.622 seconds elapsed."
-[1] "1650 of 1892 : 110.959 seconds elapsed."
-[1] "1700 of 1892 : 114.292 seconds elapsed."
-[1] "1750 of 1892 : 117.643 seconds elapsed."
-[1] "1800 of 1892 : 120.994 seconds elapsed."
-[1] "1850 of 1892 : 124.334 seconds elapsed."
+[1] "50 of 1892 : 3.405 seconds elapsed."
+[1] "100 of 1892 : 6.814 seconds elapsed."
+[1] "150 of 1892 : 10.193 seconds elapsed."
+[1] "200 of 1892 : 13.676 seconds elapsed."
+[1] "250 of 1892 : 17.069 seconds elapsed."
+[1] "300 of 1892 : 20.561 seconds elapsed."
+[1] "350 of 1892 : 23.953 seconds elapsed."
+[1] "400 of 1892 : 27.302 seconds elapsed."
+[1] "450 of 1892 : 30.763 seconds elapsed."
+[1] "500 of 1892 : 34.11 seconds elapsed."
+[1] "550 of 1892 : 37.447 seconds elapsed."
+[1] "600 of 1892 : 40.788 seconds elapsed."
+[1] "650 of 1892 : 44.118 seconds elapsed."
+[1] "700 of 1892 : 47.456 seconds elapsed."
+[1] "750 of 1892 : 50.796 seconds elapsed."
+[1] "800 of 1892 : 54.133 seconds elapsed."
+[1] "850 of 1892 : 57.508 seconds elapsed."
+[1] "900 of 1892 : 60.856 seconds elapsed."
+[1] "950 of 1892 : 64.187 seconds elapsed."
+[1] "1000 of 1892 : 67.549 seconds elapsed."
+[1] "1050 of 1892 : 70.899 seconds elapsed."
+[1] "1100 of 1892 : 74.241 seconds elapsed."
+[1] "1150 of 1892 : 77.597 seconds elapsed."
+[1] "1200 of 1892 : 80.98 seconds elapsed."
+[1] "1250 of 1892 : 84.315 seconds elapsed."
+[1] "1300 of 1892 : 87.652 seconds elapsed."
+[1] "1350 of 1892 : 90.987 seconds elapsed."
+[1] "1400 of 1892 : 94.333 seconds elapsed."
+[1] "1450 of 1892 : 97.67 seconds elapsed."
+[1] "1500 of 1892 : 101.004 seconds elapsed."
+[1] "1550 of 1892 : 104.367 seconds elapsed."
+[1] "1600 of 1892 : 107.704 seconds elapsed."
+[1] "1650 of 1892 : 111.062 seconds elapsed."
+[1] "1700 of 1892 : 114.402 seconds elapsed."
+[1] "1750 of 1892 : 117.733 seconds elapsed."
+[1] "1800 of 1892 : 121.21 seconds elapsed."
+[1] "1850 of 1892 : 124.552 seconds elapsed."
 ```
 
 Now that we have the change in LOD scores associated with using each gene as a
@@ -361,50 +361,7 @@ hnf4a_lod <- scan1(genoprobs = probs,
                   pheno     = expr_rz[,hnf4a, drop = FALSE],
                   kinship   = K,
                   addcovar  = addcovar)
-plot(hnf4a_lod, map, title = "Hnf4a Genome Scan")
-```
-
-``` warning
-Warning in plot.xy(xy.coords(x, y), type = type, ...): "title" is not a
-graphical parameter
-Warning in plot.xy(xy.coords(x, y), type = type, ...): "title" is not a
-graphical parameter
-Warning in plot.xy(xy.coords(x, y), type = type, ...): "title" is not a
-graphical parameter
-Warning in plot.xy(xy.coords(x, y), type = type, ...): "title" is not a
-graphical parameter
-Warning in plot.xy(xy.coords(x, y), type = type, ...): "title" is not a
-graphical parameter
-Warning in plot.xy(xy.coords(x, y), type = type, ...): "title" is not a
-graphical parameter
-Warning in plot.xy(xy.coords(x, y), type = type, ...): "title" is not a
-graphical parameter
-Warning in plot.xy(xy.coords(x, y), type = type, ...): "title" is not a
-graphical parameter
-Warning in plot.xy(xy.coords(x, y), type = type, ...): "title" is not a
-graphical parameter
-Warning in plot.xy(xy.coords(x, y), type = type, ...): "title" is not a
-graphical parameter
-Warning in plot.xy(xy.coords(x, y), type = type, ...): "title" is not a
-graphical parameter
-Warning in plot.xy(xy.coords(x, y), type = type, ...): "title" is not a
-graphical parameter
-Warning in plot.xy(xy.coords(x, y), type = type, ...): "title" is not a
-graphical parameter
-Warning in plot.xy(xy.coords(x, y), type = type, ...): "title" is not a
-graphical parameter
-Warning in plot.xy(xy.coords(x, y), type = type, ...): "title" is not a
-graphical parameter
-Warning in plot.xy(xy.coords(x, y), type = type, ...): "title" is not a
-graphical parameter
-Warning in plot.xy(xy.coords(x, y), type = type, ...): "title" is not a
-graphical parameter
-Warning in plot.xy(xy.coords(x, y), type = type, ...): "title" is not a
-graphical parameter
-Warning in plot.xy(xy.coords(x, y), type = type, ...): "title" is not a
-graphical parameter
-Warning in plot.xy(xy.coords(x, y), type = type, ...): "title" is not a
-graphical parameter
+plot(hnf4a_lod, map, main = "Hnf4a Genome Scan")
 ```
 
 <img src="fig/mediation-analysis-rendered-map_hnf4a-1.png" style="display: block; margin: auto;" />
@@ -576,42 +533,42 @@ Joining with `by = join_by(gene_id)`
 ```
 
 ``` output
-[1] "50 of 1810 : 3.27199999999999 seconds elapsed."
-[1] "100 of 1810 : 6.62899999999999 seconds elapsed."
-[1] "150 of 1810 : 10.087 seconds elapsed."
-[1] "200 of 1810 : 13.423 seconds elapsed."
-[1] "250 of 1810 : 16.783 seconds elapsed."
-[1] "300 of 1810 : 20.151 seconds elapsed."
-[1] "350 of 1810 : 23.508 seconds elapsed."
-[1] "400 of 1810 : 26.869 seconds elapsed."
-[1] "450 of 1810 : 30.226 seconds elapsed."
-[1] "500 of 1810 : 33.574 seconds elapsed."
-[1] "550 of 1810 : 36.941 seconds elapsed."
-[1] "600 of 1810 : 40.316 seconds elapsed."
-[1] "650 of 1810 : 43.679 seconds elapsed."
-[1] "700 of 1810 : 47.051 seconds elapsed."
-[1] "750 of 1810 : 50.409 seconds elapsed."
-[1] "800 of 1810 : 53.775 seconds elapsed."
-[1] "850 of 1810 : 57.143 seconds elapsed."
-[1] "900 of 1810 : 60.531 seconds elapsed."
-[1] "950 of 1810 : 63.893 seconds elapsed."
-[1] "1000 of 1810 : 67.267 seconds elapsed."
-[1] "1050 of 1810 : 70.617 seconds elapsed."
-[1] "1100 of 1810 : 73.953 seconds elapsed."
-[1] "1150 of 1810 : 77.414 seconds elapsed."
-[1] "1200 of 1810 : 80.78 seconds elapsed."
-[1] "1250 of 1810 : 84.109 seconds elapsed."
-[1] "1300 of 1810 : 87.449 seconds elapsed."
-[1] "1350 of 1810 : 90.812 seconds elapsed."
-[1] "1400 of 1810 : 94.163 seconds elapsed."
-[1] "1450 of 1810 : 97.516 seconds elapsed."
-[1] "1500 of 1810 : 100.86 seconds elapsed."
-[1] "1550 of 1810 : 104.192 seconds elapsed."
-[1] "1600 of 1810 : 107.552 seconds elapsed."
-[1] "1650 of 1810 : 110.902 seconds elapsed."
-[1] "1700 of 1810 : 114.238 seconds elapsed."
-[1] "1750 of 1810 : 117.584 seconds elapsed."
-[1] "1800 of 1810 : 120.936 seconds elapsed."
+[1] "50 of 1810 : 3.28999999999999 seconds elapsed."
+[1] "100 of 1810 : 6.64099999999999 seconds elapsed."
+[1] "150 of 1810 : 10.019 seconds elapsed."
+[1] "200 of 1810 : 13.397 seconds elapsed."
+[1] "250 of 1810 : 16.755 seconds elapsed."
+[1] "300 of 1810 : 20.141 seconds elapsed."
+[1] "350 of 1810 : 23.496 seconds elapsed."
+[1] "400 of 1810 : 26.886 seconds elapsed."
+[1] "450 of 1810 : 30.232 seconds elapsed."
+[1] "500 of 1810 : 33.583 seconds elapsed."
+[1] "550 of 1810 : 36.957 seconds elapsed."
+[1] "600 of 1810 : 40.3 seconds elapsed."
+[1] "650 of 1810 : 43.666 seconds elapsed."
+[1] "700 of 1810 : 47.003 seconds elapsed."
+[1] "750 of 1810 : 50.364 seconds elapsed."
+[1] "800 of 1810 : 53.72 seconds elapsed."
+[1] "850 of 1810 : 57.065 seconds elapsed."
+[1] "900 of 1810 : 60.529 seconds elapsed."
+[1] "950 of 1810 : 64.066 seconds elapsed."
+[1] "1000 of 1810 : 67.411 seconds elapsed."
+[1] "1050 of 1810 : 70.757 seconds elapsed."
+[1] "1100 of 1810 : 74.233 seconds elapsed."
+[1] "1150 of 1810 : 77.736 seconds elapsed."
+[1] "1200 of 1810 : 81.076 seconds elapsed."
+[1] "1250 of 1810 : 84.426 seconds elapsed."
+[1] "1300 of 1810 : 87.77 seconds elapsed."
+[1] "1350 of 1810 : 91.148 seconds elapsed."
+[1] "1400 of 1810 : 94.507 seconds elapsed."
+[1] "1450 of 1810 : 97.858 seconds elapsed."
+[1] "1500 of 1810 : 101.227 seconds elapsed."
+[1] "1550 of 1810 : 104.593 seconds elapsed."
+[1] "1600 of 1810 : 107.943 seconds elapsed."
+[1] "1650 of 1810 : 111.283 seconds elapsed."
+[1] "1700 of 1810 : 114.634 seconds elapsed."
+[1] "1750 of 1810 : 117.989 seconds elapsed."
+[1] "1800 of 1810 : 121.332 seconds elapsed."
 ```
 
 Now that we have completed the mediation analysis, we plot the results.
@@ -637,31 +594,131 @@ element hierarchy.
 
 <img src="fig/mediation-analysis-rendered-challeng6f-1.png" style="display: block; margin: auto;" />
 
+Let's list the genes with LOD drops less than -10.
+
 
 ``` r
-filter(med_hot, lod_drop < -8)
+filter(med_hot, lod_drop < -10)
 ```
 
 ``` output
-              gene_id base_lod   med_lod  symbol   middle   lod_drop
-1  ENSMUSG00000000320 18.59729  9.647200  Alox12 70.24840  -8.950087
-2  ENSMUSG00000013646 18.59729 10.443783 Sh3bp5l 58.33923  -8.153505
-3  ENSMUSG00000017615 18.59729 10.461773 Tnfaip1 78.52959  -8.135515
-4  ENSMUSG00000020844 18.59729 10.115976     Nxn 76.32817  -8.481312
-5  ENSMUSG00000020846 18.59729  6.641443 Fam101b 76.02349 -11.955845
-6  ENSMUSG00000038335 18.59729  9.005932    Tsr1 74.90371  -9.591355
-7  ENSMUSG00000041346 18.59729 10.105527  Wrap53 69.57101  -8.491760
-8  ENSMUSG00000060216 18.59729  9.208589   Arrb2 70.43673  -9.388699
-9  ENSMUSG00000069835 18.59729  5.301991    Sat2 69.62295 -13.295296
-10 ENSMUSG00000072640 18.59729  6.594574   Lyrm9 78.83673 -12.002713
-11 ENSMUSG00000093989 18.59729 10.352067  Rnasek 70.23898  -8.245221
+             gene_id base_lod  med_lod  symbol   middle  lod_drop
+1 ENSMUSG00000020846 18.59729 6.641443 Fam101b 76.02349 -11.95584
+2 ENSMUSG00000069835 18.59729 5.301991    Sat2 69.62295 -13.29530
+3 ENSMUSG00000072640 18.59729 6.594574   Lyrm9 78.83673 -12.00271
 ```
+
+here are three genes with large LOD drops. In figure S7 of 
+[Keller et al](https://pmc.ncbi.nlm.nih.gov/articles/PMC5937189/), 
+they select *Sat2* as a candidate gene. 
+
+But notice that there are also gene with large LOD increases. Let's list out
+the genes with LOD increases over 12.
+
+
+``` r
+filter(med_hot, lod_drop > 12)
+```
+
+``` output
+             gene_id base_lod  med_lod  symbol   middle lod_drop
+1 ENSMUSG00000020829 18.59729 34.72247 Slc46a1 78.46888 16.12518
+2 ENSMUSG00000040746 18.59729 35.13738  Rnf167 70.64933 16.54009
+3 ENSMUSG00000045287 18.59729 31.31408 Rtn4rl1 75.23078 12.71679
+```
+
+There are three genes with large LOD increase. If a LOD drop means that the
+gene is absorbing variance and may be a causal mediator, what does a LOD 
+increase mean?
+
+Let's start by looking at the allele effects of the hotspot PC1 at the QTL.
+
+
+``` r
+pr      <- pull_genoprobpos(genoprobs = probs, map = map, chr = hot_chr, pos = qtl_pos)
+
+pc1_eff <- fit1(genoprobs = pr,
+                pheno     = pc1_hot,
+                kinship   = K[[hot_chr]],
+                addcovar  = addcovar)
+plot(1:8, pc1_eff$coef[1:8], xaxt = "n", main = "PC1", xlab = "Founder",
+     ylab = "Allele Effects")
+axis(side = 1, at = 1:8, labels = names(pc1_eff$coef[1:8]))
+```
+
+<img src="fig/mediation-analysis-rendered-unnamed-chunk-2-1.png" style="display: block; margin: auto;" />
+
+From the plot above, we can see that CAST (F) and PWK (G) have lower effects
+than the other founders. Remember that the sign of the PC is arbitrary, so the
+effects may be positive.
+
+Next, let's look at the allele effects of the gene with the highest LOD increase,
+*Rnf167*.
+
+
+``` r
+gene_id  <- annot[annot$symbol == "Rnf167",]$gene_id
+
+gene_lod <- fit1(genoprobs  = pr,
+                  pheno     = expr_rz[,gene_id, drop = FALSE],
+                  kinship   = K[[hot_chr]], 
+                  addcovar  = addcovar)
+plot(1:8, gene_lod$coef[1:8],  xaxt = "n", main = "Rnf167", xlab = "Founder",
+     ylab = "Allele Effects")
+axis(side = 1, at = 1:8, labels = names(pc1_eff$coef[1:8]))
+```
+
+<img src="fig/mediation-analysis-rendered-unnamed-chunk-3-1.png" style="display: block; margin: auto;" />
+
+*Rnf167* has allele effects which seem quite correlated with PC1. Both CAST (F) and
+PWK (G) have different allele effects from the other strains.
+
+Next, let's look at *Sat2*, which is the gene with the largest LOD **drop**.
+
+
+``` r
+gene_id  <- annot[annot$symbol == "Sat2",]$gene_id
+pr       <- pull_genoprobpos(genoprobs = probs, map = map, chr = hot_chr, pos = qtl_pos)
+gene_lod <- fit1(genoprobs  = pr,
+                  pheno     = expr_rz[,gene_id, drop = FALSE],
+                  kinship   = K[[hot_chr]], 
+                  addcovar  = addcovar)
+plot(gene_lod$coef[1:8],xaxt = "n", main = "Sat2", xlab = "Founder",
+     ylab = "Allele Effects")
+axis(side = 1, at = 1:8, labels = names(pc1_eff$coef[1:8]))
+```
+
+<img src="fig/mediation-analysis-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
+
+The allele effects for *Sat2* appear to be less correlated, with PWK (G) having
+lower effects than the other strains.
+
+Let's look at the correlation of *Sat2*, *Rnf167*, and the hotspot PC1.
+
+
+``` r
+expr_tmp <- expr_rz[,c(annot[annot$symbol == "Sat2",]$gene_id, annot[annot$symbol == "Rnf167",]$gene_id)]
+colnames(expr_tmp) <- c("Sat2", "Rnf167")
+expr_tmp <- cbind(expr_tmp, pc1_hot)
+cor(expr_tmp)
+```
+
+``` output
+             Sat2     Rnf167    Comp.1
+Sat2    1.0000000 -0.1007433 0.4116323
+Rnf167 -0.1007433  1.0000000 0.4086829
+Comp.1  0.4116323  0.4086829 1.0000000
+```
+
+Both genes have almost identical correlation (~0.41) with PC1.
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-
+Mediation analysis is one way of identifying candidate genes under QTL peaks.
+In this episode, we have focused on eQTL hotspots, but you could do this with
+physiological phenotypes as well. 
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
