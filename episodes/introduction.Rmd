@@ -31,7 +31,8 @@ only chloride transport, but also sodium and potassium transport in the lungs,
 pancreas and skin. The path from gene mutation to altered protein to disease 
 phenotype is relatively simple and well understood. 
 
-![Single-gene diseases like cystic fibrosis are relatively well understood. In cystic fibrosis, mutations in the coding region of the CFTR gene result in a defective protein, leading to excess mucus production that can damage the lungs and digestive system.](fig/cystic-fibrosis.png){alt="Cystic fibrosis is caused by a mutation in the CFTR gene that prevents passage of chloride ions from the airway lumen of the lungs. This results in a loss of water from the airway lumens and a thick sticky mucus in the airway."}
+![Single-gene diseases like cystic fibrosis are relatively well understood. In cystic fibrosis mutations in the coding region of the CFTR gene result in a defective protein. This leads to excess mucus production that can damage the lungs and digestive system.](fig/cystic-fibrosis.png){alt="Cystic fibrosis is caused by a mutation in the CFTR gene that prevents passage of chloride ions from the airway lumen of the lungs. This results in a loss of water from the airway lumens and a thick sticky mucus in the airway."}
+
 Created in [BioRender](https://BioRender.com)
 
 The most common human disorders, however, involve many genes interacting with
@@ -47,7 +48,7 @@ for common diseases like diabetes are located in **non-coding** regions of the
 genome. These variants are therefore likely to fall in regulatory sequences 
 which are involved in gene regulation. 
 
-![GWAS variants such as SNPs are often in non-coding regions of the genome, indicating that they regulate gene expression.](fig/gwas-catalog.png){alt="Figures showing the GWAS Catalog"}
+![GWAS variants such as SNPs are often in non-coding regions of the genome indicating that they regulate gene expression.](fig/gwas-catalog.png){alt="Figures showing the GWAS Catalog"}
 Excerpted from the [GWAS Catalog](https://www.ebi.ac.uk/gwas/)
 
 Gene regulation controls the quantity, timing and locale of gene expression. 
@@ -58,7 +59,7 @@ as expression quantitative trait locus (eQTL) mapping.
 Created in [BioRender](https://BioRender.com)
 
 eQTL mapping searches for associations between the expression of one or more 
-genes and a genetic locus. Specifically, genetic variants underlying eQTL peak 
+genes and a genetic locus. Specifically, genetic variants underlying eQTL peaks 
 explain some of the variation in gene expression levels. eQTL studies can reveal 
 the architecture of quantitative traits, connect DNA sequence variation to 
 phenotypic variation, and shed light on transcriptional regulation and 
@@ -78,7 +79,7 @@ Created in [BioRender](https://BioRender.com)
 SNPs that affect gene expression from afar, often from a different chromosome 
 from the gene that they regulate are called distal regulators.
 
-![Alternatively, SNPs often affect gene expression distally from the gene that they regulate, often from a different chromosome altogether.](fig/trans-noncoding-SNP.png){alt="Figure showing distal regulation"}
+![SNPs can affect gene expression distally from the gene that they regulate, often from a different chromosome altogether.](fig/trans-noncoding-SNP.png){alt="Figure showing distal regulation"}
 
 Created in [BioRender](https://BioRender.com)
 

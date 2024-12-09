@@ -49,7 +49,7 @@ the triangle to the left of `pheno` in the Environment pane to view its
 contents. Run `names(pheno)` to list the variables. 
 
 `pheno_dict` is the phenotype dictionary.  This data frame contains information 
-on each variable in `pheno`, including `name`,`short name`, `pheno_type`, 
+on each variable in `pheno`, including `name`, `short name`, `pheno_type`,  
 `formula` (if used) and `description`.  You can view a table of the data 
 dictionary.
 
@@ -60,7 +60,7 @@ pheno_dict |>
 ```
 
 Since the paper is interested in type 2 diabetes and insulin secretion, we will 
-choose `insulin tAUC` (area  under the curve which was calculated without any
+choose insulin AUC (area  under the curve which was calculated without any
 correction for baseline differences) for this review.
 
 ### Phenotype Distributions
@@ -70,13 +70,13 @@ the incoming data will be normally distributed. You may use transformations such
 as log or square root to make your data more normally distributed. Here, we will 
 log transform the data. 
 
-Let's make a variable for insulin tAUC so that we don't have to type as much.
+Let's make a variable for insulin AUC so that we don't have to type as much.
 
 ```{r make_itauc}
 ins_tauc <- pheno[, 'Ins_tAUC', drop = FALSE]
 ```
 
-Next, let's look at the distribution of insulin tAUC using a histogram.
+Next, let's look at the distribution of insulin AUC using a histogram.
 
 ```{r hist_untransformed, fig.width=8, fig.height=6}
 hist(ins_tauc[,1], 
@@ -88,7 +88,8 @@ This is clearly **not** normally distributed. In fact, this type of distribution
 is often log normal. 
 
 Now, let's apply the `log()` function to this data in an effort to make the
-distribution more normal.
+distribution more normal. By default the `log()` function calculates the natural
+log (base *e*).
 
 ```{r log_transform}
 ins_tauc$Ins_tAUC_log <- log(ins_tauc$Ins_tAUC)
@@ -99,21 +100,23 @@ Let's make a histogram of the log-transformed data.
 ```{r hist_log_transform, fig.width=8, fig.height=6}
 hist(ins_tauc$Ins_tAUC_log, 
      breaks = 20,
-     main   = "Insulin tAUC (log-transformed)")
+     main   = "insulin AUC (log-transformed)")
 ```
 
 This looks much better! The data has a somewhat Gaussian shape. Technically, the
 assumptions of a linear model require that the **residuals** be normally
 distributed. In practice, transforming the input data to be normally distributed
-helps to make the residuals normally distributed.
+helps to make the residuals normally distributed. As a reminder, a residual is 
+the vertical distance from a data point to the line described by a linear model.
+
+![A linear model showing one residual](./fig/residual.png){alt="a residual for one data point located above the line described by a linear model"}
 
 Boxplots are another great way to view the distribution of the data and to 
-identify any outliers. We will be using the total area under the curve of 
-insulin from the glucose tolerance test (Ins_tAUC). We will log-transform this
-variable using the 
-[scale_y_log10()](https://ggplot2.tidyverse.org/reference/scale_continuous.html)
-function. We have also overlaid the data points using ggbeeswarm's
-[geom_beeswarm](https://www.rdocumentation.org/packages/ggbeeswarm/versions/0.7.2/topics/geom_beeswarm).
+identify any outliers. We will log-transform insulin AUC using the 
+[`scale_y_log10()`](https://ggplot2.tidyverse.org/reference/scale_continuous.html)
+function. This transforms the data using base 10 and creates a base 10 y-axis 
+for plotting. We have overlaid the data points using `ggbeeswarm`'s
+[`geom_beeswarm`](https://www.rdocumentation.org/packages/ggbeeswarm/versions/0.7.2/topics/geom_beeswarm).
 We have told `geom_beeswarm()` to plot the points with some transparency using 
 the argument `alpha = 0.2`. The `alpha` argument ranges between 0 (completely 
 transparent) to 1 (completely opaque). A value of 0.1 means mostly transparent.
@@ -124,7 +127,7 @@ ggplot(pheno, aes(sex, Ins_tAUC)) +
   geom_boxplot() +
   geom_beeswarm(alpha = 0.2) +
   scale_y_log10() +
-  labs(title = "Insulin area under the curve", y = "Insulin tAUC") +
+  labs(title = "Insulin area under the curve", y = "insulin AUC") +
   theme(text = element_text(size = 20))
 ```
 
@@ -132,37 +135,65 @@ ggplot(pheno, aes(sex, Ins_tAUC)) +
 
 ## Challenge 1
 
-How many orders of magnitude (powers of 10) does Insulin tAUC span?  
+How many orders of magnitude (powers of 10) does insulin AUC span?  
 
 :::::::::::::::::::::::: solution 
 
-Insulin tAUC spans three orders of magnitude, from near 10 to over 1000.  
+insulin AUC spans three orders of magnitude, from near 10 to over 1000.  
 
 :::::::::::::::::::::::::::::::::
 
 
 ## Challenge 2
 
-Which sex has higher median Insulin tAUC values?  
+Which sex has higher median insulin AUC values?  
 
 :::::::::::::::::::::::: solution 
 
-Males have higher Insulin tAUC than females.  
+Males have higher insulin AUC than females.  
 
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Challenge 3
+
+What does the heavy line bisecting the boxes indicate?  
+What do the lines at the top and bottom of the boxes indicate?  
+What does the "whisker" extending from the top and bottom of the boxes indicate?    
+What do the black dots extending from the whiskers indicate? 
+
+:::::::::::::::::::::::: solution 
+
+The heavy line bisecting the boxes shows the median value (not the mean!). Half
+of the data points are above and half are below this line.   
+The lines at the top and bottom of the boxes indicate the first and 3rd 
+quartiles of the data (the *hinges*). One-fourth of the data points are 
+beneath the box and another one-fourth are above the box. The box itself 
+contains 50% of the data points.  
+The whiskers represent some multiple of the interquartile range (IQR), which is 
+the height of the box between the first and third quartiles. `geom_boxplot()`
+produces *Tukey-style boxplots* in which the whiskers are 1.5 $\times$ the IQR.
+Any data points that lie beyond the whiskers are considered outliers and are
+shown as heavy black dots.
+
+
+:::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::
 
 The boxplot is a useful plot to visualize the distribution of your data.
 
 ### Quality Control of Data
 
-Many statistical tests rely upon the data having a "normal" (or Gaussian) 
+Many statistical tests rely upon the data having a normal (or Gaussian) 
 distribution. Many biological phenotypes do not follow this distribution and
 must be transformed before analysis. This is why we log-transformed the data
 in the plots above. 
 
-While we can "eyeball" the distributions in the boxplot, it would be 
-better to use a "quantile-quantile" plot. 
+While we can "eyeball" the distributions in the boxplot, it would be  better to 
+use a *quantile-quantile* plot. 
 
 ```{r qqplot, fig.width=8, fig.height=6, warning=FALSE}
 pheno |> 
@@ -176,10 +207,18 @@ pheno |>
     theme(text = element_text(size = 20))
 ```
 
-In these plots, the "quantiles" of the normal distribution are plotted on the 
-X-axis and the data are plotted on the Y-axis. The line indicates the quantiles 
-that would be followed by a normal distribution. The untransformed data do 
-**not** follow a normal distribution because the points are far from the line.  
+In these plots, the *quantiles* of the normal distribution are plotted on the 
+X-axis and the data are plotted on the Y-axis. A quantile evenly divides data
+observations into a specific number of groups. The boxplot above evenly divides
+the observations into quartiles, a quantile containing four groups that each
+contain one-fourth of the data. A percentile similarly divides data into 100 
+quantiles, with each percentile containing 1% of the observations. 
+
+In a quantile-quantile (Q-Q) plot the straight line indicates the quantiles a 
+normal distribution would follow. The untransformed insulin AUC data values do 
+**not** follow a normal distribution because the points are far from the line.
+If they were reasonably normally distributed, most of the data points would fall
+directly on the straight line.
 
 Next, we will log-transform the data and then create a quantile-quantile plot.
 
@@ -198,7 +237,7 @@ pheno |>
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Challenge 3
+## Challenge 4
 
 Does the log transformation make the data more normally distributed? Explain 
 your answer.
@@ -210,7 +249,7 @@ the data points follow the normality line more closely.
 
 :::::::::::::::::::::::::::::::::
 
-## Challenge 4
+## Challenge 5
 
 Do any data points look suspicious to you? Explain your answer.
 
@@ -227,7 +266,7 @@ there may also have been mishap in the assay.
 Another way to identify outliers is to standardize the data and look for data 
 points that are more than four standard deviations from the mean.
 
-To do this, we will log transform and standardize Insulin tAUC. 
+To do this, we will log transform and standardize insulin AUC. 
 
 ```{r pheno_std, fig.width=8, fig.height=6, warning=FALSE}
 ins_tauc = pheno |> 
@@ -264,7 +303,7 @@ We have loaded in two data objects:
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Challenge 5: How many samples and genes are there?
+## Challenge 6: How many samples and genes are there?
 
 :::::::::::::::::::::::: solution 
 
