@@ -172,8 +172,8 @@ First, let's look at the mean expression of each gene versus its standard
 deviation.
 
 ```{r show_expr_mean_var, fig.width=8, fig.height=6, warning=FALSE}
-tibble(mean = rowMeans(raw),
-       sd   = apply(raw, 1, sd)) |>
+tibble(mean = colMeans(raw),
+       sd   = apply(raw, 2, sd)) |>
   ggplot(aes(mean, sd)) +
     geom_point() +
     scale_x_log10() +
