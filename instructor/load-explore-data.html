@@ -422,8 +422,8 @@ as well as covariates. Click on the triangle to the left of
 <code>names(pheno)</code> to list the variables.</p>
 <p><code>pheno_dict</code> is the phenotype dictionary. This data frame
 contains information on each variable in <code>pheno</code>, including
-<code>name</code>,<code>short name</code>, <code>pheno_type</code>,
-<code>formula</code> (if used) and <code>description</code>. You can
+<code>name</code>, <code>short name</code>,
+<code>pheno_type</code>,<br><code>formula</code> (if used) and <code>description</code>. You can
 view a table of the data dictionary.</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -551,9 +551,9 @@ each mouse.</td>
 <td align="left">Wave (i.e., batch) of DO mice</td>
 <td align="left">NA</td>
 </tr></tbody></table><p>Since the paper is interested in type 2 diabetes and insulin
-secretion, we will choose <code>insulin tAUC</code> (area under the
-curve which was calculated without any correction for baseline
-differences) for this review.</p>
+secretion, we will choose insulin AUC (area under the curve which was
+calculated without any correction for baseline differences) for this
+review.</p>
 <div class="section level3">
 <h3 id="phenotype-distributions">Phenotype Distributions<a class="anchor" aria-label="anchor" href="#phenotype-distributions"></a></h3>
 <p>Many statistical models, including the QTL mapping model in
@@ -561,7 +561,7 @@ differences) for this review.</p>
 distributed. You may use transformations such as log or square root to
 make your data more normally distributed. Here, we will log transform
 the data.</p>
-<p>Let’s make a variable for insulin tAUC so that we don’t have to type
+<p>Let’s make a variable for insulin AUC so that we don’t have to type
 as much.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -569,7 +569,7 @@ as much.</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ins_tauc</span> <span class="op">&lt;-</span> <span class="va">pheno</span><span class="op">[</span>, <span class="st">'Ins_tAUC'</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span></span></code></pre>
 </div>
-<p>Next, let’s look at the distribution of insulin tAUC using a
+<p>Next, let’s look at the distribution of insulin AUC using a
 histogram.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -582,7 +582,9 @@ histogram.</p>
 <figure><img src="../fig/load-explore-data-rendered-hist_untransformed-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>This is clearly <strong>not</strong> normally distributed. In fact,
 this type of distribution is often log normal.</p>
 <p>Now, let’s apply the <code>log()</code> function to this data in an
-effort to make the distribution more normal.</p>
+effort to make the distribution more normal. By default the
+<code>log()</code> function calculates the natural log (base
+<em>e</em>).</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -596,18 +598,22 @@ effort to make the distribution more normal.</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">hist</span><span class="op">(</span><span class="va">ins_tauc</span><span class="op">$</span><span class="va">Ins_tAUC_log</span>, </span>
 <span>     breaks <span class="op">=</span> <span class="fl">20</span>,</span>
-<span>     main   <span class="op">=</span> <span class="st">"Insulin tAUC (log-transformed)"</span><span class="op">)</span></span></code></pre>
+<span>     main   <span class="op">=</span> <span class="st">"insulin AUC (log-transformed)"</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="../fig/load-explore-data-rendered-hist_log_transform-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>This looks much better! The data has a somewhat Gaussian shape.
 Technically, the assumptions of a linear model require that the
 <strong>residuals</strong> be normally distributed. In practice,
 transforming the input data to be normally distributed helps to make the
-residuals normally distributed.</p>
-<p>Boxplots are another great way to view the distribution of the data
-and to identify any outliers. We will be using the total area under the
-curve of insulin from the glucose tolerance test (Ins_tAUC). We will
-log-transform this variable using the <a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_log10()</a>
-function. We have also overlaid the data points using ggbeeswarm’s <a href="https://www.rdocumentation.org/packages/ggbeeswarm/versions/0.7.2/topics/geom_beeswarm" class="external-link">geom_beeswarm</a>.
+residuals normally distributed. As a reminder, a residual is the
+vertical distance from a data point to the line described by a linear
+model.</p>
+<figure><img src=".././fig/residual.png" alt="a residual for one data point located above the line described by a linear model" class="figure mx-auto d-block"><div class="figcaption">A linear model showing one residual</div>
+</figure><p>Boxplots are another great way to view the distribution of the data
+and to identify any outliers. We will log-transform insulin AUC using
+the <a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link"><code>scale_y_log10()</code></a>
+function. This transforms the data using base 10 and creates a base 10
+y-axis for plotting. We have overlaid the data points using
+<code>ggbeeswarm</code>’s <a href="https://www.rdocumentation.org/packages/ggbeeswarm/versions/0.7.2/topics/geom_beeswarm" class="external-link"><code>geom_beeswarm</code></a>.
 We have told <code>geom_beeswarm()</code> to plot the points with some
 transparency using the argument <code>alpha = 0.2</code>. The
 <code>alpha</code> argument ranges between 0 (completely transparent) to
@@ -621,7 +627,7 @@ transparency using the argument <code>alpha = 0.2</code>. The
 <span>  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_beeswarm</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_y_log10</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Insulin area under the curve"</span>, y <span class="op">=</span> <span class="st">"Insulin tAUC"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Insulin area under the curve"</span>, y <span class="op">=</span> <span class="st">"insulin AUC"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme</span><span class="op">(</span>text <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="../fig/load-explore-data-rendered-Ins_tAUC_boxplot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-1" class="callout challenge">
@@ -631,7 +637,7 @@ transparency using the argument <code>alpha = 0.2</code>. The
 <div id="challenge-1" class="callout-inner">
 <h3 class="callout-title">Challenge 1</h3>
 <div class="callout-content">
-<p>How many orders of magnitude (powers of 10) does Insulin tAUC
+<p>How many orders of magnitude (powers of 10) does insulin AUC
 span?</p>
 </div>
 </div>
@@ -641,9 +647,9 @@ span?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
-<p>Insulin tAUC spans three orders of magnitude, from near 10 to over
+<p>insulin AUC spans three orders of magnitude, from near 10 to over
 1000.</p>
 </div>
 </div>
@@ -656,7 +662,7 @@ span?</p>
 <div id="challenge-2" class="callout-inner">
 <h3 class="callout-title">Challenge 2</h3>
 <div class="callout-content">
-<p>Which sex has higher median Insulin tAUC values?</p>
+<p>Which sex has higher median insulin AUC values?</p>
 </div>
 </div>
 </div>
@@ -665,9 +671,48 @@ span?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
-<p>Males have higher Insulin tAUC than females.</p>
+<p>Males have higher insulin AUC than females.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="challenge-3" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="challenge-3" class="callout-inner">
+<h3 class="callout-title">Challenge 3</h3>
+<div class="callout-content">
+<p>What does the heavy line bisecting the boxes indicate?<br>
+What do the lines at the top and bottom of the boxes indicate?<br>
+What does the “whisker” extending from the top and bottom of the boxes
+indicate?<br>
+What do the black dots extending from the whiskers indicate?</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
+  <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
+</button>
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div class="accordion-body">
+<p>The heavy line bisecting the boxes shows the median value (not the
+mean!). Half of the data points are above and half are below this
+line.<br>
+The lines at the top and bottom of the boxes indicate the first and 3rd
+quartiles of the data (the <em>hinges</em>). One-fourth of the data
+points are beneath the box and another one-fourth are above the box. The
+box itself contains 50% of the data points.<br>
+The whiskers represent some multiple of the interquartile range (IQR),
+which is the height of the box between the first and third quartiles.
+<code>geom_boxplot()</code> produces <em>Tukey-style boxplots</em> in
+which the whiskers are 1.5 <span class="math inline">\(\times\)</span>
+the IQR. Any data points that lie beyond the whiskers are considered
+outliers and are shown as heavy black dots.</p>
 </div>
 </div>
 </div>
@@ -677,12 +722,12 @@ data.</p>
 </div>
 <div class="section level3">
 <h3 id="quality-control-of-data">Quality Control of Data<a class="anchor" aria-label="anchor" href="#quality-control-of-data"></a></h3>
-<p>Many statistical tests rely upon the data having a “normal” (or
+<p>Many statistical tests rely upon the data having a normal (or
 Gaussian) distribution. Many biological phenotypes do not follow this
 distribution and must be transformed before analysis. This is why we
 log-transformed the data in the plots above.</p>
 <p>While we can “eyeball” the distributions in the boxplot, it would be
-better to use a “quantile-quantile” plot.</p>
+better to use a <em>quantile-quantile</em> plot.</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -697,11 +742,19 @@ better to use a “quantile-quantile” plot.</p>
 <span>         y     <span class="op">=</span> <span class="st">"Ins_tAUC"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">theme</span><span class="op">(</span>text <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/load-explore-data-rendered-qqplot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>In these plots, the “quantiles” of the normal distribution are
-plotted on the X-axis and the data are plotted on the Y-axis. The line
-indicates the quantiles that would be followed by a normal distribution.
-The untransformed data do <strong>not</strong> follow a normal
-distribution because the points are far from the line.</p>
+<figure><img src="../fig/load-explore-data-rendered-qqplot-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>In these plots, the <em>quantiles</em> of the normal distribution are
+plotted on the X-axis and the data are plotted on the Y-axis. A quantile
+evenly divides data observations into a specific number of groups. The
+boxplot above evenly divides the observations into quartiles, a quantile
+containing four groups that each contain one-fourth of the data. A
+percentile similarly divides data into 100 quantiles, with each
+percentile containing 1% of the observations.</p>
+<p>In a quantile-quantile (Q-Q) plot the straight line indicates the
+quantiles a normal distribution would follow. The untransformed insulin
+AUC data values do <strong>not</strong> follow a normal distribution
+because the points are far from the line. If they were reasonably
+normally distributed, most of the data points would fall directly on the
+straight line.</p>
 <p>Next, we will log-transform the data and then create a
 quantile-quantile plot.</p>
 <div class="codewrapper sourceCode" id="cb10">
@@ -719,39 +772,15 @@ quantile-quantile plot.</p>
 <span>         y     <span class="op">=</span> <span class="st">"log(Ins_tAUC)"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">theme</span><span class="op">(</span>text <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/load-explore-data-rendered-qqplot_log-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-3" class="callout challenge">
-<div class="callout-square">
-<i class="callout-icon" data-feather="zap"></i>
-</div>
-<div id="challenge-3" class="callout-inner">
-<h3 class="callout-title">Challenge 3</h3>
-<div class="callout-content">
-<p>Does the log transformation make the data more normally distributed?
-Explain your answer.</p>
-</div>
-</div>
-</div>
-<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
-  <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
-</button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
-<div class="accordion-body">
-<p>Yes. The log transformation makes the data more normally distributed
-because the data points follow the normality line more closely.</p>
-</div>
-</div>
-</div>
-</div>
-<div id="challenge-4" class="callout challenge">
+<figure><img src="../fig/load-explore-data-rendered-qqplot_log-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-4" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="challenge-4" class="callout-inner">
 <h3 class="callout-title">Challenge 4</h3>
 <div class="callout-content">
-<p>Do any data points look suspicious to you? Explain your answer.</p>
+<p>Does the log transformation make the data more normally distributed?
+Explain your answer.</p>
 </div>
 </div>
 </div>
@@ -760,7 +789,31 @@ because the data points follow the normality line more closely.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div class="accordion-body">
+<p>Yes. The log transformation makes the data more normally distributed
+because the data points follow the normality line more closely.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="challenge-5" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="challenge-5" class="callout-inner">
+<h3 class="callout-title">Challenge 5</h3>
+<div class="callout-content">
+<p>Do any data points look suspicious to you? Explain your answer.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution5" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
+  <h4 class="accordion-header" id="headingSolution5"> Show me the solution </h4>
+</button>
+<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
 <div class="accordion-body">
 <p>The data points that deviate from the normality line would be worth
 investigating. All data deviates somewhat from normality, but the three
@@ -773,7 +826,7 @@ may be real, but there may also have been mishap in the assay.</p>
 <p>Another way to identify outliers is to standardize the data and look
 for data points that are more than four standard deviations from the
 mean.</p>
-<p>To do this, we will log transform and standardize Insulin tAUC.</p>
+<p>To do this, we will log transform and standardize insulin AUC.</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -812,23 +865,23 @@ and</li>
 <li>
 <code>raw</code>: a numeric matrix containing the un-normalized
 expression counts.</li>
-</ol><div id="challenge-5-how-many-samples-and-genes-are-there" class="callout challenge">
+</ol><div id="challenge-6-how-many-samples-and-genes-are-there" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="challenge-5-how-many-samples-and-genes-are-there" class="callout-inner">
-<h3 class="callout-title">Challenge 5: How many samples and genes are there?</h3>
+<div id="challenge-6-how-many-samples-and-genes-are-there" class="callout-inner">
+<h3 class="callout-title">Challenge 6: How many samples and genes are there?</h3>
 <div class="callout-content">
 
 </div>
 </div>
 </div>
-<div id="accordionSolution5" class="accordion challenge-accordion accordion-flush">
+<div id="accordionSolution6" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
-  <h4 class="accordion-header" id="headingSolution5"> Show me the solution </h4>
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution6" aria-expanded="false" aria-controls="collapseSolution6">
+  <h4 class="accordion-header" id="headingSolution6"> Show me the solution </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
+<div id="collapseSolution6" class="accordion-collapse collapse" aria-labelledby="headingSolution6" data-bs-parent="#accordionSolution6">
 <div class="accordion-body">
 <p>Use the <code>dim</code> command or the Environment tab to determine
 the number of samples and genes in <code>raw</code>.</p>

@@ -620,8 +620,8 @@ standard deviation.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">tibble</span><span class="op">(</span>mean <span class="op">=</span> <span class="fu">rowMeans</span><span class="op">(</span><span class="va">expr</span><span class="op">)</span>,</span>
-<span>       sd   <span class="op">=</span> <span class="fu">apply</span><span class="op">(</span><span class="va">expr</span>, <span class="fl">1</span>, <span class="va">sd</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<code class="sourceCode R"><span><span class="fu">tibble</span><span class="op">(</span>mean <span class="op">=</span> <span class="fu">rowMeans</span><span class="op">(</span><span class="va">raw</span><span class="op">)</span>,</span>
+<span>       sd   <span class="op">=</span> <span class="fu">apply</span><span class="op">(</span><span class="va">raw</span>, <span class="fl">1</span>, <span class="va">sd</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">mean</span>, <span class="va">sd</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">scale_x_log10</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -630,25 +630,14 @@ standard deviation.</p>
 <span>         x     <span class="op">=</span> <span class="st">"log(Mean)"</span>, y <span class="op">=</span> <span class="st">"log(Std. Dev.)"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">theme</span><span class="op">(</span>text <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in base::rowMeans(x, na.rm = na.rm, dims = dims, ...): 'x' must be an array of at least two dimensions</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb27">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">rm</span><span class="op">(</span><span class="va">expr</span><span class="op">)</span></span></code></pre>
-</div>
-<p>The plot above shows the mean expression value for each gene versus
+<figure><img src="fig/map-one-eqtl-rendered-show_expr_mean_var-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The plot above shows the mean expression value for each gene versus
 the standard deviation of each gene. Both axes are log-transformed. As
 you can see, there is a positive correlation between the mean and the
 standard deviation. We would like each gene to have the same variance,
 regardless of the mean, for each gene.</p>
 <p>Next, we will apply the variance stabilizing transformation and will
 transpose the expression values.</p>
-<div class="codewrapper sourceCode" id="cb28">
+<div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -657,7 +646,7 @@ transpose the expression values.</p>
 </div>
 <p>Let’s look at the mean versus the standard deviation of each gene
 after normalization.</p>
-<div class="codewrapper sourceCode" id="cb29">
+<div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -676,7 +665,7 @@ expression levels, the standard deviation is somewhat related to the
 mean.</p>
 <p>Let’s look at a the distribution of total counts per sample after
 normalization.</p>
-<div class="codewrapper sourceCode" id="cb30">
+<div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -699,7 +688,7 @@ significance threshold for all genes.</p>
 <p>We can force the distribution of each gene to be Gaussian and
 identical for all genes using an inverse-normal or rank-Z
 transformation.</p>
-<div class="codewrapper sourceCode" id="cb31">
+<div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -718,7 +707,7 @@ boxplot) are not comparable between the genes because the counts are not
 on the same scale. At right, boxplots for the same genes show normalized
 count data on the same scale.</p>
 
-<div class="codewrapper sourceCode" id="cb32">
+<div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -747,7 +736,7 @@ count data on the same scale.</p>
 <span>    <span class="fu">theme</span><span class="op">(</span>text <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
 <span>          axis.text.x <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">90</span>, hjust <span class="op">=</span> <span class="fl">0.5</span>, vjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/map-one-eqtl-rendered-view_example_boxplots-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb33">
+<figure><img src="fig/map-one-eqtl-rendered-view_example_boxplots-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -756,7 +745,7 @@ count data on the same scale.</p>
 <p>In the rankZ-transformed data, every gene has the same
 distribution.</p>
 
-<div class="codewrapper sourceCode" id="cb34">
+<div class="codewrapper sourceCode" id="cb32">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -774,7 +763,7 @@ distribution.</p>
 </div>
 <figure><img src="fig/map-one-eqtl-rendered-rankz_expr-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Let’s save the rankZ-transformed expression data so that we will have
 it when we need it again.</p>
-<div class="codewrapper sourceCode" id="cb35">
+<div class="codewrapper sourceCode" id="cb33">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -782,7 +771,7 @@ it when we need it again.</p>
 </div>
 <p>Before moving on, let’s remove data objects that we won’t be using
 again.</p>
-<div class="codewrapper sourceCode" id="cb36">
+<div class="codewrapper sourceCode" id="cb34">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -793,7 +782,7 @@ again.</p>
 <h3 id="the-marker-map">The Marker Map<a class="anchor" aria-label="anchor" href="#the-marker-map"></a></h3>
 <p>The marker map contains a list of the genetic marker positions for
 each marker in the genoprobs. Let’s read it in now.</p>
-<div class="codewrapper sourceCode" id="cb37">
+<div class="codewrapper sourceCode" id="cb35">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -811,7 +800,7 @@ clicking the triangle to the left or by running <code>str(map)</code> in
 the Console.</p>
 <p>Each element in map contains a list of marker positions and
 names.</p>
-<div class="codewrapper sourceCode" id="cb38">
+<div class="codewrapper sourceCode" id="cb36">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -847,7 +836,7 @@ probabilities (i.e genoprobs). In this lesson, we have already processed
 the genotypes and produced the genoprobs using <a href="https://github.com/kbroman/qtl2/blob/main/R/calc_genoprob.R" class="external-link">calc_genoprob</a>.</p>
 <!-- We don't evaluate this block when building the website because the file is
 too large (1.7 GB). We load the probs from Box above . -->
-<div class="codewrapper sourceCode" id="cb40">
+<div class="codewrapper sourceCode" id="cb38">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -867,7 +856,7 @@ genotype probabilities</a> and the optional step for calculating allele
 probabilities.</p>
 <p>Next, we look at the dimensions of <code>probs</code> for chromosome
 1:</p>
-<div class="codewrapper sourceCode" id="cb41">
+<div class="codewrapper sourceCode" id="cb39">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -882,7 +871,7 @@ probabilities.</p>
 and a variable number of markers, depending on the chromosome.</p>
 <p>As a reminder, this is what the genoprobs of one mouse look like
 along one chromosome.</p>
-<div class="codewrapper sourceCode" id="cb43">
+<div class="codewrapper sourceCode" id="cb41">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -907,7 +896,7 @@ current chromosome. This is called the “Leave-One-Chromosome-Out” (LOCO)
 method. We use the genoprobs to create the kinship matrices in the <a href="https://github.com/kbroman/qtl2/blob/main/R/calc_kinship.R" class="external-link">calc-kinship</a>
 function.</p>
 
-<div class="codewrapper sourceCode" id="cb44">
+<div class="codewrapper sourceCode" id="cb42">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -916,14 +905,14 @@ function.</p>
 </div>
 <p>And let’s save the kinship matrices so that we don’t have to build
 them again.</p>
-<div class="codewrapper sourceCode" id="cb45">
+<div class="codewrapper sourceCode" id="cb43">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">saveRDS</span><span class="op">(</span><span class="va">K</span>, file <span class="op">=</span> <span class="st">"data/attie_do_kinship.rds"</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Let’s look at a part of one of the kinship matrices.</p>
-<div class="codewrapper sourceCode" id="cb46">
+<div class="codewrapper sourceCode" id="cb44">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -950,7 +939,7 @@ covariates. Sex and DO outbreeding generation are often sensible
 covariates to add. We will convert <code>sex</code> and
 <code>DOwave</code> to factors and then use <a href="https://rdrr.io/r/stats/model.matrix.html" class="external-link">model.matrix</a> to
 create the covariates matrix that <code>qtl2</code> will use.</p>
-<div class="codewrapper sourceCode" id="cb47">
+<div class="codewrapper sourceCode" id="cb45">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -976,7 +965,7 @@ objects.</p>
 <!-- DMG: Not sure about this yet. -->
 <p>Considering the paper included the covariate <code>diet_days</code>
 we will include that as well.</p>
-<div class="codewrapper sourceCode" id="cb48">
+<div class="codewrapper sourceCode" id="cb46">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -999,7 +988,7 @@ DO026    0       0       0       0       0</code></pre>
 of the untransformed and log-transformed results. Use the <a href="https://github.com/kbroman/qtl2/blob/main/R/scan1.R" class="external-link">scan1</a>
 function to map insulin tAUC.</p>
 
-<div class="codewrapper sourceCode" id="cb50">
+<div class="codewrapper sourceCode" id="cb48">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1010,7 +999,7 @@ function to map insulin tAUC.</p>
 </div>
 <p>After the genome scan, <code>lod_ins</code> contains the LOD scores
 for both the untransformed and log-transformed insulin values.</p>
-<div class="codewrapper sourceCode" id="cb51">
+<div class="codewrapper sourceCode" id="cb49">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1029,7 +1018,7 @@ for both the untransformed and log-transformed insulin values.</p>
 </div>
 <p>Let’s plot both LOD curves.</p>
 
-<div class="codewrapper sourceCode" id="cb53">
+<div class="codewrapper sourceCode" id="cb51">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1064,7 +1053,7 @@ for both the untransformed and log-transformed insulin values.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>The log-transformed data has a higher LOD score on chromosome 11.
 However, the untransformed data has a higher LOD on chromosome 17.</p>
@@ -1079,7 +1068,7 @@ the rest of the lesson.</p>
 <p>Let’s save this LOD profile in case we need it again. We will only
 save the results from the log-transformed data since that produces a
 higher LOD at a peak that we will use later.</p>
-<div class="codewrapper sourceCode" id="cb54">
+<div class="codewrapper sourceCode" id="cb52">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1096,7 +1085,7 @@ which has a QTL peak on chromosome 11, we will map a gene on chromosome
 <a href="https://www.alliancegenome.org/gene/MGI:98505" class="external-link">Hnf1b</a>. Since
 the expression data uses Ensembl IDs in its column names, we need to
 find the Ensembl ID for this gene:</p>
-<div class="codewrapper sourceCode" id="cb56">
+<div class="codewrapper sourceCode" id="cb54">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1112,7 +1101,7 @@ find the Ensembl ID for this gene:</p>
 </div>
 <p>Next, we will create a variable which contains the rankZ-transformed
 Hnf1b expression values to reduce our typing.</p>
-<div class="codewrapper sourceCode" id="cb58">
+<div class="codewrapper sourceCode" id="cb56">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1130,7 +1119,7 @@ not convert the expression data from a matrix to a vector.</p>
 </div>
 </div>
 </div>
-<div class="codewrapper sourceCode" id="cb59">
+<div class="codewrapper sourceCode" id="cb57">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1156,9 +1145,9 @@ function to plot the Hnf1b genome scan.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb60">
+<div class="codewrapper sourceCode" id="cb58">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1188,7 +1177,7 @@ load them in below.</p>
 </div>
 </div>
 </div>
-<div class="codewrapper sourceCode" id="cb61">
+<div class="codewrapper sourceCode" id="cb59">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1199,7 +1188,7 @@ load them in below.</p>
 </div>
 <p>Since calculating permutations takes a long time, we will read in
 pre-computed permutations.</p>
-<div class="codewrapper sourceCode" id="cb62">
+<div class="codewrapper sourceCode" id="cb60">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1207,7 +1196,7 @@ pre-computed permutations.</p>
 </div>
 <p>We then obtain the permutation thresholds using the <a href="https://github.com/kbroman/qtl2/blob/main/R/summary_scan1perm.R" class="external-link">summary</a>
 function. Let’s find the significance level for 0.1, 0.05 and 0.01.</p>
-<div class="codewrapper sourceCode" id="cb63">
+<div class="codewrapper sourceCode" id="cb61">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1239,7 +1228,7 @@ load them in below.</p>
 </div>
 </div>
 </div>
-<div class="codewrapper sourceCode" id="cb65">
+<div class="codewrapper sourceCode" id="cb63">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1249,7 +1238,7 @@ load them in below.</p>
 <span>                   n_perm    <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span></code></pre>
 </div>
 <p>We will read in the pre-computed permutations.</p>
-<div class="codewrapper sourceCode" id="cb66">
+<div class="codewrapper sourceCode" id="cb64">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1257,7 +1246,7 @@ load them in below.</p>
 </div>
 <p>Next, we will get the significance thresholds at the alpha = 0.1,
 0.05, and 0.01 levels.</p>
-<div class="codewrapper sourceCode" id="cb67">
+<div class="codewrapper sourceCode" id="cb65">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1280,7 +1269,7 @@ load them in below.</p>
 <p>Let’s use <code>find_peaks</code> to identify the significant peaks
 in the insulin tAUC genome scan. We will use the 0.05 significance
 threshold.</p>
-<div class="codewrapper sourceCode" id="cb69">
+<div class="codewrapper sourceCode" id="cb67">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1333,9 +1322,9 @@ interval.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb70">
+<div class="codewrapper sourceCode" id="cb68">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1385,9 +1374,9 @@ the <code>annot</code> object.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb71">
+<div class="codewrapper sourceCode" id="cb69">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1422,7 +1411,7 @@ revisit this phenomenon more in later episodes.</p>
 
 <p>Below is the code that you would use. It will take too long to run in
 this class, so we will read the results in below.</p>
-<div class="codewrapper sourceCode" id="cb73">
+<div class="codewrapper sourceCode" id="cb71">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1433,14 +1422,14 @@ this class, so we will read the results in below.</p>
 <span>                      addcovar  <span class="op">=</span> <span class="va">addcovar</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Read in the insulin tAUC founder allele effects.</p>
-<div class="codewrapper sourceCode" id="cb74">
+<div class="codewrapper sourceCode" id="cb72">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">blup_ins</span> <span class="op">&lt;-</span> <span class="fu">readRDS</span><span class="op">(</span>file <span class="op">=</span> <span class="st">'data/ins_tauc_blup_chr11.rds'</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Next, we will plot the founder allele effects.</p>
-<div class="codewrapper sourceCode" id="cb75">
+<div class="codewrapper sourceCode" id="cb73">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1454,7 +1443,7 @@ this class, so we will read the results in below.</p>
 
 <p>Below is the code that you would use. It will take too long to run in
 this class, so we will read the results in below.</p>
-<div class="codewrapper sourceCode" id="cb76">
+<div class="codewrapper sourceCode" id="cb74">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1466,14 +1455,14 @@ this class, so we will read the results in below.</p>
 <span><span class="fu">saveRDS</span><span class="op">(</span><span class="va">blup_hnf1b</span>, file <span class="op">=</span> <span class="st">'data/hnf1b_blup_chr11.rds'</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Read in the Hnf1b founder allele effects.</p>
-<div class="codewrapper sourceCode" id="cb77">
+<div class="codewrapper sourceCode" id="cb75">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">blup_hnf1b</span> <span class="op">&lt;-</span> <span class="fu">readRDS</span><span class="op">(</span>file <span class="op">=</span> <span class="st">'data/hnf1b_blup_chr11.rds'</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Next, we will plot the founder allele effects.</p>
-<div class="codewrapper sourceCode" id="cb78">
+<div class="codewrapper sourceCode" id="cb76">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1500,7 +1489,7 @@ for insulin tAUC and Hnf1b.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
   <h4 class="accordion-header" id="headingSolution5"> Show me the solution </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
 <div class="accordion-body">
 <p>In the Insulin tAUC allele effects, the A/J, C57BL/6J, 129S1/SvmJ,
 and NOD/ShiLtJ alleles contribute to higher insulin tAUC.</p>
