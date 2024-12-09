@@ -302,7 +302,7 @@ hnf4a_lod <- scan1(genoprobs = probs,
                   pheno     = expr_rz[,hnf4a, drop = FALSE],
                   kinship   = K,
                   addcovar  = addcovar)
-plot(hnf4a_lod, map, title = "Hnf4a Genome Scan")
+plot(hnf4a_lod, map, main = "Hnf4a Genome Scan")
 ```
 
 In the plot above, we can see that *Hnf4a* has a QTL peak on chromosome 2.
@@ -435,15 +435,98 @@ med_hot |>
     theme(size = element_text(size = 20))
 ```
 
+Let's list the genes with LOD drops less than -10.
+
 ```{r challeng6g}
-filter(med_hot, lod_drop < -8)
+filter(med_hot, lod_drop < -10)
 ```
+
+here are three genes with large LOD drops. In figure S7 of 
+[Keller et al](https://pmc.ncbi.nlm.nih.gov/articles/PMC5937189/), 
+they select *Sat2* as a candidate gene. 
+
+But notice that there are also gene with large LOD increases. Let's list out
+the genes with LOD increases over 12.
+
+```{r challeng6h}
+filter(med_hot, lod_drop > 12)
+```
+
+There are three genes with large LOD increase. If a LOD drop means that the
+gene is absorbing variance and may be a causal mediator, what does a LOD 
+increase mean?
+
+Let's start by looking at the allele effects of the hotspot PC1 at the QTL.
+
+```{r}
+pr      <- pull_genoprobpos(genoprobs = probs, map = map, chr = hot_chr, pos = qtl_pos)
+
+pc1_eff <- fit1(genoprobs = pr,
+                pheno     = pc1_hot,
+                kinship   = K[[hot_chr]],
+                addcovar  = addcovar)
+plot(1:8, pc1_eff$coef[1:8], xaxt = "n", main = "PC1", xlab = "Founder",
+     ylab = "Allele Effects")
+axis(side = 1, at = 1:8, labels = names(pc1_eff$coef[1:8]))
+```
+
+From the plot above, we can see that CAST (F) and PWK (G) have lower effects
+than the other founders. Remember that the sign of the PC is arbitrary, so the
+effects may be positive.
+
+Next, let's look at the allele effects of the gene with the highest LOD increase,
+*Rnf167*.
+
+```{r}
+gene_id  <- annot[annot$symbol == "Rnf167",]$gene_id
+
+gene_lod <- fit1(genoprobs  = pr,
+                  pheno     = expr_rz[,gene_id, drop = FALSE],
+                  kinship   = K[[hot_chr]], 
+                  addcovar  = addcovar)
+plot(1:8, gene_lod$coef[1:8],  xaxt = "n", main = "Rnf167", xlab = "Founder",
+     ylab = "Allele Effects")
+axis(side = 1, at = 1:8, labels = names(pc1_eff$coef[1:8]))
+```
+
+*Rnf167* has allele effects which seem quite correlated with PC1. Both CAST (F) and
+PWK (G) have different allele effects from the other strains.
+
+Next, let's look at *Sat2*, which is the gene with the largest LOD **drop**.
+
+```{r}
+gene_id  <- annot[annot$symbol == "Sat2",]$gene_id
+pr       <- pull_genoprobpos(genoprobs = probs, map = map, chr = hot_chr, pos = qtl_pos)
+gene_lod <- fit1(genoprobs  = pr,
+                  pheno     = expr_rz[,gene_id, drop = FALSE],
+                  kinship   = K[[hot_chr]], 
+                  addcovar  = addcovar)
+plot(gene_lod$coef[1:8],xaxt = "n", main = "Sat2", xlab = "Founder",
+     ylab = "Allele Effects")
+axis(side = 1, at = 1:8, labels = names(pc1_eff$coef[1:8]))
+```
+
+The allele effects for *Sat2* appear to be less correlated, with PWK (G) having
+lower effects than the other strains.
+
+Let's look at the correlation of *Sat2*, *Rnf167*, and the hotspot PC1.
+
+```{r}
+expr_tmp <- expr_rz[,c(annot[annot$symbol == "Sat2",]$gene_id, annot[annot$symbol == "Rnf167",]$gene_id)]
+colnames(expr_tmp) <- c("Sat2", "Rnf167")
+expr_tmp <- cbind(expr_tmp, pc1_hot)
+cor(expr_tmp)
+```
+
+Both genes have almost identical correlation (~0.41) with PC1.
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-
+Mediation analysis is one way of identifying candidate genes under QTL peaks.
+In this episode, we have focused on eQTL hotspots, but you could do this with
+physiological phenotypes as well. 
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
