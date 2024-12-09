@@ -172,8 +172,8 @@ First, let's look at the mean expression of each gene versus its standard
 deviation.
 
 ```{r show_expr_mean_var, fig.width=8, fig.height=6, warning=FALSE}
-tibble(mean = rowMeans(expr),
-       sd   = apply(expr, 1, sd)) |>
+tibble(mean = colMeans(raw),
+       sd   = apply(raw, 2, sd)) |>
   ggplot(aes(mean, sd)) +
     geom_point() +
     scale_x_log10() +
@@ -181,8 +181,6 @@ tibble(mean = rowMeans(expr),
     labs(title = "Mean vs. Std. Dev. of Before VST",
          x     = "log(Mean)", y = "log(Std. Dev.)") +
     theme(text = element_text(size = 20))
-
-rm(expr)
 ```
 
 The plot above shows the mean expression value for each gene versus the standard
