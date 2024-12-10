@@ -320,12 +320,7 @@ genes using an inverse-normal or rank-Z transformation.
 
 
 ``` r
-rankZ = function(x) {
-  x = rank(x,
-           na.last     = "keep",
-           ties.method = "average") / (sum(!is.na(x)) + 1)
-  return(qnorm(x))
-} # rankZ()
+source("https://raw.githubusercontent.com/smcclatchy/eqtl-mapping/refs/heads/main/episodes/code/rankz.R")
 
 expr_rz = apply(expr, 2, rankZ)
 ```
