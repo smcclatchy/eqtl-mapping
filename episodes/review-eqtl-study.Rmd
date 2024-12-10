@@ -95,6 +95,7 @@ shown below with a strong peak on chromosome 11. In this lesson, we will look
 into genes located under this peak.
 
 ![LOD plot for insulin area under the curve](fig/insulin-auc-lod-plot.png){alt="Insulin AUC QTL plot"}
+
 ::::::::::::::::::::::::::::::::::::: challenge 
 
 #### Challenge 1: Reviewing a LOD plot
@@ -112,11 +113,10 @@ QTL anywhere in the genome with the alternative hypothesis that there is a QTL.
 significance of LOD scores. Any LOD score beneath this value is likely to occur
 just by random chance.
 
-
 :::::::::::::::::::::::::::::::::
 
-
 ::::::::::::::::::::::::::::::::::::::::::::::::
+
 
 ![Keller et al, 2018 Supplementary Figure S7](fig/SFig7_Keller_2018_chr11.png){alt="Keller et al, figure S7"}
 
