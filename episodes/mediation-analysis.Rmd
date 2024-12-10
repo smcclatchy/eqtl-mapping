@@ -524,7 +524,7 @@ strongly correlated with each other (-0.1).
 Let's look at the relationship between the correlation between PC1 and all of
 the genes on chromosome 11.
 
-```{r fig.height=6fig.width=6}
+```{r fig.height=6,fig.width=6}
 expr_11 <- expr_rz[,annot[annot$chr == '11',]$gene_id]
 cor_11  <- cor(pc1_hot, expr_11)
 plot(med_hot$lod_drop, cor_11, xlab = "LOD Drop", ylab = "Correlation")
