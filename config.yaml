@@ -73,7 +73,6 @@ episodes:
 - map-many-eqtls.Rmd
 - maximum-peaks-genes.Rmd
 - create-transcriptome-map.Rmd
-- interpret-results.Rmd
 - mediation-analysis.Rmd
 
 # Information for Learners
