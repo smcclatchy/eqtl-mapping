@@ -130,7 +130,7 @@ step-by-step so that you understand why we are performing each step.
 Mediation analysis bring together a lot of information, to the function will
 have a LOT of variables.
 
-First, we need to pass in the chromosome, position, and LOD socre of the QTL
+First, we need to pass in the chromosome, position, and LOD score of the QTL
 at which we are mapping. Remember, in a mediation scan, we map a phenotype at 
 **ONE** locus and use different genes as covariates.
 
@@ -244,43 +244,43 @@ med_2 <- mediation(qtl_chr  = "2",
 ```
 
 ``` output
-[1] "50 of 1892 : 3.393 seconds elapsed."
-[1] "100 of 1892 : 6.749 seconds elapsed."
-[1] "150 of 1892 : 10.116 seconds elapsed."
-[1] "200 of 1892 : 13.568 seconds elapsed."
-[1] "250 of 1892 : 16.947 seconds elapsed."
-[1] "300 of 1892 : 20.459 seconds elapsed."
-[1] "350 of 1892 : 23.829 seconds elapsed."
-[1] "400 of 1892 : 27.167 seconds elapsed."
-[1] "450 of 1892 : 30.56 seconds elapsed."
-[1] "500 of 1892 : 33.901 seconds elapsed."
-[1] "550 of 1892 : 37.244 seconds elapsed."
-[1] "600 of 1892 : 40.583 seconds elapsed."
-[1] "650 of 1892 : 43.915 seconds elapsed."
-[1] "700 of 1892 : 47.251 seconds elapsed."
-[1] "750 of 1892 : 50.604 seconds elapsed."
-[1] "800 of 1892 : 53.951 seconds elapsed."
-[1] "850 of 1892 : 57.3 seconds elapsed."
-[1] "900 of 1892 : 60.632 seconds elapsed."
-[1] "950 of 1892 : 63.958 seconds elapsed."
-[1] "1000 of 1892 : 67.296 seconds elapsed."
-[1] "1050 of 1892 : 70.64 seconds elapsed."
-[1] "1100 of 1892 : 73.96 seconds elapsed."
-[1] "1150 of 1892 : 77.293 seconds elapsed."
-[1] "1200 of 1892 : 80.658 seconds elapsed."
-[1] "1250 of 1892 : 83.991 seconds elapsed."
-[1] "1300 of 1892 : 87.309 seconds elapsed."
-[1] "1350 of 1892 : 90.633 seconds elapsed."
-[1] "1400 of 1892 : 93.976 seconds elapsed."
-[1] "1450 of 1892 : 97.325 seconds elapsed."
-[1] "1500 of 1892 : 100.664 seconds elapsed."
-[1] "1550 of 1892 : 104.002 seconds elapsed."
-[1] "1600 of 1892 : 107.329 seconds elapsed."
-[1] "1650 of 1892 : 110.675 seconds elapsed."
-[1] "1700 of 1892 : 114.011 seconds elapsed."
-[1] "1750 of 1892 : 117.334 seconds elapsed."
-[1] "1800 of 1892 : 120.817 seconds elapsed."
-[1] "1850 of 1892 : 124.14 seconds elapsed."
+[1] "50 of 1892 : 3.413 seconds elapsed."
+[1] "100 of 1892 : 6.798 seconds elapsed."
+[1] "150 of 1892 : 10.212 seconds elapsed."
+[1] "200 of 1892 : 13.697 seconds elapsed."
+[1] "250 of 1892 : 17.1 seconds elapsed."
+[1] "300 of 1892 : 20.577 seconds elapsed."
+[1] "350 of 1892 : 24.009 seconds elapsed."
+[1] "400 of 1892 : 27.372 seconds elapsed."
+[1] "450 of 1892 : 30.831 seconds elapsed."
+[1] "500 of 1892 : 34.166 seconds elapsed."
+[1] "550 of 1892 : 37.521 seconds elapsed."
+[1] "600 of 1892 : 40.883 seconds elapsed."
+[1] "650 of 1892 : 44.256 seconds elapsed."
+[1] "700 of 1892 : 47.6 seconds elapsed."
+[1] "750 of 1892 : 50.953 seconds elapsed."
+[1] "800 of 1892 : 54.286 seconds elapsed."
+[1] "850 of 1892 : 57.658 seconds elapsed."
+[1] "900 of 1892 : 60.995 seconds elapsed."
+[1] "950 of 1892 : 64.347 seconds elapsed."
+[1] "1000 of 1892 : 67.696 seconds elapsed."
+[1] "1050 of 1892 : 71.044 seconds elapsed."
+[1] "1100 of 1892 : 74.392 seconds elapsed."
+[1] "1150 of 1892 : 77.739 seconds elapsed."
+[1] "1200 of 1892 : 81.08 seconds elapsed."
+[1] "1250 of 1892 : 84.455 seconds elapsed."
+[1] "1300 of 1892 : 87.806 seconds elapsed."
+[1] "1350 of 1892 : 91.138 seconds elapsed."
+[1] "1400 of 1892 : 94.484 seconds elapsed."
+[1] "1450 of 1892 : 97.819 seconds elapsed."
+[1] "1500 of 1892 : 101.165 seconds elapsed."
+[1] "1550 of 1892 : 104.509 seconds elapsed."
+[1] "1600 of 1892 : 107.851 seconds elapsed."
+[1] "1650 of 1892 : 111.192 seconds elapsed."
+[1] "1700 of 1892 : 114.528 seconds elapsed."
+[1] "1750 of 1892 : 117.873 seconds elapsed."
+[1] "1800 of 1892 : 121.343 seconds elapsed."
+[1] "1850 of 1892 : 124.672 seconds elapsed."
 ```
 
 Now that we have the change in LOD scores associated with using each gene as a
@@ -533,42 +533,42 @@ Joining with `by = join_by(gene_id)`
 ```
 
 ``` output
-[1] "50 of 1810 : 3.298 seconds elapsed."
-[1] "100 of 1810 : 6.63 seconds elapsed."
-[1] "150 of 1810 : 10.046 seconds elapsed."
-[1] "200 of 1810 : 13.407 seconds elapsed."
-[1] "250 of 1810 : 16.727 seconds elapsed."
-[1] "300 of 1810 : 20.077 seconds elapsed."
-[1] "350 of 1810 : 23.407 seconds elapsed."
-[1] "400 of 1810 : 26.761 seconds elapsed."
-[1] "450 of 1810 : 30.103 seconds elapsed."
-[1] "500 of 1810 : 33.44 seconds elapsed."
-[1] "550 of 1810 : 36.801 seconds elapsed."
-[1] "600 of 1810 : 40.13 seconds elapsed."
-[1] "650 of 1810 : 43.471 seconds elapsed."
-[1] "700 of 1810 : 46.804 seconds elapsed."
-[1] "750 of 1810 : 50.16 seconds elapsed."
-[1] "800 of 1810 : 53.508 seconds elapsed."
-[1] "850 of 1810 : 56.852 seconds elapsed."
-[1] "900 of 1810 : 60.284 seconds elapsed."
-[1] "950 of 1810 : 63.752 seconds elapsed."
-[1] "1000 of 1810 : 67.08 seconds elapsed."
-[1] "1050 of 1810 : 70.417 seconds elapsed."
-[1] "1100 of 1810 : 73.752 seconds elapsed."
-[1] "1150 of 1810 : 77.162 seconds elapsed."
-[1] "1200 of 1810 : 80.506 seconds elapsed."
-[1] "1250 of 1810 : 83.837 seconds elapsed."
-[1] "1300 of 1810 : 87.157 seconds elapsed."
-[1] "1350 of 1810 : 90.499 seconds elapsed."
-[1] "1400 of 1810 : 93.833 seconds elapsed."
-[1] "1450 of 1810 : 97.166 seconds elapsed."
-[1] "1500 of 1810 : 100.512 seconds elapsed."
-[1] "1550 of 1810 : 103.887 seconds elapsed."
-[1] "1600 of 1810 : 107.237 seconds elapsed."
-[1] "1650 of 1810 : 110.558 seconds elapsed."
-[1] "1700 of 1810 : 113.912 seconds elapsed."
-[1] "1750 of 1810 : 117.25 seconds elapsed."
-[1] "1800 of 1810 : 120.585 seconds elapsed."
+[1] "50 of 1810 : 3.29399999999998 seconds elapsed."
+[1] "100 of 1810 : 6.63899999999998 seconds elapsed."
+[1] "150 of 1810 : 10.086 seconds elapsed."
+[1] "200 of 1810 : 13.445 seconds elapsed."
+[1] "250 of 1810 : 16.779 seconds elapsed."
+[1] "300 of 1810 : 20.154 seconds elapsed."
+[1] "350 of 1810 : 23.534 seconds elapsed."
+[1] "400 of 1810 : 26.906 seconds elapsed."
+[1] "450 of 1810 : 30.261 seconds elapsed."
+[1] "500 of 1810 : 33.598 seconds elapsed."
+[1] "550 of 1810 : 36.973 seconds elapsed."
+[1] "600 of 1810 : 40.526 seconds elapsed."
+[1] "650 of 1810 : 43.901 seconds elapsed."
+[1] "700 of 1810 : 47.252 seconds elapsed."
+[1] "750 of 1810 : 50.633 seconds elapsed."
+[1] "800 of 1810 : 53.988 seconds elapsed."
+[1] "850 of 1810 : 57.341 seconds elapsed."
+[1] "900 of 1810 : 60.851 seconds elapsed."
+[1] "950 of 1810 : 64.373 seconds elapsed."
+[1] "1000 of 1810 : 67.727 seconds elapsed."
+[1] "1050 of 1810 : 71.095 seconds elapsed."
+[1] "1100 of 1810 : 74.58 seconds elapsed."
+[1] "1150 of 1810 : 78.056 seconds elapsed."
+[1] "1200 of 1810 : 81.427 seconds elapsed."
+[1] "1250 of 1810 : 84.765 seconds elapsed."
+[1] "1300 of 1810 : 88.106 seconds elapsed."
+[1] "1350 of 1810 : 91.468 seconds elapsed."
+[1] "1400 of 1810 : 94.847 seconds elapsed."
+[1] "1450 of 1810 : 98.213 seconds elapsed."
+[1] "1500 of 1810 : 101.564 seconds elapsed."
+[1] "1550 of 1810 : 104.955 seconds elapsed."
+[1] "1600 of 1810 : 108.364 seconds elapsed."
+[1] "1650 of 1810 : 111.717 seconds elapsed."
+[1] "1700 of 1810 : 115.051 seconds elapsed."
+[1] "1750 of 1810 : 118.437 seconds elapsed."
+[1] "1800 of 1810 : 121.787 seconds elapsed."
 ```
 
 Now that we have completed the mediation analysis, we plot the results.
@@ -710,7 +710,30 @@ Rnf167 -0.1007433  1.0000000 0.4086829
 Comp.1  0.4116323  0.4086829 1.0000000
 ```
 
-Both genes have almost identical correlation (~0.41) with PC1.
+Both genes have almost identical correlation (0.41) with PC1, but are not
+strongly correlated with each other (-0.1).
+
+Let's look at the relationship between the correlation between PC1 and all of
+the genes on chromosome 11.
+
+
+``` r
+expr_11 <- expr_rz[,annot[annot$chr == '11',]$gene_id]
+cor_11  <- cor(pc1_hot, expr_11)
+```
+
+``` warning
+Warning in cor(pc1_hot, expr_11): the standard deviation is zero
+```
+
+``` r
+plot(med_hot$lod_drop, cor_11, xlab = "LOD Drop", ylab = "Correlation")
+```
+
+<img src="fig/mediation-analysis-rendered-unnamed-chunk-6-1.png" style="display: block; margin: auto;" />
+
+There seems to be a relationship between the absolute LOD drop and the 
+correlation between the gene and PC1. 
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::

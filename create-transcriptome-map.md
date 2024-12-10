@@ -349,17 +349,70 @@ histogram of the positions.
 
 
 ``` r
-hist(hotspots[["2"]]$qtl_pos, 
-     breaks = 50, 
-     las    = 1,
+par(plt = c(0.1, 0.99, 0.22, 0.9))
+plot(table(hotspots[["2"]]$qtl_pos), 
+     las    = 2,
      main   = "Positions of Chr 2 eQTL",
-     xlab   = "Position (Mb)")
+     xlab   = "",
+     ylab   = "Number of Genes")
 ```
 
 <img src="fig/create-transcriptome-map-rendered-hotspot_chr2_pos_hist-1.png" style="display: block; margin: auto;" />
 
 From the plot above, we can see that many genes have eQTL which stack up around 
-164 Mb. Are the other genes part of the same regulatory network? In this case,
+164 Mb. Are the other genes part of the same regulatory network? 
+
+Let's look at the correlation of all of these genes with each other. First, we
+will get the genes from the expression data.
+
+
+``` r
+expr_2 <- expr_rz[,hotspots[["2"]]$gene_id]
+```
+
+Next, we will get the correlation of the genes with each other an make a 
+heatmap.
+
+
+``` r
+cor_2 <- cor(expr_2)
+heatmap(cor_2, symm = TRUE, main = "Correlation of Chr2 Hotspot Genes")
+```
+
+<img src="fig/create-transcriptome-map-rendered-chr2_hotspot_cor_heatmap-1.png" style="display: block; margin: auto;" />
+
+The plot above shows a clustered heatmap in which red indicates positive
+correlation and yellow indicates negative correlation.There are "dendrograms"
+on the top and left, indicating the sort order. 
+
+We can split the genes into clusters by telling R how many clusters we want.
+It will use the dendrogram to select a split which gives the requested number
+of clusters. We are artibratrily selecting five clusters.
+
+
+``` r
+cl   <- hclust(as.dist(1.0 - cor_2), method = "average")
+cl   <- cutree(tree = cl, k = 5)
+cl   <- split(cl, cl)
+```
+
+Let's look at the properties of these clusters. 
+
+
+``` r
+for(subcl in cl) {
+  
+  cl_annot <- filter(hotspots[["2"]], gene_id %in% names(subcl))
+  cl_expr  <- expr_2[,names(subcl)]
+  
+} # for(i)
+```
+
+
+
+
+
+In this case,
 we will filter the chromosome 2 hotspot to only include the genes with an eQTL
 near 164 Mb.
 
