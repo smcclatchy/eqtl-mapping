@@ -1,7 +1,7 @@
 ---
 title: "Mapping A Single Gene Expression Trait"
 teaching: 30
-exercises: 30
+exercises: 45
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -280,7 +280,7 @@ tibble(mean = colMeans(expr),
     geom_point() +
     scale_x_log10() +
     scale_y_log10() +
-    labs(title = "Mean vs. Std. Dev. of After VST",
+    labs(title = "Mean vs SD of expression after VST",
          x     = "log(Mean)", y = "log(Std. Dev.)") +
     theme(text = element_text(size = 20))
 ```
@@ -296,7 +296,7 @@ Let's look at a the distribution of total counts per sample after normalization.
 ``` r
 hist(rowSums(expr) * 1e-6,
       breaks = 50, 
-      main   = "Histogram of Total Expression per Sample (after Normalizaion)",
+      main   = "Total Expression per Sample (after normalization)",
       xlab   = "Total Counts (Millions)")
 ```
 
@@ -435,6 +435,55 @@ combine all samples across different array types.
 Look at the structure of `map` in the Environment tab by clicking the triangle 
 to the left or by running `str(map)` in the Console.  
 
+
+``` r
+str(map)
+```
+
+``` output
+List of 20
+ $ 1 : Named num [1:4711] 3 3.04 3.35 3.65 3.66 ...
+  ..- attr(*, "names")= chr [1:4711] "1_3e+06" "1_3041392" "1_3346528" "1_3651663" ...
+ $ 2 : Named num [1:4709] 3 3.04 3.08 3.51 3.51 ...
+  ..- attr(*, "names")= chr [1:4709] "2_3e+06" "2_3038312" "2_3076624" "2_3510793" ...
+ $ 3 : Named num [1:3811] 3 3.48 3.95 4.43 4.91 ...
+  ..- attr(*, "names")= chr [1:3811] "3_3e+06" "3_3476607" "3_3953213" "3_4429820" ...
+ $ 4 : Named num [1:3872] 3 3.04 3.08 3.12 3.16 ...
+  ..- attr(*, "names")= chr [1:3872] "4_3e+06" "4_3039973" "4_3079946" "4_3119919" ...
+ $ 5 : Named num [1:3837] 3 3.04 3.33 3.34 3.35 ...
+  ..- attr(*, "names")= chr [1:3837] "5_3e+06" "5_3039177" "5_3333513" "5_3343035" ...
+ $ 6 : Named num [1:3653] 3 3.04 3.41 3.77 4.14 ...
+  ..- attr(*, "names")= chr [1:3653] "6_3e+06" "6_3040509" "6_3407400" "6_3774290" ...
+ $ 7 : Named num [1:4006] 3 3.04 3.07 3.18 3.23 ...
+  ..- attr(*, "names")= chr [1:4006] "7_3e+06" "7_3035905" "7_3071810" "7_3183355" ...
+ $ 8 : Named num [1:3387] 3 3.04 3.08 3.4 3.41 ...
+  ..- attr(*, "names")= chr [1:3387] "8_3e+06" "8_3037619" "8_3075238" "8_3402939" ...
+ $ 9 : Named num [1:3414] 3 3.04 3.07 3.52 3.97 ...
+  ..- attr(*, "names")= chr [1:3414] "9_3e+06" "9_3035823" "9_3071646" "9_3522909" ...
+ $ 10: Named num [1:3450] 3 3.04 3.07 3.11 3.15 ...
+  ..- attr(*, "names")= chr [1:3450] "10_3e+06" "10_3037150" "10_3074301" "10_3111451" ...
+ $ 11: Named num [1:3796] 3 3.03 3.06 3.09 3.13 ...
+  ..- attr(*, "names")= chr [1:3796] "11_3e+06" "11_3031502" "11_3063005" "11_3094507" ...
+ $ 12: Named num [1:3124] 3 3.04 3.08 3.44 3.8 ...
+  ..- attr(*, "names")= chr [1:3124] "12_3e+06" "12_3038001" "12_3076003" "12_3437198" ...
+ $ 13: Named num [1:3229] 3 3.4 3.79 3.8 3.81 ...
+  ..- attr(*, "names")= chr [1:3229] "13_3e+06" "13_3396518" "13_3793036" "13_3803732" ...
+ $ 14: Named num [1:3019] 3 3.04 3.08 3.12 3.16 ...
+  ..- attr(*, "names")= chr [1:3019] "14_3e+06" "14_3040840" "14_3081681" "14_3122521" ...
+ $ 15: Named num [1:2761] 3 3.04 3.07 3.11 3.58 ...
+  ..- attr(*, "names")= chr [1:2761] "15_3e+06" "15_3036880" "15_3073761" "15_3110641" ...
+ $ 16: Named num [1:2688] 3 3.04 3.07 3.11 3.14 ...
+  ..- attr(*, "names")= chr [1:2688] "16_3e+06" "16_3035541" "16_3071083" "16_3106624" ...
+ $ 17: Named num [1:2873] 3 3.03 3.06 3.38 3.69 ...
+  ..- attr(*, "names")= chr [1:2873] "17_3e+06" "17_3032196" "17_3064392" "17_3375528" ...
+ $ 18: Named num [1:2588] 3 3.42 3.83 4.25 4.26 ...
+  ..- attr(*, "names")= chr [1:2588] "18_3e+06" "18_3416510" "18_3833020" "18_4249530" ...
+ $ 19: Named num [1:2434] 3 3.02 3.05 3.07 3.1 ...
+  ..- attr(*, "names")= chr [1:2434] "19_3e+06" "19_3024080" "19_3048159" "19_3072239" ...
+ $ X : Named num [1:3643] 3 3.05 3.09 3.14 3.19 ...
+  ..- attr(*, "names")= chr [1:3643] "X_3e+06" "X_3046778" "X_3093557" "X_3140335" ...
+```
+
 Each element in map contains a list of marker positions and names.
 
 
@@ -488,6 +537,19 @@ probabilities for you, so you can skip the step for
 [calculating genotype probabilities](https://smcclatchy.github.io/qtl-mapping/calc-genoprob/) 
 and the optional step for calculating allele probabilities.
 
+:::::::::::::::::::::::::::::::::::::::::::::::: challenge
+
+#### Challenge 1: What is a genotype probability? Why do we need genotype probabilities in QTL mapping?
+
+::::::::::::::::::::::::::: solution
+
+A genotype probability is the probability of possible genotypes in between 
+typed markers. We use genotype probabilities in QTL mapping to identify QTL in
+between typed markers. 
+
+::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 Next, we look at the dimensions of `probs` for chromosome 1: 
 
 
@@ -528,7 +590,7 @@ between mice. We also use a different kinship matrix on each chromosome by
 including all of the markers except the ones on the current chromosome. This 
 is called the "Leave-One-Chromosome-Out" (LOCO) method. We use the genoprobs 
 to create the kinship matrices in the 
-[calc-kinship](https://github.com/kbroman/qtl2/blob/main/R/calc_kinship.R) 
+[calc_kinship](https://github.com/kbroman/qtl2/blob/main/R/calc_kinship.R) 
 function.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::: instructor
@@ -543,6 +605,17 @@ take the students a while to build.
 K <- calc_kinship(probs = probs,
                   type = 'loco')
 ```
+
+:::::::::::::::::::::::::::::::::::::::::::::::: challenge
+
+#### Challenge 2: Why do we calculate kinship? What purpose does it serve?
+
+::::::::::::::::::::::::::: solution
+
+Calculating kinship between individuals in a study corrects for known relatedness and unknown population structure. Without accounting for kinship, many false positives can occur due to genetic relatedness.
+
+::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 And let's save the kinship matrices so that we don't have to build them again.
 
@@ -575,6 +648,19 @@ we have `sex`, `DOwave` (_i.e._, batch) of DO mice) and `diet_days`
 (number of days on diet) to test whether there are any sex, batch or diet 
 effects.
 
+:::::::::::::::::::::::::::::::::::::::::::::::: challenge
+
+#### Challenge 3: Why do we use covariates in the model? What purpose do they serve?
+
+::::::::::::::::::::::::::: solution
+
+Covariates are added into the model to explain variation in phenotypes. When
+including sex in the model, for example, we allow the phenotype means of the 
+two different sexes to vary rather than to be the same.
+
+::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 We will use `sex` and `DOwave` as additive covariates. Sex and DO outbreeding
 generation are often sensible covariates to add. We will convert `sex` and 
 `DOwave` to factors and then use 
@@ -597,10 +683,6 @@ The sample IDs must be in the rownames of `pheno`, `addcovar`, `genoprobs` and
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-<!-- DMG: Not sure about this yet. -->
-
-Considering the paper included the covariate `diet_days` we will include that 
-as well. 
 
 
 ``` r
@@ -688,7 +770,7 @@ legend("topleft",
 
 :::::::::::::::::::::::::::::::::::::::::::::::: challenge
 
-#### Challenge 1: Which phenotype has the higher LOD score on chromosomes 11 and 17?
+#### Challenge 4: Which phenotype has the higher LOD score on chromosomes 11 and 17?
 
 ::::::::::::::::::::::::::: solution
 
@@ -699,8 +781,8 @@ the untransformed data has a higher LOD on chromosome 17.
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 The challenge above shows the value of transforming data to make it more
-normally distributed. We do not have a peak for `log(ins_tauc)` on chromosome 11
-which we will work with for the rest of the lesson.
+normally distributed. We have a peak for `log(ins_tauc)` on chromosome 11 which
+we will work with for the rest of the lesson.
 
 Let's save this LOD profile in case we need it again. We will only save the
 results from the log-transformed data since that produces a higher LOD at a peak
@@ -756,7 +838,7 @@ lod_hnf1b = scan1(genoprobs = probs,
 
 :::::::::::::::::::::::::::::::::::::::::::::::: challenge
 
-#### Challenge 2: Plot Hnf1b Genome Scan
+#### Challenge 5: Plot Hnf1b Genome Scan
 
 Use the [plot_scan1](https://github.com/kbroman/qtl2/blob/main/R/plot_scan1.R) 
 function to plot the Hnf1b genome scan.
@@ -868,6 +950,21 @@ LOD thresholds (1000 permutations)
 0.01               8.35
 ```
 
+:::::::::::::::::::::::::::::::::::::::::::::::: challenge
+
+#### Challenge 6: What does permutation do to the data? How do permutations aid in finding significant LOD scores?
+
+::::::::::::::::::::::::::: solution
+
+Permutations shuffle the data, breaking the relationship between genotype and
+phenotype. Genome-wide maximum LOD scores are calculated with the permuted
+(shuffled) data to determine how high a LOD score could occur by random chance.
+This LOD score indicates the significance of LOD scores in a scan, indicating
+which values might occur simply by random chance.
+
+::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 ### Finding Significant Peaks
 
 Let's use `find_peaks` to identify the significant peaks in the insulin AUC
@@ -899,7 +996,7 @@ We can see that we have a peak for insulin AUC on chromosome
 
 :::::::::::::::::::::::::::::::::::::::::::::: challenge
 
-#### Challenge 3: Significant Peaks for Hnf1b
+#### Challenge 7: Significant Peaks for Hnf1b
 
 Use the [find_peaks](https://github.com/kbroman/qtl2/blob/main/R/find_peaks.R) 
 function to find the significant peaks for Hnf1b at the `alpha = 0.05` 
@@ -931,7 +1028,7 @@ Table: Hnf1b QTL Peaks
 
 :::::::::::::::::::::::::::::::::::::
 
-#### Challenge 4: Genomic Position of Hnf1b
+#### Challenge 8: Genomic Position of Hnf1b
 
 Find the position of the Hnf1b gene in the gene annotation. You may want to
 use the `filter` or `subset` functions on the `annot` object.
@@ -1055,7 +1152,7 @@ plot_coefCC(x      = blup_hnf1b,
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-#### Challenge 5: Compare Founder Allele Effects
+#### Challenge 9: Compare Founder Allele Effects
 
 Compare at the pattern of founder allele effects at the QTL position for insulin
 tAUC and Hnf1b.
