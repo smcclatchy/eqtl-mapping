@@ -40,16 +40,16 @@ ethr       <- summary(object = eperm, alpha  = 0.05)
 ### Local and Distant eQTL
 
 In the previous lesson, we saw that the QTL peak for a gene can lie directly
-over the gene that is being mapped. This is called a "local eQTL" because the
+over the gene that is being mapped. This is called a _local eQTL_ because the
 QTL peak is located near the gene. When the QTL peak is located far from the
-gene being mapped, we call this a "distant eQTL". When the QTL peak is located
+gene being mapped, we call this a _distal eQTL_. When the QTL peak is located
 on the same chromosome as the gene, there are different heuristics regarding the
 distance between the gene and its QTL peak that we use to call an eQTL local
-or distant. This depends on the type of cross and the resolution of the 
+or distal. This depends on the type of cross and the resolution of the 
 recombination block structure.
 
 In this episode, we will create a table containing the QTL peaks for all genes
-and the gene positions. We will then classify QTL into local or distant and 
+and the gene positions. We will then classify QTL into local or distal and 
 will make a plot of all off the eQTL in relation to the gene positions.
 
 ### Transcriptome Map
@@ -58,11 +58,11 @@ We have encapsulated the code to create a transcriptome map in a file in this
 lesson. You can copy this file from the Github repository to use in your eQTL 
 mapping project. We will read this file in now.
 
-```{r}
+```{r, eval=FALSE}
 getwd()
 ```
 
-```{r}
+```{r, eval=FALSE}
 dir()
 ```
 
@@ -91,11 +91,11 @@ of this workshop. The required column names are:
     position in Mb.
 
 First, we will get the gene positions from the annotation and rename the 
-columns to match what `ggtmap` requires. We need to have columns named "gene_id",
-"gene_chr", and "gene_pos". We must rename the columns because, when we are 
-finished, we will have "chr" and "pos" columns for both the gene and its QTL. We
-will also add the "symbol" column since it is nice to have gene symbols in the
-data. 
+columns to match what `ggtmap` requires. We need to have columns named 
+`gene_id`, `gene_chr`, and `gene_pos`. We must rename the columns because, when 
+we are finished, we will have `chr` and `pos` columns for both the gene and its 
+QTL. We will also add the `symbol` column since it is nice to have gene symbols 
+in the data. 
 
 ```{r get_gene_pos}
 gene_pos <- annot |>
@@ -142,12 +142,14 @@ chromosome.
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-We can tabulate the number of local and distant eQTL that we have and add this to 
-our QTL summary table. A local eQTL occurs when the QTL peaks is directly over the 
-gene position. But what if it is 2 Mb away? Or 10 Mb? It's possible that a gene 
-may have a trans eQTL on the same chromosome if the QTL is "far enough" from the 
-gene. In [Keller et al](https://pmc.ncbi.nlm.nih.gov/articles/PMC5937189/), the 
-authors selected a 4 Mb of the corresponding gene and we will use this threshold.
+We can tabulate the number of local and distal eQTL that we have and add this to 
+our QTL summary table. A local eQTL occurs when the QTL peaks is directly over 
+the gene position. But what if it is 2 Mb away? Or 10 Mb? It's possible that a 
+gene may have a distal eQTL on the same chromosome if the QTL is "far enough" 
+from the gene. In 
+[Keller et al](https://pmc.ncbi.nlm.nih.gov/articles/PMC5937189/), 
+the authors selected a 4 Mb distance from the corresponding gene and we will use 
+this threshold.
 
 ```{r local_summary, warning=FALSE, message=FALSE}
 eqtl <- eqtl |> 
@@ -161,7 +163,7 @@ count(eqtl, local)
 ### Plot Transcriptome Map
 
 In [Keller et al](https://pmc.ncbi.nlm.nih.gov/articles/PMC5937189/), the 
-authors used a LOD threshold of 7.2 to select genes tovuse in their 
+authors used a LOD threshold of 7.2 to select genes to use in their 
 transcriptome map. We will use this threshold to reproduce their results as 
 closely as possible.
 
@@ -174,7 +176,7 @@ ggtmap(data = eqtl |>
                        local.radius = 4)
 ```
 
-The plot above is called a "Transcriptome Map" because it shows the positions of 
+The plot above is called a *transcriptome map* because it shows the positions of 
 the genes (or transcripts) and their corresponding QTL. The QTL position is 
 shown on the X-axis and the gene position is shown on the Y-axis. The 
 chromosomes are listed along the top and right of the plot. 
@@ -214,18 +216,18 @@ possibly through multiple steps.
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 If you look at the plot, there are vertical bands of points which stack over a
-single QTL location. These are called "eQTL hotspots". Rather than look at the
+single QTL location. These are called *eQTL hotspots*. Rather than look at the
 transcriptome map, it may be easier to look at the density of the eQTL along
-the genome. We have provided a function called "eqtl_density_plot" to do this.
+the genome. We have provided a function called `eqtl_density_plot` to do this.
 
 
 ```{r eqtl_density,fig.height=6,fig.width=8,warning=FALSE,message=FALSE}
 eqtl_density_plot(eqtl, lod_thr = eqtl_thr)
 ```
 
-The plot above shows the mouse genome on the X-axis and the number of transcripts
-in a 4 Mb window on the Y-axis. It is difficult to say
-how many genes must be involved to call something and eQTL hotspot. There are
+The plot above shows the mouse genome on the X-axis and the number of 
+transcripts in a 4 Mb window on the Y-axis. It is difficult to say how many 
+genes must be involved to call something and eQTL hotspot. There are
 permutation-based methods which require a large amount of time and memory. In
 this case, we have called hotspots involving more than 100 genes eQTL hotspots.
 
@@ -256,16 +258,16 @@ How do the eQTL density plots compare to their results?
 
 ::::::::::::::::::::::::::::::::::::::: solution
 
-The eQTL density plots are largely similar. The hotspot on chromosome 11 contains
-more genes in our analysis than in the paper.
+The eQTL density plots are largely similar. The hotspot on chromosome 11 
+contains more genes in our analysis than in the paper.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 How can we find the location of the eQTL hotspots and the genes which lie
-within each eQTL? We have written a function called "get_eqtl_hotspots" to help 
-you and have provides it in "gg_transcriptome_map.R". It requires the eQTL data,
+within each eQTL? We have written a function called `get_eqtl_hotspots` to help 
+you and have provides it in `gg_transcriptome_map.R`. It requires the eQTL data,
 a LOD threshold to filter the peaks, the number of genes required to call a
 locus a hotspot, and the radius in Mb around the hotspot to use when selecting
 genes which are part of the hotspot. We will use a 2 MB radius around the
@@ -293,6 +295,7 @@ of the eQTL positions in each hotspot.
 ```{r get_hotspot_pos}
 sapply(hotspots, function(z) { mean(z$qtl_pos) })
 ```
+
 Let's look at some of the genes in the chromosome 2 hotspot.
 
 ```{r headhotspot_2}
@@ -386,7 +389,7 @@ pca_2  <- princomp(expr_2)
 pc1_2  <- pca_2$scores[,1,drop = FALSE]
 ```
 
-We can then map PC1 as a phenotype and we should be a large QTL peak in the 
+We can then map PC1 as a phenotype and we should have a large QTL peak in the 
 same location as the hotspot.
 
 ```{r map_pc1_2,fig.width=8,fig.height=6}
@@ -399,7 +402,7 @@ plot_scan1(pc1_lod, map, main = "PC1 of Chr 2 Hotspot")
 ```
 
 We can also look at the founder allele effects at the peak. We will use a 
-function in gg_transcriptome_map.R called "plot_fit1()".
+function in `gg_transcriptome_map.R` called `plot_fit1()`.
 
 ```{r pc1_2_eff,fig.width=8,fig.height=6}
 peaks <- find_peaks(pc1_lod, map, threshold = 50)
@@ -430,7 +433,7 @@ the allele effects from this plot.
 - Local eQTL occur more frequently than distant eQTL.
 - Local eQTL appear along the diagonal in a transcriptome map and distant eQTL
 appear on the off-diagonal.
-- Stacks of eQTL which appear over a single locus are called "eQTL hotspots" and
+- Stacks of eQTL which appear over a single locus are called *eQTL hotspots* and
 represent sets of genes which are transcriptionally regulated by a single locus.
 - The first principal component of genes in and eQTL hotspot can be used to 
 summarize the genes in the hotspot.
