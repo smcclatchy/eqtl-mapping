@@ -95,6 +95,58 @@ shown below with a strong peak on chromosome 11. In this lesson, we will look
 into genes located under this peak.
 
 ![LOD plot for insulin area under the curve](fig/insulin-auc-lod-plot.png){alt="Insulin AUC QTL plot"}
+::::::::::::::::::::::::::::::::::::: challenge 
+
+#### Challenge 1: Reviewing a LOD plot
+
+Refer to the figure above.
+
+1). What is a LOD score? What two things does it compare?   
+2). What is the red horizontal line at y = 6? What does it indicate?     
+
+:::::::::::::::::::::::: solution 
+
+1). A LOD score, or logarithm of odds score, compares the null hypothesis of no
+QTL anywhere in the genome with the alternative hypothesis that there is a QTL.  
+2). The red horizontal line at y = 6 is a LOD score threshold indicating 
+significance of LOD scores. Any LOD score beneath this value is likely to occur
+just by random chance.
+
+
+:::::::::::::::::::::::::::::::::
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+![Keller et al, 2018 Supplementary Figure S7](fig/SFig7_Keller_2018_chr11.png){alt="Keller et al, figure S7"}
+
+::::::::::::::::::::::::::::::::::::: challenge 
+
+#### Challenge 2: 
+
+Refer to the figure above.
+
+1). What does panel B show? What conclusions could you draw from panel B?    
+2). How are panels A and B related to one another? What story do they tell 
+together?  
+
+:::::::::::::::::::::::: solution 
+
+1). Panel B shows the founder allele effects at the chromosome 11 QTL. PWK and
+CAST alleles show high phenotype values at the QTL, and WSB and NOD have low
+values at the QTL.
+  
+2). Panels A and B show a chromosome 11 QTL with a high LOD score, along with
+the founder allele contributions to this LOD peak. The large range of phenotype
+values between different founders resulted in a strong LOD score.
+
+
+:::::::::::::::::::::::::::::::::
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
