@@ -129,7 +129,7 @@ step-by-step so that you understand why we are performing each step.
 Mediation analysis bring together a lot of information, to the function will
 have a LOT of variables.
 
-First, we need to pass in the chromosome, position, and LOD socre of the QTL
+First, we need to pass in the chromosome, position, and LOD score of the QTL
 at which we are mapping. Remember, in a mediation scan, we map a phenotype at 
 **ONE** locus and use different genes as covariates.
 
@@ -518,7 +518,20 @@ expr_tmp <- cbind(expr_tmp, pc1_hot)
 cor(expr_tmp)
 ```
 
-Both genes have almost identical correlation (~0.41) with PC1.
+Both genes have almost identical correlation (0.41) with PC1, but are not
+strongly correlated with each other (-0.1).
+
+Let's look at the relationship between the correlation between PC1 and all of
+the genes on chromosome 11.
+
+```{r fig.height=6fig.width=6}
+expr_11 <- expr_rz[,annot[annot$chr == '11',]$gene_id]
+cor_11  <- cor(pc1_hot, expr_11)
+plot(med_hot$lod_drop, cor_11, xlab = "LOD Drop", ylab = "Correlation")
+```
+
+There seems to be a relationship between the absolute LOD drop and the 
+correlation between the gene and PC1. 
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::
