@@ -387,39 +387,62 @@ on the top and left, indicating the sort order.
 
 We can split the genes into clusters by telling R how many clusters we want.
 It will use the dendrogram to select a split which gives the requested number
-of clusters. We are artibratrily selecting five clusters.
+of clusters. We are artibratrily selecting three clusters.
 
 
 ``` r
-cl   <- hclust(as.dist(1.0 - cor_2), method = "average")
-cl   <- cutree(tree = cl, k = 5)
-cl   <- split(cl, cl)
+cl     <- hclust(dist(cor_2))
+plot(cl, labels = FALSE, hang = -1, main = "Clustering of Chr2 Hotspot Genes")
 ```
 
-Let's look at the properties of these clusters. 
+<img src="fig/create-transcriptome-map-rendered-clust_chr2_hotspot-1.png" style="display: block; margin: auto;" />
+
+``` r
+cl_cut <- cutree(tree = cl, k = 3)
+```
+
+Let's look at the number of genes and the median eQTL position of these clusters. 
 
 
 ``` r
-for(subcl in cl) {
+cl_spl <- split(cl_cut, cl_cut)
+for(subcl in cl_spl) {
   
   cl_annot <- filter(hotspots[["2"]], gene_id %in% names(subcl))
   cl_expr  <- expr_2[,names(subcl)]
   
+  print(paste(nrow(cl_annot), median(cl_annot$qtl_pos)))
+
 } # for(i)
 ```
 
+``` output
+[1] "72 164.027702"
+[1] "124 164.022416"
+[1] "78 164.022416"
+```
+
+``` r
+rm(cl_spl)
+```
+
+Next, let's make the heatmap again and place the cluster colors on the axes.
 
 
+``` r
+cols <- c('black', 'red', 'blue', 'orange')[cl_cut]
+heatmap(cor_2, symm = TRUE, RowSideColors = cols, ColSideColors = cols)
+```
 
+<img src="fig/create-transcriptome-map-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
 
-In this case,
-we will filter the chromosome 2 hotspot to only include the genes with an eQTL
-near 164 Mb.
+In this case, we will filter the chromosome 2 hotspot to only include the genes 
+with an eQTL between 163.5 and 164.5 Mb.
 
 
 ``` r
 hot_2 <- hotspots[["2"]] |>
-           filter(abs(qtl_pos - 164) < 0.1)
+           filter(abs(qtl_pos - 164) < 0.5)
 ```
 
 How many genes are there in the chromosome 2 hotspot now?
@@ -430,7 +453,7 @@ nrow(hot_2)
 ```
 
 ``` output
-[1] 88
+[1] 150
 ```
 
 ### Principal Component of eQTL Hotspot Genes
@@ -467,7 +490,7 @@ function in `gg_transcriptome_map.R` called `plot_fit1()`.
 
 
 ``` r
-peaks <- find_peaks(pc1_lod, map, threshold = 50)
+peaks <- find_peaks(pc1_lod, map, threshold = 20)
 pr    <- pull_genoprobpos(genoprobs = probs, 
                           map       = map, 
                           chr       = peaks$chr[1], 
