@@ -62,10 +62,9 @@ expression mediates the effects of genetic variants on complex phenotypes and
 disease.
 
 For example, a genetic variant (non-coding SNP) indirectly regulates expression 
-of gene 2 through a mediator, gene 1. The SNP regulates expression of gene 1 in 
-cis, and expression of gene 1 influences expression of gene 2 in trans.  
+of gene 2 through a mediator, gene 1. The SNP regulates expression of gene 1 locally, and expression of gene 1 influences expression of gene 2 distally.  
 
-![A non-coding SNP affects expression of gene 1 in cis. Gene 1 mediates expression of gene 2.](fig/mediation-trans-noncoding-SNP.png){alt="mediation figure"}
+![A non-coding SNP affects expression of gene 1 locally. Gene 1 mediates expression of gene 2 distally.](fig/mediation-trans-noncoding-SNP.png){alt="mediation figure"}
 
 Instead of the expression of one gene impacting another, expression of gene 1 in
 the graphic above could impact a physiological phenotype like blood glucose. 
@@ -225,7 +224,7 @@ mediation <- function(qtl_chr, qtl_pos, qtl_lod, genoprobs, pheno, K, addcovar,
 ```
 
 
-```{r mediation_chr2_hotspot,warning=FALSE,message=FALSE}
+```{r mediation_chr2_hotspot, warning=FALSE, message=FALSE}
 qtl_pos <- mean(hotspots[["2"]]$qtl_pos)
 
 med_2 <- mediation(qtl_chr  = "2", 
