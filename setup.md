@@ -88,9 +88,12 @@ Mac Finder) to move the files.
 1. [raw gene expression](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_expr_raw.rds)
 1. [map](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_map.rds)
 1. [kinship](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_kinship.rds)
+1. [eQTL peaks](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_eqtl_peaks.rds)
+1. [insulin permutations](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/ins_tauc_log_perm_1000.rds)
+1. [Hnf1b permutations](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/ENSMUSG00000020679_perm_1000.rds)
 1. [chromosome 11 insulin blups](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/ins_tauc_blup_chr11.rds)
 1. [chromosome 11 Hnf1b blups](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/hnf1b_blup_chr11.rds)
-1. [eQTL peaks](https://github.com/smcclatchy/eqtl-mapping/blob/main/episodes/data/attie_do_eqtl_peaks.rds)
+
 
 2. Copy, paste, and run the following code in the RStudio console to download
 the genotype probabilities for the gene expression study we will explore in this
