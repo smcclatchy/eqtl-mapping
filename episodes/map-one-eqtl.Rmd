@@ -1,7 +1,7 @@
 ---
 title: "Mapping A Single Gene Expression Trait"
-teaching: 30
-exercises: 45
+teaching: 60
+exercises: 60
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 

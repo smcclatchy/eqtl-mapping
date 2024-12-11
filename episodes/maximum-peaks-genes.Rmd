@@ -1,6 +1,6 @@
 ---
 title: "Maximum eQTL Peaks and Nearby Genes"
-teaching: 10
+teaching: 20
 exercises: 20
 ---
 
