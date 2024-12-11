@@ -6,22 +6,21 @@ editor: visual
 
 ## Single-gene diseases
 
-![Single-gene diseases like cystic fibrosis are relatively well understood. In cystic fibrosis mutations in the coding region of the CFTR gene result in a defective protein. This leads to excess mucus production that can damage the lungs and digestive system.](../episodes/fig/cystic-fibrosis.png){alt="Cystic fibrosis is caused by a mutation in the CFTR gene that prevents passage of chloride ions from the airway lumen of the lungs. This results in a loss of water from the airway lumens and a thick sticky mucus in the airway."}
-Created in [BioRender](https://BioRender.com)
+![Single-gene diseases like CF are relatively well understood. Created in [BioRender](https://BioRender.com)](../episodes/fig/cystic-fibrosis.png){width=75% height=75%}
 
 ::: {.notes}
 Differences in disease risk between individuals caused by genetic
-variants. 
-Identifying effects of variants = key to understanding disease and biology.
+variants.   
+Identifying effects of variants = key to understanding disease and biology.  
 Effects of variants in many single-gene disorders like CF generally 
-well-characterized and disease biology well understood. 
+well-characterized and disease biology well understood.   
 In CF, mutations in coding region of CFTR gene alter 3-D structure of chloride 
 channel proteins in epithelial cells, affecting chloride, sodium and potassium 
-transport in lungs, pancreas and skin. 
+transport in lungs, pancreas and skin.   
 Path from mutation to altered protein to disease phenotype is relatively simple 
-and well understood.
+and well understood.  
 Single-gene diseases not well-characterized or understood are a focus of rare
-disease research.
+disease research.  
 :::
 
 ## Common diseases involve many genes interacting with the environment
@@ -30,24 +29,21 @@ disease research.
 
 ::: {.notes}
 Common human disorders involve many genes interacting with each other and with
-environment
-Path from a single mutation to protein to disease phenotype not straightforward 
+environment. 
+Path from a single mutation to protein to disease phenotype not straightforward   
 Cardiovascular disease, Alzheimer's disease, arthritis, diabetes and cancer
-are complex and  mechanisms not well understood
-A genome-wide association study (GWAS) associates genetic variants with disease
-Tempting to think that genetic variants fall in coding regions
+are complex and  mechanisms not well understood. 
+A genome-wide association study (GWAS) associates genetic variants with disease. 
+Tempting to think that genetic variants fall in coding regions. 
 However, most GWAS variants for common diseases like diabetes located in 
-**non-coding** regions 
+**non-coding** regions   
 These variants likely to fall in regulatory sequences involved in gene 
-regulation
+regulation. 
 ::: 
 
-## Common diseases involve many genes interacting with the environment
+## Common diseases = tiny effect sizes
 
-![Type 2 diabetes variants are common with tiny effect sizes](../episodes/fig/geneticstype2-Image001.jpg)
-
-Kreienkamp RJ, Voight BF, Gloyn AL, et al. Genetics of Type 2 Diabetes. 2023 
-Dec 20. In: Lawrence JM, Casagrande SS, Herman WH, et al., editors. [Diabetes in America](https://www.ncbi.nlm.nih.gov/books/NBK597726/). Bethesda (MD): NIDDK.
+![Kreienkamp RJ, Voight BF, Gloyn AL, et al. Genetics of Type 2 Diabetes. 2023 Dec 20. In: Lawrence JM, Casagrande SS, Herman WH, et al., editors. Diabetes in America.](../episodes/fig/geneticstype2-Image001.jpg){width=80% height=80%}
 
 ## What are expression quantitative trait loci (eQTL)?
 
@@ -55,23 +51,23 @@ Dec 20. In: Lawrence JM, Casagrande SS, Herman WH, et al., editors. [Diabetes in
 Created in [BioRender](https://BioRender.com)
 
 ::: {.notes}
-Gene regulation controls the quantity, timing and locale of gene expression
+Gene regulation controls the quantity, timing and locale of gene expression. 
 Analyzing genome variants through gene expression = expression quantitative 
-trait locus (eQTL) mapping
-An eQTL is a locus that explains variation in transcript abundance 
+trait locus (eQTL) mapping. 
+An eQTL is a locus that explains variation in transcript abundance   
 Specifically, genetic variants underlying eQTL explain variation in gene 
-expression levels
+expression levels. 
 Shown here is a non-coding SNP that influences expression of gene 1, which in
-turn affects a phenotype
-Not shown is the protein product of this gene
+turn affects a phenotype. 
+Not shown is the protein product of this gene. 
 Since we are focusing on gene expression the figure is simplified to only
-include mRNA and not protein
+include mRNA and not protein. 
 Traditional analytic techniques like linkage and association mapping can be 
-applied to thousands of gene expression traits (transcripts) in eQTL analysis
+applied to thousands of gene expression traits (transcripts) in eQTL analysis. 
 This means gene expression can be mapped in the same way as a physiological 
-phenotype like blood pressure or heart rate
+phenotype like blood pressure or heart rate. 
 Joining gene expression and physiological phenotypes with genetic variation can 
-identify genes with variants affecting disease phenotypes.
+identify genes with variants affecting disease phenotypes.  
 :::
 
 ## Local eQTL
@@ -80,10 +76,10 @@ identify genes with variants affecting disease phenotypes.
 Created in [BioRender](https://BioRender.com)
 
 ::: {.notes}
-To the simple diagram above we'll add two more details
+To the simple diagram above we'll add two more details. 
 Non-coding SNPs can regulate gene expression from nearby locations on the same 
-chromosome
-These are called local eQTL
+chromosome. 
+These are called local eQTL. 
 :::
 
 ## Distal eQTL
@@ -106,9 +102,9 @@ Created in [BioRender](https://BioRender.com)
 ::: {.notes}
 Genome-wide association studies (GWAS) often identify variants in non-coding 
 regions of the genome, indicating that regulation of gene expression 
-predominates in common diseases like type II diabetes. In type II diabetes (T2D) 
-the pancreas produces less insulin and the body becomes less responsive to 
-insulin.
+predominates in common diseases like type II diabetes.  
+In type II diabetes (T2D) the pancreas produces less insulin and the body 
+becomes less responsive to insulin.
 :::
 
 ## Pancreatic islets and T2D
@@ -119,11 +115,12 @@ Created in [BioRender](https://BioRender.com)
 
 ::: {.notes}
 Most of the more than 100 genetic loci associated with T2D affect the function 
-of pancreatic islets. This study offers supporting evidence for T2D-associated 
-loci in human GWAS, most of which affect pancreatic islet function. Pancreatic 
-islet cells produce endocrine hormones including insulin. A feedback loop of 
-glucose and insulin activates beta cells that produce insulin and inhibits alpha 
-cells in the pancreas.
+of pancreatic islets.  
+This study offers supporting evidence for T2D-associated  loci in human GWAS, 
+most of which affect pancreatic islet function.  
+Pancreatic islet cells produce endocrine hormones including insulin.  
+A feedback loop of glucose and insulin activates beta cells that produce 
+insulin and inhibits alpha cells in the pancreas.
 :::
 
 ## Genetic Drivers of Pancreatic Islet Function
@@ -132,26 +129,26 @@ cells in the pancreas.
 
 ::: {.notes}
 Susceptibility to type II diabetes (T2D) increases with obesity, such that 
-T2D-associated genetic loci operate mainly under conditions of obesity (See 
-[Keller, Mark P et al. “Genetic Drivers of Pancreatic Islet Function.” Genetics vol. 209,1 (2018): 335-356](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5937189/)). Like most GWAS 
-loci, the T2D-associated genetic loci identified from GWAS have very small 
-effect sizes and odds ratios just slightly more than 1.
-
-This study explored islet gene expression in diabetes. The authors hypothesized 
-that gene expression changes in response to dietary challenge would reveal 
-signaling pathways involved in stress responses. The expression of many genes
-often map to the same locus, indicating that expression of these genes is
-controlled in common. If their mRNAs encode proteins with common physiological 
-functions, the function of the controlling gene(s) is revealed. Variation in 
-expression of the controlling gene(s), rather than a genetic variant, can be 
-tested as an immediate cause of a disease-related phenotype.
+T2D-associated genetic loci operate mainly under conditions of obesity. 
+(See 
+[Keller, Mark P et al. “Genetic Drivers of Pancreatic Islet Function.” Genetics vol. 209,1 (2018): 335-356](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5937189/)).   
+Like most GWAS loci, the T2D-associated genetic loci identified from GWAS have 
+very small effect sizes and odds ratios just slightly more than 1.  
+This study explored islet gene expression in diabetes.  
+The authors hypothesized that gene expression changes in response to dietary 
+challenge would reveal signaling pathways involved in stress responses.  
+The expression of many genes often map to the same locus, indicating that 
+expression of these genes is controlled in common.   
+If their mRNAs encode proteins with common physiological functions, the function of the controlling gene(s) is revealed.  
+Variation in expression of the controlling gene(s), rather than a genetic 
+variant, can be tested as an immediate cause of a disease-related phenotype.  
 
 In this study, Diversity Outbred (DO) mice were fed a high-fat, high-sugar diet 
-as a stressor, sensitizing the mice to develop diabetic traits. Body weight and 
-plasma glucose, insulin, and triglyceride measurements were taken biweekly. 
-Food intake could be measured since animals were individually housed. A glucose 
-tolerance test at 18 weeks of age provided measurement of dynamic glucose and 
-insulin changes at 5, 15, 30, 60 and 120 minutes after glucose administration. 
+as a stressor, sensitizing the mice to develop diabetic traits.  
+Body weight and plasma glucose, insulin, and triglyceride measurements were taken biweekly.   
+Food intake could be measured since animals were individually housed.   
+A glucose tolerance test at 18 weeks of age provided measurement of dynamic 
+glucose and insulin changes at 5, 15, 30, 60 and 120 minutes after glucose administration.   
 Area under the curve (AUC) was determined from these time points for both plasma 
 glucose and insulin levels. 
 :::
@@ -162,8 +159,9 @@ glucose and insulin levels.
 
 ::: {.notes}
 Genome scans were performed with the leave-one-chromosome-out (LOCO) method for
-kinship correction. Sex and experimental cohort (DO wave) were used as 
-covariates. The results of one scan for insulin area under the curve (AUC) is 
-shown below with a strong peak on chromosome 11. In this lesson, we will look
-into genes located under this peak.
+kinship correction.  
+Sex and experimental cohort (DO wave) were used as covariates.  
+The results of one scan for insulin area under the curve (AUC) is shown here 
+with a strong peak on chromosome 11.   
+In this lesson, we will look into genes located under this peak.
 :::
