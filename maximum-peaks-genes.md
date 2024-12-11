@@ -259,10 +259,12 @@ case, we will use the middle.
 
 ``` r
 annot_filt <- annot |>
-               filter(middle >= high_peak$ci_lo & middle <= high_peak$ci_hi)
+               filter(chr    == high_peak$chr &
+                      middle >= high_peak$ci_lo & 
+                      middle <= high_peak$ci_hi)
 ```
 
-There are 161 genes within the QTL support interval. This is a
+There are 29 genes within the QTL support interval. This is a
 large number and would require more research to find candidate genes.
 
 Let's see where the gene being mapped is located. Note that the Ensembl ID of
