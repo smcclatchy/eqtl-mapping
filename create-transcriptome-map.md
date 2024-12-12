@@ -1,7 +1,7 @@
 ---
 title: "Creating A Transcriptome Map"
-teaching: 30
-exercises: 30
+teaching: 75
+exercises: 75
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -32,24 +32,30 @@ recombination block structure.
 
 In this episode, we will create a table containing the QTL peaks for all genes
 and the gene positions. We will then classify QTL into local or distal and 
-will make a plot of all off the eQTL in relation to the gene positions.
+will make a plot of all off the eQTL in relation to the gene positions. First
+let's load the libraries and data again in case these are no longer in your
+environment.
+
+
+``` r
+library(tidyverse)
+library(qtl2)
+
+pheno   = readRDS('data/attie_do_pheno.rds')
+covar   = readRDS('data/attie_do_covar.rds')
+annot   = readRDS('data/attie_do_expr_annot.rds')
+expr    = readRDS('data/attie_do_expr_rz.rds')
+probs   = readRDS('data/attie_DO500_genoprobs_v5.rds')
+map     = readRDS('data/attie_do_map.rds')
+K       = readRDS('data/attie_do_kinship.rds')
+peaks   = readRDS('data/attie_do_eqtl_peaks.rds')
+```
 
 ### Transcriptome Map
 
 We have encapsulated the code to create a transcriptome map in a file in this
 lesson. You can copy this file from the Github repository to use in your eQTL 
 mapping project. We will read this file in now.
-
-
-``` r
-getwd()
-```
-
-
-``` r
-dir()
-```
-
 
 
 ``` r
@@ -387,7 +393,7 @@ on the top and left, indicating the sort order.
 
 We can split the genes into clusters by telling R how many clusters we want.
 It will use the dendrogram to select a split which gives the requested number
-of clusters. We are artibratrily selecting three clusters.
+of clusters. We are arbitrarily selecting three clusters.
 
 
 ``` r
@@ -434,7 +440,7 @@ cols <- c('black', 'red', 'blue', 'orange')[cl_cut]
 heatmap(cor_2, symm = TRUE, RowSideColors = cols, ColSideColors = cols)
 ```
 
-<img src="fig/create-transcriptome-map-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
+<img src="fig/create-transcriptome-map-rendered-unnamed-chunk-2-1.png" style="display: block; margin: auto;" />
 
 In this case, we will filter the chromosome 2 hotspot to only include the genes 
 with an eQTL between 163.5 and 164.5 Mb.
