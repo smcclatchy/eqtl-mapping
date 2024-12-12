@@ -1,7 +1,7 @@
 ---
 title: "Creating A Transcriptome Map"
-teaching: 30
-exercises: 30
+teaching: 75
+exercises: 75
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -50,7 +50,23 @@ recombination block structure.
 
 In this episode, we will create a table containing the QTL peaks for all genes
 and the gene positions. We will then classify QTL into local or distal and 
-will make a plot of all off the eQTL in relation to the gene positions.
+will make a plot of all off the eQTL in relation to the gene positions. First
+let's load the libraries and data again in case these are no longer in your
+environment.
+
+```{r reload_libraries_data, eval=FALSE}
+library(tidyverse)
+library(qtl2)
+
+pheno   = readRDS('data/attie_do_pheno.rds')
+covar   = readRDS('data/attie_do_covar.rds')
+annot   = readRDS('data/attie_do_expr_annot.rds')
+expr    = readRDS('data/attie_do_expr_rz.rds')
+probs   = readRDS('data/attie_DO500_genoprobs_v5.rds')
+map     = readRDS('data/attie_do_map.rds')
+K       = readRDS('data/attie_do_kinship.rds')
+peaks   = readRDS('data/attie_do_eqtl_peaks.rds')
+```
 
 ### Transcriptome Map
 
@@ -58,16 +74,7 @@ We have encapsulated the code to create a transcriptome map in a file in this
 lesson. You can copy this file from the Github repository to use in your eQTL 
 mapping project. We will read this file in now.
 
-```{r, eval=FALSE}
-getwd()
-```
-
-```{r, eval=FALSE}
-dir()
-```
-
-
-```{r source_ggtmap,message=FALSE,warning=FALSE}
+```{r source_ggtmap, message=FALSE, warning=FALSE}
 source("https://raw.githubusercontent.com/smcclatchy/eqtl-mapping/refs/heads/main/episodes/code/gg_transcriptome_map.R")
 ```
 
@@ -327,7 +334,7 @@ expr_2 <- expr_rz[,hotspots[["2"]]$gene_id]
 Next, we will get the correlation of the genes with each other an make a 
 heatmap.
 
-```{r chr2_hotspot_cor_heatmap,fig.width=8,fig.height=8}
+```{r chr2_hotspot_cor_heatmap, fig.width=8, fig.height=8}
 cor_2 <- cor(expr_2)
 heatmap(cor_2, symm = TRUE, main = "Correlation of Chr2 Hotspot Genes")
 ```
@@ -338,9 +345,9 @@ on the top and left, indicating the sort order.
 
 We can split the genes into clusters by telling R how many clusters we want.
 It will use the dendrogram to select a split which gives the requested number
-of clusters. We are artibratrily selecting three clusters.
+of clusters. We are arbitrarily selecting three clusters.
 
-```{r clust_chr2_hotspot,fig.width=8,fig.height=6}
+```{r clust_chr2_hotspot, fig.width=8, fig.height=6}
 cl     <- hclust(dist(cor_2))
 plot(cl, labels = FALSE, hang = -1, main = "Clustering of Chr2 Hotspot Genes")
 cl_cut <- cutree(tree = cl, k = 3)
