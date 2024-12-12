@@ -197,7 +197,7 @@ mediation <- function(qtl_chr, qtl_pos, qtl_lod, genoprobs, pheno, K, addcovar,
       t2 <- proc.time()[3]
       print(paste(i, 'of', ncol(expr_chr), ":", (t2 - t_init), "seconds elapsed."))
       
-    } # for(i)
+    } # if(i %% 50 == 0)
   
     # Create covariates with the current gene's expression.
     addcovar_tmp = cbind(addcovar_expr, expr_chr[,i])
