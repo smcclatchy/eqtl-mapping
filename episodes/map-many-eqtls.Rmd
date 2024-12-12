@@ -1,7 +1,7 @@
 ---
 title: "Mapping Many Gene Expression Traits"
 teaching: 30
-exercises: 30
+exercises: 20
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
@@ -68,9 +68,6 @@ that explains how the cluster works, how to submit jobs using `slurm`, and how
 to use `Singularity` containers.
 
 #### bash Script
-
-<!-- DMG: Notes from sumner run. 11 hours with 20 cores & 100GB of memory.
-11.4 G output file. 69005 rows x 21771 columns. -->
 
 To run a batch job on the cluster, we will create a bash script which will
 request resources from `slurm` and will call an R script, which will perform

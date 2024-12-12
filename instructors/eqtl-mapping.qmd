@@ -1,0 +1,167 @@
+---
+title: "Gene Expression Quantitative Trait Locus (eQTL) Analysis"
+format: revealjs
+editor: visual
+---
+
+## Single-gene diseases
+
+![Single-gene diseases like CF are relatively well understood. Created in [BioRender](https://BioRender.com)](../episodes/fig/cystic-fibrosis.png){width=75% height=75%}
+
+::: {.notes}
+Differences in disease risk between individuals caused by genetic
+variants.   
+Identifying effects of variants = key to understanding disease and biology.  
+Effects of variants in many single-gene disorders like CF generally 
+well-characterized and disease biology well understood.   
+In CF, mutations in coding region of CFTR gene alter 3-D structure of chloride 
+channel proteins in epithelial cells, affecting chloride, sodium and potassium 
+transport in lungs, pancreas and skin.   
+Path from mutation to altered protein to disease phenotype is relatively simple 
+and well understood.  
+Single-gene diseases not well-characterized or understood are a focus of rare
+disease research.  
+:::
+
+## Common diseases involve many genes interacting with the environment
+
+![GWAS variants such as SNPs are often in non-coding regions of the genome indicating that they regulate gene expression.](../episodes/fig/gwas-catalog.png){alt="Figures showing the GWAS Catalog"}
+
+::: {.notes}
+Common human disorders involve many genes interacting with each other and with
+environment. 
+Path from a single mutation to protein to disease phenotype not straightforward   
+Cardiovascular disease, Alzheimer's disease, arthritis, diabetes and cancer
+are complex and  mechanisms not well understood. 
+A genome-wide association study (GWAS) associates genetic variants with disease. 
+Tempting to think that genetic variants fall in coding regions. 
+However, most GWAS variants for common diseases like diabetes located in 
+**non-coding** regions   
+These variants likely to fall in regulatory sequences involved in gene 
+regulation. 
+::: 
+
+## Common diseases = tiny effect sizes
+
+![Kreienkamp RJ, Voight BF, Gloyn AL, et al. Genetics of Type 2 Diabetes. 2023 Dec 20. In: Lawrence JM, Casagrande SS, Herman WH, et al., editors. Diabetes in America.](../episodes/fig/geneticstype2-Image001.jpg){width=80% height=80%}
+
+## What are expression quantitative trait loci (eQTL)?
+
+![A non-coding SNP influences expression of a gene, which in turn affects a disease phenotype or other outcome of interest.](../episodes/fig/noncoding-SNP.png){alt="Figure showing regulation of gene expression by a SNP"}
+Created in [BioRender](https://BioRender.com)
+
+::: {.notes}
+Gene regulation controls the quantity, timing and locale of gene expression. 
+Analyzing genome variants through gene expression = expression quantitative 
+trait locus (eQTL) mapping. 
+An eQTL is a locus that explains variation in transcript abundance   
+Specifically, genetic variants underlying eQTL explain variation in gene 
+expression levels. 
+Shown here is a non-coding SNP that influences expression of gene 1, which in
+turn affects a phenotype. 
+Not shown is the protein product of this gene. 
+Since we are focusing on gene expression the figure is simplified to only
+include mRNA and not protein. 
+Traditional analytic techniques like linkage and association mapping can be 
+applied to thousands of gene expression traits (transcripts) in eQTL analysis. 
+This means gene expression can be mapped in the same way as a physiological 
+phenotype like blood pressure or heart rate. 
+Joining gene expression and physiological phenotypes with genetic variation can 
+identify genes with variants affecting disease phenotypes.  
+:::
+
+## Local eQTL
+
+![Genetic variants like SNPs often affect gene expression locally near the gene that they regulate.](../episodes/fig/cis-noncoding-SNP.png){alt="Figure showing SNP regulating gene which affects disease"}
+Created in [BioRender](https://BioRender.com)
+
+::: {.notes}
+To the simple diagram above we'll add two more details. 
+Non-coding SNPs can regulate gene expression from nearby locations on the same 
+chromosome. 
+These are called local eQTL. 
+:::
+
+## Distal eQTL
+
+![SNPs can affect gene expression distally from the gene that they regulate, often from a different chromosome altogether.](../episodes/fig/trans-noncoding-SNP.png){alt="Figure showing distal regulation"}
+
+Created in [BioRender](https://BioRender.com)
+
+::: {.notes}
+SNPs that affect gene expression from afar, often from a different chromosome 
+from the gene that they regulate are called distal regulators.
+:::
+
+## An eQTL study
+
+![Insulin resistance in Type 2 diabetes](../episodes/fig/healthy-vs-T2D.png){alt="Figure showing Type 2 diabetes and insulin."}
+
+Created in [BioRender](https://BioRender.com)
+
+::: {.notes}
+Genome-wide association studies (GWAS) often identify variants in non-coding 
+regions of the genome, indicating that regulation of gene expression 
+predominates in common diseases like type II diabetes.  
+In type II diabetes (T2D) the pancreas produces less insulin and the body 
+becomes less responsive to insulin.
+:::
+
+## Pancreatic islets and T2D
+
+![Pancreatic islet cells and functions](../episodes/fig/pancreatic-islet.png){alt="Figure showing the Islet of Langerhans in the pancreas, which is composed of alpha, beta, delta and gamma cells."}
+
+Created in [BioRender](https://BioRender.com)
+
+::: {.notes}
+Most of the more than 100 genetic loci associated with T2D affect the function 
+of pancreatic islets.  
+This study offers supporting evidence for T2D-associated  loci in human GWAS, 
+most of which affect pancreatic islet function.  
+Pancreatic islet cells produce endocrine hormones including insulin.  
+A feedback loop of glucose and insulin activates beta cells that produce 
+insulin and inhibits alpha cells in the pancreas.
+:::
+
+## Genetic Drivers of Pancreatic Islet Function
+
+![Glucose and Insulin glucose tolerance test plots](../episodes/fig/gtt_auc_example.png){alt="Figure showing glucose and insulin changes over time."}
+
+::: {.notes}
+Susceptibility to type II diabetes (T2D) increases with obesity, such that 
+T2D-associated genetic loci operate mainly under conditions of obesity. 
+(See 
+[Keller, Mark P et al. “Genetic Drivers of Pancreatic Islet Function.” Genetics vol. 209,1 (2018): 335-356](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5937189/)).   
+Like most GWAS loci, the T2D-associated genetic loci identified from GWAS have 
+very small effect sizes and odds ratios just slightly more than 1.  
+This study explored islet gene expression in diabetes.  
+The authors hypothesized that gene expression changes in response to dietary 
+challenge would reveal signaling pathways involved in stress responses.  
+The expression of many genes often map to the same locus, indicating that 
+expression of these genes is controlled in common.   
+If their mRNAs encode proteins with common physiological functions, the function of the controlling gene(s) is revealed.  
+Variation in expression of the controlling gene(s), rather than a genetic 
+variant, can be tested as an immediate cause of a disease-related phenotype.  
+
+In this study, Diversity Outbred (DO) mice were fed a high-fat, high-sugar diet 
+as a stressor, sensitizing the mice to develop diabetic traits.  
+Body weight and plasma glucose, insulin, and triglyceride measurements were taken biweekly.   
+Food intake could be measured since animals were individually housed.   
+A glucose tolerance test at 18 weeks of age provided measurement of dynamic 
+glucose and insulin changes at 5, 15, 30, 60 and 120 minutes after glucose administration.   
+Area under the curve (AUC) was determined from these time points for both plasma 
+glucose and insulin levels. 
+:::
+
+## Genome scans
+
+![LOD plot for insulin area under the curve](../episodes/fig/insulin-auc-lod-plot.png){alt="Insulin AUC QTL plot"}
+
+::: {.notes}
+Genome scans were performed with the leave-one-chromosome-out (LOCO) method for
+kinship correction.  
+Sex and experimental cohort (DO wave) were used as covariates.  
+The results of one scan for insulin area under the curve (AUC) is shown here 
+with a strong peak on chromosome 11.   
+In this lesson, we will look into genes located under this peak.
+:::

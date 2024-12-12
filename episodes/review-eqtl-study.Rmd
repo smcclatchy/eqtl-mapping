@@ -2,7 +2,7 @@
 ---
 title: "Genetic Drivers of Pancreatic Islet Function"
 teaching: 15
-exercises: 0
+exercises: 10
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 

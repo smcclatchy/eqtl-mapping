@@ -1,6 +1,6 @@
 ---
 title: "Maximum eQTL Peaks and Nearby Genes"
-teaching: 10
+teaching: 20
 exercises: 20
 ---
 
@@ -213,7 +213,9 @@ case, we will use the middle.
 
 ```{r high_peak_annot}
 annot_filt <- annot |>
-               filter(middle >= high_peak$ci_lo & middle <= high_peak$ci_hi)
+               filter(chr    == high_peak$chr &
+                      middle >= high_peak$ci_lo & 
+                      middle <= high_peak$ci_hi)
 ```
 
 There are `r nrow(annot_filt)` genes within the QTL support interval. This is a

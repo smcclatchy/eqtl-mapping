@@ -1,6 +1,6 @@
 ---
 title: "Load and Explore Data"
-teaching: 15
+teaching: 20
 exercises: 30
 ---
 
