@@ -253,7 +253,7 @@ med_2 |>
     labs(title = "Mediation Analysis for Chr 2 PC1",
          x     = "Position (Mb)",
          y     = "LOD Drop") +
-    theme(size = element_text(size = 20))
+    theme(text = element_text(size = 20))
 ```
 
 In the plot above, the position of each gene along chromosome 2 is shown on the

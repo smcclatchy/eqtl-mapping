@@ -367,7 +367,7 @@ normally distributed. They are also not on the same scale. The y-axis values for
 each subplot range to 20,000 counts in the first subplot, 250 in the second, 90
 in the third, and so on. 
 
-```{r view_qqplots_raw, fig.width=8, fig.height=6}
+```{r view_qqplots_raw, fig.width=10, fig.height=8}
 raw |> 
   as.data.frame() |>
   select(ENSMUSG00000000001:ENSMUSG00000000058) |> 
