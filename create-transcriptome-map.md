@@ -41,14 +41,14 @@ environment.
 library(tidyverse)
 library(qtl2)
 
-pheno   = readRDS('data/attie_do_pheno.rds')
-covar   = readRDS('data/attie_do_covar.rds')
-annot   = readRDS('data/attie_do_expr_annot.rds')
-expr    = readRDS('data/attie_do_expr_rz.rds')
-probs   = readRDS('data/attie_DO500_genoprobs_v5.rds')
-map     = readRDS('data/attie_do_map.rds')
-K       = readRDS('data/attie_do_kinship.rds')
-peaks   = readRDS('data/attie_do_eqtl_peaks.rds')
+pheno    = readRDS('data/attie_do_pheno.rds')
+addcovar = readRDS('data/attie_do_addcovar.rds')
+annot    = readRDS('data/attie_do_expr_annot.rds')
+expr_rz  = readRDS('data/attie_do_expr_rz.rds')
+probs    = readRDS('data/attie_DO500_genoprobs_v5.rds')
+map      = readRDS('data/attie_do_map.rds')
+K        = readRDS('data/attie_do_kinship.rds')
+peaks    = readRDS('data/attie_do_eqtl_peaks.rds')
 ```
 
 ### Transcriptome Map
@@ -423,9 +423,9 @@ for(subcl in cl_spl) {
 ```
 
 ``` output
-[1] "72 164.027702"
-[1] "124 164.022416"
-[1] "78 164.022416"
+[1] "70 164.255184"
+[1] "81 163.582672"
+[1] "123 164.022416"
 ```
 
 ``` r

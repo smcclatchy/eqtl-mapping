@@ -22,7 +22,7 @@ install.packages(c("tidyverse", "ggbeeswarm", "knitr", "qtl2", "remotes"))
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
-BiocManager::install(c("AnnotationHub", "DESeq2", "rtracklayer"))
+BiocManager::install(c("AnnotationHub", "DESeq2", "qvalue",  "rtracklayer", "sva"))
 
 remotes::install_github("churchill-lab/intermediate")
 ```
@@ -38,6 +38,8 @@ library(intermediate)
 library(qtl2)
 library(AnnotationHub)
 library(DESeq2)
+library(qvalue)
+library(sva)
 library(rtracklayer)
 ```
 

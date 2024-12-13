@@ -199,7 +199,7 @@ mediation <- function(qtl_chr, qtl_pos, qtl_lod, genoprobs, pheno, K, addcovar,
       t2 <- proc.time()[3]
       print(paste(i, 'of', ncol(expr_chr), ":", (t2 - t_init), "seconds elapsed."))
       
-    } # for(i)
+    } # if(i %% 50 == 0)
   
     # Create covariates with the current gene's expression.
     addcovar_tmp = cbind(addcovar_expr, expr_chr[,i])
@@ -243,43 +243,43 @@ med_2 <- mediation(qtl_chr  = "2",
 ```
 
 ``` output
-[1] "50 of 1892 : 3.393 seconds elapsed."
-[1] "100 of 1892 : 6.764 seconds elapsed."
-[1] "150 of 1892 : 10.131 seconds elapsed."
-[1] "200 of 1892 : 13.578 seconds elapsed."
-[1] "250 of 1892 : 16.955 seconds elapsed."
-[1] "300 of 1892 : 20.414 seconds elapsed."
-[1] "350 of 1892 : 23.785 seconds elapsed."
-[1] "400 of 1892 : 27.121 seconds elapsed."
-[1] "450 of 1892 : 30.563 seconds elapsed."
-[1] "500 of 1892 : 33.893 seconds elapsed."
-[1] "550 of 1892 : 37.205 seconds elapsed."
-[1] "600 of 1892 : 40.56 seconds elapsed."
-[1] "650 of 1892 : 43.87 seconds elapsed."
-[1] "700 of 1892 : 47.182 seconds elapsed."
-[1] "750 of 1892 : 50.504 seconds elapsed."
-[1] "800 of 1892 : 53.86 seconds elapsed."
-[1] "850 of 1892 : 57.206 seconds elapsed."
-[1] "900 of 1892 : 60.529 seconds elapsed."
-[1] "950 of 1892 : 63.851 seconds elapsed."
-[1] "1000 of 1892 : 67.174 seconds elapsed."
-[1] "1050 of 1892 : 70.489 seconds elapsed."
-[1] "1100 of 1892 : 73.804 seconds elapsed."
-[1] "1150 of 1892 : 77.132 seconds elapsed."
-[1] "1200 of 1892 : 80.461 seconds elapsed."
-[1] "1250 of 1892 : 83.817 seconds elapsed."
-[1] "1300 of 1892 : 87.157 seconds elapsed."
-[1] "1350 of 1892 : 90.512 seconds elapsed."
-[1] "1400 of 1892 : 93.853 seconds elapsed."
-[1] "1450 of 1892 : 97.174 seconds elapsed."
-[1] "1500 of 1892 : 100.488 seconds elapsed."
-[1] "1550 of 1892 : 103.818 seconds elapsed."
-[1] "1600 of 1892 : 107.135 seconds elapsed."
-[1] "1650 of 1892 : 110.583 seconds elapsed."
-[1] "1700 of 1892 : 113.898 seconds elapsed."
-[1] "1750 of 1892 : 117.224 seconds elapsed."
-[1] "1800 of 1892 : 120.616 seconds elapsed."
-[1] "1850 of 1892 : 124.115 seconds elapsed."
+[1] "50 of 1892 : 3.415 seconds elapsed."
+[1] "100 of 1892 : 6.803 seconds elapsed."
+[1] "150 of 1892 : 10.186 seconds elapsed."
+[1] "200 of 1892 : 13.662 seconds elapsed."
+[1] "250 of 1892 : 17.044 seconds elapsed."
+[1] "300 of 1892 : 20.519 seconds elapsed."
+[1] "350 of 1892 : 23.898 seconds elapsed."
+[1] "400 of 1892 : 27.233 seconds elapsed."
+[1] "450 of 1892 : 30.69 seconds elapsed."
+[1] "500 of 1892 : 34.023 seconds elapsed."
+[1] "550 of 1892 : 37.363 seconds elapsed."
+[1] "600 of 1892 : 40.725 seconds elapsed."
+[1] "650 of 1892 : 44.079 seconds elapsed."
+[1] "700 of 1892 : 47.421 seconds elapsed."
+[1] "750 of 1892 : 50.774 seconds elapsed."
+[1] "800 of 1892 : 54.112 seconds elapsed."
+[1] "850 of 1892 : 57.462 seconds elapsed."
+[1] "900 of 1892 : 60.807 seconds elapsed."
+[1] "950 of 1892 : 64.152 seconds elapsed."
+[1] "1000 of 1892 : 67.494 seconds elapsed."
+[1] "1050 of 1892 : 70.826 seconds elapsed."
+[1] "1100 of 1892 : 74.166 seconds elapsed."
+[1] "1150 of 1892 : 77.514 seconds elapsed."
+[1] "1200 of 1892 : 80.895 seconds elapsed."
+[1] "1250 of 1892 : 84.227 seconds elapsed."
+[1] "1300 of 1892 : 87.549 seconds elapsed."
+[1] "1350 of 1892 : 90.892 seconds elapsed."
+[1] "1400 of 1892 : 94.242 seconds elapsed."
+[1] "1450 of 1892 : 97.57 seconds elapsed."
+[1] "1500 of 1892 : 100.896 seconds elapsed."
+[1] "1550 of 1892 : 104.357 seconds elapsed."
+[1] "1600 of 1892 : 107.686 seconds elapsed."
+[1] "1650 of 1892 : 111.051 seconds elapsed."
+[1] "1700 of 1892 : 114.521 seconds elapsed."
+[1] "1750 of 1892 : 117.986 seconds elapsed."
+[1] "1800 of 1892 : 121.317 seconds elapsed."
+[1] "1850 of 1892 : 124.656 seconds elapsed."
 ```
 
 Now that we have the change in LOD scores associated with using each gene as a
@@ -314,9 +314,9 @@ med_2 |>
 ```
 
 ``` output
-             gene_id base_lod med_lod symbol    middle  lod_drop
-1 ENSMUSG00000017950 97.61195 60.5270  Hnf4a 163.53986 -37.08495
-2 ENSMUSG00000035000 97.61195 73.3269   Dpp4  62.37115 -24.28505
+             gene_id base_lod  med_lod symbol    middle  lod_drop
+1 ENSMUSG00000017950 97.61195 60.44990  Hnf4a 163.53986 -37.16206
+2 ENSMUSG00000035000 97.61195 75.31902   Dpp4  62.37115 -22.29293
 ```
 
 ::::::::::::::::::::::::::::::::::::: challenge 
@@ -379,7 +379,7 @@ find_peaks(hnf4a_lod, map = map, threshold = 8)
 
 ``` output
   lodindex          lodcolumn chr      pos      lod
-1        1 ENSMUSG00000017950   2 164.0224 49.60808
+1        1 ENSMUSG00000017950   2 164.0224 49.25123
 ```
 
 *Hnf4a* has a QTL peak on chromosome 2 at 164 Mb. 
@@ -527,42 +527,42 @@ Joining with `by = join_by(gene_id)`
 ```
 
 ``` output
-[1] "50 of 1810 : 3.28 seconds elapsed."
-[1] "100 of 1810 : 6.60599999999999 seconds elapsed."
-[1] "150 of 1810 : 9.95899999999997 seconds elapsed."
-[1] "200 of 1810 : 13.302 seconds elapsed."
-[1] "250 of 1810 : 16.626 seconds elapsed."
-[1] "300 of 1810 : 19.956 seconds elapsed."
-[1] "350 of 1810 : 23.272 seconds elapsed."
-[1] "400 of 1810 : 26.621 seconds elapsed."
-[1] "450 of 1810 : 29.946 seconds elapsed."
-[1] "500 of 1810 : 33.267 seconds elapsed."
-[1] "550 of 1810 : 36.601 seconds elapsed."
-[1] "600 of 1810 : 39.936 seconds elapsed."
-[1] "650 of 1810 : 43.303 seconds elapsed."
-[1] "700 of 1810 : 46.683 seconds elapsed."
-[1] "750 of 1810 : 50.002 seconds elapsed."
-[1] "800 of 1810 : 53.371 seconds elapsed."
-[1] "850 of 1810 : 56.812 seconds elapsed."
-[1] "900 of 1810 : 60.13 seconds elapsed."
-[1] "950 of 1810 : 63.472 seconds elapsed."
-[1] "1000 of 1810 : 66.818 seconds elapsed."
-[1] "1050 of 1810 : 70.231 seconds elapsed."
-[1] "1100 of 1810 : 73.575 seconds elapsed."
-[1] "1150 of 1810 : 76.906 seconds elapsed."
-[1] "1200 of 1810 : 80.236 seconds elapsed."
-[1] "1250 of 1810 : 83.616 seconds elapsed."
-[1] "1300 of 1810 : 86.96 seconds elapsed."
-[1] "1350 of 1810 : 90.29 seconds elapsed."
-[1] "1400 of 1810 : 93.625 seconds elapsed."
-[1] "1450 of 1810 : 96.966 seconds elapsed."
-[1] "1500 of 1810 : 100.3 seconds elapsed."
-[1] "1550 of 1810 : 103.628 seconds elapsed."
-[1] "1600 of 1810 : 106.982 seconds elapsed."
-[1] "1650 of 1810 : 110.337 seconds elapsed."
-[1] "1700 of 1810 : 113.672 seconds elapsed."
-[1] "1750 of 1810 : 117 seconds elapsed."
-[1] "1800 of 1810 : 120.321 seconds elapsed."
+[1] "50 of 1810 : 3.28399999999999 seconds elapsed."
+[1] "100 of 1810 : 6.62299999999999 seconds elapsed."
+[1] "150 of 1810 : 9.964 seconds elapsed."
+[1] "200 of 1810 : 13.322 seconds elapsed."
+[1] "250 of 1810 : 16.663 seconds elapsed."
+[1] "300 of 1810 : 20.017 seconds elapsed."
+[1] "350 of 1810 : 23.36 seconds elapsed."
+[1] "400 of 1810 : 26.721 seconds elapsed."
+[1] "450 of 1810 : 30.056 seconds elapsed."
+[1] "500 of 1810 : 33.39 seconds elapsed."
+[1] "550 of 1810 : 36.759 seconds elapsed."
+[1] "600 of 1810 : 40.109 seconds elapsed."
+[1] "650 of 1810 : 43.498 seconds elapsed."
+[1] "700 of 1810 : 46.847 seconds elapsed."
+[1] "750 of 1810 : 50.208 seconds elapsed."
+[1] "800 of 1810 : 53.624 seconds elapsed."
+[1] "850 of 1810 : 57.044 seconds elapsed."
+[1] "900 of 1810 : 60.399 seconds elapsed."
+[1] "950 of 1810 : 63.78 seconds elapsed."
+[1] "1000 of 1810 : 67.138 seconds elapsed."
+[1] "1050 of 1810 : 70.499 seconds elapsed."
+[1] "1100 of 1810 : 73.845 seconds elapsed."
+[1] "1150 of 1810 : 77.196 seconds elapsed."
+[1] "1200 of 1810 : 80.533 seconds elapsed."
+[1] "1250 of 1810 : 83.895 seconds elapsed."
+[1] "1300 of 1810 : 87.238 seconds elapsed."
+[1] "1350 of 1810 : 90.576 seconds elapsed."
+[1] "1400 of 1810 : 93.919 seconds elapsed."
+[1] "1450 of 1810 : 97.275 seconds elapsed."
+[1] "1500 of 1810 : 100.617 seconds elapsed."
+[1] "1550 of 1810 : 103.969 seconds elapsed."
+[1] "1600 of 1810 : 107.319 seconds elapsed."
+[1] "1650 of 1810 : 110.715 seconds elapsed."
+[1] "1700 of 1810 : 114.076 seconds elapsed."
+[1] "1750 of 1810 : 117.432 seconds elapsed."
+[1] "1800 of 1810 : 120.777 seconds elapsed."
 ```
 
 Now that we have completed the mediation analysis, we plot the results.
@@ -597,9 +597,9 @@ filter(med_hot, lod_drop < -10)
 
 ``` output
              gene_id base_lod  med_lod  symbol   middle  lod_drop
-1 ENSMUSG00000020846 18.59729 6.641443 Fam101b 76.02349 -11.95584
-2 ENSMUSG00000069835 18.59729 5.301991    Sat2 69.62295 -13.29530
-3 ENSMUSG00000072640 18.59729 6.594574   Lyrm9 78.83673 -12.00271
+1 ENSMUSG00000020846 18.98734 6.593237 Fam101b 76.02349 -12.39410
+2 ENSMUSG00000069835 18.98734 5.051037    Sat2 69.62295 -13.93630
+3 ENSMUSG00000072640 18.98734 6.986865   Lyrm9 78.83673 -12.00047
 ```
 
 here are three genes with large LOD drops. In figure S7 of 
@@ -616,9 +616,9 @@ filter(med_hot, lod_drop > 12)
 
 ``` output
              gene_id base_lod  med_lod  symbol   middle lod_drop
-1 ENSMUSG00000020829 18.59729 34.72247 Slc46a1 78.46888 16.12518
-2 ENSMUSG00000040746 18.59729 35.13738  Rnf167 70.64933 16.54009
-3 ENSMUSG00000045287 18.59729 31.31408 Rtn4rl1 75.23078 12.71679
+1 ENSMUSG00000020829 18.98734 36.08675 Slc46a1 78.46888 17.09941
+2 ENSMUSG00000040746 18.98734 33.96385  Rnf167 70.64933 14.97651
+3 ENSMUSG00000045287 18.98734 31.58345 Rtn4rl1 75.23078 12.59611
 ```
 
 There are three genes with large LOD increase. If a LOD drop means that the
@@ -699,9 +699,9 @@ cor(expr_tmp)
 
 ``` output
              Sat2     Rnf167    Comp.1
-Sat2    1.0000000 -0.1007433 0.4116323
-Rnf167 -0.1007433  1.0000000 0.4086829
-Comp.1  0.4116323  0.4086829 1.0000000
+Sat2    1.0000000 -0.1067984 0.5640121
+Rnf167 -0.1067984  1.0000000 0.1558257
+Comp.1  0.5640121  0.1558257 1.0000000
 ```
 
 Both genes have almost identical correlation (0.41) with PC1, but are not

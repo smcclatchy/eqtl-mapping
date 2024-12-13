@@ -50,7 +50,8 @@ Let's plot a histogram of the total counts in each sample.
 
 
 ``` r
-hist(rowSums(raw) * 1e-6,
+libsize <- rowSums(raw) * 1e-6
+hist(libsize,
      breaks = 50, 
      main   = "Histogram of Total Counts per Sample (raw counts)",
      xlab   = "Total Counts (Millions)")
@@ -59,7 +60,8 @@ hist(rowSums(raw) * 1e-6,
 <img src="fig/map-one-eqtl-rendered-hist_total_counts-1.png" style="display: block; margin: auto;" />
 
 As you can see, total counts range from 15 to 50 million reads. The distribution
-of counts seems to be bimodal as well, which is troubling.
+of counts seems to be bimodal as well, which is troubling. This may be due to 
+a batch effect.
 
 Perhaps we should plot total counts versus the batch information that we have
 in the covariates. Recall that there are 500 mice in the covariate data. The 
@@ -84,14 +86,125 @@ expr_covar <- expr_covar[match(rownames(raw), expr_covar$mouse),]
 expr_covar$DOwave <- factor(expr_covar$DOwave)
 ```
 
+Now we can plot the library size by batch.
 
-To recap, before we perform any analysis using the transcript expression data,
-we need to:  
 
-1. normalize it by adjusting for library size and,  
-2. transform the expression of each gene to be Gaussian.
+``` r
+boxplot(libsize ~ expr_covar$DOwave,
+        las = 1,
+        main = "Library Size by Batch",
+        xlab = "Library Size (millions)",
+        ylab = "Batch")
+```
+
+<img src="fig/map-one-eqtl-rendered-lib_size_batch-1.png" style="display: block; margin: auto;" />
+
+There is definitely a difference in library size by batch.
+
+Another way to look at batch effects is to plot the first and second principal
+components of the expression data and to color them by batch.
+
+
+``` r
+counts  <- log1p(t(raw))
+counts  <- scale(counts)
+pca_raw <- princomp(counts)
+```
+
+Let's plot the first two PCs and color the samples by batch.
+
+
+``` r
+plot(pca_raw$loadings, 
+     pch = 16, col = expr_covar$DOwave,
+     main = "PCA of Raw counts")
+legend("topleft", pch = 16, cex = 1.5, legend = levels(expr_covar$DOwave),
+       col = 1:4)
+```
+
+<img src="fig/map-one-eqtl-rendered-plot_raw_pca-1.png" style="display: block; margin: auto;" />
+
+From the plot above, we can see that the first three batches cluster together
+and the fourth batch is quite different.
+
+### Batch Adjustment
+
+We will use a tool called 
+[ComBat-Seq](https://bioconductor.org/packages/release/bioc/vignettes/sva/inst/doc/sva.pdf)
+to adjust for the batch differences.
+
+ComBat-Seq requires the counts matrix, the experimental variables of interest,
+and the batch structure.
+
+First, we will make the sex covariate.
+
+
+``` r
+covar_mod <- model.matrix(~sex, data = expr_covar)[,-1,drop = FALSE]
+```
+
+Next, we will run ComBat.
+
+
+``` r
+expr_cbt <- ComBat_seq(counts    = t(raw), 
+                       batch     = expr_covar$DOwave,
+                       covar_mod = covar_mod)
+```
+
+``` output
+Found 4 batches
+Using null model in ComBat-seq.
+Adjusting for 1 covariate(s) or covariate level(s)
+Estimating dispersions
+Fitting the GLM model
+Shrinkage off - using GLM estimates for parameters
+Adjusting the data
+```
+
+`expr_cbt` now contains batch-adjusted counts. Let's plot the first two PCs
+of the batch-adjusted data.
+
+
+``` r
+counts  <- log1p(expr_cbt)
+counts  <- scale(counts)
+pca_cbt <- princomp(counts)
+```
+
+
+``` r
+plot(pca_cbt$loadings, 
+     pch = 16, col = expr_covar$DOwave,
+     main = "PCA of Batch-Adjusted counts")
+legend("topleft", pch = 16, cex = 1.5, legend = levels(expr_covar$DOwave),
+       col = 1:4)
+```
+
+<img src="fig/map-one-eqtl-rendered-plot_combat_pca-1.png" style="display: block; margin: auto;" />
+
+This looks much better because the four batches now largely overlap. We will 
+move forward with the Combat-adjusted counts.
+
+Note that the differences in library size have not changed greatly.
+
+
+``` r
+libsize2 <- colSums(expr_cbt) * 1e-6
+boxplot(libsize2 ~ expr_covar$DOwave,
+        las = 1,
+        main = "Library Size by Batch after ComBat-Seq",
+        xlab = "Library Size (millions)",
+        ylab = "Batch")
+```
+
+<img src="fig/map-one-eqtl-rendered-lib_size_batch_cbt-1.png" style="display: block; margin: auto;" />
 
 ### Normalizing Gene Expression
+
+After batch-adjustment, we need to normalize the gene expression by adjusting
+for differences in library sizes between samples and for the difference in 
+variances between genes.
 
 We will use the 
 [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) 
@@ -113,8 +226,9 @@ searching for differentially expressed genes. We specify no design with
 `design = ~ 1`.
 
 
+
 ``` r
-dds  = DESeqDataSetFromMatrix(countData = t(round(raw)), 
+dds  = DESeqDataSetFromMatrix(countData = round(expr_cbt), 
                               colData   = expr_covar, 
                               design    = ~ 1)
 ```
@@ -161,7 +275,7 @@ dds@assays@data$counts[1, 1:5]
 
 ``` output
 DO021 DO022 DO023 DO024 DO025 
-10247 11838 12591 12424 10906 
+ 9012 10608 11309 11205 10018 
 ```
 
 Now look at the counts for the first five genes in sample 1.
@@ -173,9 +287,9 @@ dds@assays@data$counts[1:5, 1]
 
 ``` output
 ENSMUSG00000000001 ENSMUSG00000000028 ENSMUSG00000000037 ENSMUSG00000000049 
-             10247                108                 29                 15 
+              9012                 96                 24                 11 
 ENSMUSG00000000056 
-               120 
+               136 
 ```
 
 Next, we will run DESeq2 and let it adjust the expression data for differing
@@ -211,7 +325,7 @@ fitting model and testing
 ```
 
 ``` output
--- replacing outliers and refitting for 155 genes
+-- replacing outliers and refitting for 137 genes
 -- DESeq argument 'minReplicatesForReplace' = 7 
 -- original counts are preserved in counts(dds)
 ```
@@ -242,8 +356,8 @@ deviation.
 
 
 ``` r
-tibble(mean = colMeans(raw),
-       sd   = apply(raw, 2, sd)) |>
+tibble(mean = rowMeans(expr_cbt),
+       sd   = apply(expr_cbt, 1, sd)) |>
   ggplot(aes(mean, sd)) +
     geom_point() +
     scale_x_log10() +
@@ -302,6 +416,8 @@ hist(rowSums(expr) * 1e-6,
 
 <img src="fig/map-one-eqtl-rendered-unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
 
+Note that we no longer see a bimodal distribution, which indicates that the 
+batch effects have largely been adjusted.
 
 At this point, while each gene has been normalized, each gene has a different 
 distribution. In QTL mapping, we often use permutations to estimate significance
@@ -407,13 +523,24 @@ we need it again.
 saveRDS(expr_rz, file = "data/attie_do_expr_rz.rds")
 ```
 
-
 Before moving on, let's remove data objects that we won't be using again.
 
 
 ``` r
 rm(dds, raw, expr)
 ```
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::: callout
+
+To recap, before we perform any analysis using the transcript expression data,
+we need to:  
+
+1. adjust for batch differences,
+2. normalize it by adjusting for library size and,  
+3. transform the expression of each gene to be Gaussian.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ### The Marker Map  
 
@@ -673,7 +800,7 @@ to create the covariates matrix that `qtl2` will use.
 pheno$sex    <- factor(pheno$sex)
 pheno$DOwave <- factor(pheno$DOwave)
 
-addcovar     <- model.matrix(~sex + DOwave, data = pheno)[,-1]
+addcovar     <- model.matrix(~sex + DOwave + diet_days, data = pheno)[,-1]
 ```
 
 ::::::::::::::::::::::::::::::::::::::::::::::: callout
@@ -690,14 +817,22 @@ head(addcovar)
 ```
 
 ``` output
-      sexM DOwave2 DOwave3 DOwave4 DOwave5
-DO021    0       0       0       0       0
-DO022    0       0       0       0       0
-DO023    0       0       0       0       0
-DO024    0       0       0       0       0
-DO025    0       0       0       0       0
-DO026    0       0       0       0       0
+      sexM DOwave2 DOwave3 DOwave4 DOwave5 diet_days
+DO021    0       0       0       0       0       112
+DO022    0       0       0       0       0       112
+DO023    0       0       0       0       0       112
+DO024    0       0       0       0       0       112
+DO025    0       0       0       0       0       114
+DO026    0       0       0       0       0       114
 ```
+
+Let's save the additive covariates so that we don't have to create them agian.
+
+
+``` r
+saveRDS(addcovar, 'data/attie_do_addcovar.rds')
+```
+
 
 ## Performing a Genome Scan
 
@@ -714,28 +849,28 @@ This takes about 15 to 30 seconds.
 
 
 ``` r
-lod_ins <- scan1(genoprobs = probs,
+ins_lod <- scan1(genoprobs = probs,
                  pheno     = ins_tauc,
                  kinship   = K,
                  addcovar  = addcovar)
 ```
 
-After the genome scan, `lod_ins` contains the LOD scores for both the 
+After the genome scan, `ins_lod` contains the LOD scores for both the 
 untransformed and log-transformed insulin values. 
 
 
 ``` r
-head(lod_ins)
+head(ins_lod)
 ```
 
 ``` output
           Ins_tAUC Ins_tAUC_log
-1_3000000 5.162655     4.333006
-1_3041392 5.163071     4.333039
-1_3346528 5.207254     4.396324
-1_3651663 5.011606     4.261237
-1_3657931 5.047916     4.286642
-1_3664199 5.093272     4.314025
+1_3000000 5.174362     4.415858
+1_3041392 5.174948     4.416144
+1_3346528 5.113387     4.401578
+1_3651663 4.879878     4.229782
+1_3657931 4.928267     4.271351
+1_3664199 4.977715     4.311565
 ```
 
 Let's plot both LOD curves.
@@ -750,11 +885,11 @@ use "red3" instead of "rgb(0.8, 0, 0, 0.5)".
 
 
 ``` r
-plot_scan1(x         = lod_ins, 
+plot_scan1(x         = ins_lod, 
            map       = map,
            lodcolumn = "Ins_tAUC_log",
            main      = "insulin AUC")
-plot_scan1(x         = lod_ins, 
+plot_scan1(x         = ins_lod, 
            map       = map,
            lodcolumn = "Ins_tAUC",
            col       = rgb(0.8, 0, 0, 0.5),
@@ -790,7 +925,7 @@ that we will use later.
 
 
 ``` r
-saveRDS(lod_ins[, 2, drop = FALSE], file = "data/ns_tauc_lod.rds")
+saveRDS(ins_lod[, 2, drop = FALSE], file = "data/ns_tauc_lod.rds")
 ```
 
 
@@ -830,7 +965,7 @@ expression data from a matrix to a vector.
 
 
 ``` r
-lod_hnf1b = scan1(genoprobs = probs,
+hnf1b_lod = scan1(genoprobs = probs,
                   pheno     = hnf1b,
                   kinship   = K,
                   addcovar  = addcovar)
@@ -847,7 +982,7 @@ function to plot the Hnf1b genome scan.
 
 
 ``` r
-plot_scan1(x    = lod_hnf1b,
+plot_scan1(x    = hnf1b_lod,
            map  = map,
            main = "Hnf1b")
 ```
@@ -972,7 +1107,7 @@ genome scan. We will use the 0.05 significance threshold.
 
 
 ``` r
-peaks_ins <- find_peaks(scan1_output = lod_ins, 
+peaks_ins <- find_peaks(scan1_output = ins_lod, 
                         map          = map, 
                         threshold    = thr_ins[2], 
                         prob         = 0.95)
@@ -986,13 +1121,12 @@ peaks_ins |>
 
 Table: insulin AUC QTL Peaks
 
-|lodcolumn    |chr |      pos|       lod|    ci_lo|    ci_hi|
-|:------------|:---|--------:|---------:|--------:|--------:|
-|Ins_tAUC_log |11  | 83.59467| 11.258841| 83.58553| 84.95444|
-|Ins_tAUC     |17  | 31.69319|  7.445012| 25.57974| 73.89085|
+|lodcolumn    |chr |      pos|      lod|    ci_lo|    ci_hi|
+|:------------|:---|--------:|--------:|--------:|--------:|
+|Ins_tAUC_log |11  | 83.59467| 11.07456| 83.58167| 84.95444|
 
 We can see that we have a peak for insulin AUC on chromosome 
-17 at 31.693192 Mb.
+11 at 83.594665 Mb.
 
 :::::::::::::::::::::::::::::::::::::::::::::: challenge
 
@@ -1006,12 +1140,12 @@ threshold. Make a note of the QTL support interval.
 
 
 ``` r
-peaks_hnf1b <- find_peaks(scan1_output = lod_hnf1b,
+hnf1b_peaks <- find_peaks(scan1_output = hnf1b_lod,
                           map          = map,
                           threshold    = thr_hnf1b[2],
                           prob         = 0.95)
 
-peaks_hnf1b |> 
+hnf1b_peaks |> 
   dplyr::select(-lodindex) |>
   arrange(chr, pos) |>
   kable(caption = "Hnf1b QTL Peaks")
@@ -1023,7 +1157,7 @@ Table: Hnf1b QTL Peaks
 
 |lodcolumn          |chr |      pos|      lod|    ci_lo|    ci_hi|
 |:------------------|:---|--------:|--------:|--------:|--------:|
-|ENSMUSG00000020679 |11  | 84.40138| 36.92828| 83.64714| 84.40138|
+|ENSMUSG00000020679 |11  | 84.40138| 35.70779| 83.59197| 84.40138|
 
 
 :::::::::::::::::::::::::::::::::::::
@@ -1039,8 +1173,8 @@ Where is Hnf1b in relation to the QTL interval in Challenge 3?
 
 
 ``` r
-pos_hnf1b <- filter(annot, symbol == "Hnf1b")
-pos_hnf1b
+hnf1b_pos <- filter(annot, symbol == "Hnf1b")
+hnf1b_pos
 ```
 
 ``` output
@@ -1052,7 +1186,7 @@ ENSMUSG00000020679 83.87799       11_84097611 protein_coding midnightblue
 ENSMUSG00000020679    <NA>
 ```
 
-The support interval ranges from 83.647144 to 84.401384
+The support interval ranges from 83.591972 to 84.401384
 Mb. Hnf1b is located on chromosome 11 at 83.850063 Mb,
 which is within the support interval.
 
@@ -1081,8 +1215,8 @@ class, so we will read the results in below.
 
 
 ``` r
-chr      <- peaks_ins$chr[2]
-blup_ins <- scan1blup(genoprobs = probs[,chr],
+chr      <- peaks_ins$chr[1]
+ins_blup <- scan1blup(genoprobs = probs[,chr],
                       pheno     = ins_tauc[,2,drop = FALSE],
                       kinship   = K[[chr]],
                       addcovar  = addcovar)
@@ -1092,17 +1226,17 @@ Read in the insulin AUC founder allele effects.
 
 
 ``` r
-blup_ins <- readRDS(file = 'data/ins_tauc_blup_chr11.rds')
+ins_blup <- readRDS(file = 'data/ins_tauc_blup_chr11.rds')
 ```
 
 Next, we will plot the founder allele effects.
 
 
 ``` r
-plot_coefCC(x      = blup_ins, 
+plot_coefCC(x      = ins_blup, 
             map    = map, 
             legend = "bottomleft",
-            scan1_output = lod_ins[, 2, drop = FALSE],
+            scan1_output = ins_lod[, 2, drop = FALSE],
             main   = "insulin AUC")
 ```
 
@@ -1122,29 +1256,28 @@ class, so we will read the results in below.
 
 
 ``` r
-chr      <- peaks_hnf1b$chr[1]
-blup_hnf1b <- scan1blup(genoprobs = probs[,chr],
-                      pheno     = hnf1b,
-                      kinship   = K[[chr]],
-                      addcovar  = addcovar)
-saveRDS(blup_hnf1b, file = 'data/hnf1b_blup_chr11.rds')
+chr        <- hnf1b_peaks$chr[1]
+hnf1b_blup <- scan1blup(genoprobs = probs[,chr],
+                      pheno       = hnf1b,
+                      kinship     = K[[chr]],
+                      addcovar    = addcovar)
 ```
 
 Read in the Hnf1b founder allele effects.
 
 
 ``` r
-blup_hnf1b <- readRDS(file = 'data/hnf1b_blup_chr11.rds')
+hnf1b_blup <- readRDS(file = 'data/hnf1b_blup_chr11.rds')
 ```
 
 Next, we will plot the founder allele effects.
 
 
 ``` r
-plot_coefCC(x      = blup_hnf1b, 
+plot_coefCC(x      = hnf1b_blup, 
             map    = map, 
             legend = "bottomleft",
-            scan1_output = lod_hnf1b,
+            scan1_output = hnf1b_lod,
             main   = "Hnf1b")
 ```
 
