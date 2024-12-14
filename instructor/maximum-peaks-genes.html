@@ -533,7 +533,7 @@ than or equal to 0.05.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1] 16781</code></pre>
+<pre class="output" tabindex="0"><code>[1] 17089</code></pre>
 </div>
 <p>We still have almost 17,000 genes with an FDR of 5% or less.</p>
 <p>Next, let’s look at what the range of LOD scores is.</p>
@@ -546,9 +546,9 @@ than or equal to 0.05.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1]   6.739219 194.063370</code></pre>
+<pre class="output" tabindex="0"><code>[1]   6.646723 189.043226</code></pre>
 </div>
-<p>The lowest LOD score is 6.7392192, which is lower than the
+<p>The lowest LOD score is 6.6467234, which is lower than the
 permutation threshold of 7.4745761.</p>
 </div>
 <div class="section level3">
@@ -568,7 +568,7 @@ Let’s get the peak with the highest LOD score.</p>
 <pre class="output" tabindex="0"><code># A tibble: 1 × 9
   lodindex lodcolumn          chr     pos   lod ci_lo ci_hi pvalue   qvalue
      &lt;int&gt; &lt;chr&gt;              &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
-1    12715 ENSMUSG00000048758 9      106.  194.  106.  106.  0.001 0.000369</code></pre>
+1     2230 ENSMUSG00000020268 11     54.8  189.  54.8  55.1  0.001 0.000311</code></pre>
 </div>
 <div id="callout2" class="callout">
 <div class="callout-square">
@@ -588,7 +588,7 @@ Let’s get the peak with the highest LOD score.</p>
 </div>
 </div>
 </div>
-<p>This peak has a LOD of 194.0633696! Next, we will get the genes which
+<p>This peak has a LOD of 189.043226! Next, we will get the genes which
 lie within the confidence interval from the gene annotation.</p>
 <p>Let’s remind ourselves what the gene annotation contains.</p>
 <div class="codewrapper sourceCode" id="cb15">
@@ -633,7 +633,7 @@ positions. In this case, we will use the middle.</p>
 <span>                      <span class="va">middle</span> <span class="op">&gt;=</span> <span class="va">high_peak</span><span class="op">$</span><span class="va">ci_lo</span> <span class="op">&amp;</span> </span>
 <span>                      <span class="va">middle</span> <span class="op">&lt;=</span> <span class="va">high_peak</span><span class="op">$</span><span class="va">ci_hi</span><span class="op">)</span></span></code></pre>
 </div>
-<p>There are 29 genes within the QTL support interval. This is a large
+<p>There are 35 genes within the QTL support interval. This is a large
 number and would require more research to find candidate genes.</p>
 <p>Let’s see where the gene being mapped is located. Note that the
 Ensembl ID of the gene is in <code>high_peak</code>.</p>
@@ -647,9 +647,9 @@ Ensembl ID of the gene is in <code>high_peak</code>.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>                              gene_id symbol chr    start      end strand
-ENSMUSG00000048758 ENSMUSG00000048758  Rpl29   9 106.4295 106.4316      1
+ENSMUSG00000020268 ENSMUSG00000020268  Lyrm7  11 54.82687 54.86092     -1
                      middle nearest.marker.id        biotype module hotspot
-ENSMUSG00000048758 106.4305       9_106387870 protein_coding   grey    &lt;NA&gt;</code></pre>
+ENSMUSG00000020268 54.84389       11_54852726 protein_coding   grey    &lt;NA&gt;</code></pre>
 </div>
 <div id="challenge-2-where-is-the-gene" class="callout challenge">
 <div class="callout-square">
@@ -684,10 +684,10 @@ the two genomic positions?</p>
 <pre class="output" tabindex="0"><code># A tibble: 1 × 9
   lodindex lodcolumn          chr     pos   lod ci_lo ci_hi pvalue   qvalue
      &lt;int&gt; &lt;chr&gt;              &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
-1    12715 ENSMUSG00000048758 9      106.  194.   106   107  0.001 0.000369</code></pre>
+1     2230 ENSMUSG00000020268 11     54.8  189.   106   107  0.001 0.000311</code></pre>
 </div>
-<p>The QTL is located on chromosome 9 at 106.38787 Mb. The gene is
-located on chromosome 9 at Mb. These genomic positions are nearly
+<p>The QTL is located on chromosome 11 at 54.795542 Mb. The gene is
+located on chromosome 11 at Mb. These genomic positions are nearly
 identical.</p>
 </div>
 </div>
@@ -774,7 +774,7 @@ any links that you are not going to use.
   "identifier": "https://carpentries.github.io/workbench-template-rmd/instructor/maximum-peaks-genes.html",
   "dateCreated": "2024-11-07",
   "dateModified": "2024-12-13",
-  "datePublished": "2024-12-13"
+  "datePublished": "2024-12-14"
 }
 
   </script><script>

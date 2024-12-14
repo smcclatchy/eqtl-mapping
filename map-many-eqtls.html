@@ -534,12 +534,12 @@ what the peaks table looks like.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>  lodindex          lodcolumn chr       pos       lod      ci_lo     ci_hi
-1        2 ENSMUSG00000000028   6  71.73759  7.358089  64.958691  77.39716
-2        2 ENSMUSG00000000028  11  40.54754  6.424368   5.107459 106.64066
-3        2 ENSMUSG00000000028  16  18.54468  8.001125  15.918386  20.83108
-4        3 ENSMUSG00000000037   5  99.00918  6.524121  92.704924 102.15720
-5        3 ENSMUSG00000000037  12  77.55794  6.123602  76.998817 110.18071
-6        3 ENSMUSG00000000037   X 161.30209 28.383984 160.417579 161.39338</code></pre>
+1        2 ENSMUSG00000000028   6  71.73759  7.402989  65.005336  77.42623
+2        2 ENSMUSG00000000028  11  40.55159  6.028608   3.031502 119.01535
+3        2 ENSMUSG00000000028  16  18.54468  7.875773  15.918386  20.81798
+4        3 ENSMUSG00000000037   5  99.00918  6.837536  93.289032  99.67072
+5        3 ENSMUSG00000000037  12  77.55794  6.153038  77.002567 110.22383
+6        3 ENSMUSG00000000037   X 161.30209 26.698858 160.417579 161.80999</code></pre>
 </div>
 <p>Each row contains information for one peak, including the gene ID,
 chromosome, peak position, LOD, and support interval.</p>
@@ -587,7 +587,7 @@ different.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1] 42981</code></pre>
+<pre class="output" tabindex="0"><code>[1] 42941</code></pre>
 </div>
 <p>There are more peaks than there are genes.</p>
 <p>There are several different possibilities when mapping a gene.</p>
@@ -610,16 +610,17 @@ and so will appear many times in the list of peaks.</li>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>  n   nn
-1 1 9123
-2 2 6814
-3 3 3827
-4 4 1441
-5 5  445
-6 6   95
-7 7   20
-8 8    4
-9 9    2</code></pre>
+<pre class="output" tabindex="0"><code>    n   nn
+1   1 9201
+2   2 6755
+3   3 3789
+4   4 1425
+5   5  483
+6   6   87
+7   7   25
+8   8    4
+9   9    1
+10 10    1</code></pre>
 </div>
 <p>From the table above, we can see that most genes have one or two
 peaks. However, some genes have 9 peaks with LOD &gt; 6!</p>
@@ -676,7 +677,7 @@ to 7.4745761.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1] 17192</code></pre>
+<pre class="output" tabindex="0"><code>[1] 17164</code></pre>
 </div>
 <p>There are now fewer peaks.</p>
 </div>
@@ -713,10 +714,10 @@ has.</p>
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>  n    nn
-1 1 12680
-2 2  1962
-3 3   166
-4 4    20
+1 1 12707
+2 2  1959
+3 3   151
+4 4    19
 5 5     2</code></pre>
 </div>
 <p>Now most genes have only one peak and only two genes have five
@@ -911,7 +912,7 @@ any links that you are not going to use.
   "identifier": "https://carpentries.github.io/workbench-template-rmd/map-many-eqtls.html",
   "dateCreated": "2024-11-07",
   "dateModified": "2024-12-13",
-  "datePublished": "2024-12-13"
+  "datePublished": "2024-12-14"
 }
 
   </script><script>
