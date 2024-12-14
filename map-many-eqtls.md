@@ -185,12 +185,12 @@ head(peaks)
 
 ``` output
   lodindex          lodcolumn chr       pos       lod      ci_lo     ci_hi
-1        2 ENSMUSG00000000028   6  71.73759  7.358089  64.958691  77.39716
-2        2 ENSMUSG00000000028  11  40.54754  6.424368   5.107459 106.64066
-3        2 ENSMUSG00000000028  16  18.54468  8.001125  15.918386  20.83108
-4        3 ENSMUSG00000000037   5  99.00918  6.524121  92.704924 102.15720
-5        3 ENSMUSG00000000037  12  77.55794  6.123602  76.998817 110.18071
-6        3 ENSMUSG00000000037   X 161.30209 28.383984 160.417579 161.39338
+1        2 ENSMUSG00000000028   6  71.73759  7.402989  65.005336  77.42623
+2        2 ENSMUSG00000000028  11  40.55159  6.028608   3.031502 119.01535
+3        2 ENSMUSG00000000028  16  18.54468  7.875773  15.918386  20.81798
+4        3 ENSMUSG00000000037   5  99.00918  6.837536  93.289032  99.67072
+5        3 ENSMUSG00000000037  12  77.55794  6.153038  77.002567 110.22383
+6        3 ENSMUSG00000000037   X 161.30209 26.698858 160.417579 161.80999
 ```
 
 Each row contains information for one peak, including the gene ID, chromosome,
@@ -227,7 +227,7 @@ nrow(peaks)
 ```
 
 ``` output
-[1] 42981
+[1] 42941
 ```
 
 There are more peaks than there are genes.
@@ -251,16 +251,17 @@ dplyr::count(peaks, lodcolumn) |>
 ```
 
 ``` output
-  n   nn
-1 1 9123
-2 2 6814
-3 3 3827
-4 4 1441
-5 5  445
-6 6   95
-7 7   20
-8 8    4
-9 9    2
+    n   nn
+1   1 9201
+2   2 6755
+3   3 3789
+4   4 1425
+5   5  483
+6   6   87
+7   7   25
+8   8    4
+9   9    1
+10 10    1
 ```
 
 From the table above, we can see that most genes have one or two peaks. However,
@@ -304,7 +305,7 @@ nrow(peaks_filt)
 ```
 
 ``` output
-[1] 17192
+[1] 17164
 ```
 
 There are now fewer peaks.
@@ -325,10 +326,10 @@ dplyr::count(peaks_filt, lodcolumn) |>
 
 ``` output
   n    nn
-1 1 12680
-2 2  1962
-3 3   166
-4 4    20
+1 1 12707
+2 2  1959
+3 3   151
+4 4    19
 5 5     2
 ```
 

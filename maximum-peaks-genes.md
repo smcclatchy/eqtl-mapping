@@ -168,7 +168,7 @@ nrow(peaks_filt)
 ```
 
 ``` output
-[1] 16781
+[1] 17089
 ```
 
 We still have almost 17,000 genes with an FDR of 5% or less.
@@ -181,10 +181,10 @@ range(peaks_filt$lod)
 ```
 
 ``` output
-[1]   6.739219 194.063370
+[1]   6.646723 189.043226
 ```
 
-The lowest LOD score is 6.7392192, which is lower than the 
+The lowest LOD score is 6.6467234, which is lower than the 
 permutation threshold of 7.4745761.
 
 ### Finding Genes under QTL Peaks
@@ -202,7 +202,7 @@ high_peak
 # A tibble: 1 × 9
   lodindex lodcolumn          chr     pos   lod ci_lo ci_hi pvalue   qvalue
      <int> <chr>              <fct> <dbl> <dbl> <dbl> <dbl>  <dbl>    <dbl>
-1    12715 ENSMUSG00000048758 9      106.  194.  106.  106.  0.001 0.000369
+1     2230 ENSMUSG00000020268 11     54.8  189.  54.8  55.1  0.001 0.000311
 ```
 
 ::::::::::::::::::::::::::::::::::::::: callout
@@ -218,7 +218,7 @@ high_peak$ci_hi = 107
 :::::::::::::::::::::::::::::::::::::::::::::::
 
 
-This peak has a LOD of 194.0633696! Next, we will get the genes which
+This peak has a LOD of 189.043226! Next, we will get the genes which
 lie within the confidence interval from the gene annotation.
 
 Let's remind ourselves what the gene annotation contains.
@@ -264,7 +264,7 @@ annot_filt <- annot |>
                       middle <= high_peak$ci_hi)
 ```
 
-There are 29 genes within the QTL support interval. This is a
+There are 35 genes within the QTL support interval. This is a
 large number and would require more research to find candidate genes.
 
 Let's see where the gene being mapped is located. Note that the Ensembl ID of
@@ -277,9 +277,9 @@ filter(annot, gene_id == high_peak$lodcolumn)
 
 ``` output
                               gene_id symbol chr    start      end strand
-ENSMUSG00000048758 ENSMUSG00000048758  Rpl29   9 106.4295 106.4316      1
+ENSMUSG00000020268 ENSMUSG00000020268  Lyrm7  11 54.82687 54.86092     -1
                      middle nearest.marker.id        biotype module hotspot
-ENSMUSG00000048758 106.4305       9_106387870 protein_coding   grey    <NA>
+ENSMUSG00000020268 54.84389       11_54852726 protein_coding   grey    <NA>
 ```
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::: challenge
@@ -303,12 +303,12 @@ high_peak
 # A tibble: 1 × 9
   lodindex lodcolumn          chr     pos   lod ci_lo ci_hi pvalue   qvalue
      <int> <chr>              <fct> <dbl> <dbl> <dbl> <dbl>  <dbl>    <dbl>
-1    12715 ENSMUSG00000048758 9      106.  194.   106   107  0.001 0.000369
+1     2230 ENSMUSG00000020268 11     54.8  189.   106   107  0.001 0.000311
 ```
 
-The QTL is located on chromosome 9 at 106.38787 
+The QTL is located on chromosome 11 at 54.795542 
 Mb. The gene is located on chromosome 
-9 at
+11 at
  Mb. These genomic
 positions are nearly identical.
 

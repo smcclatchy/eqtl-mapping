@@ -131,10 +131,10 @@ sum(eqtl$qtl_chr == eqtl$gene_chr, na.rm = TRUE)
 ```
 
 ``` output
-[1] 15061
+[1] 15105
 ```
 
-15061 genes have QTL on the same
+15105 genes have QTL on the same
 chromosome.
 
 :::::::::::::::::::::::::::::::::
@@ -161,8 +161,8 @@ count(eqtl, local)
 
 ``` output
   local     n
-1 FALSE 28974
-2  TRUE 14007
+1 FALSE 28875
+2  TRUE 14066
 ```
 
 ### Plot Transcriptome Map
@@ -307,7 +307,7 @@ sapply(hotspots, nrow)
 
 ``` output
   2   5   7  11 
-274 259 265 279 
+271 257 273 268 
 ```
 
 In the table above, the first row of values are the chromosomes on which 
@@ -323,7 +323,7 @@ sapply(hotspots, function(z) { mean(z$qtl_pos) })
 
 ``` output
         2         5         7        11 
-164.01218 146.21618  45.45160  70.53259 
+164.00699 146.30691  45.49353  70.47718 
 ```
 
 Let's look at some of the genes in the chromosome 2 hotspot.
@@ -335,19 +335,19 @@ head(hotspots[["2"]])
 
 ``` output
              gene_id qtl_chr  qtl_pos   qtl_lod        symbol gene_chr
-1 ENSMUSG00000059647       2 162.0824  7.073704       Gm10068        1
-2 ENSMUSG00000021902       2 162.3910  7.207689          Phf7       14
-3 ENSMUSG00000094856       2 162.5281 52.699793       Gm21962        3
-4 ENSMUSG00000053141       2 162.6222 80.662602         Ptprt        2
-5 ENSMUSG00000087267       2 162.6222 75.715207 4933427J07Rik        2
-6 ENSMUSG00000025577       2 162.6285  8.038627          Cbx2       11
+1 ENSMUSG00000082514       2 162.0824 10.816809       Gm11452        2
+2 ENSMUSG00000021902       2 162.3910  7.192061          Phf7       14
+3 ENSMUSG00000021285       2 162.3945  7.576862      Ppp1r13b       12
+4 ENSMUSG00000094856       2 162.5281 51.759581       Gm21962        3
+5 ENSMUSG00000053141       2 162.6222 79.169112         Ptprt        2
+6 ENSMUSG00000087267       2 162.6222 74.916874 4933427J07Rik        2
   gene_start  gene_end   marker.id local
-1   58.64661  58.64832 2_162082435 FALSE
-2   31.23770  31.25122 2_162391032 FALSE
-3  137.67152 137.67254 2_162528109 FALSE
-4  161.52199 162.66115 2_162622197  TRUE
-5  128.95567 128.95786 2_162622197 FALSE
-6  119.02296 119.03127 2_162628468 FALSE
+1   162.9079 162.90861 2_162082435  TRUE
+2    31.2377  31.25122 2_162391032 FALSE
+3   111.8285 111.90805 2_162394483 FALSE
+4   137.6715 137.67254 2_162528109 FALSE
+5   161.5220 162.66115 2_162622197  TRUE
+6   128.9557 128.95786 2_162622197 FALSE
 ```
 
 Let's also look at the positions of the eQTL for these genes by making a
@@ -423,9 +423,9 @@ for(subcl in cl_spl) {
 ```
 
 ``` output
-[1] "70 164.255184"
-[1] "81 163.582672"
-[1] "123 164.022416"
+[1] "72 164.0704045"
+[1] "94 164.022416"
+[1] "105 164.022416"
 ```
 
 ``` r
@@ -459,7 +459,7 @@ nrow(hot_2)
 ```
 
 ``` output
-[1] 150
+[1] 149
 ```
 
 ### Principal Component of eQTL Hotspot Genes
