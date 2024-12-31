@@ -18,6 +18,9 @@ exercises: 75
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
+``` error
+Error in readRDS(file = url("https://thejacksonlaboratory.box.com/shared/static/4hy4hbjyrxjbrzh570i4g02r62bx3lgk.rds")): cannot read from connection
+```
 
 ### Local and Distant eQTL
 
@@ -485,11 +488,19 @@ pc1_lod <- scan1(genoprobs = probs,
                  pheno     = pc1_2,
                  kinship   = K,
                  addcovar  = addcovar)
+```
 
+``` error
+Error: object 'probs' not found
+```
+
+``` r
 plot_scan1(pc1_lod, map, main = "PC1 of Chr 2 Hotspot")
 ```
 
-<img src="fig/create-transcriptome-map-rendered-map_pc1_2-1.png" style="display: block; margin: auto;" />
+``` error
+Error: object 'pc1_lod' not found
+```
 
 We can also look at the founder allele effects at the peak. We will use a 
 function in `gg_transcriptome_map.R` called `plot_fit1()`.
@@ -497,15 +508,35 @@ function in `gg_transcriptome_map.R` called `plot_fit1()`.
 
 ``` r
 peaks <- find_peaks(pc1_lod, map, threshold = 20)
+```
+
+``` error
+Error: object 'pc1_lod' not found
+```
+
+``` r
 pr    <- pull_genoprobpos(genoprobs = probs, 
                           map       = map, 
                           chr       = peaks$chr[1], 
                           pos       = peaks$pos[1])
+```
+
+``` error
+Error: object 'probs' not found
+```
+
+``` r
 mod   <- fit1(genoprobs = pr,
               pheno     = pc1_2, 
               kinship   = K[[peaks$chr[1]]], 
               addcovar  = addcovar)
+```
 
+``` error
+Error: object 'pr' not found
+```
+
+``` r
 plot_fit1(mod) +
   labs(title = "Chr 2 Hotspot Allele Effects",
        x     = "Founder",
@@ -513,7 +544,9 @@ plot_fit1(mod) +
   theme(text = element_text(size = 20))
 ```
 
-<img src="fig/create-transcriptome-map-rendered-pc1_2_eff-1.png" style="display: block; margin: auto;" />
+``` error
+Error: object 'mod' not found
+```
 
 From the plot above, we can see that NZO and WSB have allele effects which are
 different from the other strains. The direction of the allele effects is
